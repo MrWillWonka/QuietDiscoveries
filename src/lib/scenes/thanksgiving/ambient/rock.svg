@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 46">
+<!-- A smooth grey field rock, half sunk in the grass. -->
+<ellipse cx="50" cy="46" rx="48" ry="4" fill="#2b2b3a" opacity="0.18"/>
+<path d="M4 46C4 30 18 12 40 8C62 4 86 14 96 32C98 38 98 42 96 46Z" fill="#a09fa9"/>
+<path d="M16 26C24 14 40 8 56 8C70 8 82 14 88 22C70 16 40 16 16 26Z" fill="#bebdc6"/>
+<path d="M60 46C76 40 88 34 96 32C98 38 98 42 96 46Z" fill="#2b2b3a" opacity="0.14"/>
+</svg>

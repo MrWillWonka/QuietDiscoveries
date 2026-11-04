@@ -1,16 +1,18 @@
 <script lang="ts">
   /**
-   * Scenery that is alive but is not a Creature, in the Thanksgiving field:
-   * the low November sun, fair-weather clouds drifting over, a skein of geese
-   * crossing now and then, far autumn trees and a little red barn on the
-   * hills, a split-rail fence along the back of the field, corn shocks
-   * stirring, hay bales and pumpkins left from the harvest, two big maples
-   * at the sides and their leaves coming down. Present from the first second
-   * of every Session, never earned, never counted. Nothing here has the
-   * signature eye, and everything is slow: this runs on a projector all day.
+   * Scenery that is alive but is not a Creature, on the Thanksgiving farm:
+   * the soft autumn sun, crisp white clouds drifting over, a skein of geese
+   * crossing now and then, round orange trees, a farm windmill (its wheel
+   * turning slowly) and a red barn on the hills, a split-rail fence along
+   * the back of the field, wheat sheaves stirring, hay bales, pumpkins and
+   * rocks in the grass, big maples overhanging the top corners and leafy
+   * bushes in the bottom ones, and leaves coming down. Present from the
+   * first second of every Session, never earned, never counted. Nothing here
+   * has the signature eye, and everything is slow: this runs on a projector
+   * all day.
    *
    * It also holds Too Loud's wind (`scene.css`): leaves blown across the
-   * field on gusts, hidden until the room gets loud, while the corn shocks
+   * field on gusts, hidden until the room gets loud, while the wheat sheaves
    * lean over. Both move by transitions rather than animations, since Too
    * Loud holds every animation still.
    *
@@ -25,30 +27,31 @@
   /**
    * Everything standing on the ground. `x` is the piece's centre across the
    * landscape and `base` its distance from the bottom of the Scene, both in
-   * %. The far trees and the barn stand on the hills beyond the field (base
-   * 41 and up), behind every animal; the fence runs along the field's back
-   * edge (base 39), just behind where the ground animals walk, from 62% of
-   * the way down (base 38) to 97% (base 3). Tom Turkey strides just in
-   * front of the fence.
+   * %. The round trees, the windmill and the barn stand on the hills and the
+   * golden meadow beyond the field (base 41 and up), behind every animal;
+   * the fence runs along the field's back edge (base 39), just behind where
+   * the ground animals walk, from 62% of the way down (base 38) to 97%
+   * (base 3). Tom Turkey strides just in front of the fence.
    *
    * Field pieces give `width` in px against a 1920px-wide Scene at the
    * middle of the field, and scale with depth exactly as the animals do
-   * (`Creature.svelte`), so a pumpkin is always pumpkin-sized next to a
-   * mouse. The trees, the barn and the fence give `wu` instead. Each is
-   * layered by where it meets the ground, so an animal walking the field
-   * passes in front of some and behind the rest. The farm track up the
-   * middle (x 52 to 58) is left clear.
+   * (`Creature.svelte`), so a hay bale is always hay-bale-sized next to a
+   * mouse. The trees, the barn, the windmill and the fence give `wu`
+   * instead. Each is layered by where it meets the ground, so an animal
+   * walking the field passes in front of some and behind the rest. The
+   * sandy path up the middle (about x 47 to 58) is left clear.
    */
   const pieces = [
-    // On the hills, far beyond the field.
-    { x: 8, base: 43, wu: 13, art: "hill-trees" },
-    { x: 33, base: 43.5, wu: 10, art: "hill-trees" },
-    { x: 66, base: 42.2, wu: 5.5, art: "barn" },
-    { x: 85, base: 43, wu: 12, art: "hill-trees" },
-    // Big maples at the back corners of the field.
-    { x: 2, base: 38.6, wu: 12, art: "maple-tree" },
-    { x: 96, base: 38.6, wu: 11, art: "maple-tree" },
-    // The fence along the back of the field, open where the track comes in.
+    // On the hills and the meadow, far beyond the field.
+    { x: 6, base: 41.6, wu: 12, art: "round-tree" },
+    { x: 19, base: 43.4, wu: 8, art: "round-tree-red" },
+    { x: 30, base: 43, wu: 6, art: "round-tree" },
+    { x: 46, base: 42, wu: 8.5, art: "round-tree" },
+    { x: 61.5, base: 44.6, wu: 7, art: "windmill" },
+    { x: 72, base: 45.2, wu: 13, art: "barn" },
+    { x: 84, base: 43.4, wu: 7, art: "round-tree-red" },
+    { x: 93, base: 41.4, wu: 12, art: "round-tree" },
+    // The fence along the back of the field, open where the path comes in.
     { x: 1, base: 39, wu: 14, art: "fence" },
     { x: 15, base: 39, wu: 14, art: "fence" },
     { x: 29, base: 39, wu: 14, art: "fence" },
@@ -57,21 +60,22 @@
     { x: 80, base: 39, wu: 14, art: "fence" },
     { x: 94, base: 39, wu: 14, art: "fence" },
     // At the back of the field.
-    { x: 14, base: 35, width: 78, art: "corn-shock" },
-    { x: 34, base: 32, width: 96, art: "hay-bale" },
-    { x: 46, base: 34.5, width: 74, art: "corn-shock" },
-    { x: 72, base: 33.5, width: 90, art: "pumpkins" },
-    { x: 86, base: 35, width: 78, art: "corn-shock" },
+    { x: 13, base: 35, width: 96, art: "wheat-sheaf" },
+    { x: 32, base: 32.5, width: 104, art: "hay-bale" },
+    { x: 44, base: 34.5, width: 92, art: "wheat-sheaf" },
+    { x: 74, base: 33.5, width: 84, art: "pumpkins" },
+    { x: 90, base: 35, width: 96, art: "wheat-sheaf" },
     // The middle of the field.
-    { x: 24, base: 22, width: 90, art: "pumpkins" },
-    { x: 42, base: 19, width: 78, art: "corn-shock" },
-    { x: 68, base: 21, width: 78, art: "corn-shock" },
-    { x: 86, base: 23, width: 100, art: "hay-bale" },
+    { x: 7, base: 21, width: 108, art: "wheat-sheaf" },
+    { x: 24, base: 24, width: 78, art: "rock" },
+    { x: 40, base: 19, width: 100, art: "wheat-sheaf" },
+    { x: 65, base: 21.5, width: 100, art: "wheat-sheaf" },
+    { x: 86, base: 23, width: 108, art: "hay-bale" },
     // The front, nearest the room.
-    { x: 7, base: 6, width: 80, art: "corn-shock" },
-    { x: 33, base: 3, width: 84, art: "pumpkins" },
-    { x: 71, base: 3, width: 92, art: "hay-bale" },
-    { x: 93, base: 5, width: 80, art: "corn-shock" },
+    { x: 29, base: 5, width: 96, art: "rock" },
+    { x: 36, base: 9, width: 84, art: "pumpkins" },
+    { x: 64, base: 4, width: 70, art: "rock" },
+    { x: 76, base: 7, width: 104, art: "wheat-sheaf" },
   ].map((piece, index) => {
     const ground = 1 - piece.base / 100;
     const depth = Math.min(1.15, Math.max(0, (ground - 0.62) / 0.35));
@@ -83,12 +87,27 @@
           ? piece.wu
           : (piece.width / 19.2) * (0.7 + depth * 0.7),
       layer: groundLayer(ground),
-      corn: piece.art === "corn-shock",
+      sheaf: piece.art === "wheat-sheaf",
       // Out of step with each other, so no two sway together.
       beat: 6 + ((index * 7) % 13) / 4,
       delay: -((index * 1.7) % 6),
     };
   });
+
+  /**
+   * The big maples overhanging the top corners and the leafy bushes in the
+   * bottom corners, in front of every animal. Each is pinned to its corner
+   * of the screen rather than of the landscape, so an upright screen still
+   * shows it, and kept narrow enough that the middle of the sky (for a
+   * Note) and most of the field stay clear.
+   */
+  const FRAME_LAYER = 1400;
+  const frame = [
+    { art: "maple-left", side: "left", top: true, width: 30 },
+    { art: "maple-right", side: "right", top: true, width: 30 },
+    { art: "bush-left", side: "left", top: false, width: 20 },
+    { art: "bush-right", side: "right", top: false, width: 21 },
+  ];
 
   /** Clouds crossing the sky, slow enough that nobody sees them move. */
   const clouds = [
@@ -146,11 +165,11 @@
   ];
 </script>
 
-<!-- The low sun, behind everything. Kept on screen when an upright screen
+<!-- The sun, behind everything. Kept on screen when an upright screen
      crops the sides of the landscape. -->
 <div
   class="sun pointer-events-none absolute"
-  style="left:max(calc(var(--world-left) + 9 * var(--wu)), 4cqw); top:16%; width:calc(13 * var(--wu));"
+  style="left:max(calc(var(--world-left) + 10.5 * var(--wu)), 4cqw); top:12%; width:calc(13 * var(--wu));"
 >
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html AMBIENT_ART.sun}
@@ -175,16 +194,17 @@
   {@html AMBIENT_ART.geese}
 </div>
 
-<!-- Trees, the barn, the fence, corn, hay and pumpkins, standing on the ground. -->
+<!-- Trees, the windmill, the barn, the fence, wheat, hay, pumpkins and
+     rocks, standing on the ground. -->
 {#each pieces as piece (piece.key)}
   <div
     class="thanksgiving-piece pointer-events-none absolute"
     style="left:calc(var(--world-left) + {piece.x} * var(--wu)); bottom:{piece.base}%; width:calc({piece.size} * var(--wu)); z-index:{piece.layer};"
   >
-    {#if piece.corn}
-      <div class="thanksgiving-corn-lean">
+    {#if piece.sheaf}
+      <div class="thanksgiving-sheaf-lean">
         <div
-          class="thanksgiving-corn"
+          class="thanksgiving-sheaf"
           style="animation-duration:{piece.beat}s; animation-delay:{piece.delay}s;"
         >
           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -195,6 +215,20 @@
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html AMBIENT_ART[piece.art]}
     {/if}
+  </div>
+{/each}
+
+<!-- The maples and bushes framing the corners, in front of every animal. -->
+{#each frame as piece (piece.art)}
+  <div
+    class="thanksgiving-frame pointer-events-none absolute"
+    style="{piece.side}:0; {piece.top
+      ? 'top:0'
+      : 'bottom:0'}; width:min(calc({piece.width} * var(--wu)), {piece.width +
+      4}cqw); z-index:{FRAME_LAYER};"
+  >
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html AMBIENT_ART[piece.art]}
   </div>
 {/each}
 

@@ -24,8 +24,8 @@
   height: auto;
 }
 
-/* Dry corn stirring in the breeze, about its foot. */
-@keyframes thanksgiving-corn-sway {
+/* Wheat sheaves stirring in the breeze, about their foot. */
+@keyframes thanksgiving-sheaf-sway {
   0%,
   100% {
     transform: rotate(-1.5deg);
@@ -35,13 +35,34 @@
   }
 }
 
-.thanksgiving-corn,
-.thanksgiving-corn-lean {
+.thanksgiving-sheaf,
+.thanksgiving-sheaf-lean {
   transform-origin: 50% 100%;
 }
 
-.thanksgiving-corn {
-  animation: thanksgiving-corn-sway 7s ease-in-out infinite;
+.thanksgiving-sheaf {
+  animation: thanksgiving-sheaf-sway 7s ease-in-out infinite;
+}
+
+/* The windmill's wheel turns slowly about its hub. */
+@keyframes thanksgiving-windmill-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.thanksgiving-windmill-wheel {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: thanksgiving-windmill-turn 24s linear infinite;
+}
+
+/* The maples and bushes framing the corners, pinned to the screen's
+   corners (thanksgiving/AmbientLife.svelte). */
+.thanksgiving-frame svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* A skein of geese crosses the sky, then the sky is empty a good while
@@ -146,14 +167,14 @@
 
 /* --- Too Loud: a gusty autumn wind -------------------------------------- */
 
-/* The corn shocks lean over in the wind, and stand up again when the room
+/* The wheat sheaves lean over in the wind, and stand up again when the room
    settles. Too Loud holds every animation still, so this is a transition. */
-.thanksgiving-corn-lean {
+.thanksgiving-sheaf-lean {
   transition: transform 2.4s cubic-bezier(0.3, 0.6, 0.3, 1);
 }
 
 .scene-stage[data-scene="thanksgiving"][data-murky="true"]
-  .thanksgiving-corn-lean {
+  .thanksgiving-sheaf-lean {
   transform: rotate(8deg) skewX(-4deg);
 }
 
@@ -200,25 +221,26 @@
 
 html:has(.scene-stage[data-scene="thanksgiving"]),
 html:has(.scene-stage[data-scene="thanksgiving"]) body {
-  background: #b3ad65;
+  background: #94b253;
 }
 
 /* Before the Scene mounts, a rough copy of its backdrop, so a reload of a
    saved Thanksgiving Scene doesn't flash the savanna (see app.html). */
 html[data-scene="thanksgiving"]:not(:has(.scene-stage)) body {
   background: linear-gradient(
-    #d9e4e4 0%,
-    #fbdca0 52%,
-    #d9ad84 56%,
-    #e8c67c 59%,
-    #e8c67c 72%,
-    #c2b871 73%,
-    #b3ad65 100%
+    #8ccaee 0%,
+    #e2f2f9 44%,
+    #e8c3b2 48%,
+    #deb19c 53%,
+    #ecc77c 56%,
+    #a7c263 61%,
+    #9ebb5b 72%,
+    #94b253 100%
   );
 }
 
 /* Too Loud: a gusty autumn wind gets up. A warm amber haze blows over the
-   field, thickest low down where the dust and chaff are lifted, the corn
+   field, thickest low down where the dust and chaff are lifted, the wheat
    leans and leaves stream across. Nothing in it flashes or comes at the
    class, and every animal stays in plain sight. */
 .scene-stage[data-scene="thanksgiving"][data-murky="true"] {
@@ -251,7 +273,7 @@ html[data-scene="thanksgiving"]:not(:has(.scene-stage)) body {
 
 /* When animals run away the freeze and the bolting carry the message, so
    the wind is only a hint (the veil's own opacity is set in layout.css): the
-   corn still leans, but no leaf blows across the ground the animals are
+   wheat still leans, but no leaf blows across the ground the animals are
    running over. */
 .scene-stage[data-scene="thanksgiving"][data-scares="true"][data-murky="true"] {
   filter: saturate(0.85) sepia(0.08) brightness(0.96);
@@ -263,7 +285,8 @@ html[data-scene="thanksgiving"]:not(:has(.scene-stage)) body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .thanksgiving-corn,
+  .thanksgiving-sheaf,
+  .thanksgiving-windmill-wheel,
   .thanksgiving-leaf {
     animation: none;
   }
@@ -276,8 +299,8 @@ html[data-scene="thanksgiving"]:not(:has(.scene-stage)) body {
   }
 
   /* Too Loud's leaves fade in where they would otherwise blow in, and the
-     corn leans without swinging over. */
-  .thanksgiving-corn-lean {
+     wheat leans without swinging over. */
+  .thanksgiving-sheaf-lean {
     transition: none;
   }
 

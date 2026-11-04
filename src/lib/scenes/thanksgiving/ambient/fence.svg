@@ -1,24 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 76">
-  <!-- A stretch of split-rail fence: posts with two rough rails between them,
-       foot on the bottom edge. -->
-  <ellipse cx="160" cy="76" rx="158" ry="3" fill="#2b2b3a" opacity="0.14"/>
-  <g fill="#9a7656">
-    <path d="M4 24 C 60 21, 110 25, 160 22 L 160 32 C 110 35, 60 31, 4 34 Z"/>
-    <path d="M160 22 C 210 20, 262 24, 316 21 L 316 31 C 262 34, 210 30, 160 32 Z"/>
-    <path d="M4 48 C 60 46, 110 50, 160 47 L 160 57 C 110 60, 60 56, 4 58 Z"/>
-    <path d="M160 47 C 210 45, 262 49, 316 46 L 316 56 C 262 59, 210 55, 160 57 Z"/>
-  </g>
-  <g fill="#2b2b3a" opacity="0.15">
-    <path d="M4 30 C 60 27, 110 31, 160 28 L 160 32 C 110 35, 60 31, 4 34 Z"/>
-    <path d="M160 28 C 210 26, 262 30, 316 27 L 316 31 C 262 34, 210 30, 160 32 Z"/>
-    <path d="M4 54 C 60 52, 110 56, 160 53 L 160 57 C 110 60, 60 56, 4 58 Z"/>
-    <path d="M160 53 C 210 51, 262 55, 316 52 L 316 56 C 262 59, 210 55, 160 57 Z"/>
-  </g>
-  <g fill="#7f6048">
-    <path d="M0 12 C 0 9, 10 9, 10 12 L 11 76 L 0 76 Z"/>
-    <path d="M155 10 C 155 7, 166 7, 166 10 L 167 76 L 154 76 Z"/>
-    <path d="M310 12 C 310 9, 320 9, 320 12 L 320 76 L 309 76 Z"/>
-  </g>
-  <g fill="#2b2b3a" opacity="0.18"><rect x="6" y="12" width="5" height="64"/><rect x="161" y="10" width="6" height="66"/><rect x="315" y="12" width="5" height="64"/></g>
-  <g fill="#ffffff" opacity="0.15"><rect x="1" y="12" width="2" height="60"/><rect x="156" y="10" width="2" height="62"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80">
+<!-- A stretch of wooden split-rail fence: posts with two rails between them, foot on the bottom edge. -->
+<ellipse cx="160" cy="80" rx="158" ry="3" fill="#2b2b3a" opacity="0.14"/>
+<g fill="#9c6d48">
+<path d="M4 24L316 22L316 33L4 35Z"/><path d="M4 50L316 48L316 59L4 61Z"/>
+</g>
+<g fill="#2b2b3a" opacity="0.16"><path d="M4 31L316 29L316 33L4 35Z"/><path d="M4 57L316 55L316 59L4 61Z"/></g>
+<g fill="#ffffff" opacity="0.18"><path d="M4 24L316 22L316 24L4 26Z"/><path d="M4 50L316 48L316 50L4 52Z"/></g>
+<g fill="#7d5537"><path d="M0 12L4 9L10 12L11 80L0 80Z"/><path d="M154 10L160 7L166 10L167 80L154 80Z"/><path d="M309 12L315 9L320 12L320 80L309 80Z"/></g>
+<g fill="#2b2b3a" opacity="0.2"><rect x="6" y="12" width="5" height="68"/><rect x="161" y="10" width="6" height="70"/><rect x="315" y="12" width="5" height="68"/></g>
 </svg>
