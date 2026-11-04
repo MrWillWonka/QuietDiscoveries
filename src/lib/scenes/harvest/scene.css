@@ -23,8 +23,15 @@
   height: auto;
 }
 
-/* The frames run off the screen's edge a touch, so a sway never shows a
-   gap where a trunk or a bush meets it. */
+/* The frames run off the screen's edge a touch, and their artwork carries
+   on past its own box (the trunks off the side, the crowns above the top,
+   the shrubs past the corner), so a sway or Too Loud's lean uncovers more
+   tree, never a gap where a trunk or a bush meets the edge. The stage
+   clips it at the screen. */
+.harvest-frame > svg {
+  overflow: visible;
+}
+
 .harvest-frame-top {
   margin-top: calc(-0.4 * var(--wu));
 }
