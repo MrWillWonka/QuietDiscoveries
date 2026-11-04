@@ -834,7 +834,8 @@ is in `visual_design_guide.png`): a clear blue sky with soft flat clouds and
 a pale sun with two halo rings, layered peach and mauve hills with soft far
 woods and round orange trees, a red barn and a windmill, a split-rail
 fence with a gap, a green-gold meadow with a winding sandy path, two hay
-bales, four wheat sheaves, two grey rocks and two pumpkins, big maples
+bales, four wheat sheaves, two grey rocks, a stump and a small shrub (no
+pumpkins, apples, corn or anything else that is also a QD), big maples
 framing the top corners and leafy bushes the bottom ones. It is drawn in
 the savanna's flat cartoon style, like Thanksgiving (§15), but softer and
 more muted, with fewer, larger leaves. Its QDs follow §1 and §2 as
@@ -857,7 +858,7 @@ The artwork is generated flat SVG in `harvest/ambient/`: `backdrop`
 meadow, field, path, tufts and fallen leaves, with the sky and the field
 as its only gradients), `sun`, `cloud`, `round-tree`, `round-tree-far`,
 `barn`, `windmill` (its `harvest-windmill-wheel` turns slowly),
-`fence-left`, `fence-right`, `hay-bale`, `wheat-sheaf`, `rock`, `pumpkin`,
+`fence-left`, `fence-right`, `hay-bale`, `wheat-sheaf`, `rock`, `stump`, `shrub`,
 `maple-left`, `maple-right`, `bush-left`, `bush-right` and `leaf-1` to
 `leaf-3`. Props are drawn at 20 units per wu. Every id is prefixed
 `harvest-`. The maples and bushes group their leaves in `harvest-sway`
@@ -867,7 +868,7 @@ wind can sway them 2–4° out of step.
 `harvest/layout.ts` places every prop, in wu across the landscape and by
 where it meets the ground, and derives from the same list the **hiding
 places** (`SceneDef.hidingPlaces`, `scenes/hiding.ts`): the solid middle of
-each hay bale, pumpkin, rock and wheat sheaf, and of the corner bushes and
+each hay bale, rock, wheat sheaf, the stump and the shrub, and of the corner bushes and
 the maple canopies (for fliers). Move a prop there and its hiding place
 moves with it.
 
@@ -888,8 +889,17 @@ mid-roll, and a floating one tilted.
 The trees, the maples' leaf clusters, the bushes and the wheat sway gently,
 each at its own pace; the clouds drift a little to one side and back; three
 or four leaves come down at a time, on 7–12 s drifts. Nothing sparkles or
-flashes. Too Loud is a soft grey fog, thickest low down, with the colours
-dulled; the trees and bushes lean a little further into the wind, by
+flashes. Too Loud is a leaf storm, not a fog, with no veil and no filter
+(`harvest/LeafStorm.svelte`, `scenes/leafStorm.ts`): a few leaves gust
+across, then three pre-drawn leaf-pile sheets (`storm-back`, `storm-mid`,
+`storm-front`, 1600×1500, `xMidYMin slice`, their top 300 a ragged,
+thinning edge, the back one on a solid brown base) rise from the bottom
+and thicken, and single leaves stick to the screen above them. They only
+slide, so they are drawn once. Running away, the screen is covered by the
+time the last QD has left (or within a minute); pausing, it fills about
+two thirds and holds. Calm again, the pile slides away and fades in 2.5 s.
+The trees and bushes still lean a little further into the wind by
 transitions, since Too Loud holds every animation still. Under reduced
-motion nothing sways or falls, and QDs fade in where they stand instead of
-peeking or being carried in.
+motion nothing sways or falls, QDs fade in where they stand instead of
+peeking or being carried in, and the leaf storm fades in by steps and fades
+out, without rising or blowing about.

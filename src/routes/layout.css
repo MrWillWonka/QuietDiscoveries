@@ -266,10 +266,14 @@ html.floating {
    with them, until the room settles. Creatures' wandering runs in script and
    stops there too (Creature.svelte); this catches every CSS sway, bob and
    drift. The veil's fade is a transition, so it is unaffected. A Creature
-   running away is the one thing still moving, "!" and all. */
-.scene-stage[data-frozen="true"] :not(.fleeing, .fleeing *),
-.scene-stage[data-frozen="true"] :not(.fleeing, .fleeing *)::before,
-.scene-stage[data-frozen="true"] :not(.fleeing, .fleeing *)::after {
+   running away is the one thing still moving, "!" and all, besides
+   Autumn Harvest's leaf storm, which is the Too Loud itself. */
+.scene-stage[data-frozen="true"]
+  :not(.fleeing, .fleeing *, .leaf-storm, .leaf-storm *),
+.scene-stage[data-frozen="true"]
+  :not(.fleeing, .fleeing *, .leaf-storm, .leaf-storm *)::before,
+.scene-stage[data-frozen="true"]
+  :not(.fleeing, .fleeing *, .leaf-storm, .leaf-storm *)::after {
   animation-play-state: paused !important;
 }
 

@@ -1,5 +1,5 @@
 /* The Autumn Harvest Scene's own styles: its Ambient Life, its page colour,
-   its Too Loud fog and its QDs peeking out from behind the props. Every
+   its Too Loud leaf storm and its QDs peeking out from behind the props. Every
    class and keyframe here is prefixed `harvest-` or scoped to the Scene, so
    nothing leaks into another. */
 
@@ -151,7 +151,7 @@
   animation: harvest-leaf-swing ease-in-out infinite;
 }
 
-/* --- Too Loud: a gentle fog and a stronger wind ------------------------- */
+/* --- Too Loud: a stronger wind ------------------------------------------ */
 
 /* The trees, the wheat, the maples and the bushes lean a little further
    into the wind, and stand up again when the room settles. Too Loud holds
@@ -198,30 +198,132 @@ html[data-scene="harvest"]:not(:has(.scene-stage)) body {
   );
 }
 
-/* Too Loud: a soft autumn fog drifts over the field. The colours dull and
-   it dims a little, thickest low down; nothing flashes, and every QD stays
-   in plain sight. */
-.scene-stage[data-scene="harvest"][data-murky="true"] {
-  filter: saturate(0.7) brightness(0.9) blur(0.8px);
-}
-
+/* Too Loud: no fog here. A leaf storm piles up over the field instead
+   (harvest/LeafStorm.svelte), so the Scene itself stays clear and sharp
+   underneath, and there is no veil. */
 .scene-stage[data-scene="harvest"] .too-loud-veil {
-  background: linear-gradient(
-    to top,
-    rgb(214 208 200 / 0.95) 0%,
-    rgb(226 222 216 / 0.8) 45%,
-    rgb(236 232 228 / 0.55) 100%
-  );
+  display: none;
 }
 
-.scene-stage[data-scene="harvest"][data-murky="true"] .too-loud-veil {
-  opacity: 0.38;
+/* The leaf storm: above every QD and all the scenery (whose layers run up
+   to 1500), under the veil's place and everything outside the stage. */
+.leaf-storm {
+  z-index: 1900;
+  overflow: hidden;
+  transition: opacity 1.2s ease;
 }
 
-/* When QDs run away the freeze and the running carry the message, so the
-   fog is only a hint (the veil's own opacity is set in layout.css). */
-.scene-stage[data-scene="harvest"][data-scares="true"][data-murky="true"] {
-  filter: saturate(0.85) brightness(0.96);
+/* When the room is calm again a gust sweeps it all away: the pile slides
+   down and off to the side, the stuck leaves blow off, and the last of it
+   fades (LeafStorm sets the sheets' way out). */
+.leaf-storm-sweep {
+  transition: opacity 2.5s cubic-bezier(0.6, 0, 0.9, 0.6);
+}
+
+.leaf-storm[data-phase="clearing"] .leaf-storm-sweep {
+  opacity: 0;
+}
+
+.leaf-storm[data-phase="clearing"] .leaf-storm-sheet {
+  transition: transform 2.5s cubic-bezier(0.5, 0, 0.75, 0.4);
+}
+
+.leaf-storm[data-phase="clearing"] .leaf-storm-stuck.shown {
+  transform: translate(60cqw, -30cqh) rotate(calc(var(--turn) + 240deg));
+  transition: transform 2.2s cubic-bezier(0.5, 0, 0.75, 0.4);
+}
+
+/* Back in the calm, everything goes home at once, out of sight. */
+.leaf-storm[data-phase="calm"] .leaf-storm-sweep,
+.leaf-storm[data-phase="calm"] .leaf-storm-sheet,
+.leaf-storm[data-phase="calm"] .leaf-storm-stuck {
+  transition: none;
+}
+
+/* Each sheet is a little taller than the screen, its ragged top edge above
+   the top when full, and rises by sliding up: drawn once, then only moved. */
+.leaf-storm-sheet {
+  position: absolute;
+  /* Wider than the screen, so the sweep never shows a sheet's side. */
+  inset-inline: -15%;
+  top: -45%;
+  height: 145%;
+  will-change: transform;
+  transition: transform 0.4s linear;
+}
+
+.leaf-storm-sheet > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Leaves that blow onto the screen and stick there. */
+.leaf-storm-stuck {
+  position: absolute;
+  opacity: 0;
+  transform: translate(calc(-6 * var(--wu)), -40%) scale(0.6)
+    rotate(calc(var(--turn) - 90deg));
+  transition:
+    opacity 0.9s ease-out,
+    transform 1.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.leaf-storm-stuck.shown {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(var(--turn));
+}
+
+.leaf-storm-stuck > svg,
+.leaf-storm-spin > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Leaves gusting across while it is loud, each on its own path. */
+@keyframes leaf-storm-across {
+  0% {
+    transform: translate(-10cqw, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(50cqw, -6cqh);
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(110cqw, 4cqh);
+    opacity: 0;
+  }
+}
+
+@keyframes leaf-storm-tumble {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.leaf-storm-gust {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  animation: leaf-storm-across linear infinite;
+}
+
+.leaf-storm-spin {
+  animation: leaf-storm-tumble linear infinite;
+}
+
+/* Under reduced motion it only fades in by steps, and out (LeafStorm). */
+.leaf-storm[data-reduced="true"] .leaf-storm-sheet,
+.leaf-storm[data-reduced="true"] .leaf-storm-sweep {
+  transition: none;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

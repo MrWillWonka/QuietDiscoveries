@@ -4,7 +4,7 @@
    * field: a pale sun with halo rings, soft flat clouds drifting very slowly
    * across, round orange trees on the hills, a red barn and a windmill (its
    * wheel turning slowly), the split-rail fence, wheat sheaves, hay bales,
-   * pumpkins and rocks in the green-gold field, big maples framing the top
+   * a stump, a shrub and rocks in the green-gold field, big maples framing the top
    * corners and leafy bushes in the bottom ones, and a few leaves coming
    * down. The trees, the maples' leaves, the bushes and the wheat sway in
    * the wind, each at its own pace. Present from the first second of every
@@ -81,7 +81,7 @@
   </div>
 {/each}
 
-<!-- Trees, the windmill, the barn, the fence, wheat, hay, pumpkins and
+<!-- Trees, the windmill, the barn, the fence, wheat, hay, a stump, a shrub and
      rocks, standing on the ground and layered with the QDs. -->
 {#each pieces as piece (piece.key)}
   <div

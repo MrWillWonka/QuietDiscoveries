@@ -107,6 +107,16 @@
     <HollowSign />
   {/if}
 
+  {#if scene.TooLoud}
+    <!-- The Scene's own Too Loud over everything in it, such as Autumn
+         Harvest's leaf storm. -->
+    <scene.TooLoud
+      {murky}
+      {scares}
+      remaining={creatures.length - fleeing.length}
+    />
+  {/if}
+
   <!-- One veil over the whole Scene, never a per-Creature effect. -->
   <div class="too-loud-veil pointer-events-none absolute inset-0"></div>
 </div>

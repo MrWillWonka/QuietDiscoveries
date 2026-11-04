@@ -59,14 +59,18 @@ wind, and its Note is the forest's trail sign.
 
 A farm field on a clear autumn afternoon: a pale sun, soft clouds, peach
 hills with round orange trees, a red barn and a windmill beyond a fence, a
-green-gold meadow with a winding path, hay bales, wheat sheaves, pumpkins
-and rocks, and big maples and leafy bushes framing the corners. A
+green-gold meadow with a winding path, hay bales, wheat sheaves, a stump,
+a shrub and rocks, and big maples and leafy bushes framing the corners. A
 Limited-time Scene through November: it opens on 1 November with nine QDs
 out and gains a Newcomer on most school days up to Thanksgiving, Tom the
 Turkey last. Its 23 QDs are 14 named animals, from Tilly the Baby Turkey to
 Tom the Turkey, and 9 **harvest items**, from a pumpkin to a pumpkin pie:
 10 Common, 8 Uncommon and 5 Rare. On top of those it has a Secret QD, Mr
-Applewhite. Its Note is Thanksgiving's trail sign; Too Loud is a soft fog.
+Applewhite. Its Note is Thanksgiving's trail sign. Too Loud is a **leaf
+storm**: leaves blow in and pile up from the bottom of the screen, until,
+if the QDs run away, it is covered by the time the last has gone; if the
+Scene only pauses, it fills about two thirds and holds. When the room is
+calm again a gust sweeps the leaves away.
 
 Over the Scene a wooden pill holds its **Discovery Leaves**: one circle for
 each QD unlocked so far, which fills with a leaf once the Class has spotted
@@ -77,7 +81,7 @@ rare item, gold with a glowing gold outline. Mr Applewhite's is a glowing
 blue leaf.
 
 Its QDs are shy in a way of their own. An animal arrives **hiding**:
-behind a hay bale, a pumpkin, a rock, a wheat sheaf or a corner bush (a
+behind a hay bale, a stump, a shrub, a rock, a wheat sheaf or a corner bush (a
 flier among a maple's leaves), it **peeks** out, holds there a moment,
 then steps out and wanders. A harvest item is not shy but **carried**: it
 rolls in along the ground or floats down on a gust of wind, and settles

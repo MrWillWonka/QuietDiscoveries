@@ -44,7 +44,8 @@ export const ASPECT: Record<string, number> = {
   "hay-bale": 130 / 208,
   "wheat-sheaf": 190 / 120,
   rock: 66 / 130,
-  pumpkin: 104 / 120,
+  stump: 84 / 120,
+  shrub: 108 / 160,
 };
 
 /** Everything that walks, hops or rests on the ground. */
@@ -108,13 +109,14 @@ export const FIELD: FieldPiece[] = [
     sway: "none",
     hides: { width: 0.94, height: 0.9 },
   },
+  // No pumpkins, apples or corn in the scenery: those are QDs here.
   {
-    art: "pumpkin",
+    art: "stump",
     x: 73.5,
     base: 0.672,
-    wu: 3.6,
+    wu: 6,
     sway: "none",
-    hides: { width: 0.86, height: 0.82 },
+    hides: { width: 0.8, height: 0.84 },
   },
   {
     art: "hay-bale",
@@ -125,12 +127,12 @@ export const FIELD: FieldPiece[] = [
     hides: { width: 0.94, height: 0.9 },
   },
   {
-    art: "pumpkin",
+    art: "shrub",
     x: 40,
     base: 0.8,
-    wu: 4.4,
-    sway: "none",
-    hides: { width: 0.86, height: 0.82 },
+    wu: 8.5,
+    sway: "tree",
+    hides: { width: 0.8, height: 0.78 },
   },
   {
     art: "wheat-sheaf",

@@ -24,6 +24,7 @@ import {
   drawToday as harvestDrawToday,
 } from "./harvest/arrivals";
 import HarvestAmbient from "./harvest/AmbientLife.svelte";
+import HarvestLeafStorm from "./harvest/LeafStorm.svelte";
 import * as harvestArt from "./harvest/artwork";
 import { HARVEST_SCHEDULE, isOpen as isHarvestOpen } from "./harvest/calendar";
 import harvestIcon from "./harvest/icon.svg";
@@ -163,6 +164,12 @@ export interface SceneDef {
   hidingPlaces?: HidingPlace[];
   /** The super-rare awake harvest items, keyed by slug (`CreatureDef.awake`). */
   awakeArt?: Record<string, string>;
+  /**
+   * Drawn over the Scene for Too Loud instead of its veil: Autumn Harvest's
+   * leaf storm, which piles up as the room stays loud and QDs leave. Told
+   * whether it is loud, the teacher's choice, and how many QDs are still out.
+   */
+  TooLoud?: Component<{ murky: boolean; scares: boolean; remaining: number }>;
 }
 
 export const SCENES: Record<SceneId, SceneDef> = {
@@ -340,6 +347,8 @@ export const SCENES: Record<SceneId, SceneDef> = {
     // Every QD hides behind a prop and peeks out before it steps into the
     // field (`harvest/layout.ts`).
     hidingPlaces: HARVEST_HIDING_PLACES,
+    // Too Loud is a leaf storm, not a fog (`harvest/LeafStorm.svelte`).
+    TooLoud: HarvestLeafStorm,
   },
 };
 
