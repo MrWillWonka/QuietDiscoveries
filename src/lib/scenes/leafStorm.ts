@@ -1,8 +1,8 @@
 /**
  * Too Loud as a leaf storm (Autumn Harvest): leaves fall from the top of the
- * screen and a layer of them comes down over the view until, if the room
- * stays loud, it is covered and the QDs are gone; when it is calm again the
- * leaves drop away off the bottom
+ * screen onto a pile that grows up from the bottom until, if the room stays
+ * loud, the screen is covered and the QDs are gone; when it is calm again
+ * the pile drops away off the bottom
  * (`harvest/LeafStorm.svelte`). Only how full the screen is lives here, pure
  * and testable: who leaves, and when, is still the Session's.
  */
@@ -53,7 +53,7 @@ export function stormTarget(spell: Spell): number {
 
 /**
  * The fill a moment later: growing towards the target no faster than
- * `maxRate`, so even a sudden jump (the last QD leaving) comes down calmly,
+ * `maxRate`, so even a sudden jump (the last QD leaving) piles up calmly,
  * and never shrinking while the room is still loud.
  */
 export function stepFill(fill: number, target: number, dt: number): number {
@@ -67,9 +67,9 @@ export function steppedFill(fill: number): number {
 }
 
 /**
- * How far down the screen one sheet of the falling layer has come, for a
- * fill: the back sheet a little ahead and the front a little behind, so the
- * layer has depth, and all three covering the screen once it is full.
+ * How far up the screen one sheet of the pile has grown, for a fill: the
+ * back sheet a little ahead and the front a little behind, so the pile has
+ * depth, and all three covering the screen once it is full.
  */
 export function sheetRise(fill: number, layer: 0 | 1 | 2): number {
   const f = Math.max(0, Math.min(1, fill));

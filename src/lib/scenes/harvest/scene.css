@@ -220,9 +220,9 @@ html[data-scene="harvest"]:not(:has(.scene-stage)) body {
   transition: opacity 1.2s ease;
 }
 
-/* When the room is calm again the leaves drop away: the layer slides down
-   off the bottom, the landed leaves fall after it, and the last of it fades
-   (LeafStorm sets the sheets' way out). */
+/* When the room is calm again the pile drops away off the bottom, the
+   landed leaves fall with it, and the last of it fades (LeafStorm sets the
+   sheets' way out). */
 .leaf-storm-sweep {
   transition: opacity 2.5s cubic-bezier(0.6, 0, 0.9, 0.6);
 }
@@ -247,16 +247,16 @@ html[data-scene="harvest"]:not(:has(.scene-stage)) body {
   transition: none;
 }
 
-/* Each sheet is a little taller than the screen, its ragged fringe below
-   the bottom when full, and comes down by sliding: drawn once, then only
-   moved. */
+/* Each sheet is a little taller than the screen, with a ragged fringe of
+   leaves along its top, and the pile grows by it moving up, a little at a
+   time as leaves land on it: drawn once, then only moved. */
 .leaf-storm-sheet {
   position: absolute;
   /* Wider than the screen, so the sweep never shows a sheet's side. */
   inset-inline: -15%;
-  /* Its ragged top stays above the screen once it is full. */
-  top: -10%;
-  height: 155%;
+  /* Its ragged fringe is above the top of the screen once it is full. */
+  top: -45%;
+  height: 145%;
   will-change: transform;
   transition: transform 0.4s linear;
 }
@@ -291,7 +291,7 @@ html[data-scene="harvest"]:not(:has(.scene-stage)) body {
 }
 
 /* Leaves raining down while it is loud, swaying and tumbling, each landing
-   on the fringe (`--land`, set by LeafStorm as the layer comes down) and
+   on the pile's fringe (`--land`, set by LeafStorm as the pile grows) and
    settling into it. */
 @keyframes leaf-storm-fall {
   0% {

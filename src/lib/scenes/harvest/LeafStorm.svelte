@@ -1,16 +1,16 @@
 <script lang="ts">
   /**
    * Too Loud in Autumn Harvest: a leaf storm instead of a fog. A few leaves
-   * fall from above at once; then a layer of red, orange, amber, gold and
-   * brown leaves comes down from the top of the screen, a ragged fringe of
-   * leaves along its foot where more land, until, if the room stays loud,
-   * the screen is covered and
+   * fall from above at once, tumbling and swaying, and land on a pile of
+   * red, orange, amber, gold and brown leaves along the bottom; the pile
+   * grows upward like a wall, its ragged fringe where the leaves settle,
+   * until, if the room stays loud, the screen is covered and
    * the QDs are gone. Choosing to pause the Scene instead, nobody leaves, so
-   * it comes about two thirds of the way down and holds. When the room is
-   * calm again the leaves drop away off the bottom.
+   * it grows about two thirds of the way up and holds. When the room is
+   * calm again the pile drops away off the bottom.
    *
    * How full it is comes from `scenes/leafStorm.ts`; who leaves, and when,
-   * is still the Session's. The layer is three pre-drawn sheets
+   * is still the Session's. The pile is three pre-drawn sheets
    * (`ambient/storm-*.svg`) that only move, so the browser draws them once
    * and slides them: smooth on a school laptop. Calm, not frantic: nothing
    * flashes or shakes. Under reduced motion the leaves fade in by steps and
@@ -47,16 +47,16 @@
   const sheets = ["storm-back", "storm-mid", "storm-front"] as const;
 
   /**
-   * Where the ragged fringe at the foot of the falling layer is, as a share
-   * of the screen's height, for a fill: each sheet is 1.55 screens tall,
-   * a tenth of a screen above the top, and its bottom fifth or so is the
-   * thinning fringe (`ambient/storm-*.svg`).
+   * Where the ragged fringe along the top of the pile is, as a share
+   * of the screen's height from the top, for a fill: each sheet is 1.45
+   * screens tall, hangs 0.45 of a screen above the top when full, and its
+   * top fifth or so is the thinning fringe (`ambient/storm-*.svg`).
    */
-  const fringeAt = (share: number) => 1.55 * share - 0.22;
+  const fringeAt = (share: number) => 1.2 - 1.45 * share;
 
   /**
-   * Leaves that land along the fringe as it comes down, each once the storm
-   * has got that far, and are then buried as it comes further. `x`, `y` in
+   * Leaves that drop onto the fringe as the pile grows, each once the storm
+   * has got that far, and are then buried as it grows further. `x`, `y` in
    * % of the screen, `size` in wu.
    */
   const ARTS = ["leaf-1", "leaf-2", "leaf-3"];
@@ -65,7 +65,7 @@
     return {
       at,
       x: (index * 37 + 11) % 96,
-      y: Math.max(4, Math.min(94, fringeAt(at) * 100)),
+      y: Math.max(4, Math.min(92, fringeAt(at) * 100 + 4)),
       size: 3.6 + ((index * 7) % 5) * 0.3,
       art: ARTS[index % 3],
       turn: ((index * 53) % 140) - 70,
@@ -121,7 +121,7 @@
         });
         fill = stepFill(fill, target, dt);
       } else if (phase === "storm") {
-        // Calm again: the leaves drop away off the bottom, then are gone.
+        // Calm again: the pile drops away off the bottom, then is gone.
         phase = "clearing";
         clearTimer = setTimeout(() => {
           phase = "calm";
@@ -143,7 +143,8 @@
   data-phase={phase}
   data-reduced={reduced}
   aria-hidden="true"
-  style="--land:{Math.max(0.12, fringeAt(fill)) * 100}cqh;{reduced
+  style="--land:{Math.min(0.96, Math.max(0.04, fringeAt(fill))) *
+    100}cqh;{reduced
     ? ` opacity:${phase === 'storm' ? steppedFill(fill) : 0};`
     : ''}"
 >
@@ -155,7 +156,7 @@
           ? 'none'
           : phase === 'clearing'
             ? `translateY(${100 + layer * 8}%)`
-            : `translateY(${-(1 - sheetRise(fill, layer as 0 | 1 | 2)) * 100}%)`};"
+            : `translateY(${(1 - sheetRise(fill, layer as 0 | 1 | 2)) * 100}%)`};"
       >
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html AMBIENT_ART[sheet]}

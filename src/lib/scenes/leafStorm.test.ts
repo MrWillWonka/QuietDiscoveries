@@ -41,7 +41,7 @@ describe("stormTarget", () => {
 });
 
 describe("stepFill", () => {
-  it("comes down calmly, however suddenly the target jumps", () => {
+  it("piles up calmly, however suddenly the target jumps", () => {
     expect(stepFill(0, 1, 1)).toBeCloseTo(STORM.maxRate);
     let fill = 0;
     for (let t = 0; t < 1 / STORM.maxRate + 0.1; t += 0.1) {
