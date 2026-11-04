@@ -806,22 +806,27 @@ the animals by where it meets the ground:
   their viewBox with a contact shadow and scale with depth exactly as the
   animals do.
 - **Framing the corners, in front of every animal:** `maple-left` and
-  `maple-right` (a stout trunk coming in off the side of the screen and
-  boughs reaching in along the top, under dense, separate clusters of red,
-  orange and gold maple leaves, with a smaller bunch or two hanging from
-  twigs below) and `bush-left` and `bush-right` (low shrubs of long, softly
-  toothed red, orange and gold leaves arching up out of a dark olive mound,
-  with broad olive leaves crossing at their foot). They are pinned to the
-  screen's corners, not the landscape's. The maples take about the outer
-  35% across the top, a little bolder than the reference, and keep clear of
-  the sun and the windmill; the shrubs take about the outer 20–25% across
-  the bottom, so neither hides the middle of the sky or much of the walking
-  band. Each piece is drawn running well past its own viewBox (the trunk on
-  past the screen's side, the crown above its top, the shrub past the
-  corner), and `scene.css` lets the frame's `<svg>` overflow, so a sway or
-  Too Loud's lean uncovers more tree, never a gap at the screen's edge.
-  Each defines its leaf shapes once and places them with `<use>`, with ids
-  `harvest-<file>-…`.
+  `maple-right` (a trunk coming in off the side of the screen and boughs
+  reaching in along the top, under clusters of red, orange and gold maple
+  leaves) and `bush-left` and `bush-right` (leafy red, orange and gold
+  shrubs with dark olive leaves at their foot). These four are traced from
+  the owner's reference scene with OpenCV: each is cut out of the scene by
+  colour and by touching its corner, its colours are sorted into about ten
+  flat bands with k-means, and each band is traced with `findContours` into
+  smooth paths, so they keep the reference's shapes in the flat house
+  style. They are pinned to the screen's corners, not the landscape's. The
+  maples take about the outer 36% across the top, a little bolder than the
+  reference; the shrubs about the outer 20–25% across the bottom, so
+  neither hides the middle of the sky or much of the walking band. The
+  trunk and boughs stay still and each leaf cluster is its own
+  `harvest-sway` group, cut along edges already in the art and swaying
+  from where it meets the wood; every band reaches a little under the
+  bands beside it, and further under any cluster drawn over it, so a sway
+  shows more of what is behind, never a hole. Each piece also runs on past
+  its own viewBox (the trunk past the screen's side, the crown above its
+  top, the shrub past the corner), and `scene.css` lets the frame's
+  `<svg>` overflow, so a sway or Too Loud's lean never shows a gap at the
+  screen's edge.
 - **Falling leaves:** `leaf-1` to `leaf-3`, coming down off the two maples.
 
 Every id in the backdrop and Ambient Life is prefixed `thanksgiving-`.
