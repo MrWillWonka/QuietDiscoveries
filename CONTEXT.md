@@ -64,24 +64,28 @@ and rocks, and big maples and leafy bushes framing the corners. A
 Limited-time Scene through November: it opens on 1 November with nine QDs
 out and gains a Newcomer on most school days up to Thanksgiving, Tom the
 Turkey last. Its 23 QDs are 14 named animals, from Tilly the Baby Turkey to
-Tom the Turkey, and 9 **harvest items**, from a pumpkin to a golden acorn:
+Tom the Turkey, and 9 **harvest items**, from a pumpkin to a pumpkin pie:
 10 Common, 8 Uncommon and 5 Rare. On top of those it has a Secret QD, Mr
 Applewhite. Its Note is Thanksgiving's trail sign; Too Loud is a soft fog.
 
 Over the Scene a wooden pill holds its **Discovery Leaves**: one circle for
 each QD unlocked so far, which fills with a leaf once the Class has spotted
-that QD here. The leaf's colour follows the tier (amber, red, gold); an
-item the Class has ever seen **awake** gets a gold leaf that glows, for
-good; Mr Applewhite's is a glowing blue leaf.
+that QD here. The leaf's colour follows the tier (amber, red, gold). An
+item the Class has ever seen **transform** has its leaf go up a tier, for
+good: red for a common, gold for an uncommon, and for the pumpkin pie, the
+rare item, gold with a glowing gold outline. Mr Applewhite's is a glowing
+blue leaf.
 
 Its QDs are shy in a way of their own. An animal arrives **hiding**:
 behind a hay bale, a pumpkin, a rock, a wheat sheaf or a corner bush (a
 flier among a maple's leaves), it **peeks** out, holds there a moment,
 then steps out and wanders. A harvest item is not shy but **carried**: it
 rolls in along the ground or floats down on a gust of wind, and settles
-where it stops. Once in a long while an item arrives **awake**, with a
-face and tiny feet, and wanders like an animal; it stays awake for the rest
-of the Session. When the room is Too Loud, an animal that Runs Away ducks
+where it stops. Every item arrives plain, but once in a long while one,
+a few seconds after settling, **transforms** into its awake self, with a
+face and tiny feet, in a soft poof, and wanders like an animal; it stays
+awake for the rest of the Session. If the room is Too Loud or Paused when
+it is due, it waits for calm. When the room is Too Loud, an animal that Runs Away ducks
 back behind the nearest **hiding place** if one is nearer than the edge,
 and an item is blown off the edge. Only how they come and go differs:
 which QD arrives, and who leaves and when, are the same as everywhere.

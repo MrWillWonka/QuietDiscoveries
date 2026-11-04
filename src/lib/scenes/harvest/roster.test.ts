@@ -38,17 +38,17 @@ describe("the Autumn Harvest Roster", () => {
     }
   });
 
-  it("makes the Fawn, the Owl, the Golden Acorn, Golden Ember and Tom the Rare ones", () => {
+  it("makes the Fawn, the Owl, the Pumpkin Pie, Golden Ember and Tom the Rare ones", () => {
     const rare = HARVEST_ROSTER.filter(
       (def) => def.tier === "rare" && def.slug !== "mr-applewhite",
     ).map((def) => def.slug);
     expect(rare.sort()).toEqual(
       [
-        "golden-acorn",
         "harvest-golden-ember",
         "harvest-maple",
         "harvest-oliver",
         "harvest-tom",
+        "pumpkin-pie",
       ].sort(),
     );
   });

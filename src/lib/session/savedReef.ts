@@ -29,8 +29,10 @@ interface SavedCreature {
   depth: number;
   spawnX: number;
   spawnY: number;
-  /** A harvest item that came awake; left out (older saves) means not. */
+  /** A harvest item that has transformed; left out (older saves) means not. */
   awake?: boolean;
+  /** A harvest item still to transform, and when (`session/awake.ts`). */
+  wakeIn?: number;
 }
 
 export function loadReef(
@@ -43,22 +45,27 @@ export function loadReef(
     if (!raw) return [];
     const saved = JSON.parse(raw) as SavedCreature[];
     if (!Array.isArray(saved)) return [];
-    return saved.flatMap(({ id, slug, depth, spawnX, spawnY, awake }) => {
-      // A Creature since dropped from the Roster just does not come back.
-      const def = roster.find((candidate) => candidate.slug === slug);
-      if (!def) return [];
-      const instance: CreatureInstance = {
-        id,
-        def,
-        depth,
-        spawnX,
-        spawnY,
-        restored: true,
-      };
-      // Only one whose drawing has an awake version can stay awake.
-      if (awake === true && def.awake) instance.awake = true;
-      return [instance];
-    });
+    return saved.flatMap(
+      ({ id, slug, depth, spawnX, spawnY, awake, wakeIn }) => {
+        // A Creature since dropped from the Roster just does not come back.
+        const def = roster.find((candidate) => candidate.slug === slug);
+        if (!def) return [];
+        const instance: CreatureInstance = {
+          id,
+          def,
+          depth,
+          spawnX,
+          spawnY,
+          restored: true,
+        };
+        // Only one whose drawing has an awake version can stay awake, or be
+        // still to wake.
+        if (awake === true && def.awake) instance.awake = true;
+        else if (typeof wakeIn === "number" && def.awake)
+          instance.wakeIn = wakeIn;
+        return [instance];
+      },
+    );
   } catch {
     return [];
   }
@@ -72,13 +79,14 @@ export function saveReef(sceneId: string, creatures: CreatureInstance[]) {
       return;
     }
     const saved: SavedCreature[] = creatures.map(
-      ({ id, def, depth, spawnX, spawnY, awake }) => ({
+      ({ id, def, depth, spawnX, spawnY, awake, wakeIn }) => ({
         id,
         slug: def.slug,
         depth,
         spawnX,
         spawnY,
         ...(awake ? { awake: true } : {}),
+        ...(!awake && wakeIn !== undefined ? { wakeIn } : {}),
       }),
     );
     localStorage.setItem(storageKey(sceneId), JSON.stringify(saved));

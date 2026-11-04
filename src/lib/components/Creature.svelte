@@ -84,6 +84,8 @@
     listening,
     fleeing,
     ongone,
+    wakeIn,
+    onwake,
     hidingPlaces,
   }: {
     creature: CreatureInstance;
@@ -111,12 +113,26 @@
     /** Called once when a fleeing Creature is out of sight. */
     ongone: () => void;
     /**
+     * A harvest item still to transform (`session/awake.ts`): seconds after
+     * it settles, counted only while the room is calm, that it does.
+     */
+    wakeIn?: number;
+    /** It has transformed: from now on it is awake (`Session.wake`). */
+    onwake?: () => void;
+    /**
      * Props it can hide behind (`SceneDef.hidingPlaces`). Given, it arrives
      * hidden behind one and peeks out, and when scared off runs back behind
      * the nearest one if that is nearer than the edge of the screen.
      */
     hidingPlaces?: HidingPlace[];
   } = $props();
+
+  /**
+   * Transforming into its awake self: a soft poof and a squash and stretch,
+   * with the drawing swapped at the squash (`onwake`), or under reduced
+   * motion a plain crossfade.
+   */
+  let waking = $state(false);
 
   /** How it moves: an awake harvest item wanders, where asleep it rests. */
   const motion = $derived(
@@ -210,7 +226,8 @@
 
   onMount(() => {
     const scene = swimmer.parentElement!;
-    const style = motion;
+    // Changes once, if a harvest item transforms and starts to wander.
+    let style = motion;
     // The window the Scene is drawn in, which is not this one while it floats:
     // an observer belongs to the window that made it, and a hidden tab's
     // observers never report.
@@ -358,6 +375,9 @@
     // Something carried on the wind is not startled: it is just blown away.
     let startled = carried ? 0 : STARTLE_S + Math.random() * STARTLE_JITTER_S;
     let fadedFor = 0;
+    /** Calm seconds since settling, towards `wakeIn`. */
+    let settledFor = 0;
+    let wakeTimer: number | null = null;
     let last = performance.now();
     let frame = requestFrame(function tick(now) {
       // Clamp, so a backgrounded tab does not teleport everyone on return.
@@ -568,6 +588,42 @@
         stepMotion(state, style, creature.depth, footprint(), dt, Math.random);
       }
 
+      // A harvest item rolled to wake: once it has settled and the room has
+      // been calm long enough, it transforms. Too Loud or Paused at the
+      // moment it is due, it waits for calm.
+      if (
+        wakeIn !== undefined &&
+        wakeTimer === null &&
+        !fleeing &&
+        !gust &&
+        !peek &&
+        fadingIn === null
+      ) {
+        const calm = !frozen && !listening;
+        if (calm) settledFor += elapsed;
+        if (calm && settledFor >= wakeIn) {
+          waking = true;
+          wakeTimer = view.setTimeout(
+            () => onwake?.(),
+            reducedMotion.matches ? 350 : 380,
+          );
+        }
+      }
+      if (style !== motion) {
+        // Awake now: it sets off from where it stands, in its new way.
+        const fresh = createMotion(
+          motion,
+          0.5,
+          0.5,
+          creature.depth,
+          footprint(),
+          Math.random,
+          creature.def.flips,
+        );
+        Object.assign(state, fresh, { x: state.x, y: state.y, resting: 1 });
+        style = motion;
+      }
+
       if (fadingIn !== null) {
         fadingIn += elapsed;
         const shown = Math.min(1, fadingIn / PEEK_TIMING.fadeIn);
@@ -612,6 +668,7 @@
       cancelFrame(frame);
       resize.disconnect();
       clearTimeout(settle);
+      if (wakeTimer !== null) view.clearTimeout(wakeTimer);
     };
   });
 </script>
@@ -671,24 +728,38 @@
           shaking = false;
         }}
       >
-        <div bind:this={flipper} class="flipper">
-          <div
-            class="creature"
-            class:arriving={isNewest && !shy}
-            class:settled={!glistening}
-            data-tier={creature.def.tier}
-          >
-            {#if isNewest && !shy}
-              <!-- The payoff moment has to carry across a classroom. -->
-              <span
-                class="arrival-ring absolute inset-0 rounded-full border-2 border-white/70"
-              ></span>
-            {/if}
-            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-            {@html attending && listeningArt ? listeningArt : art}
+        <div
+          class="waker"
+          class:waking
+          onanimationend={(event) => {
+            if (event.target === event.currentTarget) waking = false;
+          }}
+        >
+          <div bind:this={flipper} class="flipper">
+            <div
+              class="creature"
+              class:arriving={isNewest && !shy}
+              class:settled={!glistening}
+              data-tier={creature.def.tier}
+            >
+              {#if isNewest && !shy}
+                <!-- The payoff moment has to carry across a classroom. -->
+                <span
+                  class="arrival-ring absolute inset-0 rounded-full border-2 border-white/70"
+                ></span>
+              {/if}
+              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+              {@html attending && listeningArt ? listeningArt : art}
+            </div>
           </div>
         </div>
       </div>
+      {#if waking}
+        <!-- A soft poof of light and a few sparkles as it transforms. -->
+        <span class="wake-poof" aria-hidden="true"
+          ><i></i><i></i><i></i><i></i></span
+        >
+      {/if}
       {#if creature.def.tier === "rare" && glistening}
         <span
           class="absolute inset-0"
@@ -717,3 +788,120 @@
     </div>
   </div>
 </div>
+
+<style>
+  /* Transforming: a squash as the drawing swaps, a stretch, and settle. */
+  .waker {
+    transform-origin: 50% 100%;
+  }
+  .waking {
+    animation: wake-squash 0.8s ease-in-out;
+  }
+
+  @keyframes wake-squash {
+    35% {
+      transform: scale(1.14, 0.8);
+    }
+    52% {
+      transform: scale(0.88, 1.18);
+    }
+    72% {
+      transform: scale(1.05, 0.96);
+    }
+  }
+
+  .wake-poof {
+    position: absolute;
+    inset: -25%;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgb(255 248 220 / 0.95),
+      rgb(255 214 120 / 0.5) 40%,
+      transparent 70%
+    );
+    animation: wake-poof 0.9s ease-out forwards;
+  }
+
+  .wake-poof i {
+    position: absolute;
+    width: 14%;
+    aspect-ratio: 1;
+    background: #fff6cf;
+    clip-path: polygon(
+      50% 0,
+      62% 38%,
+      100% 50%,
+      62% 62%,
+      50% 100%,
+      38% 62%,
+      0 50%,
+      38% 38%
+    );
+    animation: wake-spark 0.9s ease-out forwards;
+  }
+  .wake-poof i:nth-child(1) {
+    left: 12%;
+    top: 20%;
+  }
+  .wake-poof i:nth-child(2) {
+    right: 10%;
+    top: 14%;
+    animation-delay: 0.1s;
+  }
+  .wake-poof i:nth-child(3) {
+    left: 22%;
+    bottom: 12%;
+    animation-delay: 0.18s;
+  }
+  .wake-poof i:nth-child(4) {
+    right: 18%;
+    bottom: 22%;
+    animation-delay: 0.06s;
+  }
+
+  @keyframes wake-poof {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    35% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.25);
+    }
+  }
+
+  @keyframes wake-spark {
+    from {
+      opacity: 0;
+      transform: scale(0.2) rotate(0);
+    }
+    40% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.1) rotate(45deg);
+    }
+  }
+
+  /* Reduced motion: no poof and no squash, just a crossfade as it swaps. */
+  @media (prefers-reduced-motion: reduce) {
+    .waking {
+      animation: wake-fade 0.7s ease-in-out;
+    }
+    .wake-poof {
+      display: none;
+    }
+  }
+
+  @keyframes wake-fade {
+    50% {
+      opacity: 0.1;
+    }
+  }
+</style>

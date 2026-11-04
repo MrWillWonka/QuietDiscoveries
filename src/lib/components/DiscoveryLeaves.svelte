@@ -3,6 +3,13 @@
 
   const TIERS: RarityTier[] = ["common", "uncommon", "rare"];
 
+  /** The leaf one tier up, for an item the Class has seen transform. */
+  const UPGRADE: Record<RarityTier, RarityTier> = {
+    common: "uncommon",
+    uncommon: "rare",
+    rare: "rare",
+  };
+
   /** A maple leaf with its stem, filling a 24-unit square. */
   const LEAF =
     "M12 2 13.6 5.4 15.8 4.4 15.2 8.6 18.2 6.2 19 8.2 21.6 7.8 20.2 11 21.8 12 17.4 15.4 18 17.2 13.8 16.4 12.6 16.9 12.6 22 11.4 22 11.4 16.9 10.2 16.4 6 17.2 6.6 15.4 2.2 12 3.8 11 2.4 7.8 5 8.2 5.8 6.2 8.8 8.6 8.2 4.4 10.4 5.4Z";
@@ -22,10 +29,11 @@
    * the row grows as Newcomers come. Commons first, then uncommons, then
    * rares, and last any Secret QD once he is about (Mr Applewhite), whose
    * leaf is blue-jay blue with a soft blue glow, in a gold ring. An item
-   * the Class has ever seen arrive awake (`session/awake.ts`) has a gold
-   * leaf with a warm glow instead, whatever its tier, for good. A QD not
-   * found yet is an empty circle with nothing of it shown, its name
-   * included.
+   * the Class has ever seen transform into its awake self
+   * (`session/awake.ts`) has its leaf go up a tier, for good: a common's
+   * turns red, an uncommon's gold, and the rare item's gains a glowing gold
+   * outline, which nothing else has. A QD not found yet is an empty circle
+   * with nothing of it shown, its name included.
    *
    * Like the arrival counter it stays up when the controls fade and only
    * shows: it never takes a click from the Scene.
@@ -51,7 +59,7 @@
       slug,
       secret,
       found: sightings.count(scene.id, slug) > 0,
-      awake: sightings.seenAwake(scene.id, slug),
+      transformed: sightings.seenTransformed(scene.id, slug),
     });
     // A Secret, once about, comes last, after the rares.
     return [
@@ -120,10 +128,15 @@
           class="circle {circle.found
             ? circle.secret
               ? 'secret'
-              : circle.tier
+              : circle.transformed
+                ? UPGRADE[circle.tier]
+                : circle.tier
             : 'hidden-qd'}"
           class:secret-ring={circle.secret}
-          class:awake={circle.found && circle.awake && !circle.secret}
+          class:top={circle.found &&
+            circle.transformed &&
+            circle.tier === "rare" &&
+            !circle.secret}
           class:pop={popping.includes(circle.slug)}
           role="img"
           aria-label={circle.found
@@ -131,10 +144,14 @@
             : t("leaves.hidden")}
         >
           {#if circle.found}
-            {@const glows = circle.secret || circle.awake}
-            <svg viewBox="0 0 24 24" class:glowing={glows} aria-hidden="true">
-              {#if glows}
-                <!-- The glow: layered see-through rings, no filter. -->
+            {@const top = circle.transformed && circle.tier === "rare"}
+            <svg
+              viewBox="0 0 24 24"
+              class:glowing={circle.secret || top}
+              aria-hidden="true"
+            >
+              {#if circle.secret}
+                <!-- The glow: a see-through radial wash, no filter. -->
                 <defs>
                   <radialGradient id="{uid}-{circle.slug}">
                     <stop offset="0.3" class="glow-core" />
@@ -148,7 +165,14 @@
                   r="12"
                   fill="url(#{uid}-{circle.slug})"
                 />
+              {/if}
+              {#if circle.secret || top}
                 <g transform="translate(12 12) scale(0.74) translate(-12 -12)">
+                  {#if top}
+                    <!-- The glowing outline: layered see-through strokes. -->
+                    <path class="halo halo-wide" d={LEAF} />
+                    <path class="halo" d={LEAF} />
+                  {/if}
                   <path class="leaf" d={LEAF} />
                   <path class="veins" d={VEINS} />
                 </g>
@@ -334,37 +358,34 @@
     stroke-width: 0.9;
   }
 
-  /* Seen awake: a gold leaf with a warm gold glow, whatever the tier. A
-     rare keeps its gold ring and shine as well; the glow is what is new. */
-  .awake .glow-core,
-  .awake .glow-edge {
-    stop-color: #ffd36b;
-  }
-  .awake .glow-core {
-    stop-opacity: 0.9;
-  }
-  .awake .leaf {
-    fill: #f7c843;
-    stroke: #fff4c9;
-    stroke-width: 0.6;
+  /* The rare item seen transformed: the top leaf, gold with a glowing
+     gold outline round it, on top of the rare's ring and still shine. */
+  .top .halo {
+    fill: none;
+    stroke: #ffd659;
+    stroke-width: 2.4;
     stroke-linejoin: round;
+    stroke-opacity: 0.55;
   }
-  .awake .veins {
-    stroke: #b07d12;
+  .top .halo-wide {
+    stroke-width: 4.6;
+    stroke-opacity: 0.25;
   }
-  .awake {
-    box-shadow: 0 0 0.55rem 0.05rem rgb(255 196 70 / 0.8);
+  .top .leaf {
+    stroke: #fff2b0;
+    stroke-width: 0.9;
   }
-  .rare.awake {
+  .rare.top {
     box-shadow:
       0 0 0 0.1rem #8a6414,
-      0 0 0.9rem 0.2rem rgb(255 196 70 / 0.9);
+      0 0 0.8rem 0.15rem rgb(255 205 80 / 0.85);
   }
 
   /* Elsewhere a very slow, gentle breath of the glow; under reduced motion
      it holds still. */
   @media (prefers-reduced-motion: no-preference) {
-    .glow {
+    .glow,
+    .halo {
       animation: glow-breathe 6s ease-in-out infinite alternate;
     }
   }

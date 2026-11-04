@@ -39,12 +39,12 @@ export const HARVEST_SCHEDULE: Schedule = {
     { day: "2026-11-11", slug: "harvest-pip" },
     { day: "2026-11-12", slug: "harvest-ruby" },
     { day: "2026-11-13", slug: "cozy-scarf" },
-    { day: "2026-11-16", slug: "pumpkin-pie" },
+    { day: "2026-11-16", slug: "golden-acorn" },
     { day: "2026-11-17", slug: "harvest-basket" },
     // No Newcomer on the 18th.
     { day: "2026-11-19", slug: "harvest-maple" },
     { day: "2026-11-20", slug: "harvest-oliver" },
-    { day: "2026-11-23", slug: "golden-acorn" },
+    { day: "2026-11-23", slug: "pumpkin-pie" },
     { day: "2026-11-24", slug: "harvest-golden-ember" },
     // The finale, the day before Thanksgiving.
     { day: "2026-11-25", slug: "harvest-tom" },

@@ -56,7 +56,7 @@ describe("Autumn Harvest's calendar", () => {
     expect(unlockedSlugs("2026-11-16")).toContain("mr-applewhite");
     expect(unlockedSlugs("2026-11-16").at(-1)).toBe("mr-applewhite");
     expect(newcomersSoFar("2026-11-30")).not.toContain("mr-applewhite");
-    expect(todaysNewcomer("2026-11-16")).toBe("pumpkin-pie");
+    expect(todaysNewcomer("2026-11-16")).toBe("golden-acorn");
   });
 
   it("unlocks its fourteen Newcomers on school days, Tom the Turkey last", () => {

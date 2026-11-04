@@ -1,5 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import { AWAKE_ODDS, rollAwake } from "./awake";
+import {
+  AWAKE_ODDS,
+  rollAwake,
+  WAKE_FROM_S,
+  WAKE_WITHIN_S,
+  wakeDelay,
+} from "./awake";
 
 describe("rollAwake", () => {
   it("wakes an item only on a roll under 1 in 25", () => {
@@ -20,5 +26,15 @@ describe("rollAwake", () => {
     for (let i = 0; i < 25_000; i++) if (rollAwake(random)) awake++;
     expect(awake).toBeGreaterThan(800);
     expect(awake).toBeLessThan(1200);
+  });
+});
+
+describe("wakeDelay", () => {
+  it("transforms 5 to 20 seconds after settling", () => {
+    expect(WAKE_FROM_S).toBe(5);
+    expect(WAKE_WITHIN_S).toBe(20);
+    expect(wakeDelay(() => 0)).toBe(5);
+    expect(wakeDelay(() => 0.5)).toBe(12.5);
+    expect(wakeDelay(() => 0.9999)).toBeLessThan(20);
   });
 });

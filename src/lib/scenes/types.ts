@@ -83,9 +83,10 @@ export interface CreatureDef {
    */
   alwaysGlistens?: boolean;
   /**
-   * A harvest item that, once in a long while, arrives awake
-   * (`session/awake.ts`): drawn from the Scene's `awakeArt`, with a face and
-   * tiny feet, and moving like this instead of settling where it lands. Its
+   * A harvest item that, once in a long while, transforms into its awake
+   * self a little after settling (`session/awake.ts`): drawn from then on
+   * from the Scene's `awakeArt`, with a face and tiny feet, and moving like
+   * this instead of resting where it landed. Its
    * own width when the awake drawing stands differently (corn lies on its
    * side asleep but stands up awake), and the part-* classes in that file.
    */

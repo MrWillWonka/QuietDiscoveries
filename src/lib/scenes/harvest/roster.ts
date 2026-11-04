@@ -4,13 +4,14 @@
  * Twenty-three, and a secret: fourteen animals a class could really meet
  * round a farm field in the fall, each a named character (Tilly the Baby
  * Turkey, Ember the Fox, Tom the Turkey…), and nine harvest items, from a
- * pumpkin to a golden acorn. All of them are shy in the most literal way: each arrives
- * hidden behind a hay bale, a pumpkin, a rock, a wheat sheaf or a corner
- * bush (a flier in a maple's leaves), peeks out, and only then steps into
- * the meadow (`hidingPlaces` in `./layout.ts`). An animal then wanders; an
- * item settles where it lands and stays put (`rest`), unless it is one of
- * the super-rare awake ones (`awake`, `session/awake.ts`), which wanders
- * like an animal.
+ * pumpkin to a pumpkin pie. All of them are shy in the most literal way:
+ * each arrives hidden behind a hay bale, a pumpkin, a rock, a wheat sheaf
+ * or a corner bush (a flier in a maple's leaves), peeks out, and only then
+ * steps into the meadow (`hidingPlaces` in `./layout.ts`). An animal then
+ * wanders; an item settles where it lands and stays put (`rest`). Once in a
+ * long while an item, a few seconds after settling, transforms into its
+ * awake character (`awake`, `session/awake.ts`) and wanders like an
+ * animal.
  *
  * Slugs match the SVG filenames in `./creatures/` (and `./awake/` for the
  * items) and are unique across every Scene. `width` is the intended
@@ -157,7 +158,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   },
   {
     slug: "pumpkin-pie",
-    tier: "uncommon",
+    tier: "rare",
     width: 60,
     motion: "rest",
     arrival: "roll",
@@ -175,7 +176,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   },
   {
     slug: "golden-acorn",
-    tier: "rare",
+    tier: "uncommon",
     width: 42,
     motion: "rest",
     arrival: "roll",

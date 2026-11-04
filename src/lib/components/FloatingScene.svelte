@@ -69,6 +69,7 @@
     scares={settings.loudResponse === "flee"}
     fleeing={app.session.fleeing}
     ondepart={(id) => app.session.depart(id)}
+    onwake={(id) => app.session.wake(id)}
   />
 
   {#if app.paused || settings.showMeter || app.scene.discoveryDisplay}

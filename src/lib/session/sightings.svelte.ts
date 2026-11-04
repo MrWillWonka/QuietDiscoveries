@@ -7,9 +7,9 @@
  * "Bring out every animal" is for trying the app out and would otherwise fill
  * the collection in one click.
  *
- * Alongside, which harvest items the Class has ever seen arrive awake
- * (`awake.ts`), kept under a key of their own so counts saved before there
- * were awake items load as they always did.
+ * Alongside, which harvest items the Class has ever seen transform into
+ * their awake selves (`awake.ts`), kept under a key of their own so counts
+ * saved before there were awake items load as they always did.
  */
 
 import { browser } from "$app/environment";
@@ -19,7 +19,7 @@ function storageKey(part = "sightings") {
   return classes.storageKey(part);
 }
 
-const AWAKE = "awake-sightings";
+const TRANSFORMED = "transformed-sightings";
 
 function key(sceneId: string, slug: string) {
   return `${sceneId}:${slug}`;
@@ -46,25 +46,25 @@ function save(part: string, value: object) {
 
 class Sightings {
   #counts = $state<Record<string, number>>(load());
-  #awake = $state<Record<string, true>>(load(AWAKE));
+  #transformed = $state<Record<string, true>>(load(TRANSFORMED));
 
   /** Switch to the Class now on screen's counts. */
   reload() {
     this.#counts = load();
-    this.#awake = load(AWAKE);
+    this.#transformed = load(TRANSFORMED);
   }
 
-  /** Whether the Class has ever seen this item arrive awake here. */
-  seenAwake(sceneId: string, slug: string): boolean {
-    return this.#awake[key(sceneId, slug)] === true;
+  /** Whether the Class has ever seen this item transform here. */
+  seenTransformed(sceneId: string, slug: string): boolean {
+    return this.#transformed[key(sceneId, slug)] === true;
   }
 
-  /** An item arrived awake: the Class has seen it so, for good. */
-  recordAwake(sceneId: string, slug: string) {
+  /** An item transformed on screen: the Class has seen it, for good. */
+  recordTransformed(sceneId: string, slug: string) {
     const id = key(sceneId, slug);
-    if (this.#awake[id]) return;
-    this.#awake[id] = true;
-    save(AWAKE, this.#awake);
+    if (this.#transformed[id]) return;
+    this.#transformed[id] = true;
+    save(TRANSFORMED, this.#transformed);
   }
 
   count(sceneId: string, slug: string): number {

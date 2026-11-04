@@ -26,6 +26,7 @@
     scares,
     fleeing,
     ondepart,
+    onwake,
   }: {
     scene: SceneDef;
     creatures: CreatureInstance[];
@@ -47,6 +48,8 @@
     fleeing: number[];
     /** A fleeing Creature has run out of sight, or faded away. */
     ondepart: (id: number) => void;
+    /** A harvest item has transformed into its awake self (`Session.wake`). */
+    onwake: (id: number) => void;
   } = $props();
 
   /** One the Scene answers to is here, or has just come. */
@@ -94,6 +97,8 @@
       {listening}
       fleeing={fleeing.includes(creature.id)}
       ongone={() => ondepart(creature.id)}
+      wakeIn={creature.awake ? undefined : creature.wakeIn}
+      onwake={() => onwake(creature.id)}
       hidingPlaces={scene.hidingPlaces}
     />
   {/each}

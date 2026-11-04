@@ -16,7 +16,7 @@ import {
   createArrivalClock,
   type ArrivalClock,
 } from "./arrivalClock";
-import { rollAwake } from "./awake";
+import { rollAwake, wakeDelay } from "./awake";
 import { rollCreature } from "./roll";
 import {
   advanceScareClock,
@@ -45,8 +45,13 @@ export interface CreatureInstance {
    */
   restored?: boolean;
   /**
-   * A harvest item that came awake on arrival (`rollAwake`): drawn with a
-   * face and wandering like an animal instead of settling. Kept on refresh.
+   * A harvest item rolled on arrival to transform (`rollAwake`): this many
+   * seconds after it settles, it wakes. Kept on refresh.
+   */
+  wakeIn?: number;
+  /**
+   * A harvest item that has transformed: drawn with a face and wandering
+   * like an animal instead of resting. Kept on refresh.
    */
   awake?: boolean;
 }
@@ -245,7 +250,18 @@ export class Session {
     this.#save();
     saveArrived(this.arrived);
     sightings.record(this.#sceneId, def.slug);
-    if (instance.awake) sightings.recordAwake(this.#sceneId, def.slug);
+  }
+
+  /**
+   * An item rolled to wake has transformed, on screen: from now on it is
+   * awake, and the Class has seen that item transform, for good.
+   */
+  wake(id: number) {
+    const creature = this.creatures.find((one) => one.id === id);
+    if (!creature || creature.awake || !creature.def.awake) return;
+    creature.awake = true;
+    this.#save();
+    sightings.recordTransformed(this.#sceneId, creature.def.slug);
   }
 
   /** Anywhere from far to near, unless its motion keeps it to some depths. */
@@ -263,8 +279,10 @@ export class Session {
       spawnY: this.#random(),
     };
     // Only items with an awake drawing roll, so no other Scene's random
-    // sequence changes.
-    if (def.awake && rollAwake(this.#random)) instance.awake = true;
+    // sequence changes. Every item arrives plain; one rolled to wake
+    // transforms a little after it settles (`wake`).
+    if (def.awake && rollAwake(this.#random))
+      instance.wakeIn = wakeDelay(this.#random);
     return instance;
   }
 }
