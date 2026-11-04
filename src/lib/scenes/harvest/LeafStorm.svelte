@@ -1,15 +1,16 @@
 <script lang="ts">
   /**
    * Too Loud in Autumn Harvest: a leaf storm instead of a fog. A few leaves
-   * gust across at once; then a pile of red, orange, amber, gold and brown
-   * leaves rises from the bottom of the screen and thickens, and more stick
-   * to the screen above it, until, if the room stays loud, it is covered and
+   * fall from above at once; then a layer of red, orange, amber, gold and
+   * brown leaves comes down from the top of the screen, a ragged fringe of
+   * leaves along its foot where more land, until, if the room stays loud,
+   * the screen is covered and
    * the QDs are gone. Choosing to pause the Scene instead, nobody leaves, so
-   * it builds to about two thirds and holds. When the room is calm again a
-   * gust sweeps it all away.
+   * it comes about two thirds of the way down and holds. When the room is
+   * calm again the leaves drop away off the bottom.
    *
    * How full it is comes from `scenes/leafStorm.ts`; who leaves, and when,
-   * is still the Session's. The pile is three pre-drawn sheets
+   * is still the Session's. The layer is three pre-drawn sheets
    * (`ambient/storm-*.svg`) that only move, so the browser draws them once
    * and slides them: smooth on a school laptop. Calm, not frantic: nothing
    * flashes or shakes. Under reduced motion the leaves fade in by steps and
@@ -46,37 +47,46 @@
   const sheets = ["storm-back", "storm-mid", "storm-front"] as const;
 
   /**
-   * Leaves stuck to the screen above the pile, each showing once the storm
-   * has got that far. `x`, `y` in % of the screen, `size` in wu.
+   * Where the ragged fringe at the foot of the falling layer is, as a share
+   * of the screen's height, for a fill: each sheet is 1.55 screens tall,
+   * a tenth of a screen above the top, and its bottom fifth or so is the
+   * thinning fringe (`ambient/storm-*.svg`).
    */
-  const stuck = [
-    { x: 8, y: 70, size: 4.5, art: "leaf-1", at: 0.08, turn: 20 },
-    { x: 84, y: 74, size: 4, art: "leaf-2", at: 0.1, turn: -30 },
-    { x: 44, y: 78, size: 3.6, art: "leaf-3", at: 0.14, turn: 60 },
-    { x: 26, y: 60, size: 4.2, art: "leaf-2", at: 0.22, turn: -10 },
-    { x: 66, y: 56, size: 4.8, art: "leaf-1", at: 0.28, turn: 40 },
-    { x: 92, y: 48, size: 3.8, art: "leaf-3", at: 0.34, turn: -50 },
-    { x: 14, y: 42, size: 4.4, art: "leaf-3", at: 0.4, turn: 15 },
-    { x: 52, y: 40, size: 4, art: "leaf-1", at: 0.46, turn: -25 },
-    { x: 36, y: 30, size: 4.6, art: "leaf-2", at: 0.52, turn: 70 },
-    { x: 78, y: 28, size: 4.2, art: "leaf-1", at: 0.58, turn: -40 },
-    { x: 4, y: 20, size: 3.8, art: "leaf-1", at: 0.64, turn: 30 },
-    { x: 60, y: 18, size: 4.4, art: "leaf-3", at: 0.7, turn: -15 },
-    { x: 22, y: 10, size: 4, art: "leaf-2", at: 0.76, turn: 50 },
-    { x: 90, y: 8, size: 4.6, art: "leaf-3", at: 0.82, turn: -60 },
-    { x: 44, y: 6, size: 4.2, art: "leaf-1", at: 0.88, turn: 10 },
-  ];
+  const fringeAt = (share: number) => 1.55 * share - 0.22;
 
-  /** Leaves gusting across the screen while it is loud. */
-  const gusting = [
-    { y: 18, size: 2.4, art: "leaf-1", duration: 5.2, delay: 0 },
-    { y: 34, size: 2, art: "leaf-3", duration: 6.4, delay: -1.8 },
-    { y: 52, size: 2.6, art: "leaf-2", duration: 4.8, delay: -3.1 },
-    { y: 66, size: 2.2, art: "leaf-1", duration: 5.8, delay: -0.9 },
-    { y: 26, size: 1.8, art: "leaf-2", duration: 7, delay: -4.4 },
-    { y: 44, size: 2.3, art: "leaf-3", duration: 5.5, delay: -2.6 },
-    { y: 76, size: 2.5, art: "leaf-2", duration: 6, delay: -5 },
-    { y: 10, size: 2, art: "leaf-3", duration: 6.8, delay: -3.7 },
+  /**
+   * Leaves that land along the fringe as it comes down, each once the storm
+   * has got that far, and are then buried as it comes further. `x`, `y` in
+   * % of the screen, `size` in wu.
+   */
+  const ARTS = ["leaf-1", "leaf-2", "leaf-3"];
+  const landed = Array.from({ length: 17 }, (_, index) => {
+    const at = 0.08 + index * 0.05;
+    return {
+      at,
+      x: (index * 37 + 11) % 96,
+      y: Math.max(4, Math.min(94, fringeAt(at) * 100)),
+      size: 3.6 + ((index * 7) % 5) * 0.3,
+      art: ARTS[index % 3],
+      turn: ((index * 53) % 140) - 70,
+    };
+  });
+
+  /**
+   * Leaves raining down from above the top edge while it is loud, tumbling
+   * and swaying, to land on the fringe. `x` in % across, `size` in wu.
+   */
+  const falling = [
+    { x: 6, size: 2.6, art: "leaf-1", duration: 4.6, delay: 0 },
+    { x: 18, size: 2.2, art: "leaf-3", duration: 5.4, delay: -1.6 },
+    { x: 31, size: 2.8, art: "leaf-2", duration: 4.2, delay: -3 },
+    { x: 43, size: 2.3, art: "leaf-1", duration: 5, delay: -0.8 },
+    { x: 55, size: 2, art: "leaf-2", duration: 5.8, delay: -2.4 },
+    { x: 67, size: 2.6, art: "leaf-3", duration: 4.4, delay: -3.8 },
+    { x: 78, size: 2.4, art: "leaf-2", duration: 5.2, delay: -1.2 },
+    { x: 90, size: 2.2, art: "leaf-3", duration: 4.8, delay: -2.9 },
+    { x: 24, size: 2, art: "leaf-1", duration: 6, delay: -4.4 },
+    { x: 72, size: 2.1, art: "leaf-1", duration: 5.6, delay: -0.3 },
   ];
 
   onMount(() => {
@@ -111,7 +121,7 @@
         });
         fill = stepFill(fill, target, dt);
       } else if (phase === "storm") {
-        // Calm again: a gust sweeps it all away, then it is gone.
+        // Calm again: the leaves drop away off the bottom, then are gone.
         phase = "clearing";
         clearTimer = setTimeout(() => {
           phase = "calm";
@@ -133,7 +143,9 @@
   data-phase={phase}
   data-reduced={reduced}
   aria-hidden="true"
-  style={reduced ? `opacity:${phase === "storm" ? steppedFill(fill) : 0};` : ""}
+  style="--land:{Math.max(0.12, fringeAt(fill)) * 100}cqh;{reduced
+    ? ` opacity:${phase === 'storm' ? steppedFill(fill) : 0};`
+    : ''}"
 >
   <div class="leaf-storm-sweep absolute inset-0">
     {#each sheets as sheet, layer (sheet)}
@@ -142,15 +154,15 @@
         style="transform:{reduced
           ? 'none'
           : phase === 'clearing'
-            ? `translate(${6 + layer * 3}%, 100%)`
-            : `translateY(${(1 - sheetRise(fill, layer as 0 | 1 | 2)) * 100}%)`};"
+            ? `translateY(${100 + layer * 8}%)`
+            : `translateY(${-(1 - sheetRise(fill, layer as 0 | 1 | 2)) * 100}%)`};"
       >
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html AMBIENT_ART[sheet]}
       </div>
     {/each}
     {#if !reduced}
-      {#each stuck as leaf, index (index)}
+      {#each landed as leaf, index (index)}
         <div
           class="leaf-storm-stuck"
           class:shown={fill >= leaf.at}
@@ -163,14 +175,14 @@
     {/if}
   </div>
   {#if !reduced && phase === "storm"}
-    {#each gusting as leaf (leaf.y)}
+    {#each falling as leaf (leaf.x)}
       <div
-        class="leaf-storm-gust"
-        style="top:{leaf.y}%; width:calc({leaf.size} * var(--wu)); animation-duration:{leaf.duration}s; animation-delay:{leaf.delay}s;"
+        class="leaf-storm-fall"
+        style="left:{leaf.x}%; width:calc({leaf.size} * var(--wu)); animation-duration:{leaf.duration}s; animation-delay:{leaf.delay}s;"
       >
         <div
           class="leaf-storm-spin"
-          style="animation-duration:{leaf.duration / 2}s;"
+          style="animation-duration:{leaf.duration / 2.5}s;"
         >
           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
           {@html AMBIENT_ART[leaf.art]}

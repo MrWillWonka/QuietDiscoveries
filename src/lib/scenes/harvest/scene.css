@@ -220,9 +220,9 @@ html[data-scene="harvest"]:not(:has(.scene-stage)) body {
   transition: opacity 1.2s ease;
 }
 
-/* When the room is calm again a gust sweeps it all away: the pile slides
-   down and off to the side, the stuck leaves blow off, and the last of it
-   fades (LeafStorm sets the sheets' way out). */
+/* When the room is calm again the leaves drop away: the layer slides down
+   off the bottom, the landed leaves fall after it, and the last of it fades
+   (LeafStorm sets the sheets' way out). */
 .leaf-storm-sweep {
   transition: opacity 2.5s cubic-bezier(0.6, 0, 0.9, 0.6);
 }
@@ -236,7 +236,7 @@ html[data-scene="harvest"]:not(:has(.scene-stage)) body {
 }
 
 .leaf-storm[data-phase="clearing"] .leaf-storm-stuck.shown {
-  transform: translate(60cqw, -30cqh) rotate(calc(var(--turn) + 240deg));
+  transform: translate(-50%, 110cqh) rotate(calc(var(--turn) + 160deg));
   transition: transform 2.2s cubic-bezier(0.5, 0, 0.75, 0.4);
 }
 
@@ -247,14 +247,16 @@ html[data-scene="harvest"]:not(:has(.scene-stage)) body {
   transition: none;
 }
 
-/* Each sheet is a little taller than the screen, its ragged top edge above
-   the top when full, and rises by sliding up: drawn once, then only moved. */
+/* Each sheet is a little taller than the screen, its ragged fringe below
+   the bottom when full, and comes down by sliding: drawn once, then only
+   moved. */
 .leaf-storm-sheet {
   position: absolute;
   /* Wider than the screen, so the sweep never shows a sheet's side. */
   inset-inline: -15%;
-  top: -45%;
-  height: 145%;
+  /* Its ragged top stays above the screen once it is full. */
+  top: -10%;
+  height: 155%;
   will-change: transform;
   transition: transform 0.4s linear;
 }
@@ -265,12 +267,12 @@ html[data-scene="harvest"]:not(:has(.scene-stage)) body {
   height: 100%;
 }
 
-/* Leaves that blow onto the screen and stick there. */
+/* Leaves that land along the fringe and stay there. */
 .leaf-storm-stuck {
   position: absolute;
   opacity: 0;
-  transform: translate(calc(-6 * var(--wu)), -40%) scale(0.6)
-    rotate(calc(var(--turn) - 90deg));
+  transform: translate(-50%, -30cqh) scale(0.8)
+    rotate(calc(var(--turn) - 120deg));
   transition:
     opacity 0.9s ease-out,
     transform 1.4s cubic-bezier(0.2, 0.7, 0.3, 1);
@@ -288,42 +290,51 @@ html[data-scene="harvest"]:not(:has(.scene-stage)) body {
   height: auto;
 }
 
-/* Leaves gusting across while it is loud, each on its own path. */
-@keyframes leaf-storm-across {
+/* Leaves raining down while it is loud, swaying and tumbling, each landing
+   on the fringe (`--land`, set by LeafStorm as the layer comes down) and
+   settling into it. */
+@keyframes leaf-storm-fall {
   0% {
-    transform: translate(-10cqw, 0);
+    transform: translate(0, -12cqh);
     opacity: 0;
   }
   8% {
     opacity: 1;
   }
-  50% {
-    transform: translate(50cqw, -6cqh);
+  30% {
+    transform: translate(calc(2.4 * var(--wu)), calc(var(--land) * 0.3));
   }
-  92% {
+  60% {
+    transform: translate(calc(-2 * var(--wu)), calc(var(--land) * 0.65));
+  }
+  88% {
     opacity: 1;
   }
   100% {
-    transform: translate(110cqw, 4cqh);
+    transform: translate(calc(0.6 * var(--wu)), var(--land));
     opacity: 0;
   }
 }
 
 @keyframes leaf-storm-tumble {
-  to {
-    transform: rotate(360deg);
+  0%,
+  100% {
+    transform: rotate(-40deg);
+  }
+  50% {
+    transform: rotate(50deg);
   }
 }
 
-.leaf-storm-gust {
+.leaf-storm-fall {
   position: absolute;
-  left: 0;
+  top: 0;
   opacity: 0;
-  animation: leaf-storm-across linear infinite;
+  animation: leaf-storm-fall ease-in-out infinite;
 }
 
 .leaf-storm-spin {
-  animation: leaf-storm-tumble linear infinite;
+  animation: leaf-storm-tumble ease-in-out infinite;
 }
 
 /* Under reduced motion it only fades in by steps, and out (LeafStorm). */

@@ -41,7 +41,7 @@ describe("stormTarget", () => {
 });
 
 describe("stepFill", () => {
-  it("rises calmly, however suddenly the target jumps", () => {
+  it("comes down calmly, however suddenly the target jumps", () => {
     expect(stepFill(0, 1, 1)).toBeCloseTo(STORM.maxRate);
     let fill = 0;
     for (let t = 0; t < 1 / STORM.maxRate + 0.1; t += 0.1) {
@@ -65,7 +65,7 @@ describe("steppedFill", () => {
 });
 
 describe("sheetRise", () => {
-  it("puts the back sheet ahead and the front behind, all full at the top", () => {
+  it("puts the back sheet ahead and the front behind, all covering once full", () => {
     expect(sheetRise(0.5, 0)).toBeGreaterThan(sheetRise(0.5, 1));
     expect(sheetRise(0.5, 1)).toBeGreaterThan(sheetRise(0.5, 2));
     for (const layer of [0, 1, 2] as const) {

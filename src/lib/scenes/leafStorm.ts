@@ -1,7 +1,8 @@
 /**
- * Too Loud as a leaf storm (Autumn Harvest): leaves blow in and pile up from
- * the bottom of the screen until, if the room stays loud, it is covered and
- * the QDs are gone; when it is calm again a gust sweeps them away
+ * Too Loud as a leaf storm (Autumn Harvest): leaves fall from the top of the
+ * screen and a layer of them comes down over the view until, if the room
+ * stays loud, it is covered and the QDs are gone; when it is calm again the
+ * leaves drop away off the bottom
  * (`harvest/LeafStorm.svelte`). Only how full the screen is lives here, pure
  * and testable: who leaves, and when, is still the Session's.
  */
@@ -15,9 +16,9 @@ export const STORM = {
   pauseHold: 0.65,
   /** …taking this many seconds to get there. */
   pauseRampS: 24,
-  /** It never rises faster than this share of the screen a second. */
+  /** It never grows faster than this share of the screen a second. */
   maxRate: 1 / 8,
-  /** Seconds a gust takes to sweep it all away. */
+  /** Seconds the leaves take to drop away once it is calm. */
   clearS: 2.5,
 };
 
@@ -51,9 +52,9 @@ export function stormTarget(spell: Spell): number {
 }
 
 /**
- * The fill a moment later: rising towards the target no faster than
- * `maxRate`, so even a sudden jump (the last QD leaving) piles up calmly,
- * and never falling while the room is still loud.
+ * The fill a moment later: growing towards the target no faster than
+ * `maxRate`, so even a sudden jump (the last QD leaving) comes down calmly,
+ * and never shrinking while the room is still loud.
  */
 export function stepFill(fill: number, target: number, dt: number): number {
   if (target <= fill) return fill;
@@ -66,9 +67,9 @@ export function steppedFill(fill: number): number {
 }
 
 /**
- * How far up one sheet of the pile has risen, for a fill: the back sheet a
- * little ahead and the front a little behind, so the pile has depth, and all
- * three at the top once the screen is full.
+ * How far down the screen one sheet of the falling layer has come, for a
+ * fill: the back sheet a little ahead and the front a little behind, so the
+ * layer has depth, and all three covering the screen once it is full.
  */
 export function sheetRise(fill: number, layer: 0 | 1 | 2): number {
   const f = Math.max(0, Math.min(1, fill));

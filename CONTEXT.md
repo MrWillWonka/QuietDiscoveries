@@ -67,10 +67,11 @@ Turkey last. Its 23 QDs are 14 named animals, from Tilly the Baby Turkey to
 Tom the Turkey, and 9 **harvest items**, from a pumpkin to a pumpkin pie:
 10 Common, 8 Uncommon and 5 Rare. On top of those it has a Secret QD, Mr
 Applewhite. Its Note is Thanksgiving's trail sign. Too Loud is a **leaf
-storm**: leaves blow in and pile up from the bottom of the screen, until,
-if the QDs run away, it is covered by the time the last has gone; if the
-Scene only pauses, it fills about two thirds and holds. When the room is
-calm again a gust sweeps the leaves away.
+storm**: leaves fall from the top of the screen and a layer of them comes
+down over the view, until, if the QDs run away, it is covered by the time
+the last has gone; if the Scene only pauses, it comes about two thirds of
+the way down and holds. When the room is calm again the leaves drop away
+off the bottom.
 
 Over the Scene a wooden pill holds its **Discovery Leaves**: one circle for
 each QD unlocked so far, which fills with a leaf once the Class has spotted

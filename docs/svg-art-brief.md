@@ -903,16 +903,19 @@ The trees, the maples' leaf clusters, the bushes and the wheat sway gently,
 each at its own pace; the clouds drift a little to one side and back; three
 or four leaves come down at a time, on 7–12 s drifts. Nothing sparkles or
 flashes. Too Loud is a leaf storm, not a fog, with no veil and no filter
-(`harvest/LeafStorm.svelte`, `scenes/leafStorm.ts`): a few leaves gust
-across, then three pre-drawn leaf-pile sheets (`storm-back`, `storm-mid`,
-`storm-front`, 1600×1500, `xMidYMin slice`, their top 300 a ragged,
-thinning edge, the back one on a solid brown base) rise from the bottom
-and thicken, and single leaves stick to the screen above them. They only
-slide, so they are drawn once. Running away, the screen is covered by the
-time the last QD has left (or within a minute); pausing, it fills about
-two thirds and holds. Calm again, the pile slides away and fades in 2.5 s.
+(`harvest/LeafStorm.svelte`, `scenes/leafStorm.ts`): leaves rain down
+from above the top edge, tumbling and swaying, while three pre-drawn leaf
+sheets (`storm-back`, `storm-mid`, `storm-front`, 1600×1500,
+`xMidYMax slice`, their bottom 300 a ragged, thinning fringe, the back one
+on a solid brown base) slide down from the top and cover more of the view;
+the falling leaves land along the fringe, and single leaves settle there
+and are buried as it comes on. The sheets only slide, so they are drawn
+once. Running away, the screen is covered by the time the last QD has left
+(or within a minute); pausing, it comes about two thirds of the way down
+and holds. Calm again, the leaves drop away off the bottom and fade in
+2.5 s.
 The trees and bushes still lean a little further into the wind by
 transitions, since Too Loud holds every animation still. Under reduced
 motion nothing sways or falls, QDs fade in where they stand instead of
 peeking or being carried in, and the leaf storm fades in by steps and fades
-out, without rising or blowing about.
+out, without falling or sliding.
