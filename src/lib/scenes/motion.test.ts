@@ -41,8 +41,13 @@ describe("stepMotion", () => {
         minX = Math.min(minX, state.x);
         maxX = Math.max(maxX, state.x);
       }
-      // It actually wanders rather than sitting still.
-      expect(maxX - minX).toBeGreaterThan(0.02);
+      if (MOTION_PROFILES[style].still) {
+        // Settled where it came to rest, as a harvest item should be.
+        expect(maxX - minX).toBeLessThan(0.02);
+      } else {
+        // It actually wanders rather than sitting still.
+        expect(maxX - minX).toBeGreaterThan(0.02);
+      }
     });
   }
 

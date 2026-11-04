@@ -158,6 +158,19 @@
     --gap: 0.3rem;
   }
 
+  /* On a phone, small enough that two rows of a dozen still fit across. */
+  @media (max-width: 640px) {
+    .leaves {
+      --size: 1.6rem;
+      --gap: 0.25rem;
+      --pad: 0.4rem;
+    }
+    .many {
+      --size: 1.5rem;
+      --gap: 0.2rem;
+    }
+  }
+
   .circle {
     display: grid;
     place-items: center;

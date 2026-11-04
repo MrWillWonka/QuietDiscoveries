@@ -25,10 +25,7 @@ import {
 } from "./harvest/arrivals";
 import HarvestAmbient from "./harvest/AmbientLife.svelte";
 import * as harvestArt from "./harvest/artwork";
-import {
-  HARVEST_SCHEDULE,
-  isOpen as isHarvestOpen,
-} from "./harvest/calendar";
+import { HARVEST_SCHEDULE, isOpen as isHarvestOpen } from "./harvest/calendar";
 import harvestIcon from "./harvest/icon.svg";
 import { HIDING_PLACES as HARVEST_HIDING_PLACES } from "./harvest/layout";
 import { HARVEST_NOTE } from "./harvest/note";

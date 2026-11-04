@@ -467,9 +467,10 @@ export const MOTION_PROFILES: Record<MotionStyle, MotionProfile> = {
   },
   rest: {
     region: { xMin: 0.04, xMax: 0.96, yMin: 0, yMax: 1 },
-    speed: 0,
+    // Only ever settles a hair further into the grass, once in a long while.
+    speed: 0.0008,
     agility: 1,
-    reachX: 0,
+    reachX: 0.004,
     reachY: 0,
     restChance: 1,
     rest: [30, 60],

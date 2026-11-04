@@ -67,6 +67,8 @@ const en = {
     "scene.halloween.hint": "Bats, ghosts and jack-o'-lanterns",
     "scene.thanksgiving.name": "Thanksgiving",
     "scene.thanksgiving.hint": "Turkeys, geese and harvest QDs",
+    "scene.harvest.name": "Autumn Harvest",
+    "scene.harvest.hint": "Foxes, deer and turkeys",
     "hollow.limited": "Limited time",
     "hollow.daily": "A new QD every school day",
     "hollow.closesIn": "Leaves in {days} days",
@@ -480,6 +482,30 @@ const en = {
     "harvest-moon": "Harvest moon",
     elk: "Elk",
     "tom-turkey": "Tom Turkey",
+    "harvest-tilly": "Tilly the Baby Turkey",
+    "harvest-acorn": "Acorn the Squirrel",
+    "harvest-chippy": "Chippy the Chipmunk",
+    "harvest-clover": "Clover the Rabbit",
+    "harvest-rusty": "Rusty the Robin",
+    "harvest-hazel": "Hazel the Hedgehog",
+    "harvest-bandit": "Bandit the Raccoon",
+    "harvest-ember": "Ember the Fox",
+    "harvest-maple": "Maple the Fawn",
+    "harvest-oliver": "Oliver the Owl",
+    "harvest-pip": "Pip the Opossum",
+    "harvest-ruby": "Ruby the Cardinal",
+    "harvest-golden-ember": "Golden Ember",
+    "harvest-tom": "Tom the Turkey",
+    "harvest-patch": "Patch the Pumpkin",
+    "harvest-apple": "Harvest Apple",
+    "autumn-leaf": "Autumn Leaf",
+    "multicolored-corn": "Multicolored Corn",
+    "cozy-scarf": "Cozy Scarf",
+    "pumpkin-pie": "Pumpkin Pie",
+    "harvest-basket": "Harvest Basket",
+    "golden-acorn": "Golden Acorn",
+    "golden-leaf": "Golden Leaf",
+    "harvest-crown": "Harvest Crown",
   },
   // One line about each prehistoric Creature, shown in the collection.
   facts: {
@@ -610,6 +636,52 @@ const en = {
     elk: "A bull elk grows a brand new set of antlers every year, up to 2.5 cm (an inch) a day.",
     "tom-turkey":
       "A male turkey is called a tom. He fans out his tail and puffs up his feathers to say “Look at me!”",
+    "harvest-tilly":
+      "A baby turkey is called a poult. It can walk and peck for food the day after it hatches.",
+    "harvest-acorn":
+      "A squirrel buries hundreds of nuts in autumn, and sniffs many of them out again in winter.",
+    "harvest-chippy":
+      "A chipmunk carries seeds home in stretchy cheek pouches that can hold a whole pawful.",
+    "harvest-clover":
+      "A rabbit can turn its long ears to catch sounds coming from almost any direction.",
+    "harvest-rusty":
+      "A robin hops across the lawn and tilts its head to look for worms.",
+    "harvest-hazel":
+      "A hedgehog has about 5,000 spines, and rolls into a prickly ball when it is scared.",
+    "harvest-bandit":
+      "A raccoon’s front paws are so sensitive that it can tell what something is without looking.",
+    "harvest-ember":
+      "A fox curls its big bushy tail round itself like a warm blanket when it sleeps.",
+    "harvest-maple":
+      "A fawn’s white spots help it hide among the patches of sunlight on the ground.",
+    "harvest-oliver":
+      "An owl can turn its head about three-quarters of the way round to look behind it.",
+    "harvest-pip":
+      "The opossum is North America’s only marsupial: its babies ride in a pouch, then on its back.",
+    "harvest-ruby":
+      "Both male and female cardinals sing, and the males are a bright, bold red.",
+    "harvest-golden-ember":
+      "Red foxes can be any shade from pale gold to deep red, so a golden one is a lucky sight.",
+    "harvest-tom":
+      "A male turkey is called a tom. He fans out his tail and puffs up his feathers to show off.",
+    "harvest-patch":
+      "A pumpkin grows from one small seed on a long, twisty vine all summer long.",
+    "harvest-apple":
+      "There are thousands of kinds of apples, from sweet and crunchy to sour and juicy.",
+    "autumn-leaf":
+      "Leaves turn red, orange and gold in autumn when they stop making their green colour.",
+    "multicolored-corn":
+      "Every kernel on an ear of corn is a seed, and multicolored corn can show many colours on one cob.",
+    "cozy-scarf": "A cozy scarf is just right for a crisp, breezy autumn day.",
+    "pumpkin-pie":
+      "Pumpkin pie is made with pumpkins picked in the fall, baked to share with friends.",
+    "harvest-basket":
+      "A harvest basket holds the good things picked from the field: apples, squash and more.",
+    "golden-acorn": "Every great big oak tree started out as one little acorn.",
+    "golden-leaf":
+      "Some trees, like ginkgos and aspens, turn bright gold all over in autumn.",
+    "harvest-crown":
+      "A harvest crown of wheat and leaves celebrates the end of a good harvest.",
   },
 } as const;
 
@@ -732,6 +804,8 @@ const es = {
     "scene.halloween.hint": "Murciélagos, fantasmas y calabazas",
     "scene.thanksgiving.name": "Acción de Gracias",
     "scene.thanksgiving.hint": "Pavos, gansos y QDs de la cosecha",
+    "scene.harvest.name": "Cosecha de otoño",
+    "scene.harvest.hint": "Zorros, ciervos y pavos",
     "hollow.limited": "Por tiempo limitado",
     "hollow.daily": "Un QD nuevo cada día de clase",
     "hollow.closesIn": "Se va en {days} días",
@@ -1179,6 +1253,30 @@ const es = {
     "harvest-moon": "Luna de la cosecha",
     elk: "Uapití",
     "tom-turkey": "Tom el Pavo",
+    "harvest-tilly": "Tilly la Pavita",
+    "harvest-acorn": "Acorn la Ardilla",
+    "harvest-chippy": "Chippy la Ardilla Listada",
+    "harvest-clover": "Clover el Conejo",
+    "harvest-rusty": "Rusty el Petirrojo",
+    "harvest-hazel": "Hazel el Erizo",
+    "harvest-bandit": "Bandit el Mapache",
+    "harvest-ember": "Ember el Zorro",
+    "harvest-maple": "Maple el Cervatillo",
+    "harvest-oliver": "Oliver el Búho",
+    "harvest-pip": "Pip la Zarigüeya",
+    "harvest-ruby": "Ruby el Cardenal",
+    "harvest-golden-ember": "Ember Dorado",
+    "harvest-tom": "Tom el Pavo",
+    "harvest-patch": "Patch la Calabaza",
+    "harvest-apple": "Manzana de la cosecha",
+    "autumn-leaf": "Hoja de otoño",
+    "multicolored-corn": "Maíz multicolor",
+    "cozy-scarf": "Bufanda calentita",
+    "pumpkin-pie": "Pastel de calabaza",
+    "harvest-basket": "Cesta de la cosecha",
+    "golden-acorn": "Bellota dorada",
+    "golden-leaf": "Hoja dorada",
+    "harvest-crown": "Corona de la cosecha",
   },
   facts: {
     didelphodon:
@@ -1307,6 +1405,53 @@ const es = {
     elk: "El uapití macho estrena cornamenta cada año, ¡y puede crecerle unos 2,5 cm al día!",
     "tom-turkey":
       "Para presumir, el pavo macho abre la cola en abanico y se infla como diciendo «¡Mírame!».",
+    "harvest-tilly":
+      "Una cría de pavo se llama pavipollo. Ya camina y picotea comida al día siguiente de nacer.",
+    "harvest-acorn":
+      "La ardilla entierra cientos de frutos secos en otoño y en invierno encuentra muchos con el olfato.",
+    "harvest-chippy":
+      "La ardilla listada lleva semillas a casa en sus mofletes elásticos, ¡caben un buen puñado!",
+    "harvest-clover":
+      "El conejo puede girar sus largas orejas para oír sonidos de casi cualquier dirección.",
+    "harvest-rusty":
+      "El petirrojo da saltitos por la hierba e inclina la cabeza para buscar gusanos.",
+    "harvest-hazel":
+      "El erizo tiene unas 5.000 púas y se enrosca como una bola espinosa cuando se asusta.",
+    "harvest-bandit":
+      "Las patas delanteras del mapache son tan sensibles que sabe qué toca sin mirarlo.",
+    "harvest-ember":
+      "El zorro se envuelve en su gran cola peluda como en una manta calentita para dormir.",
+    "harvest-maple":
+      "Las manchas blancas del cervatillo lo ayudan a esconderse entre los rayitos de sol del suelo.",
+    "harvest-oliver":
+      "El búho puede girar la cabeza unas tres cuartas partes de una vuelta para mirar detrás de él.",
+    "harvest-pip":
+      "La zarigüeya es el único marsupial de Norteamérica: sus crías viajan en la bolsa y luego en su espalda.",
+    "harvest-ruby":
+      "Los cardenales machos y hembras cantan, y los machos son de un rojo intenso.",
+    "harvest-golden-ember":
+      "Los zorros rojos pueden ser de cualquier tono, del dorado claro al rojo oscuro: ¡ver uno dorado es una suerte!",
+    "harvest-tom":
+      "El pavo macho despliega la cola en abanico y ahueca las plumas para lucirse.",
+    "harvest-patch":
+      "Una calabaza crece de una sola semilla pequeña en una planta larga y retorcida durante todo el verano.",
+    "harvest-apple":
+      "Hay miles de variedades de manzanas, desde dulces y crujientes hasta ácidas y jugosas.",
+    "autumn-leaf":
+      "En otoño las hojas se vuelven rojas, naranjas y doradas cuando dejan de fabricar su color verde.",
+    "multicolored-corn":
+      "Cada grano de una mazorca es una semilla, y el maíz multicolor tiene muchos colores en la misma mazorca.",
+    "cozy-scarf":
+      "Una bufanda calentita es perfecta para un día fresco y ventoso de otoño.",
+    "pumpkin-pie":
+      "El pastel de calabaza se hace con calabazas recogidas en otoño y se hornea para compartir.",
+    "harvest-basket":
+      "La cesta de la cosecha guarda lo bueno que se recoge en el campo: manzanas, calabazas y más.",
+    "golden-acorn": "Cada roble grandísimo empezó siendo una pequeña bellota.",
+    "golden-leaf":
+      "Algunos árboles, como el ginkgo y el álamo temblón, se vuelven totalmente dorados en otoño.",
+    "harvest-crown":
+      "Una corona de trigo y hojas celebra el final de una buena cosecha.",
   },
 } satisfies Language;
 
@@ -1366,6 +1511,8 @@ const fr = {
     "scene.halloween.hint": "Chauves-souris, fantômes et citrouilles",
     "scene.thanksgiving.name": "Thanksgiving",
     "scene.thanksgiving.hint": "Dindons, bernaches et QDs des moissons",
+    "scene.harvest.name": "Moissons d’automne",
+    "scene.harvest.hint": "Renards, cerfs et dindons",
     "hollow.limited": "Édition limitée",
     "hollow.daily": "Un nouveau QD chaque jour d’école",
     "hollow.closesIn": "Part dans {days} jours",
@@ -1818,6 +1965,30 @@ const fr = {
     "harvest-moon": "Lune des moissons",
     elk: "Wapiti",
     "tom-turkey": "Tom le Dindon",
+    "harvest-tilly": "Tilly le Dindonneau",
+    "harvest-acorn": "Acorn l’Écureuil",
+    "harvest-chippy": "Chippy le Tamia",
+    "harvest-clover": "Clover le Lapin",
+    "harvest-rusty": "Rusty le Merle",
+    "harvest-hazel": "Hazel le Hérisson",
+    "harvest-bandit": "Bandit le Raton laveur",
+    "harvest-ember": "Ember le Renard",
+    "harvest-maple": "Maple le Faon",
+    "harvest-oliver": "Oliver le Hibou",
+    "harvest-pip": "Pip l’Opossum",
+    "harvest-ruby": "Ruby le Cardinal",
+    "harvest-golden-ember": "Ember Doré",
+    "harvest-tom": "Tom le Dindon",
+    "harvest-patch": "Patch la Citrouille",
+    "harvest-apple": "Pomme des moissons",
+    "autumn-leaf": "Feuille d’automne",
+    "multicolored-corn": "Maïs multicolore",
+    "cozy-scarf": "Écharpe douillette",
+    "pumpkin-pie": "Tarte à la citrouille",
+    "harvest-basket": "Panier des moissons",
+    "golden-acorn": "Gland doré",
+    "golden-leaf": "Feuille dorée",
+    "harvest-crown": "Couronne des moissons",
   },
   facts: {
     didelphodon:
@@ -1948,6 +2119,54 @@ const fr = {
     elk: "Le wapiti mâle refait tous ses bois chaque année, et ils peuvent pousser de 2,5 cm par jour !",
     "tom-turkey":
       "Pour se faire remarquer, le dindon mâle déploie sa queue en éventail et gonfle ses plumes comme pour dire « Regardez-moi ! ».",
+    "harvest-tilly":
+      "Un bébé dindon s’appelle un dindonneau. Dès le lendemain de son éclosion, il marche et picore.",
+    "harvest-acorn":
+      "L’écureuil enterre des centaines de noix en automne et en retrouve beaucoup à l’odeur en hiver.",
+    "harvest-chippy":
+      "Le tamia rapporte des graines chez lui dans ses joues extensibles, qui en contiennent une bonne poignée.",
+    "harvest-clover":
+      "Le lapin peut tourner ses longues oreilles pour entendre les sons venant de presque partout.",
+    "harvest-rusty":
+      "Le merle d’Amérique sautille sur l’herbe et penche la tête pour chercher des vers.",
+    "harvest-hazel":
+      "Le hérisson a environ 5 000 piquants et se roule en boule quand il a peur.",
+    "harvest-bandit":
+      "Les pattes avant du raton laveur sont si sensibles qu’il reconnaît les choses sans les regarder.",
+    "harvest-ember":
+      "Le renard s’enroule dans sa grande queue touffue comme dans une couverture pour dormir.",
+    "harvest-maple":
+      "Les taches blanches du faon l’aident à se cacher parmi les taches de soleil sur le sol.",
+    "harvest-oliver":
+      "Le hibou peut tourner la tête de trois quarts de tour pour regarder derrière lui.",
+    "harvest-pip":
+      "L’opossum est le seul marsupial d’Amérique du Nord : ses petits voyagent dans sa poche, puis sur son dos.",
+    "harvest-ruby":
+      "Chez les cardinaux, le mâle et la femelle chantent tous les deux, et le mâle est d’un rouge éclatant.",
+    "harvest-golden-ember":
+      "Les renards roux vont du doré pâle au rouge foncé : en croiser un tout doré, c’est une vraie chance !",
+    "harvest-tom":
+      "Le dindon mâle déploie sa queue en éventail et gonfle ses plumes pour se faire remarquer.",
+    "harvest-patch":
+      "Une citrouille pousse tout l’été à partir d’une seule petite graine, sur une longue tige tordue.",
+    "harvest-apple":
+      "Il existe des milliers de variétés de pommes, des sucrées et croquantes aux acidulées et juteuses.",
+    "autumn-leaf":
+      "En automne, les feuilles deviennent rouges, orange et dorées quand elles cessent de fabriquer leur couleur verte.",
+    "multicolored-corn":
+      "Chaque grain d’un épi de maïs est une graine, et le maïs multicolore a plein de couleurs sur un même épi.",
+    "cozy-scarf":
+      "Une écharpe douillette, c’est parfait pour une journée d’automne fraîche et venteuse.",
+    "pumpkin-pie":
+      "La tarte à la citrouille se prépare avec des citrouilles cueillies en automne, pour la partager.",
+    "harvest-basket":
+      "Le panier des moissons contient les bonnes choses récoltées au champ : pommes, courges et plus encore.",
+    "golden-acorn":
+      "Chaque grand chêne a commencé sa vie sous la forme d’un petit gland.",
+    "golden-leaf":
+      "Certains arbres, comme le ginkgo et le peuplier faux-tremble, deviennent tout dorés en automne.",
+    "harvest-crown":
+      "Une couronne de blé et de feuilles fête la fin d’une belle moisson.",
   },
 } satisfies Language;
 
