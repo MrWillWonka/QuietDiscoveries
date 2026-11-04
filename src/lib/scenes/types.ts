@@ -77,6 +77,12 @@ export interface CreatureDef {
   /** The part-* classes actually present in the artwork. */
   parts: AnimatablePart[];
   /**
+   * Keeps its arrival glow and sparkles for as long as it stays, instead of
+   * settling after a minute like any other Rare: for a Secret so rare the
+   * class should never mistake it for everyone else (Mr Applewhite).
+   */
+  alwaysGlistens?: boolean;
+  /**
    * A harvest item that, once in a long while, arrives awake
    * (`session/awake.ts`): drawn from the Scene's `awakeArt`, with a face and
    * tiny feet, and moving like this instead of settling where it lands. Its

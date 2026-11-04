@@ -227,8 +227,9 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "mr-applewhite",
     tier: "rare",
-    width: 46,
+    width: 54,
     motion: "hop",
     parts: ["part-tail", "part-head"],
+    alwaysGlistens: true,
   },
 ];

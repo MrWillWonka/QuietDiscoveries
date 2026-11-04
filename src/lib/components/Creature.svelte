@@ -180,12 +180,13 @@
    * An Uncommon or Rare Creature glistens for its first minute in the Scene,
    * so the class notices it, then settles down to look like everyone else.
    * One brought back from before a refresh has had its minute already.
+   * One that `alwaysGlistens` never settles, refresh or not.
    */
   const GLISTEN_MS = 60_000;
   const SETTLE_MS = 2000;
   // Only the value it mounts with matters: the timer below takes it from there.
   // svelte-ignore state_referenced_locally
-  let glistening = $state(!creature.restored);
+  let glistening = $state(!!creature.def.alwaysGlistens || !creature.restored);
 
   /**
    * Has turned to listen. Each Creature turns a moment after the pause, the
@@ -235,7 +236,9 @@
     resize.observe(scene);
     resize.observe(swimmer);
 
-    const settle = setTimeout(() => (glistening = false), GLISTEN_MS);
+    const settle = creature.def.alwaysGlistens
+      ? undefined
+      : setTimeout(() => (glistening = false), GLISTEN_MS);
 
     /** The screen, as the hiding places need it (`scenes/hiding.ts`). */
     const screen = (): View => ({
