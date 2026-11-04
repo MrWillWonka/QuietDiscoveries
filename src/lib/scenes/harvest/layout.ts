@@ -128,9 +128,9 @@ export const FIELD: FieldPiece[] = [
   // QD, though harvest items land on it (`TABLE`) and animals hide behind it.
   {
     art: "picnic-table",
-    x: 29,
+    x: 28,
     base: 0.735,
-    wu: 17,
+    wu: 22,
     sway: "none",
     hides: { width: 0.9, height: 0.85 },
   },

@@ -65,7 +65,8 @@ export function loadReef(
         if (awake === true && def.awake) instance.awake = true;
         else if (typeof wakeIn === "number" && def.awake)
           instance.wakeIn = wakeIn;
-        if (typeof perch === "number" && !instance.awake) instance.perch = perch;
+        if (typeof perch === "number" && !instance.awake)
+          instance.perch = perch;
         return [instance];
       },
     );

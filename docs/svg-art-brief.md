@@ -871,7 +871,8 @@ The artwork is generated flat SVG in `harvest/ambient/`: `backdrop`
 meadow, field, path, tufts and fallen leaves, with the sky and the field
 as its only gradients), `sun`, `cloud`, `round-tree`, `round-tree-far`,
 `barn`, `windmill` (its `harvest-windmill-wheel` turns slowly),
-`fence-left`, `fence-right`, `hay-bale`, `wheat-sheaf`, `rock`, `stump`, `shrub`,
+`fence-left`, `fence-right`, `hay-bale`, `wheat-sheaf`, `rock`, `stump`, `shrub`, `picnic-table` (dark weathered wood, benches
+included; items can sit on its top),
 `maple-left`, `maple-right`, `bush-left`, `bush-right` and `leaf-1` to
 `leaf-3`. Props are drawn at 20 units per wu. Every id is prefixed
 `harvest-`. The maples and bushes group their leaves in `harvest-sway`

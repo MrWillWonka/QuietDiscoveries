@@ -16,6 +16,16 @@
   // Bookkeeping between Creatures, never shown: nothing needs to react to it.
   // eslint-disable-next-line svelte/prefer-svelte-reactivity
   const busyPlaces = new Set<string>();
+
+  /**
+   * How near each wandering Creature had come (`depthWander`), so one drawn
+   * afresh carries on at the same size.
+   */
+  const depths = new WeakMap<CreatureInstance, number>();
+
+  /** Items sitting on the picnic table, so newcomers land where there is room. */
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  const tableSpots = new Map<CreatureInstance, Spot>();
 </script>
 
 <script lang="ts">
@@ -35,8 +45,10 @@
   import { fade } from "svelte/transition";
   import {
     FADE_S,
+    FIELD_BAND,
     FLEE_SPEED,
     MOTION_PROFILES,
+    groundLayer,
     bankAngle,
     createMotion,
     creatureLayer,
@@ -47,9 +59,25 @@
     stepFlee,
     stepMotion,
     stepSettle,
+    type Band,
     type DepartureStyle,
     type Footprint,
+    type MotionStyle,
   } from "$lib/scenes/motion";
+  import {
+    depthRate,
+    depthScale,
+    nextLeg,
+    stepDepth,
+  } from "$lib/scenes/depthWander";
+  import {
+    chooseTableSpot,
+    onScreen,
+    perchLayer,
+    perchOnScreen,
+    type Spot,
+    type TableDef,
+  } from "$lib/scenes/table";
   import { cancelFrame, requestFrame } from "$lib/frames";
   import {
     blowDirection,
@@ -64,6 +92,7 @@
     PEEK_TIMING,
     chooseCover,
     chooseHidingPlace,
+    depthAt,
     feetAt,
     peekPose,
     type HidingPlace,
@@ -87,6 +116,9 @@
     wakeIn,
     onwake,
     hidingPlaces,
+    depthWander = false,
+    table,
+    onperch,
   }: {
     creature: CreatureInstance;
     art: string;
@@ -125,6 +157,15 @@
      * the nearest one if that is nearer than the edge of the screen.
      */
     hidingPlaces?: HidingPlace[];
+    /**
+     * A ground Creature wanders nearer and further as well as sideways, and
+     * its size follows (`SceneDef.depthWander`).
+     */
+    depthWander?: boolean;
+    /** A table some harvest items land on (`SceneDef.table`). */
+    table?: TableDef;
+    /** It has landed on the table there, or left it (null). */
+    onperch?: (x: number | null) => void;
   } = $props();
 
   /**
@@ -168,14 +209,34 @@
    * depth and walks out from there, or runs back behind one.
    */
   // svelte-ignore state_referenced_locally
-  let shownDepth = $state(creature.depth);
+  let shownDepth = $state(depths.get(creature) ?? creature.depth);
+
+  /** Sitting on the picnic table: drawn just in front of it. */
+  let perched = $state(false);
 
   const fading = $derived(fleeing && departure === "fade");
 
   /** Nearer Creatures are bigger; the roster width sets the species scale. */
-  const width = $derived((defWidth / 1920) * 100 * (0.7 + shownDepth * 0.7));
+  const width = $derived(
+    (defWidth / 1920) * 100 * depthScale(shownDepth, depthWander),
+  );
 
   const profile = $derived(MOTION_PROFILES[motion]);
+
+  /**
+   * The ground it walks: the whole field, back to front, when it wanders
+   * nearer and further; otherwise its motion's own band.
+   */
+  function bandFor(style: MotionStyle): Band | undefined {
+    const one = MOTION_PROFILES[style];
+    return depthWander && one.ground && !one.hangs ? FIELD_BAND : one.band;
+  }
+  const band = $derived(bandFor(motion));
+  const layer = $derived(
+    perched && table
+      ? perchLayer(groundLayer(table.base))
+      : creatureLayer(profile, shownDepth, band),
+  );
 
   /**
    * Where a Rare Creature's sparkles twinkle, as % of its box. Spread round
@@ -265,17 +326,25 @@
     /** Its size on screen at any depth, worked out rather than measured. */
     const hider = (depth: number): Hider => ({
       motion: style,
+      band: bandFor(style),
       depth,
       sizeAt: (at) => {
         const wu = Math.max(sceneW, (4 / 3) * sceneH) / 100;
-        const w = (defWidth / 1920) * 100 * (0.7 + at * 0.7) * wu;
+        const w = (defWidth / 1920) * 100 * depthScale(at, depthWander) * wu;
         const aspect = selfW > 0 ? selfH / selfW : 1;
         return { width: w / sceneW, height: (w * aspect) / sceneH };
       },
     });
     /** Where its centre is, down, for a depth: feet on the ground line. */
     const centreAt = (depth: number) =>
-      feetAt(style, depth) - hider(depth).sizeAt(depth).height / 2;
+      feetAt(style, depth, bandFor(style)) -
+      hider(depth).sizeAt(depth).height / 2;
+    /** Its width on the table, in wu, at the table's depth. */
+    const tableDepth = table
+      ? depthAt(style, table.base, bandFor(style))
+      : creature.depth;
+    const widthOnTable =
+      (defWidth / 19.2) * depthScale(tableDepth, depthWander);
 
     const state =
       motions.get(creature) ??
@@ -287,8 +356,56 @@
         footprint(),
         Math.random,
         creature.def.flips,
+        bandFor(style),
       );
     motions.set(creature, state);
+
+    /**
+     * On the picnic table: a newcomer that is one of the table's items may
+     * land there, if there is room and it would be on screen; one brought
+     * back keeps the spot it had.
+     */
+    let perch = creature.awake ? undefined : creature.perch;
+    if (shy && table && !creature.awake && perch === undefined) {
+      const spot = chooseTableSpot(
+        table,
+        creature.def.slug,
+        widthOnTable,
+        [...tableSpots.entries()]
+          .filter(([other]) => other !== creature)
+          .map(([, one]) => one),
+        Math.random,
+      );
+      if (spot !== null && onScreen(spot, widthOnTable, screen())) {
+        perch = spot;
+        onperch?.(spot);
+      }
+    }
+    if (perch !== undefined && table) {
+      tableSpots.set(creature, { x: perch, width: widthOnTable });
+      perched = true;
+      shownDepth = tableDepth;
+    }
+    /** Where on screen it sits on the table, centred. */
+    const perchCentre = () => {
+      const at = perchOnScreen(table!, perch!, screen());
+      return {
+        x: at.x,
+        y: at.feet - hider(tableDepth).sizeAt(tableDepth).height / 2,
+      };
+    };
+    /** Hopping down off the table once it has woken, `t` seconds in. */
+    let hop: {
+      fromX: number;
+      fromY: number;
+      toX: number;
+      depth: number;
+      t: number;
+    } | null = null;
+
+    /** Wandering nearer and further: the depth the current leg heads for. */
+    let targetDepth = shownDepth;
+    let legTarget = state.targetX;
 
     /** Hiding, peeking and stepping out, `t` seconds in. */
     let peek: {
@@ -309,11 +426,12 @@
       if (reducedMotion.matches) {
         fadingIn = 0;
       } else {
-        const kind = arrival === "peek" ? "roll" : arrival;
+        // Onto the table it floats down; onto the grass, its own way.
+        const kind = perched ? "float" : arrival === "peek" ? "roll" : arrival;
         const plan = planGust(
           kind,
-          { x: state.x, y: state.y },
-          hider(creature.depth).sizeAt(creature.depth),
+          perched ? perchCentre() : { x: state.x, y: state.y },
+          hider(shownDepth).sizeAt(shownDepth),
         );
         gust = { plan, t: 0 };
         state.x = plan.fromX;
@@ -422,7 +540,9 @@
             angle: 0,
             age: 0,
           };
-          const away = leaveStyle(arrival) === "drift" ? "drift" : "roll";
+          // Off the table it lifts and drifts away rather than rolling.
+          const away =
+            perched || leaveStyle(arrival) === "drift" ? "drift" : "roll";
           const gone = stepBlown(
             blown,
             away,
@@ -445,7 +565,9 @@
         // then fade once out of sight behind it.
         const plan = cover;
         const ground = profile.ground;
-        const feet = ground ? feetAt(style, shownDepth) : state.y;
+        const feet = ground
+          ? feetAt(style, shownDepth, bandFor(style))
+          : state.y;
         const dx = plan.hiddenX - state.x;
         const dy = (plan.feet - feet) * (sceneH / sceneW);
         const distance = Math.hypot(dx, dy);
@@ -492,7 +614,9 @@
               hider(shownDepth),
               {
                 x: state.x,
-                feet: profile.ground ? feetAt(style, shownDepth) : state.y,
+                feet: profile.ground
+                  ? feetAt(style, shownDepth, bandFor(style))
+                  : state.y,
               },
               screen(),
             );
@@ -513,7 +637,17 @@
           // Speed lines trail on the side it is running away from.
           swimmer.dataset.bolting = fleeingTo > 0 ? "right" : "left";
         }
-        if (stepFlee(state, style, shownDepth, footprint(), fleeingTo, dt)) {
+        if (
+          stepFlee(
+            state,
+            style,
+            shownDepth,
+            footprint(),
+            fleeingTo,
+            dt,
+            bandFor(style),
+          )
+        ) {
           ongone();
           return;
         }
@@ -533,6 +667,28 @@
           state.vy = 0;
           state.resting = 0.5 + Math.random();
         }
+      } else if (hop) {
+        // Awake on the table: a hop down onto the grass in front of it.
+        hop.t += dt;
+        const p = Math.min(1, hop.t / 0.7);
+        const toY = centreAt(hop.depth);
+        state.x = hop.fromX + (hop.toX - hop.fromX) * p;
+        state.y =
+          hop.fromY + (toY - hop.fromY) * p - Math.sin(Math.PI * p) * 0.05;
+        state.age += dt;
+        if (p >= 1) {
+          hop = null;
+          state.vx = 0;
+          state.vy = 0;
+          state.resting = 0.6;
+          legTarget = state.targetX;
+        }
+      } else if (perched) {
+        // Sitting on the table: it stays put, only rocking a little.
+        const at = perchCentre();
+        state.x = at.x;
+        state.y = at.y;
+        state.age += dt;
       } else if (peek) {
         // Hidden behind its prop, peeking out, then stepping into the Scene.
         // Paused or not, it finishes coming out first.
@@ -564,7 +720,7 @@
           endPeek();
         }
       } else if (listening) {
-        stepSettle(state, style, creature.depth, footprint(), dt);
+        stepSettle(state, style, shownDepth, footprint(), dt, bandFor(style));
         if (!attending && whilePaused === "listen") {
           // Real time, like fading: reduced motion should not keep a Creature
           // looking away for five times as long.
@@ -585,7 +741,46 @@
           shaking = true;
           state.resting = 0.4 + Math.random() * 1.4;
         }
-        stepMotion(state, style, creature.depth, footprint(), dt, Math.random);
+        stepMotion(
+          state,
+          style,
+          shownDepth,
+          footprint(),
+          dt,
+          Math.random,
+          bandFor(style),
+        );
+        if (depthWander && profile.ground && !profile.still) {
+          // A new waypoint: a slant to a new depth, straight along, or a
+          // stroll mostly forward or back (`nextLeg`).
+          if (state.targetX !== legTarget) {
+            const leg = nextLeg(
+              state.x,
+              state.targetX,
+              shownDepth,
+              Math.random,
+            );
+            state.targetX = leg.targetX;
+            targetDepth = leg.targetDepth;
+            legTarget = state.targetX;
+          }
+          const walkBand = bandFor(style) ?? FIELD_BAND;
+          const next = stepDepth(
+            shownDepth,
+            targetDepth,
+            depthRate(
+              profile.speed * (0.75 + shownDepth * 0.5),
+              walkBand.bottom - walkBand.top,
+              sceneH / sceneW,
+            ),
+            state.resting <= 0,
+            dt,
+          );
+          if (Math.abs(next - shownDepth) > 1e-5) {
+            shownDepth = next;
+            depths.set(creature, next);
+          }
+        }
       }
 
       // A harvest item rolled to wake: once it has settled and the room has
@@ -622,6 +817,24 @@
         );
         Object.assign(state, fresh, { x: state.x, y: state.y, resting: 1 });
         style = motion;
+        if (perched) {
+          // Awake on the table: it hops down to the grass in front.
+          perched = false;
+          tableSpots.delete(creature);
+          const front = Math.min(
+            1,
+            depthAt(style, table!.base + 0.03, bandFor(style)),
+          );
+          hop = {
+            fromX: state.x,
+            fromY: state.y,
+            toX: state.x + (state.x < 0.5 ? 0.03 : -0.03),
+            depth: front,
+            t: 0,
+          };
+          shownDepth = front;
+          targetDepth = front;
+        }
       }
 
       if (fadingIn !== null) {
@@ -665,6 +878,7 @@
 
     return () => {
       if (peek) busyPlaces.delete(peek.plan.place.name);
+      tableSpots.delete(creature);
       cancelFrame(frame);
       resize.disconnect();
       clearTimeout(settle);
@@ -681,7 +895,7 @@
   data-listening={attending}
   data-holding={listening && whilePaused === "hold" && !fleeing}
   style:width="calc({width} * var(--wu))"
-  style:z-index={creatureLayer(profile, shownDepth)}
+  style:z-index={layer}
   style:opacity={depthFade ? 0.62 + creature.depth * 0.38 : 1}
 >
   <!--

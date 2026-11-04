@@ -95,6 +95,12 @@ back behind the nearest **hiding place** if one is nearer than the edge,
 and an item is blown off the edge. Only how they come and go differs:
 which QD arrives, and who leaves and when, are the same as everywhere.
 
+In this field the QDs also wander **nearer and further**: a QD walking
+forward across the meadow grows, and one walking back towards the fence
+shrinks, passing in front of or behind the props as it goes. A **picnic
+table** stands in the field; some harvest items land on its top instead of
+the grass and stay there, and one that transforms hops down to wander.
+
 ## Secret QD
 
 A QD a Limited-time Scene's calendar lets in quietly on its own day, with

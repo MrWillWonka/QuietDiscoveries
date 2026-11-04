@@ -22,7 +22,8 @@ export function wanderScale(depth: number): number {
   // The quadratic through (0, back), (0.5, middle) and (1, front).
   const b = 4 * middle - 3 * back - front;
   const c = 2 * (back + front) - 4 * middle;
-  const d = Math.max(-0.2, Math.min(1.2, depth));
+  // Past the front it stops growing rather than turning back.
+  const d = Math.max(-0.2, Math.min(1.05, depth));
   return back + b * d + c * d * d;
 }
 
