@@ -78,9 +78,11 @@ export interface CreatureDef {
   /**
    * A harvest item that, once in a long while, arrives awake
    * (`session/awake.ts`): drawn from the Scene's `awakeArt`, with a face and
-   * tiny feet, and moving like this instead of settling where it lands.
+   * tiny feet, and moving like this instead of settling where it lands. Its
+   * own width when the awake drawing stands differently (corn lies on its
+   * side asleep but stands up awake), and the part-* classes in that file.
    */
-  awake?: { motion: MotionStyle };
+  awake?: { motion: MotionStyle; width?: number; parts: AnimatablePart[] };
 }
 
 /**
