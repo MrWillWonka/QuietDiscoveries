@@ -83,7 +83,8 @@
   {#each creatures as creature (`${scene.id}:${creature.id}`)}
     <Creature
       {creature}
-      art={scene.creatureArt[creature.def.slug]}
+      art={(creature.awake && scene.awakeArt?.[creature.def.slug]) ||
+        scene.creatureArt[creature.def.slug]}
       listeningArt={scene.listeningArt[creature.def.slug]}
       depthFade={scene.depthFade}
       departure={creature.def.departure ?? scene.departure}
@@ -93,6 +94,7 @@
       {listening}
       fleeing={fleeing.includes(creature.id)}
       ongone={() => ondepart(creature.id)}
+      hidingPlaces={scene.hidingPlaces}
     />
   {/each}
 

@@ -8,6 +8,12 @@
    * spot rather than jumping back to where it arrived.
    */
   const motions = new WeakMap<CreatureInstance, MotionState>();
+
+  /**
+   * Hiding places in use by a Creature peeking out right now, by name, so
+   * several arriving at once spread out behind different props.
+   */
+  const busyPlaces = new Set<string>();
 </script>
 
 <script lang="ts">
@@ -27,6 +33,7 @@
   import { fade } from "svelte/transition";
   import {
     FADE_S,
+    FLEE_SPEED,
     MOTION_PROFILES,
     bankAngle,
     createMotion,
@@ -42,6 +49,17 @@
     type Footprint,
   } from "$lib/scenes/motion";
   import { cancelFrame, requestFrame } from "$lib/frames";
+  import {
+    PEEK_TIMING,
+    chooseCover,
+    chooseHidingPlace,
+    feetAt,
+    peekPose,
+    type HidingPlace,
+    type HidingPlan,
+    type Hider,
+    type View,
+  } from "$lib/scenes/hiding";
 
   let {
     creature,
@@ -55,6 +73,7 @@
     listening,
     fleeing,
     ongone,
+    hidingPlaces,
   }: {
     creature: CreatureInstance;
     art: string;
@@ -80,16 +99,47 @@
     fleeing: boolean;
     /** Called once when a fleeing Creature is out of sight. */
     ongone: () => void;
+    /**
+     * Props it can hide behind (`SceneDef.hidingPlaces`). Given, it arrives
+     * hidden behind one and peeks out, and when scared off runs back behind
+     * the nearest one if that is nearer than the edge of the screen.
+     */
+    hidingPlaces?: HidingPlace[];
   } = $props();
+
+  /** How it moves: an awake harvest item wanders, where asleep it rests. */
+  const motion = $derived(
+    creature.awake && creature.def.awake
+      ? creature.def.awake.motion
+      : creature.def.motion,
+  );
+  const defWidth = $derived(
+    (creature.awake && creature.def.awake?.width) || creature.def.width,
+  );
+
+  /**
+   * Shy: arriving just now, in a Scene with places to hide, rather than
+   * brought back after a refresh or drawn afresh as the Scene floats out.
+   * It starts out of sight and peeks out instead of popping in.
+   */
+  // Only the value it mounts with matters.
+  // svelte-ignore state_referenced_locally
+  const shy =
+    !creature.restored && !motions.has(creature) && !!hidingPlaces?.length;
+
+  /**
+   * The depth it is drawn at: its own, except while it hides at a prop's
+   * depth and walks out from there, or runs back behind one.
+   */
+  // svelte-ignore state_referenced_locally
+  let shownDepth = $state(creature.depth);
 
   const fading = $derived(fleeing && departure === "fade");
 
   /** Nearer Creatures are bigger; the roster width sets the species scale. */
-  const width = $derived(
-    (creature.def.width / 1920) * 100 * (0.7 + creature.depth * 0.7),
-  );
+  const width = $derived((defWidth / 1920) * 100 * (0.7 + shownDepth * 0.7));
 
-  const profile = $derived(MOTION_PROFILES[creature.def.motion]);
+  const profile = $derived(MOTION_PROFILES[motion]);
 
   /**
    * Where a Rare Creature's sparkles twinkle, as % of its box. Spread round
@@ -139,7 +189,7 @@
 
   onMount(() => {
     const scene = swimmer.parentElement!;
-    const style = creature.def.motion;
+    const style = motion;
     // The window the Scene is drawn in, which is not this one while it floats:
     // an observer belongs to the window that made it, and a hidden tab's
     // observers never report.
@@ -167,6 +217,26 @@
 
     const settle = setTimeout(() => (glistening = false), GLISTEN_MS);
 
+    /** The screen, as the hiding places need it (`scenes/hiding.ts`). */
+    const screen = (): View => ({
+      span: Math.max(sceneW, (4 / 3) * sceneH) / sceneW,
+      aspect: sceneH / sceneW,
+    });
+    /** Its size on screen at any depth, worked out rather than measured. */
+    const hider = (depth: number): Hider => ({
+      motion: style,
+      depth,
+      sizeAt: (at) => {
+        const wu = Math.max(sceneW, (4 / 3) * sceneH) / 100;
+        const w = (defWidth / 1920) * 100 * (0.7 + at * 0.7) * wu;
+        const aspect = selfW > 0 ? selfH / selfW : 1;
+        return { width: w / sceneW, height: (w * aspect) / sceneH };
+      },
+    });
+    /** Where its centre is, down, for a depth: feet on the ground line. */
+    const centreAt = (depth: number) =>
+      feetAt(style, depth) - hider(depth).sizeAt(depth).height / 2;
+
     const state =
       motions.get(creature) ??
       createMotion(
@@ -179,6 +249,55 @@
         creature.def.flips,
       );
     motions.set(creature, state);
+
+    /** Hiding, peeking and stepping out, `t` seconds in. */
+    let peek: {
+      plan: HidingPlan;
+      hold: number;
+      t: number;
+      fromY: number;
+    } | null = null;
+    /** Seconds into fading in where it stands, under reduced motion. */
+    let fadingIn: number | null = null;
+    if (shy) {
+      const plan = reducedMotion.matches
+        ? null
+        : chooseHidingPlace(
+            hidingPlaces ?? [],
+            hider(creature.depth),
+            screen(),
+            [...busyPlaces],
+            Math.random,
+          );
+      if (plan) {
+        busyPlaces.add(plan.place.name);
+        peek = {
+          plan,
+          hold:
+            PEEK_TIMING.hold[0] +
+            Math.random() * (PEEK_TIMING.hold[1] - PEEK_TIMING.hold[0]),
+          t: 0,
+          fromY: plan.feet,
+        };
+        if (state.flips) state.facing = plan.dir;
+      } else {
+        // Nowhere on screen suits it, or reduced motion: no slide, just a
+        // gentle fade in where it is.
+        fadingIn = 0;
+      }
+    }
+    const endPeek = () => {
+      if (!peek) return;
+      busyPlaces.delete(peek.plan.place.name);
+      peek = null;
+      shownDepth = creature.depth;
+      banker.style.opacity = "";
+    };
+
+    /** Running back behind cover, and how long it has been fading there. */
+    let cover: HidingPlan | null = null;
+    let coverSpeed = 0;
+    let vanished = 0;
 
     // Already Paused when drawn, as when the Scene floats out mid-announcement:
     // it was listening before, so it carries on without turning again.
@@ -218,17 +337,109 @@
         }
       } else if (fleeing && startled > 0) {
         startled -= dt;
+      } else if (fleeing && cover) {
+        // Back behind the prop it hid behind, or the nearest one: run there,
+        // then fade once out of sight behind it.
+        const plan = cover;
+        const ground = profile.ground;
+        const feet = ground ? feetAt(style, shownDepth) : state.y;
+        const dx = plan.hiddenX - state.x;
+        const dy = (plan.feet - feet) * (sceneH / sceneW);
+        const distance = Math.hypot(dx, dy);
+        if (distance > 0.002) {
+          coverSpeed = Math.min(
+            FLEE_SPEED,
+            coverSpeed + FLEE_SPEED * Math.min(1, dt * 3),
+          );
+          const share = Math.min(1, (coverSpeed * dt) / distance);
+          state.x += dx * share;
+          if (ground) {
+            shownDepth += (plan.depth - shownDepth) * share;
+            state.y = centreAt(shownDepth);
+          } else {
+            state.y += (plan.feet - state.y) * share;
+          }
+          state.age += dt;
+          if (state.flips && Math.abs(dx) > 1e-4) {
+            state.facing = dx > 0 ? 1 : -1;
+          }
+        } else {
+          vanished += dt;
+          banker.style.opacity = String(
+            Math.max(0, 1 - vanished / PEEK_TIMING.vanish),
+          );
+          if (vanished >= PEEK_TIMING.vanish) {
+            ongone();
+            return;
+          }
+        }
       } else if (fleeing) {
+        if (fleeingTo === null && hidingPlaces?.length) {
+          // Still peeking: back behind the same prop. Otherwise the nearest
+          // place to hide, if nearer than the edge.
+          cover =
+            peek?.plan ??
+            chooseCover(
+              hidingPlaces,
+              hider(shownDepth),
+              {
+                x: state.x,
+                feet: profile.ground ? feetAt(style, shownDepth) : state.y,
+              },
+              screen(),
+            );
+          if (peek) {
+            busyPlaces.delete(peek.plan.place.name);
+            peek = null;
+            banker.style.opacity = "";
+          }
+          if (cover) {
+            fleeingTo = cover.hiddenX > state.x ? 1 : -1;
+            swimmer.dataset.bolting = fleeingTo > 0 ? "right" : "left";
+            frame = requestFrame(tick);
+            return;
+          }
+        }
         if (fleeingTo === null) {
           fleeingTo = fleeDirection(state);
           // Speed lines trail on the side it is running away from.
           swimmer.dataset.bolting = fleeingTo > 0 ? "right" : "left";
         }
         if (
-          stepFlee(state, style, creature.depth, footprint(), fleeingTo, dt)
+          stepFlee(state, style, shownDepth, footprint(), fleeingTo, dt)
         ) {
           ongone();
           return;
+        }
+      } else if (peek) {
+        // Hidden behind its prop, peeking out, then stepping into the Scene.
+        // Paused or not, it finishes coming out first.
+        peek.t += dt;
+        const pose = peekPose(peek.plan, creature.depth, peek.hold, peek.t);
+        state.x = pose.x;
+        if (profile.ground) {
+          shownDepth = pose.depth;
+          state.y = centreAt(pose.depth);
+        } else {
+          // A flier comes out of the leaves into the sky it flies in.
+          const half = hider(creature.depth).sizeAt(creature.depth).height / 2;
+          const low = Math.max(profile.region.yMin, half);
+          const high = Math.min(profile.region.yMax, 1 - half);
+          const into = Math.min(high, Math.max(low, peek.fromY));
+          const span = peek.plan.outX - peek.plan.peekX;
+          const out = Math.min(
+            1,
+            Math.max(0, span ? (pose.x - peek.plan.peekX) / span : 1),
+          );
+          state.y = peek.fromY + (into - peek.fromY) * (pose.done ? 1 : out);
+        }
+        state.age += dt;
+        banker.style.opacity = String(pose.shown);
+        if (pose.done) {
+          state.vx = 0;
+          state.vy = 0;
+          state.resting = 0.3 + Math.random();
+          endPeek();
         }
       } else if (listening) {
         stepSettle(state, style, creature.depth, footprint(), dt);
@@ -255,6 +466,13 @@
         stepMotion(state, style, creature.depth, footprint(), dt, Math.random);
       }
 
+      if (fadingIn !== null) {
+        fadingIn += elapsed;
+        const shown = Math.min(1, fadingIn / PEEK_TIMING.fadeIn);
+        banker.style.opacity = shown >= 1 ? "" : String(shown);
+        if (shown >= 1) fadingIn = null;
+      }
+
       const left = state.x * sceneW - selfW / 2;
       const top = state.y * sceneH - selfH / 2;
       swimmer.style.transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -267,9 +485,14 @@
         const pace = Math.min(1, Math.abs(state.vx) / profile.speed);
         angle = fleeingTo
           ? Math.sin(state.age * 24) * 4
-          : profile.band
-            ? Math.sin(state.age * 6) * 1 * pace
-            : Math.sin(state.age * 18) * 3 * pace;
+          : profile.still
+            ? // Settled: only a tiny rock on the spot now and then.
+              Math.sin(state.age * 2.2) *
+              Math.max(0, Math.sin(state.age * 0.35)) *
+              1.6
+            : profile.band
+              ? Math.sin(state.age * 6) * 1 * pace
+              : Math.sin(state.age * 18) * 3 * pace;
       }
       banker.style.transform = `rotate(${angle}deg)`;
 
@@ -282,6 +505,7 @@
     });
 
     return () => {
+      if (peek) busyPlaces.delete(peek.plan.place.name);
       cancelFrame(frame);
       resize.disconnect();
       clearTimeout(settle);
@@ -298,7 +522,7 @@
   data-holding={listening && whilePaused === "hold" && !fleeing}
   style="
     width:calc({width} * var(--wu));
-    z-index:{creatureLayer(profile, creature.depth)};
+    z-index:{creatureLayer(profile, shownDepth)};
     opacity:{depthFade ? 0.62 + creature.depth * 0.38 : 1};
   "
 >
@@ -314,7 +538,11 @@
     class={profile.ground ? "" : "bobber"}
     style="animation-duration:{5 + creature.depth * 4}s;"
   >
-    <div bind:this={banker} class="relative">
+    <div
+      bind:this={banker}
+      class="relative"
+      style={shy ? "opacity:0" : undefined}
+    >
       <!--
         The flip lives on its own element. `.arriving` animates `transform`
         with a forwards fill, and an animation's transform beats an inline one
@@ -337,11 +565,11 @@
         <div bind:this={flipper} class="flipper">
           <div
             class="creature"
-            class:arriving={isNewest}
+            class:arriving={isNewest && !shy}
             class:settled={!glistening}
             data-tier={creature.def.tier}
           >
-            {#if isNewest}
+            {#if isNewest && !shy}
               <!-- The payoff moment has to carry across a classroom. -->
               <span
                 class="arrival-ring absolute inset-0 rounded-full border-2 border-white/70"

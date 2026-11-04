@@ -25,7 +25,10 @@ import {
 } from "./harvest/arrivals";
 import HarvestAmbient from "./harvest/AmbientLife.svelte";
 import * as harvestArt from "./harvest/artwork";
-import { isOpen as isHarvestOpen } from "./harvest/calendar";
+import {
+  HARVEST_SCHEDULE,
+  isOpen as isHarvestOpen,
+} from "./harvest/calendar";
 import harvestIcon from "./harvest/icon.svg";
 import { HIDING_PLACES as HARVEST_HIDING_PLACES } from "./harvest/layout";
 import { HARVEST_NOTE } from "./harvest/note";
@@ -153,6 +156,16 @@ export interface SceneDef {
   schedule?: Schedule;
   /** Shows the row of discovery leaves */
   discoveryDisplay?: boolean;
+  /**
+   * Props a shy QD can hide behind (`scenes/hiding.ts`). Given, a QD that
+   * has just arrived starts hidden behind one, peeks out and then steps
+   * into the Scene, and one that Runs Away ducks back behind the nearest
+   * when that is nearer than the edge. Left out, QDs arrive and leave as in
+   * every other Scene.
+   */
+  hidingPlaces?: HidingPlace[];
+  /** The super-rare awake harvest items, keyed by slug (`CreatureDef.awake`). */
+  awakeArt?: Record<string, string>;
 }
 
 export const SCENES: Record<SceneId, SceneDef> = {
@@ -323,6 +336,7 @@ export const SCENES: Record<SceneId, SceneDef> = {
     note: HARVEST_NOTE,
     // Through November, unlocking a Newcomer on chosen school days.
     openOn: isHarvestOpen,
+    schedule: HARVEST_SCHEDULE,
     isNew: true,
     arrivals: { available: harvestAvailableToday, draw: harvestDrawToday },
     discoveryDisplay: true,
