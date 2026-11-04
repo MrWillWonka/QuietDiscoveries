@@ -240,8 +240,8 @@ html[data-scene="thanksgiving"]:not(:has(.scene-stage)) body {
 }
 
 /* Too Loud: a gusty autumn wind gets up. A warm amber haze blows over the
-   field, thickest low down where the dust and chaff are lifted, the wheat
-   leans and leaves stream across. Nothing in it flashes or comes at the
+   farm, thickest low down where the dust and chaff are lifted, and dulls the
+   clear blue sky to a dusty gold; the wheat leans and leaves stream across. Nothing in it flashes or comes at the
    class, and every animal stays in plain sight. */
 .scene-stage[data-scene="thanksgiving"][data-murky="true"] {
   filter: saturate(0.85) sepia(0.35) brightness(0.92) blur(1px);
@@ -263,7 +263,7 @@ html[data-scene="thanksgiving"]:not(:has(.scene-stage)) body {
       to top,
       rgb(214 150 76 / 0.95) 0%,
       rgb(222 164 92 / 0.8) 35%,
-      rgb(232 186 120 / 0.5) 100%
+      rgb(234 190 126 / 0.65) 100%
     );
 }
 

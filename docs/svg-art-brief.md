@@ -692,11 +692,13 @@ comes from public-domain folklore: the Green Man and Stingy Jack's lantern.
 
 ## 15. Thanksgiving
 
-An autumn farm field at the edge of a meadow at golden late afternoon in
-November: rolling hills with soft autumn woods, a small red barn and silo
-far off, a split-rail fence along the back of the field, corn shocks, round
-hay bales and pumpkins left from the harvest, and big maples in full colour
-at the corners (`thanksgiving/roster.ts` has the QDs). It is on offer all
+An autumn farm on a bright, clear November afternoon: a clear blue sky with
+crisp white clouds and a soft pale sun, soft mauve and peach hills dotted
+with round orange trees, a red barn and a farm windmill beyond a split-rail
+fence, a fresh green field with wheat sheaves, round hay bales, pumpkins and
+rocks, a sandy path curving up to a gap in the fence, and big maples and
+leafy bushes in full colour framing the corners (`thanksgiving/roster.ts`
+has the QDs). It is on offer all
 through November, every year. It is drawn in the savanna's cartoon style,
 in the same family as the forest (§11) and Pumpkin Hollow (§14), so §1 and
 §2 apply as they do there, and its Creatures are drawn and checked exactly
@@ -715,60 +717,111 @@ their joint inline, and an Arctic contact shadow under ground animals.
   along the back of that band, as Pumpkin Hollow's giant does, just in
   front of the fence. Fliers (`soar`, `drift`) are drawn in flight.
 
+- **Crisp, bright and clean.** It runs on classroom projectors, which wash
+  out pale, hazy colour, so the Scene is drawn in clear, saturated flat
+  colour with very little haze: a clear blue sky, vivid orange, red and
+  gold leaves, fresh mid-green grass. Shade is the `#2b2b3a` overlay at low
+  opacity and light is white at low opacity, as everywhere else; the sky is
+  the only gradient.
+
 ### Palette
 
 §1's ink `#2b2b3a`, highlight `#ffffff`, cream `#f4f1de`, blush `#ff7a8a`,
 accent yellow `#ffd166` and accent red `#ef476f`, the savanna's and the
 forest's animal browns, plus:
 
-| Role                | Hex       |
-| ------------------- | --------- |
-| Sky high (cool)     | `#d9e4e4` |
-| Sky low (gold)      | `#fbdca0` |
-| Sun                 | `#ffe9b8` |
-| Far hills           | `#e8c9a6` |
-| Near hills          | `#d9ad84` |
-| Stubble field       | `#e8c67c` |
-| Meadow grass        | `#c2b871` |
-| Meadow grass (near) | `#b3ad65` |
-| Farm track          | `#dcc08e` |
-| Maple red           | `#c8553a` |
-| Maple orange        | `#e2823a` |
-| Maple gold          | `#ecac48` |
-| Leaf red            | `#d9643a` |
-| Leaf gold           | `#e0a33c` |
-| Pumpkin             | `#e8812a` |
-| Barn red            | `#b8574a` |
-| Weathered wood      | `#6b4f3a` |
-| Fence rail          | `#9a7656` |
+| Role              | Hex       |
+| ----------------- | --------- |
+| Sky high          | `#8ccaee` |
+| Sky low           | `#e2f2f9` |
+| Cloud shade       | `#dcebf3` |
+| Sun               | `#fde98e` |
+| Sun halo          | `#fff6c9` |
+| Far hills         | `#eecdc2` |
+| Middle hills      | `#e6bba8` |
+| Near hills        | `#dcaa92` |
+| Hill woods        | `#d6977f` |
+| Golden meadow     | `#ecc77c` |
+| Grass             | `#a7c263` |
+| Grass (middle)    | `#9ebb5b` |
+| Grass (near)      | `#94b253` |
+| Grass tuft        | `#7c9c42` |
+| Sandy path        | `#e8c693` |
+| Maple red         | `#e2452e` |
+| Maple deep red    | `#c8342b` |
+| Maple orange      | `#f2822a` |
+| Maple rust        | `#d95d23` |
+| Maple gold        | `#f7b232` |
+| Maple yellow      | `#fbd04f` |
+| Round tree orange | `#f28f30` |
+| Trunk             | `#7b4a2c` |
+| Barn red          | `#d2443a` |
+| Barn roof         | `#b9b7c0` |
+| Barn trim         | `#fbf7ee` |
+| Windmill wood     | `#8a6448` |
+| Windmill vanes    | `#e6cfa6` |
+| Wheat             | `#e8b94c` |
+| Wheat light       | `#f5d47a` |
+| Hay               | `#e9c060` |
+| Rock              | `#a09fa9` |
+| Fence rail        | `#9c6d48` |
+| Fence post        | `#7d5537` |
+| Pumpkin           | `#e8812a` |
 
-The near meadow is a soft olive rather than gold so that brown and bronze
-animals (the mouse, the quail, the turkeys, the elk) stand out on it.
+The grass is a fresh mid-green, not gold, so that brown and bronze animals
+(the mouse, the quail, the turkeys, the elk) stand out on it.
 
 ### The backdrop and Ambient Life
 
 `ambient/backdrop.svg` is 1920×1080 with `preserveAspectRatio="none"`, and
-its one gradient is the sky, `thanksgiving-backdrop-sky`, cool and pale
-overhead and warm gold at the hills. The hills meet the field at about
-y 630; the stubble field runs to about y 780 and the olive meadow from
-there to the bottom, with a farm track coming down the middle. The middle
-of the sky (x 0.3–0.7, y 0.1–0.4) is kept empty for a Note.
+its one gradient is the sky, `thanksgiving-backdrop-sky`, a clear light blue
+overhead paling towards the hills. Three layers of soft hills, mauve to
+peach, with low distant woods along them, end at about y 600; a strip of
+golden meadow runs from there to the fence (about y 655), with a faint
+track to the barn, and fresh green grass runs from the fence to the bottom
+in a few gently darker bands. A sandy path curves up from the bottom centre
+and narrows to the gap in the fence (about x 0.5–0.57). Grass tufts and
+fallen red, orange and gold leaves lie flat on the grass. The middle of the
+sky (x 0.3–0.7, y 0.1–0.4) is kept empty for a Note.
 
 Everything that stands up is Ambient Life (`thanksgiving/AmbientLife.svelte`
 places it), so it stays its own shape at any screen size and layers with
-the animals by where it meets the ground: `sun`, `cloud` (drifting),
-`geese` (a flat silhouette skein crossing now and then, never mistaken for
-a Creature), `hill-trees` and `barn` on the far hills, `fence` along the
-back of the field (open where the track comes in), `corn-shock` (sways
-about its foot), `hay-bale`, `pumpkins`, `maple-tree`, and three falling
-leaves, `leaf-1` to `leaf-3`. Field pieces sit on the bottom edge of their
-viewBox with a contact shadow and scale with depth exactly as the animals
-do. Every id in the backdrop and Ambient Life is prefixed `thanksgiving-`.
+the animals by where it meets the ground:
+
+- **In the sky:** `sun` (a pale-yellow disc with two halo rings, upper
+  left), `cloud` (crisp white with a flat, faintly shaded base, drifting),
+  and `geese` (a flat silhouette skein crossing now and then, never
+  mistaken for a Creature).
+- **Beyond the fence:** `round-tree` and `round-tree-red` (round bushy
+  crowns with visible trunks, dotted along the hills), `windmill` (a wooden
+  lattice tower with a tail vane; its wheel, the
+  `thanksgiving-windmill-wheel` group, turns slowly, once every 24 s) and
+  `barn` (clear red, white trim, a grey gambrel roof, white X-braced doors
+  and loft door, a lean-to with plain dark windows). Nothing beyond the
+  fence reaches higher than about y 0.36 (the top of the windmill's wheel,
+  at the lower right edge of the Note's sky); the trees stay below y 0.4.
+- **In the field:** `fence` along the back (open where the path comes in),
+  `wheat-sheaf` (tied sheaves with fanned ears of grain; sways about its
+  foot), `hay-bale`, `pumpkins` and `rock`. These sit on the bottom edge of
+  their viewBox with a contact shadow and scale with depth exactly as the
+  animals do.
+- **Framing the corners, in front of every animal:** `maple-left` and
+  `maple-right` (a trunk at the screen's edge and a bough reaching in along
+  the top, under masses of red, orange and gold maple leaves) and
+  `bush-left` and `bush-right` (long leaves and maple leaves reaching up
+  from the bottom corners). They are pinned to the screen's corners, not
+  the landscape's, and kept to about the outer 30% across the top and 20%
+  across the bottom, so they never hide the middle of the sky or much of
+  the walking band. Each defines its leaf shapes once and places them with
+  `<use>`, with ids `thanksgiving-<file>-…`.
+- **Falling leaves:** `leaf-1` to `leaf-3`, coming down off the two maples.
+
+Every id in the backdrop and Ambient Life is prefixed `thanksgiving-`.
 
 ### Too Loud
 
-A gusty autumn wind: a warm amber haze blows over the field, thickest low
-down, the corn shocks lean over and leaves stream across on pale gusts
+A gusty autumn wind: a warm amber haze blows over the farm, thickest low
+down, and dulls the clear blue sky to a dusty gold; the wheat sheaves lean over and leaves stream across on pale gusts
 (`thanksgiving/scene.css`). It moves by transitions, since Too Loud holds
 every animation still, and nothing flashes. The Note is the forest's trail
 sign (§11).

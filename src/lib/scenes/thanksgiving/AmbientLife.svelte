@@ -47,7 +47,7 @@
     { x: 19, base: 43.4, wu: 8, art: "round-tree-red" },
     { x: 30, base: 43, wu: 6, art: "round-tree" },
     { x: 46, base: 42, wu: 8.5, art: "round-tree" },
-    { x: 61.5, base: 44.6, wu: 7, art: "windmill" },
+    { x: 62, base: 44.6, wu: 6.2, art: "windmill" },
     { x: 72, base: 45.2, wu: 13, art: "barn" },
     { x: 84, base: 43.4, wu: 7, art: "round-tree-red" },
     { x: 93, base: 41.4, wu: 12, art: "round-tree" },
@@ -111,9 +111,10 @@
 
   /** Clouds crossing the sky, slow enough that nobody sees them move. */
   const clouds = [
-    { y: 5, width: 16, duration: 260, delay: -50, opacity: 0.95 },
-    { y: 15, width: 10, duration: 320, delay: -200, opacity: 0.8 },
-    { y: 26, width: 13, duration: 290, delay: -130, opacity: 0.7 },
+    { y: 5, width: 16, duration: 260, delay: -50, opacity: 1 },
+    { y: 15, width: 10, duration: 320, delay: -200, opacity: 1 },
+    { y: 26, width: 13, duration: 290, delay: -130, opacity: 0.95 },
+    { y: 19, width: 9, duration: 340, delay: -280, opacity: 1 },
   ];
 
   /**
