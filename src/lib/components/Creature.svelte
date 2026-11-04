@@ -13,6 +13,8 @@
    * Hiding places in use by a Creature peeking out right now, by name, so
    * several arriving at once spread out behind different props.
    */
+  // Bookkeeping between Creatures, never shown: nothing needs to react to it.
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
   const busyPlaces = new Set<string>();
 </script>
 
@@ -49,6 +51,15 @@
     type Footprint,
   } from "$lib/scenes/motion";
   import { cancelFrame, requestFrame } from "$lib/frames";
+  import {
+    blowDirection,
+    gustPose,
+    leaveStyle,
+    planGust,
+    stepBlown,
+    type Blown,
+    type GustPlan,
+  } from "$lib/scenes/gust";
   import {
     PEEK_TIMING,
     chooseCover,
@@ -126,6 +137,15 @@
   // svelte-ignore state_referenced_locally
   const shy =
     !creature.restored && !motions.has(creature) && !!hidingPlaces?.length;
+
+  /**
+   * Carried on the wind rather than shy: a harvest item rolls or floats in
+   * on a gust, and is blown away again, instead of peeking from cover.
+   */
+  const arrival = $derived(creature.def.arrival ?? "peek");
+  const carried = $derived(arrival !== "peek" && !!hidingPlaces?.length);
+  /** On its way in on a gust: the wind streaks and leaves go with it. */
+  let gusting = $state<"left" | "right" | null>(null);
 
   /**
    * The depth it is drawn at: its own, except while it hides at a prop's
@@ -259,7 +279,29 @@
     } | null = null;
     /** Seconds into fading in where it stands, under reduced motion. */
     let fadingIn: number | null = null;
-    if (shy) {
+    /** Coming in on the wind, `t` seconds in. */
+    let gust: { plan: GustPlan; t: number } | null = null;
+    /** Being blown away by Too Loud. */
+    let blown: Blown | null = null;
+    /** A tilt the gust gives it, over the walking rock. */
+    let poseAngle: number | null = null;
+    if (shy && carried) {
+      if (reducedMotion.matches) {
+        fadingIn = 0;
+      } else {
+        const kind = arrival === "peek" ? "roll" : arrival;
+        const plan = planGust(
+          kind,
+          { x: state.x, y: state.y },
+          hider(creature.depth).sizeAt(creature.depth),
+        );
+        gust = { plan, t: 0 };
+        state.x = plan.fromX;
+        state.y = plan.fromY;
+        banker.style.opacity = "";
+        gusting = plan.side < 0 ? "right" : "left";
+      }
+    } else if (shy) {
       const plan = reducedMotion.matches
         ? null
         : chooseHidingPlace(
@@ -310,7 +352,8 @@
     let listenIn: number | null = null;
     let facing = 0;
     let fleeingTo: -1 | 1 | null = null;
-    let startled = STARTLE_S + Math.random() * STARTLE_JITTER_S;
+    // Something carried on the wind is not startled: it is just blown away.
+    let startled = carried ? 0 : STARTLE_S + Math.random() * STARTLE_JITTER_S;
     let fadedFor = 0;
     let last = performance.now();
     let frame = requestFrame(function tick(now) {
@@ -334,6 +377,43 @@
         if (fadedFor >= FADE_S) {
           ongone();
           return;
+        }
+      } else if (fleeing && carried) {
+        gust = null;
+        gusting = null;
+        if (reducedMotion.matches) {
+          // No blowing about: a gentle fade where it is.
+          vanished += elapsed;
+          banker.style.opacity = String(Math.max(0, 1 - vanished));
+          if (vanished >= 1) {
+            ongone();
+            return;
+          }
+        } else {
+          const size = hider(shownDepth).sizeAt(shownDepth);
+          blown ??= {
+            x: state.x,
+            y: state.y,
+            vx: 0,
+            vy: 0,
+            angle: 0,
+            age: 0,
+          };
+          const away = leaveStyle(arrival) === "drift" ? "drift" : "roll";
+          const gone = stepBlown(
+            blown,
+            away,
+            blowDirection(blown.x),
+            size,
+            elapsed,
+          );
+          state.x = blown.x;
+          state.y = blown.y;
+          poseAngle = blown.angle;
+          if (gone) {
+            ongone();
+            return;
+          }
         }
       } else if (fleeing && startled > 0) {
         startled -= dt;
@@ -413,6 +493,22 @@
         if (stepFlee(state, style, shownDepth, footprint(), fleeingTo, dt)) {
           ongone();
           return;
+        }
+      } else if (gust) {
+        // Rolling or floating in on the wind, then settling where it stops.
+        gust.t += dt;
+        const pose = gustPose(gust.plan, gust.t);
+        state.x = pose.x;
+        state.y = pose.y;
+        state.age += dt;
+        poseAngle = pose.angle;
+        if (!pose.gusting) gusting = null;
+        if (pose.done) {
+          gust = null;
+          poseAngle = null;
+          state.vx = 0;
+          state.vy = 0;
+          state.resting = 0.5 + Math.random();
         }
       } else if (peek) {
         // Hidden behind its prop, peeking out, then stepping into the Scene.
@@ -497,6 +593,7 @@
               ? Math.sin(state.age * 6) * 1 * pace
               : Math.sin(state.age * 18) * 3 * pace;
       }
+      if (poseAngle !== null) angle = poseAngle;
       banker.style.transform = `rotate(${angle}deg)`;
 
       if (state.facing !== facing) {
@@ -529,7 +626,13 @@
     opacity:{depthFade ? 0.62 + creature.depth * 0.38 : 1};
   "
 >
-  {#if fleeing && !fading}
+  {#if gusting}
+    <!-- A brief gust bringing it in: pale streaks and a few leaves. -->
+    <span class="gust" data-gust={gusting} aria-hidden="true">
+      <i></i><i></i><b></b><b></b><b></b>
+    </span>
+  {/if}
+  {#if fleeing && !fading && !carried}
     <!--
       Outside the flipper and the banker, so the "!" never mirrors or rocks,
       and big enough to read from the back of the room.

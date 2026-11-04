@@ -55,6 +55,29 @@ elk and Tom Turkey as the Rare ones. Nature and harvest only: no food is
 eaten, and there are no costumes or people. Too Loud is a gusty autumn
 wind, and its Note is the forest's trail sign.
 
+## Autumn Harvest
+
+A farm field on a clear autumn afternoon: a pale sun, soft clouds, peach
+hills with round orange trees, a red barn and a windmill beyond a fence, a
+green-gold meadow with a winding path, hay bales, wheat sheaves, pumpkins
+and rocks, and big maples and leafy bushes framing the corners. A
+Limited-time Scene through November that gains a Newcomer on Unlock Days.
+Its 24 QDs are 14 named animals, from Tilly the Baby Turkey to Tom the
+Turkey, and 10 **harvest items**, from a pumpkin to a golden crown. Its
+Note is Thanksgiving's trail sign; Too Loud is a soft fog.
+
+Its QDs are shy in a way of their own. An animal arrives **hiding**:
+behind a hay bale, a pumpkin, a rock, a wheat sheaf or a corner bush (a
+flier among a maple's leaves), it **peeks** out, holds there a moment,
+then steps out and wanders. A harvest item is not shy but **carried**: it
+rolls in along the ground or floats down on a gust of wind, and settles
+where it stops. Once in a long while an item arrives **awake**, with a
+face and tiny feet, and wanders like an animal; it stays awake for the rest
+of the Session. When the room is Too Loud, an animal that Runs Away ducks
+back behind the nearest **hiding place** if one is nearer than the edge,
+and an item is blown off the edge. Only how they come and go differs:
+which QD arrives, and who leaves and when, are the same as everywhere.
+
 ## Unlock Day
 
 A school day on which a Limited-time Scene adds one Creature to its Roster,

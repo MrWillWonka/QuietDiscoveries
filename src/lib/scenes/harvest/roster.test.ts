@@ -4,9 +4,12 @@ import { HARVEST_ROSTER } from "./roster";
 // The files themselves are checked with every other Scene's, in
 // `scenes/artwork.test.ts`.
 describe("the Autumn Harvest Roster", () => {
-  it("has 10 Common, 9 Uncommon and 5 Rare", () => {
+  it("has 10 Common, 9 Uncommon and 5 Rare, plus Mr Applewhite", () => {
+    const extra = HARVEST_ROSTER.at(-1)!;
+    expect(extra.slug).toBe("mr-applewhite");
+    expect(extra.tier).toBe("rare");
     const count = (tier: string) =>
-      HARVEST_ROSTER.filter((def) => def.tier === tier).length;
+      HARVEST_ROSTER.filter((def) => def.tier === tier && def !== extra).length;
     expect([count("common"), count("uncommon"), count("rare")]).toEqual([
       10, 9, 5,
     ]);
@@ -17,7 +20,8 @@ describe("the Autumn Harvest Roster", () => {
     expect(items).toHaveLength(10);
     for (const item of items) expect(item.awake).toBeDefined();
     const animals = HARVEST_ROSTER.filter((def) => def.motion !== "rest");
-    expect(animals).toHaveLength(14);
+    // Fourteen, and Mr Applewhite.
+    expect(animals).toHaveLength(15);
     for (const animal of animals) expect(animal.awake).toBeUndefined();
   });
 
@@ -35,9 +39,9 @@ describe("the Autumn Harvest Roster", () => {
   });
 
   it("makes the Fawn, the Owl, Golden Ember, Tom and the Crown the Rare ones", () => {
-    const rare = HARVEST_ROSTER.filter((def) => def.tier === "rare").map(
-      (def) => def.slug,
-    );
+    const rare = HARVEST_ROSTER.filter(
+      (def) => def.tier === "rare" && def.slug !== "mr-applewhite",
+    ).map((def) => def.slug);
     expect(rare.sort()).toEqual(
       [
         "harvest-crown",

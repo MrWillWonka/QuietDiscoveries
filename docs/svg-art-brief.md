@@ -825,3 +825,71 @@ down, and dulls the clear blue sky to a dusty gold; the wheat sheaves lean over 
 (`thanksgiving/scene.css`). It moves by transitions, since Too Loud holds
 every animation still, and nothing flashes. The Note is the forest's trail
 sign (§11).
+
+## 16. Autumn Harvest
+
+An autumn farm field matching the approved illustration
+(`docs/reference/autumn-harvest/approved_style_reference.png`; the palette
+is in `visual_design_guide.png`): a clear blue sky with soft flat clouds and
+a pale sun with two halo rings, layered peach and mauve hills with soft far
+woods and round orange trees, a red barn and a windmill, a split-rail
+fence with a gap, a green-gold meadow with a winding sandy path, two hay
+bales, four wheat sheaves, two grey rocks and two pumpkins, big maples
+framing the top corners and leafy bushes the bottom ones. It is drawn in
+the savanna's flat cartoon style, like Thanksgiving (§15), but softer and
+more muted, with fewer, larger leaves. Its QDs follow §1 and §2 as
+Thanksgiving's do, with the guide's palette.
+
+### Palette
+
+The guide's twelve: Bark `#5B2E1F`, Autumn Red `#C84B2B`, Pumpkin
+`#E66A1E`, Amber `#F9A53A`, Harvest `#F7D27A`, Meadow `#8BB56A`, Green
+`#5E8F5C`, Sky `#A6C9F5`, Cream `#FBE8D0`, Path `#F5C8A4`, Field `#C2A07A`
+and Rock `#BE6F5A`, with softer leaf tones between them (`#c9452d`,
+`#a93a26`, `#e8742c`, `#f39a34`, `#f6b847`, `#f8cd68`) and the meadow taken
+from the illustration itself, gold below the fence (`#efc562`) to olive
+green at the front (`#979b4b`). Rocks are grey (`#9f9597`), as drawn.
+
+### Files and layout
+
+The artwork is generated flat SVG in `harvest/ambient/`: `backdrop`
+(1920×1080, `preserveAspectRatio="none"`; sky, hills, far woods, golden
+meadow, field, path, tufts and fallen leaves, with the sky and the field
+as its only gradients), `sun`, `cloud`, `round-tree`, `round-tree-far`,
+`barn`, `windmill` (its `harvest-windmill-wheel` turns slowly),
+`fence-left`, `fence-right`, `hay-bale`, `wheat-sheaf`, `rock`, `pumpkin`,
+`maple-left`, `maple-right`, `bush-left`, `bush-right` and `leaf-1` to
+`leaf-3`. Props are drawn at 20 units per wu. Every id is prefixed
+`harvest-`. The maples and bushes group their leaves in `harvest-sway`
+clusters, each with its own `transform-origin` where it grows from, so the
+wind can sway them 2–4° out of step.
+
+`harvest/layout.ts` places every prop, in wu across the landscape and by
+where it meets the ground, and derives from the same list the **hiding
+places** (`SceneDef.hidingPlaces`, `scenes/hiding.ts`): the solid middle of
+each hay bale, pumpkin, rock and wheat sheaf, and of the corner bushes and
+the maple canopies (for fliers). Move a prop there and its hiding place
+moves with it.
+
+### QDs
+
+24: 14 animals in `creatures/`, and 10 harvest items in `creatures/`
+(asleep: a plain object, no face, resting on the ground) and `awake/` (the
+super-rare awake version: the same object with a friendly face and tiny
+feet or arms, facing right; its viewBox may differ). The artwork test
+checks `awake/` with the same rules as `creatures/`, against
+`CreatureDef.awake.parts`. Animals arrive by peeking from a hiding place;
+items by `roll`, `tumble` or `float` (`CreatureDef.arrival`,
+`scenes/gust.ts`), so a round item must still read well turned upside down
+mid-roll, and a floating one tilted.
+
+### Ambient Life and Too Loud
+
+The trees, the maples' leaf clusters, the bushes and the wheat sway gently,
+each at its own pace; the clouds drift a little to one side and back; three
+or four leaves come down at a time, on 7–12 s drifts. Nothing sparkles or
+flashes. Too Loud is a soft grey fog, thickest low down, with the colours
+dulled; the trees and bushes lean a little further into the wind, by
+transitions, since Too Loud holds every animation still. Under reduced
+motion nothing sways or falls, and QDs fade in where they stand instead of
+peeking or being carried in.

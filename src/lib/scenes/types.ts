@@ -3,6 +3,7 @@
  * the animation layer never care which Scene is on screen.
  */
 
+import type { ArrivalStyle } from "./gust";
 import type { DepartureStyle, MotionStyle } from "./motion";
 
 /** Which Scene is on screen. See `scenes/index.ts`. */
@@ -83,6 +84,13 @@ export interface CreatureDef {
    * side asleep but stands up awake), and the part-* classes in that file.
    */
   awake?: { motion: MotionStyle; width?: number; parts: AnimatablePart[] };
+  /**
+   * How it comes into a Scene with hiding places (`SceneDef.hidingPlaces`):
+   * an animal peeks out from behind a prop (the default), while a harvest
+   * item is carried in on a gust, rolling or floating (`scenes/gust.ts`), and
+   * blown away the same way.
+   */
+  arrival?: ArrivalStyle;
 }
 
 /**

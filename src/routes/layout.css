@@ -566,6 +566,110 @@ html.floating {
   animation-delay: 260ms;
 }
 
+/* --- Arriving on the wind ----------------------------------------------- */
+
+/* A harvest item carried in on a gust (scenes/gust.ts): two pale streaks
+   trail behind it and a few small leaves swirl along with it, only while it
+   is on its way. Soft, short and never flashing. Script sets which way it is
+   travelling (`data-gust`). */
+@keyframes gust-streak {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes gust-swirl {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(calc(0.8 * var(--wu)), calc(-0.9 * var(--wu)))
+      rotate(180deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+.gust {
+  position: absolute;
+  top: 10%;
+  width: max(80%, calc(5 * var(--wu)));
+  height: 80%;
+  pointer-events: none;
+}
+
+.gust[data-gust="right"] {
+  right: 70%;
+}
+
+.gust[data-gust="left"] {
+  left: 70%;
+  transform: scaleX(-1);
+}
+
+.gust > i {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: max(2px, calc(0.22 * var(--wu)));
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    rgb(255 255 255 / 0),
+    rgb(255 255 255 / 0.75)
+  );
+  transform-origin: right;
+  animation: gust-streak 900ms ease-out infinite;
+}
+
+.gust > i:nth-of-type(1) {
+  top: 30%;
+}
+
+.gust > i:nth-of-type(2) {
+  top: 65%;
+  width: 70%;
+  animation-delay: 350ms;
+}
+
+.gust > b {
+  position: absolute;
+  width: calc(0.9 * var(--wu));
+  aspect-ratio: 1;
+  border-radius: 0 70%;
+  background: #e8742c;
+  animation: gust-swirl 1.4s linear infinite;
+}
+
+.gust > b:nth-of-type(1) {
+  top: 10%;
+  left: 20%;
+}
+
+.gust > b:nth-of-type(2) {
+  top: 55%;
+  left: 50%;
+  background: #c9452d;
+  animation-delay: -0.5s;
+}
+
+.gust > b:nth-of-type(3) {
+  top: 80%;
+  left: 5%;
+  width: calc(0.7 * var(--wu));
+  background: #f6b847;
+  animation-delay: -0.9s;
+}
+
 /* --- Fading out --------------------------------------------------------- */
 
 /* In a Scene whose Creatures fade rather than run (`departure` in

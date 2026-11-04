@@ -80,6 +80,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "common",
     width: 63,
     motion: "rest",
+    arrival: "roll",
     awake: { motion: "hop", parts: ["part-body", "part-arms"] },
     parts: ["part-body"],
   },
@@ -88,6 +89,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "common",
     width: 42,
     motion: "rest",
+    arrival: "roll",
     awake: { motion: "hop", parts: ["part-body", "part-arms"] },
     parts: ["part-body"],
   },
@@ -96,6 +98,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "common",
     width: 45,
     motion: "rest",
+    arrival: "float",
     // Awake, it floats on the air.
     awake: { motion: "drift", parts: ["part-tail", "part-body", "part-arms"] },
     parts: ["part-body"],
@@ -105,6 +108,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "common",
     width: 66,
     motion: "rest",
+    arrival: "tumble",
     // Lies on its side asleep; awake, it stands up.
     awake: { motion: "trot", width: 42, parts: ["part-body", "part-arms"] },
     parts: ["part-body"],
@@ -146,6 +150,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "uncommon",
     width: 66,
     motion: "rest",
+    arrival: "float",
     // Awake, it wriggles along.
     awake: { motion: "creep", parts: ["part-tail", "part-head"] },
     parts: [],
@@ -155,6 +160,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "uncommon",
     width: 60,
     motion: "rest",
+    arrival: "roll",
     awake: { motion: "hop", parts: ["part-arms"] },
     parts: [],
   },
@@ -163,6 +169,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "uncommon",
     width: 72,
     motion: "rest",
+    arrival: "tumble",
     awake: { motion: "trot", parts: ["part-arms"] },
     parts: [],
   },
@@ -171,6 +178,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "uncommon",
     width: 42,
     motion: "rest",
+    arrival: "roll",
     awake: { motion: "hop", parts: ["part-body", "part-arms"] },
     parts: ["part-body"],
   },
@@ -179,6 +187,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "uncommon",
     width: 48,
     motion: "rest",
+    arrival: "float",
     awake: { motion: "drift", parts: [] },
     parts: [],
   },
@@ -217,7 +226,18 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     tier: "rare",
     width: 69,
     motion: "rest",
+    arrival: "float",
     awake: { motion: "hop", parts: ["part-arms"] },
     parts: [],
+  },
+
+  // The special extra: Mr Applewhite, a super-rare blue jay standing in for the
+  // teacher. His unlock day and odds are the Scene's (`./arrivals.ts`).
+  {
+    slug: "mr-applewhite",
+    tier: "rare",
+    width: 46,
+    motion: "hop",
+    parts: ["part-tail", "part-head"],
   },
 ];
