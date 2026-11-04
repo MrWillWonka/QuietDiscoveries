@@ -22,8 +22,10 @@
   import type { App } from "$lib/app.svelte";
   import { isAvailable, SCENES } from "$lib/scenes";
   import {
+    secretSlugs,
     todaysNewcomer,
     unlockDay,
+    unlockedSecrets,
     unlockedSlugs,
   } from "$lib/scenes/schedule";
   import { unlocksIn } from "$lib/scenes/scheduleWording";
@@ -48,11 +50,37 @@
   const scene = $derived(SCENES[sceneId]);
 
   const TIERS: RarityTier[] = ["common", "uncommon", "rare"];
+  /** The tiers, and after the rares any Secret QD, as "Super rare". */
+  const GROUPS: (RarityTier | "superRare")[] = [...TIERS, "superRare"];
 
   const totalWeight = Object.values(TIER_WEIGHTS).reduce((a, b) => a + b, 0);
 
   function chance(tier: RarityTier) {
     return Math.round((TIER_WEIGHTS[tier] / totalWeight) * 100);
+  }
+
+  /** The Secret QDs (`Schedule.secrets`), such as Mr Applewhite. */
+  const secrets = $derived(scene.schedule ? secretSlugs(scene.schedule) : []);
+
+  /**
+   * The Roster as the Collection lists it. A Secret is left out altogether
+   * until his day: not even a "?" gives him away. After that he shows as a
+   * "?" until the class has found him, his name included.
+   */
+  const listed = $derived.by(() => {
+    if (!scene.schedule || secrets.length === 0) return scene.roster;
+    const about = unlockedSecrets(scene.schedule, today.day);
+    return scene.roster.filter(
+      (def) => !secrets.includes(def.slug) || about.includes(def.slug),
+    );
+  });
+
+  function inGroup(group: RarityTier | "superRare") {
+    return listed.filter((def) =>
+      group === "superRare"
+        ? secrets.includes(def.slug)
+        : def.tier === group && !secrets.includes(def.slug),
+    );
   }
 
   /** The Scenes on offer today, and always the one on screen. */
@@ -73,7 +101,7 @@
     if (!scene.schedule) return new Set<string>();
     const unlocked = unlockedSlugs(scene.schedule, today.day);
     return new Set(
-      scene.roster
+      listed
         .filter(
           (def) =>
             !unlocked.includes(def.slug) || !(def.slug in scene.creatureArt),
@@ -98,7 +126,7 @@
   }
 
   const seen = $derived(
-    scene.roster.filter((def) => sightings.count(sceneId, def.slug) > 0).length,
+    listed.filter((def) => sightings.count(sceneId, def.slug) > 0).length,
   );
 </script>
 
@@ -132,7 +160,7 @@
           {tIn(sceneId, "collection.spotted", {
             class: className(classes.current.name),
             seen,
-            total: scene.roster.length - locked.size,
+            total: listed.length - locked.size,
           })}
           {#if locked.size > 0}
             · {t("collection.toCome", { count: locked.size })}
@@ -177,8 +205,8 @@
     </div>
 
     <div class="min-h-0 flex-1 overflow-y-auto px-4 pb-4 sm:px-6 sm:pb-6">
-      {#each TIERS as tier (tier)}
-        {@const defs = scene.roster.filter((def) => def.tier === tier)}
+      {#each GROUPS as tier (tier)}
+        {@const defs = inGroup(tier)}
         {#if defs.length > 0}
           <section class="mt-4 first:mt-0">
             <h2
@@ -188,7 +216,9 @@
               <span class="group relative normal-case">
                 <button
                   class="grid size-4 place-items-center rounded-full text-slate-400 hover:text-slate-600 focus:text-slate-600 focus:outline-none"
-                  aria-label={tIn(sceneId, `chance.${tier}.label`)}
+                  aria-label={tier === "superRare"
+                    ? t("chance.superRare.label")
+                    : tIn(sceneId, `chance.${tier}.label`)}
                 >
                   <svg
                     viewBox="0 0 16 16"
@@ -205,7 +235,9 @@
                   class="pointer-events-none absolute top-1/2 left-full z-10 ml-2 w-max max-w-60 -translate-y-1/2 rounded-md bg-slate-900 px-2.5 py-1.5 text-xs font-normal tracking-normal text-white opacity-0 shadow transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
                   role="tooltip"
                 >
-                  {t(`chance.${tier}`, { percent: chance(tier) })}
+                  {tier === "superRare"
+                    ? t("chance.superRare", { odds: 60 })
+                    : t(`chance.${tier}`, { percent: chance(tier) })}
                 </span>
               </span>
             </h2>
@@ -229,12 +261,27 @@
                       >{comesOn(def.slug)}</span
                     >
                   </li>
+                {:else if tier === "superRare" && count === 0}
+                  <!-- A Secret not found yet: nothing of him, not his name. -->
+                  <li
+                    class="flex min-w-0 flex-col items-center justify-center rounded-lg border border-dashed border-amber-300 bg-amber-50 p-2 text-center"
+                  >
+                    <div
+                      class="flex h-12 w-full items-center justify-center text-3xl font-semibold text-amber-300"
+                      aria-hidden="true"
+                    >
+                      ?
+                    </div>
+                    <span class="mt-1 text-sm font-medium text-slate-500"
+                      >{t("leaves.hidden")}</span
+                    >
+                  </li>
                 {:else}
                   <!-- A Creature with a fact to tell shows it on hover. -->
                   <li
                     title={creatureFact(def.slug)}
                     class="flex min-w-0 flex-col items-center rounded-lg border p-2 text-center {tier ===
-                    'rare'
+                      'rare' || tier === 'superRare'
                       ? 'border-amber-300 bg-amber-50'
                       : 'border-slate-200'}"
                   >

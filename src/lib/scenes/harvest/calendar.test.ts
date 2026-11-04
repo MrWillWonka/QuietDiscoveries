@@ -39,13 +39,24 @@ describe("Autumn Harvest's calendar", () => {
     expect(isOpen("2027-11-10")).toBe(false);
   });
 
-  it("opens with nine, and has 24 in all, none twice", () => {
+  it("opens with nine, and has 25 in all, none twice", () => {
     expect(unlockedSlugs("2026-10-31")).toEqual([]);
     expect(unlockedSlugs("2026-11-01")).toEqual(HARVEST_SCHEDULE.opening);
     expect(unlockedSlugs("2026-11-04")).toHaveLength(9);
     const all = unlockedSlugs("2026-11-30");
-    expect(all).toHaveLength(24);
-    expect(new Set(all).size).toBe(24);
+    expect(all).toHaveLength(25);
+    expect(new Set(all).size).toBe(25);
+  });
+
+  it("lets Mr Applewhite in from 16 November, as a Secret, not a Newcomer", () => {
+    expect(HARVEST_SCHEDULE.secrets).toEqual([
+      { day: "2026-11-16", slug: "mr-applewhite" },
+    ]);
+    expect(unlockedSlugs("2026-11-15")).not.toContain("mr-applewhite");
+    expect(unlockedSlugs("2026-11-16")).toContain("mr-applewhite");
+    expect(unlockedSlugs("2026-11-16").at(-1)).toBe("mr-applewhite");
+    expect(newcomersSoFar("2026-11-30")).not.toContain("mr-applewhite");
+    expect(todaysNewcomer("2026-11-16")).toBe("cozy-scarf");
   });
 
   it("unlocks its fifteen Newcomers on school days, Tom the Turkey last", () => {
@@ -64,20 +75,25 @@ describe("Autumn Harvest's calendar", () => {
     expect(unlockDay(HARVEST_SCHEDULE.opening[0])).toBeNull();
   });
 
-  it("grows from 9 to 24 on its Unlock Days only", () => {
+  it("grows from 9 to 25 on its Unlock Days only", () => {
     const expected: Record<string, number> = {
       "2026-11-04": 9,
       "2026-11-05": 10,
       "2026-11-08": 11,
-      "2026-11-20": 21,
-      "2026-11-25": 24,
-      "2026-11-30": 24,
+      "2026-11-15": 16,
+      "2026-11-16": 18,
+      "2026-11-20": 22,
+      "2026-11-25": 25,
+      "2026-11-30": 25,
     };
     let previous = 9;
     for (const day of days("2026-11-01", "2026-11-30")) {
       const count = unlockedSlugs(day).length;
       if (day in expected) expect(count).toBe(expected[day]);
-      expect(count - previous).toBe(todaysNewcomer(day) ? 1 : 0);
+      const secret = HARVEST_SCHEDULE.secrets!.some((s) => s.day === day);
+      expect(count - previous).toBe(
+        (todaysNewcomer(day) ? 1 : 0) + (secret ? 1 : 0),
+      );
       if (weekday(day) === 0 || weekday(day) === 6)
         expect(todaysNewcomer(day)).toBeNull();
       previous = count;
@@ -91,6 +107,7 @@ describe("Autumn Harvest's calendar", () => {
     expect([...all].sort()).toEqual(
       HARVEST_ROSTER.map(({ slug }) => slug).sort(),
     );
+    // Secrets are not Newcomers, so they are not in this order.
     const rank = { common: 0, uncommon: 1, rare: 2 };
     let previous = 0;
     for (const { slug } of HARVEST_SCHEDULE.newcomers) {

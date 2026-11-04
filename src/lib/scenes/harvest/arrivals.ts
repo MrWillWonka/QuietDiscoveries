@@ -3,6 +3,10 @@
  * unlocked, and each Unlock Day's Newcomer guaranteed within the Class's
  * first six arrivals there, kept per Class under its own key. Shared with
  * Pumpkin Hollow (`scenes/scheduledArrivals.ts`).
+ *
+ * Mr Applewhite, the calendar's Secret, is never in the tier roll: once he
+ * is about, each arrival has a 1 in 60 chance of being him, or he comes
+ * within a few arrivals of the teacher asking for him in Settings.
  */
 
 import { scheduledArrivals } from "../scheduledArrivals";

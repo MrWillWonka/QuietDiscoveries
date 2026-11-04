@@ -49,6 +49,10 @@ export const HARVEST_SCHEDULE: Schedule = {
     // The finale, the day before Thanksgiving.
     { day: "2026-11-25", slug: "harvest-tom" },
   ],
+  // Mr Applewhite, the class's teacher as a blue jay: about from mid-month,
+  // but never promised. Each arrival has a 1 in 60 chance of being him, or
+  // the teacher can ask for him in Settings (`session/secretVisit.ts`).
+  secrets: [{ day: "2026-11-16", slug: "mr-applewhite" }],
 };
 
 /** Before the field opens, while it is open, and once it has closed. */

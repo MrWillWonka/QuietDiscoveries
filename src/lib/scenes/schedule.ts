@@ -21,6 +21,12 @@ export interface Schedule {
   opening: string[];
   /** One Newcomer per Unlock Day, in the order they come. */
   newcomers: { day: string; slug: string }[];
+  /**
+   * Secret QDs (`session/secretVisit.ts`): unlocked on their day like a
+   * Newcomer, but with no guarantee, kept out of the tier roll, and never
+   * announced. Each arrival has a small chance of being one.
+   */
+  secrets?: { day: string; slug: string }[];
 }
 
 /**
@@ -80,13 +86,36 @@ function unlockedNewcomers(schedule: Schedule, day: string | null): string[] {
     .map(({ slug }) => slug);
 }
 
-/** Every slug unlocked by this day: the opening set, then the Newcomers so far. */
+/**
+ * Every slug unlocked by this day: the opening set, then the Newcomers so
+ * far, then any Secrets.
+ */
 export function unlockedSlugs(
   schedule: Schedule,
   day: string | null,
 ): string[] {
   if (day === null || day < schedule.opens) return [];
-  return [...schedule.opening, ...unlockedNewcomers(schedule, day)];
+  return [
+    ...schedule.opening,
+    ...unlockedNewcomers(schedule, day),
+    ...unlockedSecrets(schedule, day),
+  ];
+}
+
+/** Every Secret's slug, unlocked yet or not. */
+export function secretSlugs(schedule: Schedule): string[] {
+  return (schedule.secrets ?? []).map(({ slug }) => slug);
+}
+
+/** The Secrets unlocked by this day. */
+export function unlockedSecrets(
+  schedule: Schedule,
+  day: string | null,
+): string[] {
+  if (day === null || day < schedule.opens) return [];
+  return (schedule.secrets ?? [])
+    .filter((secret) => secret.day <= day)
+    .map(({ slug }) => slug);
 }
 
 /** The Newcomers unlocked by this day, newest first. */

@@ -8,6 +8,14 @@
     "M12 2 13.6 5.4 15.8 4.4 15.2 8.6 18.2 6.2 19 8.2 21.6 7.8 20.2 11 21.8 12 17.4 15.4 18 17.2 13.8 16.4 12.6 16.9 12.6 22 11.4 22 11.4 16.9 10.2 16.4 6 17.2 6.6 15.4 2.2 12 3.8 11 2.4 7.8 5 8.2 5.8 6.2 8.8 8.6 8.2 4.4 10.4 5.4Z";
   const VEINS =
     "M12 16.6V5.5M12 11.5l4.6-3.4M12 11.5 7.4 8.1M12 14l4-.8M12 14l-4-.8";
+
+  /** A blue jay's feather, quill at the bottom left, in the same square. */
+  const VANE =
+    "M18.8 3.1C13.2 3.4 8.5 8.1 7.5 14.4l-.5 2.8 2.8-.6c6.3-1.2 10.1-6.5 9-13.5Z";
+  const SHAFT = "M18.4 3.6 4.8 20.4";
+  /** White bars across the vane, as a blue jay's feathers have. */
+  const BARS =
+    "M12.4 3.5 21.7 11M10.1 6.3l9.3 7.5M7.9 9.1l9.3 7.5M5.6 11.9l9.3 7.5";
 </script>
 
 <script lang="ts">
@@ -20,7 +28,9 @@
    *
    * In a Scene that grows by the day, QDs still to unlock are left out, so
    * the row grows as Newcomers come. Commons first, then uncommons, then
-   * rares; a QD not found yet is an empty circle with nothing of it shown.
+   * rares, and last any Secret QD once he is about (Mr Applewhite), as a
+   * blue jay's feather in a gold ring. A QD not found yet is an empty
+   * circle with nothing of it shown, its name included.
    *
    * Like the arrival counter it stays up when the controls fade and only
    * shows: it never takes a click from the Scene.
@@ -29,6 +39,7 @@
   import { classes } from "$lib/classes/classes.svelte";
   import { creatureName, t, tIn } from "$lib/i18n/index.svelte";
   import type { SceneDef } from "$lib/scenes";
+  import { secretSlugs } from "$lib/scenes/schedule";
   import { sightings } from "$lib/session/sightings.svelte";
   import { untrack } from "svelte";
 
@@ -40,16 +51,27 @@
    */
   const circles = $derived.by(() => {
     const available = scene.arrivals?.available(scene.roster) ?? scene.roster;
-    return TIERS.flatMap((tier) =>
-      available
-        .filter((def) => def.tier === tier)
-        .map((def) => ({
-          slug: def.slug,
-          tier,
-          found: sightings.count(scene.id, def.slug) > 0,
-        })),
-    );
+    const secrets = scene.schedule ? secretSlugs(scene.schedule) : [];
+    const circle = (slug: string, secret: boolean) => ({
+      slug,
+      secret,
+      found: sightings.count(scene.id, slug) > 0,
+    });
+    // A Secret, once about, comes last, after the rares.
+    return [
+      ...TIERS.flatMap((tier) =>
+        available
+          .filter((def) => def.tier === tier && !secrets.includes(def.slug))
+          .map((def) => ({ ...circle(def.slug, false), tier })),
+      ),
+      ...available
+        .filter((def) => secrets.includes(def.slug))
+        .map((def) => ({ ...circle(def.slug, true), tier: def.tier })),
+    ];
   });
+
+  /** For the feather's clip, unique even with two rows on the page. */
+  const uid = $props.id();
 
   const foundCount = $derived(circles.filter((circle) => circle.found).length);
 
@@ -99,14 +121,29 @@
     {#each circles as circle (circle.slug)}
       <li class="flex">
         <span
-          class="circle {circle.found ? circle.tier : 'hidden-qd'}"
+          class="circle {circle.found
+            ? circle.secret
+              ? 'secret'
+              : circle.tier
+            : 'hidden-qd'}"
+          class:secret-ring={circle.secret}
           class:pop={popping.includes(circle.slug)}
           role="img"
           aria-label={circle.found
             ? creatureName(circle.slug)
             : t("leaves.hidden")}
         >
-          {#if circle.found}
+          {#if circle.found && circle.secret}
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <defs>
+                <clipPath id="{uid}-vane"><path d={VANE} /></clipPath>
+              </defs>
+              <path class="vane" d={VANE} />
+              <path class="bars" d={BARS} clip-path="url(#{uid}-vane)" />
+              <path class="vane-edge" d={VANE} />
+              <path class="shaft" d={SHAFT} />
+            </svg>
+          {:else if circle.found}
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path class="leaf" d={LEAF} />
               <path class="veins" d={VEINS} />
@@ -247,6 +284,45 @@
   }
   .rare .veins {
     stroke: #b07d12;
+  }
+
+  /* A Secret (Mr Applewhite): a blue jay's feather, blue and white, in a
+     gold ring with a still shine. The ring shows before he is found too,
+     but nothing of him does. */
+  .secret-ring {
+    border-color: #e0b13c;
+    box-shadow:
+      0 0 0 0.1rem #8a6414,
+      0 0 0.5rem rgb(249 210 90 / 0.55);
+  }
+  .secret {
+    background:
+      radial-gradient(
+        circle at 34% 28%,
+        rgb(255 255 255 / 0.6),
+        transparent 42%
+      ),
+      radial-gradient(circle at 50% 40%, #fdf6e3, #e9d9b4);
+  }
+  .vane {
+    fill: #2f6fd6;
+  }
+  .bars {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 0.9;
+  }
+  .vane-edge {
+    fill: none;
+    stroke: #173a78;
+    stroke-width: 0.6;
+    stroke-linejoin: round;
+  }
+  .shaft {
+    fill: none;
+    stroke: #173a78;
+    stroke-width: 0.8;
+    stroke-linecap: round;
   }
 
   /* Found just now: a gentle pop, and nothing at all under reduced motion. */

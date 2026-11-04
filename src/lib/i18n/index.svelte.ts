@@ -169,6 +169,10 @@ const en = {
     "counter.label": "QDs arrived: {count}",
     "leaves.label": "{found} of {total} QDs discovered",
     "leaves.hidden": "Still to find",
+    "settings.secretVisit": "Make sure {name} visits today",
+    "settings.secretVisitHint":
+      "He’ll turn up somewhere in the next few QDs to arrive, as a surprise.",
+    "settings.secretVisited": "He visited today ✓",
     "settings.tryIt": "Try it out",
     "settings.summon": "Bring out every QD",
     "settings.advanced": "Advanced",
@@ -239,6 +243,9 @@ const en = {
     "chance.common": "{percent}% of arrivals are common",
     "chance.uncommon": "{percent}% of arrivals are uncommon",
     "chance.rare": "{percent}% of arrivals are rare",
+    "tier.superRare": "Super rare",
+    "chance.superRare.label": "Chance of super rare QDs",
+    "chance.superRare": "Each arrival has a 1 in {odds} chance of being this one",
     "blocked.title": "The QDs need to hear the room",
     "blocked.denied":
       "This browser blocked access to the microphone. Click the padlock or camera icon in the address bar, allow the microphone, then try again.",
@@ -496,6 +503,7 @@ const en = {
     "harvest-ruby": "Ruby the Cardinal",
     "harvest-golden-ember": "Golden Ember",
     "harvest-tom": "Tom the Turkey",
+    "mr-applewhite": "Mr Applewhite",
     "harvest-patch": "Patch the Pumpkin",
     "harvest-apple": "Harvest Apple",
     "autumn-leaf": "Autumn Leaf",
@@ -664,6 +672,8 @@ const en = {
       "Red foxes can be any shade from pale gold to deep red, so a golden one is a lucky sight.",
     "harvest-tom":
       "A male turkey is called a tom. He fans out his tail and puffs up his feathers to show off.",
+    "mr-applewhite":
+      "The rarest QD of all: a blue jay with great hair, who knows every one of your names.",
     "harvest-patch":
       "A pumpkin grows from one small seed on a long, twisty vine all summer long.",
     "harvest-apple":
@@ -907,6 +917,10 @@ const es = {
     "counter.label": "QDs que han llegado: {count}",
     "leaves.label": "{found} de {total} QDs descubiertos",
     "leaves.hidden": "Por descubrir",
+    "settings.secretVisit": "Que {name} venga hoy seguro",
+    "settings.secretVisitHint":
+      "Aparecerá entre los próximos QDs que lleguen, por sorpresa.",
+    "settings.secretVisited": "Hoy ya ha venido ✓",
     "settings.tryIt": "Pruébalo",
     "settings.summon": "Sacar a todos los QDs",
     "settings.advanced": "Avanzado",
@@ -979,6 +993,10 @@ const es = {
     "chance.common": "El {percent}% de las llegadas son comunes",
     "chance.uncommon": "El {percent}% de las llegadas son poco comunes",
     "chance.rare": "El {percent}% de las llegadas son raras",
+    "tier.superRare": "Superraros",
+    "chance.superRare.label": "Probabilidad de QDs superraros",
+    "chance.superRare":
+      "Cada llegada tiene 1 posibilidad entre {odds} de ser este",
     "blocked.title": "Los QDs necesitan oír el aula",
     "blocked.denied":
       "Este navegador bloqueó el acceso al micrófono. Haz clic en el candado o en el icono de la cámara de la barra de direcciones, permite el micrófono y vuelve a intentarlo.",
@@ -1267,6 +1285,7 @@ const es = {
     "harvest-ruby": "Ruby el Cardenal",
     "harvest-golden-ember": "Ember Dorado",
     "harvest-tom": "Tom el Pavo",
+    "mr-applewhite": "Mr Applewhite",
     "harvest-patch": "Patch la Calabaza",
     "harvest-apple": "Manzana de la cosecha",
     "autumn-leaf": "Hoja de otoño",

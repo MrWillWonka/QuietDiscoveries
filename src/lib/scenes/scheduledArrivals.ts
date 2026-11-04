@@ -7,14 +7,25 @@
  * The Newcomer state is kept per Class and per Scene, so second period
  * meeting Monday's ghost does nothing for third period. It survives Reset
  * and a refresh: the window counts the day's arrivals, not the Session's.
+ *
+ * A Secret QD (`Schedule.secrets`) is never rolled with the rest: once
+ * unlocked, each arrival has its own small chance of being him, or he comes
+ * because the teacher asked (`session/secretVisit.ts`).
  */
 
 import { browser } from "$app/environment";
 import { classes } from "$lib/classes/classes.svelte";
 import { drawArrival, type NewcomerState } from "$lib/session/newcomer";
+import { drawSecret } from "$lib/session/secretVisit";
 import { sightings } from "$lib/session/sightings.svelte";
 import { today } from "$lib/today.svelte";
-import { newcomersSoFar, unlockedSlugs, type Schedule } from "./schedule";
+import {
+  newcomersSoFar,
+  secretSlugs,
+  unlockedSlugs,
+  type Schedule,
+} from "./schedule";
+import { secretVisits } from "./secretVisits.svelte";
 import type { Arrivals, CreatureDef } from "./types";
 
 export function scheduledArrivals({
@@ -32,6 +43,7 @@ export function scheduledArrivals({
   creatureArt?: Record<string, string>;
 }): Arrivals {
   const storageKey = () => classes.storageKey(`${sceneId}-newcomer`);
+  const secrets = secretSlugs(schedule);
 
   function load(): NewcomerState | null {
     if (!browser) return null;
@@ -70,7 +82,7 @@ export function scheduledArrivals({
       const day = today.day;
       if (day === null) return null;
       const draw = drawArrival({
-        available,
+        available: available.filter((def) => !secrets.includes(def.slug)),
         present,
         newcomers: newcomersSoFar(schedule, day),
         spotted: (slug) => sightings.count(sceneId, slug) > 0,
@@ -79,7 +91,23 @@ export function scheduledArrivals({
         random,
       });
       save(draw.state);
-      return draw.def;
+
+      // A Newcomer due now comes first; a Secret asked for comes next time.
+      let def = draw.def;
+      for (const slug of secrets) {
+        const secret = available.find((creature) => creature.slug === slug);
+        const result = drawSecret({
+          state: secretVisits.get(sceneId, slug),
+          day,
+          unlocked: secret !== undefined,
+          present: present.includes(slug),
+          taken: def !== draw.def || def?.slug === draw.state.featured,
+          random,
+        });
+        secretVisits.set(sceneId, slug, result.state);
+        if (result.arrives && secret) def = secret;
+      }
+      return def;
     },
   };
 }

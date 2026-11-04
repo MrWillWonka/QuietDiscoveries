@@ -7,6 +7,8 @@ import {
   localDay,
   newcomersSoFar,
   schedulePhase,
+  secretSlugs,
+  unlockedSecrets,
   todaysNewcomer,
   unlockDay,
   unlockedSlugs,
@@ -61,6 +63,27 @@ describe("a Scene's schedule", () => {
     const other: Schedule = { ...SCHEDULE, opening: ["z"], newcomers: [] };
     expect(unlockedSlugs(other, "2030-03-15")).toEqual(["z"]);
     expect(newcomersSoFar(other, "2030-03-15")).toEqual([]);
+  });
+
+  it("unlocks a Secret on its day, without making it a Newcomer", () => {
+    const secretive: Schedule = {
+      ...SCHEDULE,
+      secrets: [{ day: "2030-03-06", slug: "s" }],
+    };
+    expect(secretSlugs(secretive)).toEqual(["s"]);
+    expect(secretSlugs(SCHEDULE)).toEqual([]);
+    expect(unlockedSecrets(secretive, "2030-03-05")).toEqual([]);
+    expect(unlockedSecrets(secretive, "2030-03-06")).toEqual(["s"]);
+    expect(unlockedSlugs(secretive, "2030-03-05")).not.toContain("s");
+    expect(unlockedSlugs(secretive, "2030-03-06")).toEqual([
+      "a",
+      "b",
+      "c",
+      "s",
+    ]);
+    expect(newcomersSoFar(secretive, "2030-03-12")).toEqual(["d", "c"]);
+    expect(todaysNewcomer(secretive, "2030-03-06")).toBeNull();
+    expect(unlockDay(secretive, "s")).toBeNull();
   });
 
   it("counts the days left, 1 on the last", () => {
