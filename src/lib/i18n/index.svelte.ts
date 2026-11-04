@@ -1302,7 +1302,7 @@ const es = {
       "Es la luna llena más cercana al comienzo del otoño: sale pronto y brillante, y ayudaba a los agricultores a terminar la cosecha de noche.",
     elk: "El uapití macho estrena cornamenta cada año, ¡y puede crecerle unos 2,5 cm al día!",
     "tom-turkey":
-      "Para presumir, el pavo macho abre la cola en abanico y se infla como diciendo «¡Miradme!».",
+      "Para presumir, el pavo macho abre la cola en abanico y se infla como diciendo «¡Mírame!».",
   },
 } satisfies Language;
 
@@ -1913,6 +1913,35 @@ const fr = {
       "On crie « Bouh ! » pour se faire sursauter depuis au moins le XVIIIe siècle.",
     "jack-o-lantern":
       "Les premières lanternes d’Halloween étaient taillées dans des navets en Irlande ; en Amérique, la citrouille les a remplacés.",
+    "field-mouse":
+      "Un mulot peut se faufiler par un trou pas plus large qu’un crayon.",
+    "northern-cardinal":
+      "Le cardinal ne part pas pour l’hiver : son rouge vif égaie les jours de neige.",
+    "bobwhite-quail":
+      "Son nom anglais imite son chant : un sifflement clair qui fait « bob-OUAÏTE ! ».",
+    "red-squirrel":
+      "Il entasse ses pommes de pin en gros tas, prêtes pour l’hiver.",
+    mallard:
+      "Seule la cane fait le fameux « coin-coin » ; le mâle a une petite voix enrouée.",
+    "canada-goose":
+      "Les bernaches volent en V : chacune profite de l’élan de celle de devant.",
+    "wild-turkey":
+      "Les dindons sauvages savent voler, et la nuit ils dorment en haut des arbres.",
+    "leaf-sprite":
+      "Il voyage sur chaque brise d’automne et n’atterrit jamais deux fois dans le même tas de feuilles.",
+    "pie-pal":
+      "Elle ne quitte jamais son chapeau de crème chantilly, même les jours de grand vent.",
+    cornling:
+      "Comme un vrai épi de maïs, il a environ 800 grains, toujours sur un nombre pair de rangées.",
+    opossum:
+      "Quand il a très peur, l’opossum peut « faire le mort » et rester immobile jusqu’à ce que le danger passe.",
+    "barred-owl":
+      "En anglais, son chant semble demander « Qui cuisine pour toi ? Qui cuisine pour vous tous ? ».",
+    "harvest-moon":
+      "C’est la pleine lune la plus proche du début de l’automne : elle se lève tôt et brille fort, et aidait les fermiers à finir la moisson le soir.",
+    elk: "Le wapiti mâle refait tous ses bois chaque année, et ils peuvent pousser de 2,5 cm par jour !",
+    "tom-turkey":
+      "Pour se faire remarquer, le dindon mâle déploie sa queue en éventail et gonfle ses plumes comme pour dire « Regardez-moi ! ».",
   },
 } satisfies Language;
 
