@@ -189,8 +189,7 @@ const en = {
     "meter.current": "Current volume",
     "meter.paused": "Paused — too loud",
     "meter.arriving": "QDs are arriving",
-    "meter.goal":
-      "QDs arrive while the room stays left of the line ({goal}%)",
+    "meter.goal": "QDs arrive while the room stays left of the line ({goal}%)",
     "calibration.title": "Calibration",
     "calibration.needMic": "Connect a microphone first",
     "calibration.calibrated": "✓ Calibrated",
@@ -745,8 +744,7 @@ const es = {
     "classes.change": "Cambiar de clase",
     "classes.unnamed": "Mi clase",
     "classes.edit": "Editar clases",
-    "classes.hint":
-      "Cada clase guarda sus propios QDs y su propia colección.",
+    "classes.hint": "Cada clase guarda sus propios QDs y su propia colección.",
     "classes.storage":
       "Tus clases se guardan en este navegador, solo en esta computadora. No aparecerán en otra computadora ni en otro navegador, y al borrar los datos del navegador se eliminan.",
     "classes.current": "En pantalla",
@@ -1470,39 +1468,31 @@ const fr = {
     "about.promiseTitle": "Gratuit, vraiment",
     "about.promise":
       "C’est gratuit. Il n’y a ni version payante ni publicité, et nous ne collectons aucune donnée personnelle sur vous ou vos élèves.",
-    "about.feedbackTitle": "Nous écrire",
-    "about.feedback":
-      "Si quelque chose ne marche pas, ou si vous avez une idée pour Shy Safari ou pour un autre outil que vous utiliseriez en classe, envoyez-nous un e-mail.",
-    "about.email": "Écrire à support@teacher.dev",
-    "privacy.pageTitle": "Confidentialité — Shy Safari",
+    "privacy.pageTitle": "Confidentialité — Quiet Discoveries",
     "privacy.meta":
-      "Ce que Shy Safari collecte, ce qu’il ne collecte pas, et pourquoi.",
+      "Ce que Quiet Discoveries collecte, ce qu’il ne collecte pas, et pourquoi.",
     "privacy.title": "Confidentialité",
     "privacy.lede":
       "Ce que nous collectons, ce que nous ne collectons pas, et pourquoi.",
     "privacy.microphone":
-      "Shy Safari écoute par le micro uniquement pour mesurer le niveau sonore de la classe. Le son est transformé en un simple niveau de volume sur cet ordinateur, instant après instant ; il n’est jamais enregistré, jamais conservé et jamais envoyé nulle part.",
+      "Quiet Discoveries écoute par le micro uniquement pour mesurer le niveau sonore de la classe. Le son est transformé en un simple niveau de volume sur cet ordinateur, instant après instant ; il n’est jamais enregistré, jamais conservé et jamais envoyé nulle part.",
     "privacy.local":
-      "Il n’y a pas de compte, et nous ne collectons aucune information personnelle sur les enseignants ou les élèves. Vos réglages, votre étalonnage et les animaux aperçus par chacune de vos classes sont conservés dans le stockage local de ce navigateur, sur cet ordinateur uniquement ; effacer les données du navigateur les supprime.",
-    "privacy.analytics.beforeLink":
-      "Nous utilisons Cloudflare Web Analytics pour compter les visites de façon anonyme, ce qui nous aide à comprendre comment Shy Safari est utilisé en classe. Cloudflare Web Analytics n’utilise pas de cookies, ne crée pas d’empreinte des visiteurs et ne les suit pas sur d’autres sites ; consultez la ",
-    "privacy.analytics.link": "politique de confidentialité",
-    "privacy.analytics.afterLink":
-      " de Cloudflare pour en savoir plus. Nous ne partageons, ne vendons ni ne transférons d’aucune autre manière les données des visiteurs à des tiers.",
-    "privacy.contact": "Des questions ou des inquiétudes ? Écrivez à ",
-    "guide.title": "Comment fonctionne Shy Safari",
+      "Il n’y a pas de compte, et nous ne collectons aucune information personnelle sur les enseignants ou les élèves. Vos réglages, votre étalonnage et les QDs aperçus par chacune de vos classes sont conservés dans le stockage local de ce navigateur, sur cet ordinateur uniquement ; effacer les données du navigateur les supprime.",
+    "privacy.analytics":
+      "Il n’y a ni statistiques de visite, ni cookies, ni traceurs. Nous ne comptons pas les visites, et rien sur vous ou votre classe n’est partagé, vendu ou envoyé à qui que ce soit.",
+    "guide.title": "Comment fonctionne Quiet Discoveries",
     "guide.lede":
       "Un sonomètre gratuit pour la classe qui récompense le calme au lieu de punir le bruit.",
     "guide.whatTitle": "Ce que c'est",
     "guide.what":
-      "Shy Safari est un sonomètre pour la classe qui fonctionne dans le navigateur. Affichez-le au vidéoprojecteur ou sur le tableau interactif : il montre une savane, un récif de corail, un ciel de l'espace profond, une plaine du Crétacé, une clairière en forêt, une jungle tropicale ou une banquise arctique paisibles. Il écoute le niveau sonore de la salle grâce au micro de l'ordinateur et, tant que la classe reste sous l'objectif de volume, des animaux timides sortent un par un. C'est le contraire d'un sonomètre qui s'agite : pas de score, pas d'aiguille, pas de voyant rouge, donc rien ne rend le bruit plus intéressant que le calme.",
+      "Quiet Discoveries est un sonomètre pour la classe qui fonctionne dans le navigateur. Affichez-le au vidéoprojecteur ou sur le tableau interactif : il montre une savane, un récif de corail, un ciel de l'espace profond, une plaine du Crétacé, une clairière en forêt, une jungle tropicale ou une banquise arctique paisibles. Il écoute le niveau sonore de la salle grâce au micro de l'ordinateur et, tant que la classe reste sous l'objectif de volume, des créatures timides que nous appelons les QDs sortent une par une. C'est le contraire d'un sonomètre qui s'agite : pas de score, pas d'aiguille, pas de voyant rouge, donc rien ne rend le bruit plus intéressant que le calme.",
     "guide.useTitle": "L'utiliser en classe",
     "guide.use.open":
-      "Ouvrez shysafari.com sur l'ordinateur relié au vidéoprojecteur, choisissez la savane, le récif de corail, l'espace profond, la préhistoire, la forêt, la jungle ou l'Arctique, puis appuyez sur Commencer. Le navigateur demande l'accès au micro.",
+      "Ouvrez Quiet Discoveries sur l'ordinateur relié au vidéoprojecteur, choisissez la savane, le récif de corail, l'espace profond, la préhistoire, la forêt, la jungle ou l'Arctique, puis appuyez sur Commencer. Le navigateur demande l'accès au micro.",
     "guide.use.goal":
       "Réglez l'objectif de volume pour l'activité : Silence, Travail seul (chuchotements) ou En binôme (voix de conversation), ou faites glisser la ligne du sonomètre n'importe où entre les deux.",
     "guide.use.rate":
-      "Laissez la classe travailler. Le premier animal arrive après 10 à 20 secondes de calme, puis environ un toutes les cinq minutes de travail silencieux. Choisissez Tranquille, Normal ou Animé dans les réglages, ou saisissez le nombre de minutes de votre choix.",
+      "Laissez la classe travailler. Le premier QD arrive après 10 à 20 secondes de calme, puis environ un toutes les cinq minutes de travail silencieux. Choisissez Tranquille, Normal ou Animé dans les réglages, ou saisissez le nombre de minutes de votre choix.",
     "guide.loudTitle": "Comment il décide que c'est trop bruyant",
     "guide.loud":
       "Les bruits brefs, comme un coup à la porte ou un livre qui tombe, ne comptent pas. La classe doit dépasser l'objectif un petit moment : environ six secondes si elle le dépasse à peine, ou environ une seconde si c'est beaucoup plus fort. Une fois le calme revenu, la scène s'éclaircit en trois secondes.",
@@ -1510,21 +1500,21 @@ const fr = {
       "L'étalonnage est facultatif. Cinq secondes de silence et cinq secondes de conversation normale apprennent à l'application comment sonnent votre salle et votre micro.",
     "guide.tooLoudTitle": "Ce qui se passe quand c'est trop bruyant",
     "guide.tooLoud":
-      "La scène se trouble, avec une brume de poussière sur la savane, une eau trouble sur le récif, des interférences dans l'espace profond, de la brume sur la rivière à la préhistoire, du brouillard entre les arbres en forêt, une averse tropicale dans la jungle et un blizzard tout blanc dans l'Arctique, et aucun nouvel animal ne sort. La suite dépend de votre choix :",
+      "La scène se trouble, avec une brume de poussière sur la savane, une eau trouble sur le récif, des interférences dans l'espace profond, de la brume sur la rivière à la préhistoire, du brouillard entre les arbres en forêt, une averse tropicale dans la jungle et un blizzard tout blanc dans l'Arctique, et aucun nouveau QD ne sort. La suite dépend de votre choix :",
     "guide.tooLoud.flee":
-      "Les animaux s'enfuient (par défaut). La scène se fige et, tant que la salle reste trop bruyante, un animal puis quelques autres toutes les cinq secondes s'enfuient hors de l'écran. Dans l'espace profond, ils se dissolvent plutôt dans les parasites.",
+      "Les QDs s'enfuient (par défaut). La scène se fige et, tant que la salle reste trop bruyante, un QD puis quelques autres toutes les cinq secondes s'enfuient hors de l'écran. Dans l'espace profond, ils se dissolvent plutôt dans les parasites.",
     "guide.tooLoud.pause":
-      "Mettre la scène en pause. Les animaux restent immobiles, rien n'est perdu, et la progression vers le prochain animal attend que la classe se calme.",
-    "guide.animalsTitle": "Les animaux",
+      "Mettre la scène en pause. Les QDs restent immobiles, rien n'est perdu, et la progression vers le prochain QD attend que la classe se calme.",
+    "guide.animalsTitle": "Les QDs",
     "guide.animals":
-      "La savane compte 17 animaux, des suricates et des zèbres aux girafes, hippopotames et rhinocéros, avec les lions, les léopards et les éléphants parmi les plus rares. Le récif de corail en compte 18, des poissons-clowns et hippocampes aux tortues marines et pieuvres, avec les requins-marteaux, les raies manta et les requins-baleines parmi les plus rares. L'espace profond compte 17 observations pour les plus grands, des satellites, astéroïdes et astronautes à la station spatiale, aux comètes et aux planètes comme Saturne, avec une galaxie spirale, un trou noir, un pulsar et une nébuleuse annulaire parmi les plus rares. La préhistoire compte 17 animaux de la toute fin de l'ère des dinosaures, dessinés d'après la science actuelle, des petits mammifères, lézards et raptors à plumes aux Triceratops et Ankylosaurus, avec Tyrannosaurus, Quetzalcoatlus et le géant Alamosaurus parmi les plus rares. La forêt compte 17 animaux, des tamias, rouges-gorges et hérissons aux ratons laveurs, renards et cerfs, avec un loup gris, un ours noir et un élan parmi les plus rares. La jungle compte 17 animaux de la forêt tropicale, des grenouilles venimeuses, toucans et capucins aux paresseux, aras et orangs-outans, avec les jaguars, les gorilles et les tigres parmi les plus rares. L'Arctique compte 17 animaux, des lemmings, macareux et renards arctiques aux caribous, morses et bélugas, avec les ours polaires, les narvals et les baleines boréales parmi les plus rares. Les animaux communs arrivent souvent et les plus rares sont un vrai événement que beaucoup de séances ne verront pas. Chaque scène garde ses propres animaux, et la collection se souvient de tous ceux que la classe a aperçus.",
+      "La savane compte 17 animaux, des suricates et des zèbres aux girafes, hippopotames et rhinocéros, avec les lions, les léopards et les éléphants parmi les plus rares. Le récif de corail en compte 18, des poissons-clowns et hippocampes aux tortues marines et pieuvres, avec les requins-marteaux, les raies manta et les requins-baleines parmi les plus rares. L'espace profond compte 17 observations pour les plus grands, des satellites, astéroïdes et astronautes à la station spatiale, aux comètes et aux planètes comme Saturne, avec une galaxie spirale, un trou noir, un pulsar et une nébuleuse annulaire parmi les plus rares. La préhistoire compte 17 animaux de la toute fin de l'ère des dinosaures, dessinés d'après la science actuelle, des petits mammifères, lézards et raptors à plumes aux Triceratops et Ankylosaurus, avec Tyrannosaurus, Quetzalcoatlus et le géant Alamosaurus parmi les plus rares. La forêt compte 17 animaux, des tamias, rouges-gorges et hérissons aux ratons laveurs, renards et cerfs, avec un loup gris, un ours noir et un élan parmi les plus rares. La jungle compte 17 animaux de la forêt tropicale, des grenouilles venimeuses, toucans et capucins aux paresseux, aras et orangs-outans, avec les jaguars, les gorilles et les tigres parmi les plus rares. L'Arctique compte 17 animaux, des lemmings, macareux et renards arctiques aux caribous, morses et bélugas, avec les ours polaires, les narvals et les baleines boréales parmi les plus rares. Les QDs communs arrivent souvent et les plus rares sont un vrai événement que beaucoup de séances ne verront pas. Chaque scène garde ses propres QDs, et la collection se souvient de tous ceux que la classe a aperçus.",
     "guide.forTitle": "Pour qui",
     "guide.for":
       "Pour les enseignants de tous niveaux qui veulent un repère visuel et apaisant du niveau de voix pendant le travail autonome, la lecture, les évaluations, les ateliers ou le travail de groupe. Toute la classe partage un seul écran et les élèves n'ont besoin de rien.",
     "guide.faqTitle": "Questions fréquentes",
-    "guide.faq.free.q": "Shy Safari est-il gratuit ?",
+    "guide.faq.free.q": "Quiet Discoveries est-il gratuit ?",
     "guide.faq.free.a":
-      "Oui. Pas de paiement, pas de publicité, pas de version premium. Il est né de l'EdTech-a-thon, une communauté qui crée des outils gratuits pour les classes, et il est maintenu par teacher.dev.",
+      "Oui. Pas de paiement, pas de publicité, pas de version premium.",
     "guide.faq.record.q": "Est-ce qu'il enregistre la classe ?",
     "guide.faq.record.a":
       "Non. Le micro sert uniquement à mesurer le niveau sonore de la salle, sous la forme d'un seul nombre, instant après instant, sur votre ordinateur. Rien n'est enregistré, conservé ni envoyé nulle part.",
@@ -1539,7 +1529,7 @@ const fr = {
       "L'anglais, l'espagnol et le français. Il suit la langue du navigateur, et vous pouvez la changer depuis le menu en haut de l'écran.",
     "guide.faq.meter.q": "En quoi est-ce différent d'un sonomètre ?",
     "guide.faq.meter.a":
-      "Un sonomètre montre à la classe à quel point elle est bruyante, ce qui peut transformer le bruit en jeu. Shy Safari ne montre qu'une scène paisible qui se remplit peu à peu d'animaux : ce que la classe voit, c'est la récompense du travail silencieux, et il n'y a aucun score à battre.",
+      "Un sonomètre montre à la classe à quel point elle est bruyante, ce qui peut transformer le bruit en jeu. Quiet Discoveries ne montre qu'une scène paisible qui se remplit peu à peu de QDs : ce que la classe voit, c'est la récompense du travail silencieux, et il n'y a aucun score à battre.",
   },
   scenes: {
     space: {

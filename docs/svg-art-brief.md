@@ -1,7 +1,7 @@
 # SVG art brief — coral reef Scene
 
 > **Reef Scene.** This brief describes the coral reef artwork, one of the three
-> Scenes in Shy Safari. The savanna (`src/lib/scenes/savanna/`) follows the
+> Scenes in Quiet Discoveries. The savanna (`src/lib/scenes/savanna/`) follows the
 > same style rules and SVG constraints with its own palette and Roster, and so
 > does the Arctic (`src/lib/scenes/arctic/`, §13). The
 > palette, backdrop and Roster specifics below are reef-only. The jungle

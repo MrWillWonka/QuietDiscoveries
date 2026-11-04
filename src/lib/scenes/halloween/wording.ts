@@ -20,11 +20,6 @@ export function sceneHint(id: SceneId, day: string | null): string {
   return t(`scene.${id}.hint` as UiKey);
 }
 
-/** Whether a Scene is only on offer for a while, for a badge in the menus. */
-export function isLimited(id: SceneId): boolean {
-  return id === "halloween";
-}
-
 /**
  * When a Newcomer unlocks, on its card in the Collection: "Unlocks in 3
  * days", or, on the day before, a countdown, "Unlocks in 04:12:09".

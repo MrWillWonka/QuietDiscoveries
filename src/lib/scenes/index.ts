@@ -56,6 +56,12 @@ import * as spaceArt from "./space/artwork";
 import spaceIcon from "./space/icon.svg";
 import { SPACE_NOTE } from "./space/note";
 import { SPACE_ROSTER } from "./space/roster";
+import ThanksgivingAmbient from "./thanksgiving/AmbientLife.svelte";
+import * as thanksgivingArt from "./thanksgiving/artwork";
+import { isOpen as isNovember } from "./thanksgiving/calendar";
+import thanksgivingIcon from "./thanksgiving/icon.svg";
+import { THANKSGIVING_NOTE } from "./thanksgiving/note";
+import { THANKSGIVING_ROSTER } from "./thanksgiving/roster";
 import type { Arrivals, CreatureDef, SceneId } from "./types";
 
 export type { SceneId };
@@ -261,11 +267,38 @@ export const SCENES: Record<SceneId, SceneDef> = {
     // comes, and the patch stays lit warmer while he's here (entrance.css).
     welcomes: ["jack-o-lantern"],
   },
+  thanksgiving: {
+    id: "thanksgiving",
+    icon: thanksgivingIcon,
+    roster: THANKSGIVING_ROSTER,
+    creatureArt: thanksgivingArt.CREATURE_ART,
+    listeningArt: thanksgivingArt.LISTENING_ART,
+    ambientArt: thanksgivingArt.AMBIENT_ART,
+    Ambient: ThanksgivingAmbient,
+    depthFade: false,
+    // The animals run; the leaf sprite and the moon fade away
+    // (`CreatureDef.departure`).
+    departure: "run",
+    whilePaused: "listen",
+    // The forest's trail sign, which suits an autumn farm too.
+    note: THANKSGIVING_NOTE,
+    // All through November, every year. Its whole Roster rolls as usual.
+    openOn: isNovember,
+    isNew: true,
+  },
 };
 
 /** Whether a Scene is on offer on a given day (null: not known yet). */
 export function isAvailable(id: SceneId, day: string | null): boolean {
   return SCENES[id].openOn?.(day) ?? true;
+}
+
+/**
+ * Whether a Scene is only on offer for a while, for the "Limited time" badge
+ * in the menus: any Scene with its own calendar (`SceneDef.openOn`).
+ */
+export function isLimited(id: SceneId): boolean {
+  return SCENES[id].openOn !== undefined;
 }
 
 /**
