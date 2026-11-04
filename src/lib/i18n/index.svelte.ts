@@ -80,6 +80,7 @@ const en = {
     "collection.unlocksIn": "Unlocks in {time}",
     "collection.comingSoon": "Coming soon",
     "collection.newToday": "New today",
+    "collection.seenAwake": "Seen awake!",
     "collection.toCome": "{count} still to come",
     "controls.reset": "Reset",
     "controls.confirmReset": "Confirm reset",
@@ -514,7 +515,6 @@ const en = {
     "harvest-basket": "Harvest Basket",
     "golden-acorn": "Golden Acorn",
     "golden-leaf": "Golden Leaf",
-    "harvest-crown": "Harvest Crown",
   },
   // One line about each prehistoric Creature, shown in the collection.
   facts: {
@@ -691,8 +691,6 @@ const en = {
     "golden-acorn": "Every great big oak tree started out as one little acorn.",
     "golden-leaf":
       "Some trees, like ginkgos and aspens, turn bright gold all over in autumn.",
-    "harvest-crown":
-      "A harvest crown of wheat and leaves celebrates the end of a good harvest.",
   },
 } as const;
 
@@ -828,6 +826,7 @@ const es = {
     "collection.unlocksIn": "Se desbloquea en {time}",
     "collection.comingSoon": "Muy pronto",
     "collection.newToday": "Nuevo hoy",
+    "collection.seenAwake": "¡Visto despierto!",
     "collection.toCome": "faltan {count}",
     "controls.reset": "Reiniciar",
     "controls.confirmReset": "Confirmar reinicio",
@@ -1296,7 +1295,6 @@ const es = {
     "harvest-basket": "Cesta de la cosecha",
     "golden-acorn": "Bellota dorada",
     "golden-leaf": "Hoja dorada",
-    "harvest-crown": "Corona de la cosecha",
   },
   facts: {
     didelphodon:
@@ -1472,8 +1470,6 @@ const es = {
     "golden-acorn": "Cada roble grandísimo empezó siendo una pequeña bellota.",
     "golden-leaf":
       "Algunos árboles, como el ginkgo y el álamo temblón, se vuelven totalmente dorados en otoño.",
-    "harvest-crown":
-      "Una corona de trigo y hojas celebra el final de una buena cosecha.",
   },
 } satisfies Language;
 
@@ -1546,6 +1542,7 @@ const fr = {
     "collection.unlocksIn": "Débloqué dans {time}",
     "collection.comingSoon": "Bientôt",
     "collection.newToday": "Nouveau aujourd’hui",
+    "collection.seenAwake": "Vu réveillé !",
     "collection.toCome": "encore {count} à venir",
     "controls.reset": "Réinitialiser",
     "controls.confirmReset": "Confirmer la réinitialisation",
@@ -2018,7 +2015,6 @@ const fr = {
     "harvest-basket": "Panier des moissons",
     "golden-acorn": "Gland doré",
     "golden-leaf": "Feuille dorée",
-    "harvest-crown": "Couronne des moissons",
   },
   facts: {
     didelphodon:
@@ -2197,8 +2193,6 @@ const fr = {
       "Chaque grand chêne a commencé sa vie sous la forme d’un petit gland.",
     "golden-leaf":
       "Certains arbres, comme le ginkgo et le peuplier faux-tremble, deviennent tout dorés en automne.",
-    "harvest-crown":
-      "Une couronne de blé et de feuilles fête la fin d’une belle moisson.",
   },
 } satisfies Language;
 

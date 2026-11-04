@@ -1,10 +1,10 @@
 /**
  * The Autumn Harvest Roster: every QD that can appear in this Scene.
  *
- * Twenty-four: fourteen animals a class could really meet round a farm
- * field in the fall, each a named character (Tilly the Baby Turkey, Ember
- * the Fox, Tom the Turkey…), and ten harvest items, from a pumpkin to a
- * golden crown. All of them are shy in the most literal way: each arrives
+ * Twenty-three, and a secret: fourteen animals a class could really meet
+ * round a farm field in the fall, each a named character (Tilly the Baby
+ * Turkey, Ember the Fox, Tom the Turkey…), and nine harvest items, from a
+ * pumpkin to a golden acorn. All of them are shy in the most literal way: each arrives
  * hidden behind a hay bale, a pumpkin, a rock, a wheat sheaf or a corner
  * bush (a flier in a maple's leaves), peeks out, and only then steps into
  * the meadow (`hidingPlaces` in `./layout.ts`). An animal then wanders; an
@@ -175,7 +175,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   },
   {
     slug: "golden-acorn",
-    tier: "uncommon",
+    tier: "rare",
     width: 42,
     motion: "rest",
     arrival: "roll",
@@ -220,15 +220,6 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     width: 180,
     motion: "stride",
     parts: ["part-tail", "part-head"],
-  },
-  {
-    slug: "harvest-crown",
-    tier: "rare",
-    width: 69,
-    motion: "rest",
-    arrival: "float",
-    awake: { motion: "hop", parts: ["part-arms"] },
-    parts: [],
   },
 
   // The special extra: Mr Applewhite, a super-rare blue jay standing in for the

@@ -245,6 +245,7 @@ export class Session {
     this.#save();
     saveArrived(this.arrived);
     sightings.record(this.#sceneId, def.slug);
+    if (instance.awake) sightings.recordAwake(this.#sceneId, def.slug);
   }
 
   /** Anywhere from far to near, unless its motion keeps it to some depths. */

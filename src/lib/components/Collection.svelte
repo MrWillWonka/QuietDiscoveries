@@ -315,6 +315,12 @@
                         >{t("collection.newToday")}</span
                       >
                     {/if}
+                    {#if sightings.seenAwake(sceneId, def.slug)}
+                      <span
+                        class="mt-1 rounded-full bg-amber-100 px-2 py-px text-[0.7rem] font-semibold text-amber-900"
+                        >{t("collection.seenAwake")}</span
+                      >
+                    {/if}
                   </li>
                 {/if}
               {/each}

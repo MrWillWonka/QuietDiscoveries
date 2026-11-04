@@ -2,7 +2,7 @@
  * When Autumn Harvest is open, and what it has unlocked so far.
  *
  * A Limited-time Scene, like Pumpkin Hollow: it opens on 1 November with
- * nine QDs out, gains one Newcomer every school day from the 5th up to
+ * nine QDs out, gains a Newcomer on most school days from the 5th up to
  * Thanksgiving, each no less rare than the last, with Tom the Turkey as the
  * finale, and closes after 30 November. The working out is
  * shared with every Scene that grows by the day (`scenes/schedule.ts`).
@@ -30,21 +30,21 @@ export const HARVEST_SCHEDULE: Schedule = {
     "harvest-apple",
     "autumn-leaf",
   ],
-  // One per school day from 5 November, each no less rare than the last.
+  // One on most school days from 5 November, each no less rare than the last.
   newcomers: [
     { day: "2026-11-05", slug: "multicolored-corn" },
     { day: "2026-11-06", slug: "harvest-bandit" },
     { day: "2026-11-09", slug: "harvest-ember" },
-    { day: "2026-11-10", slug: "golden-acorn" },
-    { day: "2026-11-11", slug: "golden-leaf" },
-    { day: "2026-11-12", slug: "harvest-pip" },
-    { day: "2026-11-13", slug: "harvest-ruby" },
-    { day: "2026-11-16", slug: "cozy-scarf" },
-    { day: "2026-11-17", slug: "pumpkin-pie" },
-    { day: "2026-11-18", slug: "harvest-basket" },
+    { day: "2026-11-10", slug: "golden-leaf" },
+    { day: "2026-11-11", slug: "harvest-pip" },
+    { day: "2026-11-12", slug: "harvest-ruby" },
+    { day: "2026-11-13", slug: "cozy-scarf" },
+    { day: "2026-11-16", slug: "pumpkin-pie" },
+    { day: "2026-11-17", slug: "harvest-basket" },
+    // No Newcomer on the 18th.
     { day: "2026-11-19", slug: "harvest-maple" },
     { day: "2026-11-20", slug: "harvest-oliver" },
-    { day: "2026-11-23", slug: "harvest-crown" },
+    { day: "2026-11-23", slug: "golden-acorn" },
     { day: "2026-11-24", slug: "harvest-golden-ember" },
     // The finale, the day before Thanksgiving.
     { day: "2026-11-25", slug: "harvest-tom" },

@@ -30,8 +30,8 @@ Creature in every other way.
 
 The full list of Creatures a Scene can produce. The Roster is fixed; the
 number of Creatures _present_ is not, because common Creatures can arrive more
-than once. The one exception is Pumpkin Hollow, whose Roster grows by
-one Newcomer on each Unlock Day.
+than once. The exceptions are Pumpkin Hollow and Autumn Harvest, whose
+Rosters grow by one Newcomer on each Unlock Day.
 
 ## Limited-time Scene
 
@@ -61,10 +61,18 @@ A farm field on a clear autumn afternoon: a pale sun, soft clouds, peach
 hills with round orange trees, a red barn and a windmill beyond a fence, a
 green-gold meadow with a winding path, hay bales, wheat sheaves, pumpkins
 and rocks, and big maples and leafy bushes framing the corners. A
-Limited-time Scene through November that gains a Newcomer on Unlock Days.
-Its 24 QDs are 14 named animals, from Tilly the Baby Turkey to Tom the
-Turkey, and 10 **harvest items**, from a pumpkin to a golden crown. Its
-Note is Thanksgiving's trail sign; Too Loud is a soft fog.
+Limited-time Scene through November: it opens on 1 November with nine QDs
+out and gains a Newcomer on most school days up to Thanksgiving, Tom the
+Turkey last. Its 23 QDs are 14 named animals, from Tilly the Baby Turkey to
+Tom the Turkey, and 9 **harvest items**, from a pumpkin to a golden acorn:
+10 Common, 8 Uncommon and 5 Rare. On top of those it has a Secret QD, Mr
+Applewhite. Its Note is Thanksgiving's trail sign; Too Loud is a soft fog.
+
+Over the Scene a wooden pill holds its **Discovery Leaves**: one circle for
+each QD unlocked so far, which fills with a leaf once the Class has spotted
+that QD here. The leaf's colour follows the tier (amber, red, gold); an
+item the Class has ever seen **awake** gets a gold leaf that glows, for
+good; Mr Applewhite's is a glowing blue leaf.
 
 Its QDs are shy in a way of their own. An animal arrives **hiding**:
 behind a hay bale, a pumpkin, a rock, a wheat sheaf or a corner bush (a
@@ -77,6 +85,16 @@ of the Session. When the room is Too Loud, an animal that Runs Away ducks
 back behind the nearest **hiding place** if one is nearer than the edge,
 and an item is blown off the edge. Only how they come and go differs:
 which QD arrives, and who leaves and when, are the same as everywhere.
+
+## Secret QD
+
+A QD a Limited-time Scene's calendar lets in quietly on its own day, with
+no Newcomer promise and outside the Rarity Tiers: once about, each arrival
+has a 1 in 60 chance of being him. Autumn Harvest's is Mr Applewhite, a
+blue jay standing in for the class's teacher, about from 16 November. The
+teacher can ask for him in Settings, and he then comes somewhere in the
+Class's next two to six arrivals that day. His name is never shown before
+the Class has found him: in the Collection he is a "?" under Super rare.
 
 ## Unlock Day
 

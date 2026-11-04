@@ -31,7 +31,7 @@ describe("the Autumn Harvest arrivals", () => {
     );
     expect(by("tumble")).toEqual(["harvest-basket", "multicolored-corn"]);
     expect(by("float")).toEqual(
-      ["autumn-leaf", "cozy-scarf", "golden-leaf", "harvest-crown"].sort(),
+      ["autumn-leaf", "cozy-scarf", "golden-leaf"].sort(),
     );
   });
 });
