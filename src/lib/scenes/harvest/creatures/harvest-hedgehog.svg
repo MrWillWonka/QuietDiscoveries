@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="5 13 101 54">
+<ellipse cx="30" cy="64" rx="7" ry="3" fill="#a8774f"/>
+  <ellipse cx="64" cy="64" rx="7" ry="3" fill="#a8774f"/>
+  <path d="M6.4 45.2 L15.2 42.5 L9.4 36.2 L18.7 35.6 L15 28.2 L24.2 29.8 L23 21.9 L31.3 25.5 L32.7 17.6 L39.5 23 L43.3 15.7 L48.2 22.5 L54.2 16.3 L56.8 24.1 L64.4 19.5 L64.5 27.5 L73.3 24.9 L70.8 32.6 L80.2 32.1 L75.4 39 L84.5 40.7 L77.7 46.3 L86 50 L84 62 L8 62 Z" fill="#7a4a2e"/>
+  <path d="M15.7 42.5 L22.5 40.7 L18.5 35.6 L25.6 35.5 L23.4 29.7 L30.3 31.3 L30 25.2 L36.1 28.3 L37.7 22.3 L42.6 26.7 L46.1 21.3 L49.4 26.7 L54.4 22.3 L56 28.3 L62.1 25.2 L61.8 31.3 L68.7 29.8 L66.4 35.6 L73.5 35.7 L69.5 40.8 L76.3 42.5 L70.9 46.5 Z" fill="#9a6440"/>
+  <path d="M8 56 C20 64 60 66 84 58 L84 62 C60 68 20 66 8 62 Z" fill="#5B2E1F" opacity="0.25"/>
+  <path d="M62 34 C74 30 92 40 104 50 C106 53 104 56 100 56 C88 60 72 62 62 60 C56 52 56 40 62 34 Z" fill="#f0cfa0"/>
+  <path d="M58 52 C70 58 90 58 100 56 C88 62 70 63 60 61 Z" fill="#5B2E1F" opacity="0.15"/>
+  <g class="part-ears" style="transform-box: fill-box; transform-origin: 50% 100%">
+  <circle cx="68" cy="34" r="5" fill="#e3b583"/>
+  <circle cx="68" cy="34.5" r="2.6" fill="#f2a7a0"/>
+  </g>
+  <ellipse cx="82" cy="42" rx="3.6" ry="4.2" fill="#2b2b3a"/>
+  <circle cx="80.7" cy="40.4" r="1.5" fill="#ffffff"/>
+  <circle cx="83.4" cy="43.6" r="0.6" fill="#ffffff"/>
+  <circle cx="104" cy="51" r="2.6" fill="#2b2b3a"/>
+  <path d="M93 54 Q94 55.6 95 54 Q96 55.6 97 54" fill="none" stroke="#2b2b3a" stroke-width="1" stroke-linecap="round"/>
+  <ellipse cx="80" cy="51" rx="3.4" ry="2.1" fill="#ff7a8a" opacity="0.5"/>
+  <ellipse cx="44" cy="65" rx="7" ry="2.6" fill="#a8774f"/>
+  <ellipse cx="80" cy="64" rx="6" ry="2.6" fill="#a8774f"/>
+</svg>
