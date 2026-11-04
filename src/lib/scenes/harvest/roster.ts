@@ -33,42 +33,42 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "harvest-tilly",
     tier: "common",
-    width: 95,
+    width: 152,
     motion: "trot",
     parts: ["part-tail", "part-head"],
   },
   {
     slug: "harvest-acorn",
     tier: "common",
-    width: 105,
+    width: 168,
     motion: "trot",
     parts: ["part-tail", "part-ears"],
   },
   {
     slug: "harvest-chippy",
     tier: "common",
-    width: 84,
+    width: 134,
     motion: "trot",
     parts: ["part-tail", "part-ears"],
   },
   {
     slug: "harvest-clover",
     tier: "common",
-    width: 105,
+    width: 152,
     motion: "hop",
     parts: ["part-tail", "part-ears"],
   },
   {
     slug: "harvest-rusty",
     tier: "common",
-    width: 84,
+    width: 134,
     motion: "hop",
     parts: ["part-tail", "part-head"],
   },
   {
     slug: "harvest-hazel",
     tier: "common",
-    width: 100,
+    width: 160,
     motion: "scuttle",
     // Scuttles to and fro, but always nose first.
     flips: true,
@@ -79,7 +79,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "harvest-patch",
     tier: "common",
-    width: 110,
+    width: 165,
     motion: "rest",
     arrival: "roll",
     awake: { motion: "hop", parts: ["part-body", "part-arms"] },
@@ -88,7 +88,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "harvest-apple",
     tier: "common",
-    width: 74,
+    width: 111,
     motion: "rest",
     arrival: "roll",
     awake: { motion: "hop", parts: ["part-body", "part-arms"] },
@@ -97,7 +97,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "autumn-leaf",
     tier: "common",
-    width: 79,
+    width: 111,
     motion: "rest",
     arrival: "float",
     // Awake, it floats on the air.
@@ -107,11 +107,11 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "multicolored-corn",
     tier: "common",
-    width: 116,
+    width: 162,
     motion: "rest",
     arrival: "tumble",
     // Lies on its side asleep; awake, it stands up.
-    awake: { motion: "trot", width: 74, parts: ["part-body", "part-arms"] },
+    awake: { motion: "trot", width: 104, parts: ["part-body", "part-arms"] },
     parts: ["part-body"],
   },
 
@@ -119,28 +119,28 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "harvest-bandit",
     tier: "uncommon",
-    width: 136,
+    width: 197,
     motion: "trot",
     parts: ["part-tail", "part-ears"],
   },
   {
     slug: "harvest-ember",
     tier: "uncommon",
-    width: 147,
+    width: 213,
     motion: "trot",
     parts: ["part-tail", "part-ears"],
   },
   {
     slug: "harvest-pip",
     tier: "uncommon",
-    width: 131,
+    width: 190,
     motion: "trot",
     parts: ["part-tail", "part-ears"],
   },
   {
     slug: "harvest-ruby",
     tier: "uncommon",
-    width: 90,
+    width: 144,
     motion: "hop",
     parts: ["part-tail", "part-head"],
   },
@@ -149,7 +149,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "cozy-scarf",
     tier: "uncommon",
-    width: 116,
+    width: 162,
     motion: "rest",
     arrival: "float",
     // Awake, it wriggles along.
@@ -159,7 +159,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "pumpkin-pie",
     tier: "rare",
-    width: 105,
+    width: 147,
     motion: "rest",
     arrival: "roll",
     awake: { motion: "hop", parts: ["part-arms"] },
@@ -168,7 +168,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "harvest-basket",
     tier: "uncommon",
-    width: 126,
+    width: 176,
     motion: "rest",
     arrival: "tumble",
     awake: { motion: "trot", parts: ["part-arms"] },
@@ -177,7 +177,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "golden-acorn",
     tier: "uncommon",
-    width: 74,
+    width: 111,
     motion: "rest",
     arrival: "roll",
     awake: { motion: "hop", parts: ["part-body", "part-arms"] },
@@ -186,7 +186,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "golden-leaf",
     tier: "uncommon",
-    width: 84,
+    width: 118,
     motion: "rest",
     arrival: "float",
     awake: { motion: "drift", parts: [] },
@@ -197,21 +197,21 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "harvest-maple",
     tier: "rare",
-    width: 185,
+    width: 222,
     motion: "graze",
     parts: ["part-tail", "part-head"],
   },
   {
     slug: "harvest-oliver",
     tier: "rare",
-    width: 142,
+    width: 206,
     motion: "soar",
     parts: ["part-wings"],
   },
   {
     slug: "harvest-golden-ember",
     tier: "rare",
-    width: 159,
+    width: 231,
     motion: "trot",
     parts: ["part-tail", "part-ears"],
   },
@@ -219,7 +219,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
     slug: "harvest-tom",
     tier: "rare",
     // Kept under the 1.3× the rest got: at 316 he hid half the farm.
-    width: 250,
+    width: 288,
     motion: "stride",
     parts: ["part-tail", "part-head"],
   },
@@ -229,7 +229,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   {
     slug: "mr-applewhite",
     tier: "rare",
-    width: 95,
+    width: 152,
     motion: "hop",
     parts: ["part-tail", "part-head"],
     alwaysGlistens: true,
