@@ -93,6 +93,12 @@ describe("planFor", () => {
     expect(planFor(canopy, hider("trot", 3), WIDE)).toBeNull();
   });
 
+  it("refuses a place that would leave a big QD hanging off the edge", () => {
+    const edge = { ...bale, x: 95, width: 6 };
+    expect(planFor(edge, hider("trot", 3), WIDE)).not.toBeNull();
+    expect(planFor(edge, hider("trot", 14), WIDE)).toBeNull();
+  });
+
   it("refuses a place that is off an upright screen", () => {
     const farLeft = { ...bale, x: 8 };
     expect(planFor(farLeft, hider("trot", 3), WIDE)).not.toBeNull();

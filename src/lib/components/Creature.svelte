@@ -680,12 +680,16 @@
   class:fading
   data-listening={attending}
   data-holding={listening && whilePaused === "hold" && !fleeing}
-  style="
-    width:calc({width} * var(--wu));
-    z-index:{creatureLayer(profile, shownDepth)};
-    opacity:{depthFade ? 0.62 + creature.depth * 0.38 : 1};
-  "
+  style:width="calc({width} * var(--wu))"
+  style:z-index={creatureLayer(profile, shownDepth)}
+  style:opacity={depthFade ? 0.62 + creature.depth * 0.38 : 1}
 >
+  <!--
+    Each property on its own (`style:`), never one `style` string: the
+    position is set every frame in script (`transform`), and rewriting the
+    whole attribute when the size changes, as it does while a QD walks out
+    from behind a prop to its own depth, would wipe it.
+  -->
   {#if gusting}
     <!-- A brief gust bringing it in: pale streaks and a few leaves. -->
     <span class="gust" data-gust={gusting} aria-hidden="true">

@@ -114,8 +114,8 @@ export const FIELD: FieldPiece[] = [
   // No pumpkins, apples or corn in the scenery: those are QDs here.
   {
     art: "stump",
-    x: 70.5,
-    base: 0.672,
+    x: 20,
+    base: 0.74,
     wu: 8.4,
     sway: "none",
     hides: { width: 0.8, height: 0.84 },
@@ -138,7 +138,7 @@ export const FIELD: FieldPiece[] = [
   },
   {
     art: "wheat-sheaf",
-    x: 66,
+    x: 64,
     base: 0.852,
     wu: 11.76,
     sway: "sheaf",

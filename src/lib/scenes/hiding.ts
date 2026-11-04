@@ -221,6 +221,14 @@ export function planFor(
   const hiddenX = cx + dir * Math.max(0, (coverW - width) / 2 - 0.002);
   const peekX = cx + dir * (coverW / 2 + width * (PEEK_SHOWS - 0.5));
   const outX = cx + dir * (coverW / 2 + width * (0.5 + STEP_CLEAR));
+  // Nor may it hide hanging off the edge of the screen: a big QD behind a
+  // prop at the very edge would be half cut off while it peeked.
+  if (
+    hiddenX - width / 2 < -EDGE_MARGIN ||
+    hiddenX + width / 2 > 1 + EDGE_MARGIN
+  ) {
+    return null;
+  }
   // It has to be able to step right out into where it wanders, all of it
   // on screen.
   const region = MOTION_PROFILES[hider.motion].region;
