@@ -304,6 +304,10 @@
       ),
       radial-gradient(circle at 50% 40%, #fdf6e3, #e9d9b4);
   }
+  .secret svg {
+    width: 90%;
+    height: 90%;
+  }
   .vane {
     fill: #2f6fd6;
   }

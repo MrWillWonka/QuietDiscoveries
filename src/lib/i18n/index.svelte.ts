@@ -245,7 +245,8 @@ const en = {
     "chance.rare": "{percent}% of arrivals are rare",
     "tier.superRare": "Super rare",
     "chance.superRare.label": "Chance of super rare QDs",
-    "chance.superRare": "Each arrival has a 1 in {odds} chance of being this one",
+    "chance.superRare":
+      "Each arrival has a 1 in {odds} chance of being this one",
     "blocked.title": "The QDs need to hear the room",
     "blocked.denied":
       "This browser blocked access to the microphone. Click the padlock or camera icon in the address bar, allow the microphone, then try again.",
