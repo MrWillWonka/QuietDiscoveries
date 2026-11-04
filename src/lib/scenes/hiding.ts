@@ -256,7 +256,8 @@ export function planFor(
  * Which place a newly arrived Creature hides behind before it peeks out. One
  * big enough to hide all of it beats one that is not; then one nobody else
  * is using (`busy`, by name); then the one whose depth is nearest its own,
- * so it has least far to walk once out; with a little chance on top, so the
+ * so it has least far to walk once out (and, given `crowdAt`, one with fewer
+ * QDs about it); with a little chance on top, so the
  * same Creature does not always use the same prop. Null when nowhere on
  * screen suits it: it then arrives as in every other Scene.
  */
@@ -266,6 +267,7 @@ export function chooseHidingPlace(
   view: View,
   busy: string[],
   random: () => number,
+  crowdAt?: (plan: HidingPlan) => number,
 ): HidingPlan | null {
   let best: HidingPlan | null = null;
   let bestScore = Infinity;
@@ -275,6 +277,8 @@ export function chooseHidingPlace(
     const score =
       (plan.fits ? 0 : 10) +
       (busy.includes(place.name) ? 4 : 0) +
+      // Where others already are, if the Scene spreads its QDs out.
+      (crowdAt?.(plan) ?? 0) +
       Math.abs(plan.depth - hider.depth) +
       random() * 0.35;
     if (score < bestScore) {
