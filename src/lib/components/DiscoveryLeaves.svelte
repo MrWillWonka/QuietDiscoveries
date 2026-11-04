@@ -329,8 +329,9 @@
   }
 
   /* A Secret (Mr Applewhite): a blue-jay-blue maple leaf with a white vein
-     highlight and a soft blue glow, on deep blue in a gold ring. The ring
-     shows before he is found too, but nothing of him does. */
+     highlight and a soft blue glow, on the same warm brown as the other
+     leaves so it reads clearly, in a gold ring. The ring shows before he
+     is found too, but nothing of him does. */
   .secret-ring {
     border-color: #e0b13c;
     box-shadow:
@@ -338,7 +339,7 @@
       0 0 0.5rem rgb(249 210 90 / 0.55);
   }
   .secret {
-    background: radial-gradient(circle at 50% 40%, #24427a, #142748);
+    background: radial-gradient(circle at 50% 38%, #b98552, #8f5b33);
   }
   .secret .glow-core,
   .secret .glow-edge {
