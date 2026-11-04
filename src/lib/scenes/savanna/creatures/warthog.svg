@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="32.3 37 157.2 103">
+  <g class="part-tail" style="transform-box: fill-box; transform-origin: 50% 100%">
+    <path d="M37 94 C 35 82, 34 68, 35 56 L 40 56 C 39 68, 40 80, 43 92 Z" fill="#7a5a44"/>
+    <path d="M37.5 60 C 32 56, 31 46, 34 40 C 36 36, 40 36, 42 40 C 44 46, 43 56, 39.5 60 Z" fill="#7a5a44"/>
+    <path d="M37.5 60 C 32 56, 31 46, 34 40 C 36 36, 40 36, 42 40 C 44 46, 43 56, 39.5 60 Z" fill="#2b2b3a" opacity="0.4"/>
+  </g>
+  <rect x="44" y="108" width="13" height="32" rx="6" fill="#7a5a44"/>
+  <rect x="44" y="108" width="13" height="32" rx="6" fill="#2b2b3a" opacity="0.25"/>
+  <rect x="112" y="108" width="13" height="32" rx="6" fill="#7a5a44"/>
+  <rect x="112" y="108" width="13" height="32" rx="6" fill="#2b2b3a" opacity="0.25"/>
+  <rect x="56" y="108" width="14" height="32" rx="6" fill="#7a5a44"/>
+  <path d="M56 134 L 70 134 L 70 134 C 70 138, 68 140, 64 140 L 62 140 C 58 140, 56 138, 56 134 Z" fill="#2b2b3a" opacity="0.4"/>
+  <rect x="124" y="108" width="14" height="32" rx="6" fill="#7a5a44"/>
+  <path d="M124 134 L 138 134 C 138 138, 136 140, 132 140 L 130 140 C 126 140, 124 138, 124 134 Z" fill="#2b2b3a" opacity="0.4"/>
+  <path d="M44 134 L 57 134 C 57 138, 55 140, 51 140 L 50 140 C 46 140, 44 138, 44 134 Z" fill="#2b2b3a" opacity="0.3"/>
+  <path d="M112 134 L 125 134 C 125 138, 123 140, 119 140 L 118 140 C 114 140, 112 138, 112 134 Z" fill="#2b2b3a" opacity="0.3"/>
+  <ellipse cx="86" cy="98" rx="53" ry="30" fill="#7a5a44"/>
+  <path d="M38 110.7 A 53 30 0 0 0 136 107.9 C 110 122, 62 124, 38 110.7 Z" fill="#2b2b3a" opacity="0.18"/>
+  <path d="M46 78 C 44 70, 50 66, 54 72 C 54 62, 62 60, 64 68 C 66 58, 74 58, 76 66 C 80 56, 88 58, 88 66 C 92 56, 100 58, 100 66 C 104 56, 112 58, 112 67 C 116 58, 124 60, 124 70 C 128 62, 136 66, 134 74 L 128 82 C 110 74, 70 72, 50 84 Z" fill="#7a5a44"/>
+  <path d="M46 78 C 44 70, 50 66, 54 72 C 54 62, 62 60, 64 68 C 66 58, 74 58, 76 66 C 80 56, 88 58, 88 66 C 92 56, 100 58, 100 66 C 104 56, 112 58, 112 67 C 116 58, 124 60, 124 70 C 128 62, 136 66, 134 74 L 128 82 C 110 74, 70 72, 50 84 Z" fill="#2b2b3a" opacity="0.4"/>
+  <path d="M120 72 C 134 58, 160 62, 170 80 C 175 87, 184 94, 184 103 C 184 113, 177 119, 166 121 C 150 124, 130 124, 118 114 Z" fill="#7a5a44"/>
+  <path d="M118 114 C 130 124, 150 124, 166 121 C 169.3 120.4, 172.2 119.4, 174.7 118.1 C 158 121, 136 122, 120 110 Z" fill="#2b2b3a" opacity="0.18"/>
+  <g class="part-ears" style="transform-box: fill-box; transform-origin: 50% 100%">
+    <path d="M122 74 C 116 62, 117 52, 123 46 C 131 50, 136 60, 135 70 Z" fill="#7a5a44"/>
+    <path d="M124 70 C 121 62, 122 56, 124.5 52 C 129 56, 131 62, 131 68 Z" fill="#ff7a8a" opacity="0.6"/>
+  </g>
+  <circle cx="170" cy="82" r="4.5" fill="#7a5a44"/>
+  <circle cx="155" cy="101" r="4" fill="#ffffff" opacity="0.2"/>
+  <circle cx="163" cy="93" r="3" fill="#ffffff" opacity="0.2"/>
+  <ellipse cx="183" cy="104" rx="6.5" ry="11.5" fill="#7a5a44"/>
+  <ellipse cx="183" cy="104" rx="6.5" ry="11.5" fill="#2b2b3a" opacity="0.35"/>
+  <ellipse cx="185" cy="100" rx="1.8" ry="2.5" fill="#2b2b3a" opacity="0.5"/>
+  <circle cx="148" cy="86" r="5" fill="#2b2b3a"/>
+  <circle cx="146.3" cy="84.3" r="1.5" fill="#ffffff"/>
+  <ellipse cx="140" cy="99" rx="5" ry="3" fill="#ff7a8a" opacity="0.55"/>
+  <path d="M160.5 114.5 C 165.5 110, 169.5 103, 171 92 C 171.5 90.5, 173.5 90.5, 174 92 C 177.5 102, 174 111, 170 115.5 Z" fill="#f4f1de"/>
+  <path d="M160 115 C 163 118, 167 118, 170 115 C 167 116.5, 163 116.5, 160 115 Z" fill="#2b2b3a" opacity="0.5"/>
+</svg>

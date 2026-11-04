@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 107">
+  <defs>
+    <linearGradient id="space-astronaut-suit">
+      <stop offset="0" stop-color="#cfd5df"/><stop offset="0.3" stop-color="#fafbfd"/><stop offset="0.55" stop-color="#d9dde5"/><stop offset="0.85" stop-color="#8b93a6"/><stop offset="1" stop-color="#5b637a"/>
+    </linearGradient>
+    <linearGradient id="space-astronaut-far">
+      <stop offset="0" stop-color="#a9b0bf"/><stop offset="0.3" stop-color="#d0d5de"/><stop offset="0.55" stop-color="#aab1c0"/><stop offset="0.85" stop-color="#666e83"/><stop offset="1" stop-color="#454b5e"/>
+    </linearGradient>
+    <linearGradient id="space-astronaut-grey" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c8ccd6"/><stop offset="0.3" stop-color="#e6e8ee"/><stop offset="0.6" stop-color="#aab1c0"/><stop offset="1" stop-color="#4f566b"/>
+    </linearGradient>
+    <linearGradient id="space-astronaut-pack" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0" stop-color="#aab1c0"/><stop offset="0.35" stop-color="#9097a8"/><stop offset="1" stop-color="#4f566b"/>
+    </linearGradient>
+    <radialGradient id="space-astronaut-helm" cx="0.36" cy="0.3" r="0.78">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="0.45" stop-color="#e6e8ee"/><stop offset="0.85" stop-color="#8b93a6"/><stop offset="1" stop-color="#5b637a"/>
+    </radialGradient>
+    <radialGradient id="space-astronaut-visor" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#f3dc92"/><stop offset="0.5" stop-color="#c99a3e"/><stop offset="1" stop-color="#4a3410"/>
+    </radialGradient>
+    <path id="space-astronaut-fua" d="M57.2 39.9 L65.7 52.7 A5.1 5.1 0 0 0 74.3 47.3 L66.8 34.1 A5.6 5.6 0 0 0 57.2 39.9 Z"/>
+    <linearGradient id="space-astronaut-g-fua" href="#space-astronaut-far" gradientUnits="userSpaceOnUse" x1="61.4" y1="46.3" x2="70.6" y2="40.7"/>
+    <path id="space-astronaut-ffa" d="M68.8 45 L77.5 43.6 A4.5 4.5 0 0 1 79.5 52.4 L71.2 55 A5.1 5.1 0 0 1 68.8 45 Z"/>
+    <linearGradient id="space-astronaut-g-ffa" href="#space-astronaut-far" gradientUnits="userSpaceOnUse" x1="73.2" y1="44.3" x2="75.3" y2="53.7"/>
+    <path id="space-astronaut-fgl" d="M77.2 47.5 C77.2 43.7 85.8 43.2 86.8 48 C87.3 52.8 81 54.3 78.2 51.9 C77 50.4 77.2 48.5 77.2 47.5 Z"/>
+    <path id="space-astronaut-pk" d="M25 23 L45 17.5 L47.5 64 L27.5 68.5 C26 68.8 25 67.8 25 66.3 Z"/>
+    <path id="space-astronaut-fth" d="M50.7 81.5 L59.4 95.6 A6.4 6.4 0 0 0 70.6 89.4 L63.3 74.5 A7.2 7.2 0 0 0 50.7 81.5 Z"/>
+    <linearGradient id="space-astronaut-g-fth" href="#space-astronaut-far" gradientUnits="userSpaceOnUse" x1="55" y1="88.5" x2="67" y2="82"/>
+    <path id="space-astronaut-fsh" d="M59.3 90.2 L54.4 103.9 A5.5 5.5 0 0 0 64.6 108.1 L70.7 94.8 A6.2 6.2 0 0 0 59.3 90.2 Z"/>
+    <linearGradient id="space-astronaut-g-fsh" href="#space-astronaut-far" gradientUnits="userSpaceOnUse" x1="56.8" y1="97" x2="67.7" y2="101.5"/>
+    <path id="space-astronaut-fbt" d="M53 104.5 C56.5 103 62.5 103.5 64.5 106.5 C68 109 69.5 112 68.5 114.5 C66.5 116 59.5 116 55 114.5 C52.5 113 52 107.5 53 104.5 Z"/>
+    <path id="space-astronaut-nsh" d="M47.8 91.3 L42.1 106.7 A5.9 5.9 0 0 0 52.9 111.3 L60.2 96.7 A6.8 6.8 0 0 0 47.8 91.3 Z"/>
+    <linearGradient id="space-astronaut-g-nsh" href="#space-astronaut-suit" gradientUnits="userSpaceOnUse" x1="44.9" y1="99" x2="56.6" y2="104"/>
+    <path id="space-astronaut-nbt" d="M41 107.5 C44.5 106 50.5 106.5 52.5 109.5 C56 112 57.5 115 56.5 117.5 C54.5 119 47.5 119 43 117.5 C40.5 116 40 110.5 41 107.5 Z"/>
+    <path id="space-astronaut-nth" d="M38.9 82.7 L48.1 97.4 A6.8 6.8 0 0 0 59.9 90.6 L52.1 75.3 A7.6 7.6 0 0 0 38.9 82.7 Z"/>
+    <linearGradient id="space-astronaut-g-nth" href="#space-astronaut-suit" gradientUnits="userSpaceOnUse" x1="43.5" y1="90" x2="56" y2="83"/>
+    <clipPath id="space-astronaut-c-nth"><use href="#space-astronaut-nth"/></clipPath>
+    <path id="space-astronaut-to" d="M38.5 30 C47 26 59 26 65.5 29.5 C70.5 32.5 71.5 41 69.5 51 C68.5 59 64.5 66 62 72 L40.5 72 C38.5 64 36 55 36 45 C36 37 36 32 38.5 30 Z"/>
+    <linearGradient id="space-astronaut-g-to" href="#space-astronaut-suit" gradientUnits="userSpaceOnUse" x1="36" y1="40" x2="71" y2="49"/>
+    <clipPath id="space-astronaut-c-legs"><use href="#space-astronaut-nth"/><use href="#space-astronaut-fth"/></clipPath>
+    <path id="space-astronaut-hp" d="M39.5 69 L62.5 69 C64.5 75 64 81 60.5 84.5 L42 84.5 C38.5 81.5 37.5 75 39.5 69 Z"/>
+    <linearGradient id="space-astronaut-g-hp" href="#space-astronaut-suit" gradientUnits="userSpaceOnUse" x1="38" y1="72" x2="64" y2="80"/>
+    <clipPath id="space-astronaut-c-to"><use href="#space-astronaut-to"/><use href="#space-astronaut-hp"/></clipPath>
+    <path id="space-astronaut-nua" d="M34.9 36.9 L37.9 54.8 A5.7 5.7 0 0 0 49.1 53.2 L47.1 35.1 A6.2 6.2 0 0 0 34.9 36.9 Z"/>
+    <linearGradient id="space-astronaut-g-nua" href="#space-astronaut-suit" gradientUnits="userSpaceOnUse" x1="36.4" y1="45.8" x2="48.1" y2="44.2"/>
+    <path id="space-astronaut-nfa" d="M46.5 49.3 L55.7 55.7 A5.1 5.1 0 0 1 50.3 64.3 L40.5 58.7 A5.6 5.6 0 0 1 46.5 49.3 Z"/>
+    <linearGradient id="space-astronaut-g-nfa" href="#space-astronaut-suit" gradientUnits="userSpaceOnUse" x1="51.1" y1="52.5" x2="45.4" y2="61.5"/>
+    <path id="space-astronaut-ngl" d="M51.5 59.5 C51.5 55.5 60.5 55 61.5 60 C62 65 55.5 66.5 52.5 64 C51.2 62.5 51.5 60.5 51.5 59.5 Z"/>
+    <path id="space-astronaut-he" d="M53 9 A12 12 0 1 1 52.9 9 Z"/>
+    <clipPath id="space-astronaut-c-he"><use href="#space-astronaut-he"/></clipPath>
+    <clipPath id="space-astronaut-c-vi"><ellipse cx="58.5" cy="23" rx="10.5" ry="10.2"/></clipPath>
+  </defs>
+  <g transform="translate(-27 -10.3) rotate(16 55 70)">
+  <use href="#space-astronaut-fua" fill="url(#space-astronaut-g-fua)"/>
+  <use href="#space-astronaut-ffa" fill="url(#space-astronaut-g-ffa)"/>
+  <use href="#space-astronaut-fgl" fill="url(#space-astronaut-grey)"/>
+  <use href="#space-astronaut-pk" fill="url(#space-astronaut-pack)"/>
+  <path d="M25 23 L29.5 18.8 L49 14 L45 17.5 Z" fill="#dfe3ea"/>
+  <path d="M25.8 22.6 L29.8 19.2 L47.6 14.8" stroke="#dce8ff" stroke-width="0.7" opacity="0.5" fill="none"/>
+  <use href="#space-astronaut-fth" fill="url(#space-astronaut-g-fth)"/>
+  <use href="#space-astronaut-fsh" fill="url(#space-astronaut-g-fsh)"/>
+  <use href="#space-astronaut-fbt" fill="url(#space-astronaut-grey)"/>
+  <use href="#space-astronaut-nsh" fill="url(#space-astronaut-g-nsh)"/>
+  <use href="#space-astronaut-nbt" fill="url(#space-astronaut-grey)"/>
+  <use href="#space-astronaut-nth" fill="url(#space-astronaut-g-nth)"/>
+  <path d="M39.5 82.4 L48.7 97" stroke="#dce8ff" stroke-width="0.7" opacity="0.5" fill="none"/>
+  <path d="M40 95.2 L57.6 85.2 L58.9 87.6 L41.3 97.6 Z" fill="#c44b3a" clip-path="url(#space-astronaut-c-nth)"/>
+  <use href="#space-astronaut-to" fill="url(#space-astronaut-g-to)"/>
+  <path d="M36.6 44 C36.6 36.5 36.8 32.3 38.9 30.5 C44 28 50 27 56 27" stroke="#dce8ff" stroke-width="0.7" opacity="0.5" fill="none"/>
+  <path d="M58.5 44.5 L69 43.5 L69.8 52.5 L59.3 53.5 Z" fill="#05070f" opacity="0.3"/>
+  <path d="M57 43 L67.5 42 L68.5 50.5 L58 51.5 Z" fill="url(#space-astronaut-grey)"/>
+  <path d="M59.5 45 L65 44.5" stroke="#5b637a" stroke-width="1.2"/>
+  <ellipse cx="56" cy="32.4" rx="9" ry="2.6" fill="#05070f" opacity="0.22"/>
+  <path d="M40 80 L63 78 C63.5 83 62 86.5 60 88 L42 88.5 C40 86.5 39 84 40 80 Z" fill="#05070f" opacity="0.3" clip-path="url(#space-astronaut-c-legs)"/>
+  <use href="#space-astronaut-hp" fill="url(#space-astronaut-g-hp)"/>
+  <path d="M39.8 70 L62.2 70" stroke="#5b637a" stroke-width="1.4"/>
+  <g clip-path="url(#space-astronaut-c-to)"><path d="M34.9 36.9 L37.9 54.8 A5.7 5.7 0 0 0 49.1 53.2 L47.1 35.1 A6.2 6.2 0 0 0 34.9 36.9 Z M46.5 49.3 L55.7 55.7 A5.1 5.1 0 0 1 50.3 64.3 L40.5 58.7 A5.6 5.6 0 0 1 46.5 49.3 Z" transform="translate(2.4 1.6)" fill="#05070f" opacity="0.3"/></g>
+  <use href="#space-astronaut-nua" fill="url(#space-astronaut-g-nua)"/>
+  <path d="M35.6 36.8 L38.5 54.7" stroke="#dce8ff" stroke-width="0.7" opacity="0.5" fill="none"/>
+  <use href="#space-astronaut-nfa" fill="url(#space-astronaut-g-nfa)"/>
+  <use href="#space-astronaut-ngl" fill="url(#space-astronaut-grey)"/>
+  <use href="#space-astronaut-he" fill="url(#space-astronaut-helm)"/>
+  <g clip-path="url(#space-astronaut-c-he)">
+    <ellipse cx="59.3" cy="23.8" rx="10.5" ry="10.2" fill="#05070f" opacity="0.3"/>
+    <ellipse cx="58.5" cy="23" rx="10.5" ry="10.2" fill="url(#space-astronaut-visor)"/>
+    <g clip-path="url(#space-astronaut-c-vi)">
+      <path d="M47 33 C53 28.8 61 27.8 70 29.5 L70 36 L47 36 Z" fill="#3d5ea6" opacity="0.22"/>
+      <path d="M51 30.6 C55.5 28.8 60.5 28.3 66 28.9" fill="none" stroke="#a9c4f5" stroke-width="0.7" opacity="0.7"/>
+    </g>
+    <ellipse cx="54.6" cy="18.4" rx="4.6" ry="2.4" transform="rotate(-28 54.6 18.4)" fill="#fff6d0" opacity="0.5"/>
+  </g>
+  <path d="M42.6 17.5 A11.3 11.3 0 0 1 52 9.8" stroke="#dce8ff" stroke-width="0.7" opacity="0.5" fill="none"/>
+  <rect x="44" y="12.5" width="3.6" height="3" rx="0.8" transform="rotate(-45 45.8 14)" fill="#5b637a"/>
+  </g>
+</svg>

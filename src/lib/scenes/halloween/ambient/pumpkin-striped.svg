@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="2 -1.5 80 73.5">
+  <!-- A pale cream pumpkin with soft orange stripes. -->
+  <ellipse cx="42" cy="72" rx="39" ry="3.1" fill="#2b2b3a" opacity="0.25"/>
+  <path d="M8.4 43 L75.6 43 C 74 60.4, 70.8 72, 64.4 72 L19.6 72 C 13.2 72, 10 60.4, 8.4 43 Z" fill="#d3cbd2"/>
+  <ellipse cx="14.4" cy="46.5" rx="12.4" ry="25.5" fill="#d3cbd2"/>
+  <path d="M14.4 21 A12.4 25.5 0 0 0 14.4 72 A6.8 25.5 0 0 1 14.4 21 Z" fill="#e8812a" opacity="0.45"/>
+  <ellipse cx="69.6" cy="46.5" rx="12.4" ry="25.5" fill="#d3cbd2"/>
+  <path d="M69.6 21 A12.4 25.5 0 0 1 69.6 72 A6.8 25.5 0 0 0 69.6 21 Z" fill="#e8812a" opacity="0.45"/>
+  <ellipse cx="29.3" cy="43.9" rx="14.5" ry="28.1" fill="#e6dcc4"/>
+  <path d="M29.3 15.7 A14.5 28.1 0 0 0 29.3 72 A8 28.1 0 0 1 29.3 15.7 Z" fill="#e8812a" opacity="0.45"/>
+  <ellipse cx="54.7" cy="43.9" rx="14.5" ry="28.1" fill="#e6dcc4"/>
+  <path d="M54.7 15.7 A14.5 28.1 0 0 1 54.7 72 A8 28.1 0 0 0 54.7 15.7 Z" fill="#e8812a" opacity="0.45"/>
+  <ellipse cx="42" cy="43" rx="16.7" ry="29" fill="#e6dcc4"/>
+  <ellipse cx="35.7" cy="29.1" rx="4.3" ry="5.8" fill="#ffffff" opacity="0.28"/>
+  <path d="M45.6 19.1 C 45.7 17.4, 45.6 11.2, 46.4 8.6 C 47.2 6.1, 49.8 4.4, 50.5 3.5 C 52.6 1.1, 48.6 -2.5, 46.4 0 C 45.5 1.1, 41.8 3.4, 40.5 6.4 C 39.2 9.4, 38.8 16.2, 38.4 18.2 Z" fill="#65653a"/>
+  <ellipse cx="49" cy="1.1" rx="1.9" ry="1.2" transform="rotate(41 49 1.1)" fill="#999571"/>
+  <ellipse cx="42" cy="17.8" rx="6.7" ry="2.3" fill="#2b2b3a" opacity="0.25"/>
+</svg>

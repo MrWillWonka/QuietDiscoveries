@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 24.5 220 159">
+  <!-- The warm glow round a jack-o'-lantern, which flickers gently. -->
+  <ellipse cx="120" cy="104" rx="110" ry="79.2" fill="#ffc95e" opacity="0.035"/>
+  <ellipse cx="120" cy="104" rx="98" ry="70.6" fill="#ffc95e" opacity="0.035"/>
+  <ellipse cx="120" cy="104" rx="87" ry="62.6" fill="#ffc95e" opacity="0.035"/>
+  <ellipse cx="120" cy="104" rx="77" ry="55.4" fill="#ffc95e" opacity="0.035"/>
+  <ellipse cx="120" cy="104" rx="68" ry="49" fill="#ffc95e" opacity="0.035"/>
+  <ellipse cx="120" cy="104" rx="60" ry="43.2" fill="#ffc95e" opacity="0.035"/>
+  <ellipse cx="120" cy="104" rx="53" ry="38.2" fill="#ffc95e" opacity="0.035"/>
+  <ellipse cx="120" cy="138" rx="110" ry="12.1" fill="#ffc95e" opacity="0.06"/>
+  <ellipse cx="120" cy="138" rx="92" ry="10.1" fill="#ffc95e" opacity="0.06"/>
+  <ellipse cx="120" cy="138" rx="76" ry="8.4" fill="#ffc95e" opacity="0.06"/>
+  <ellipse cx="120" cy="138" rx="62" ry="6.8" fill="#ffc95e" opacity="0.06"/>
+</svg>

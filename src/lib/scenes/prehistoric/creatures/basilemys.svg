@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191 54">
+  <defs>
+    <linearGradient id="prehistoric-basilemys-form" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="40">
+      <stop offset="0" stop-color="#fff1d0" stop-opacity="0.2"/>
+      <stop offset="0.4" stop-color="#fff1d0" stop-opacity="0"/>
+      <stop offset="0.7" stop-color="#1d1812" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#1d1812" stop-opacity="0.45"/>
+    </linearGradient>
+  </defs>
+  <!-- Far legs, in shadow. -->
+  <path d="M44 30 C 52 28, 60 30, 60 36 C 60 42, 58 47, 58 50 C 59 52, 60 53, 60 54 L 40 54 C 40 52, 42 50, 43 48 C 42 42, 40 34, 44 30 Z M110 30 C 118 28, 126 30, 126 36 C 126 42, 124 47, 124 50 C 125 52, 126 53, 126 54 L 106 54 C 106 52, 108 50, 109 48 C 108 42, 106 34, 110 30 Z" fill="#5a4f40"/>
+  <path d="M44 30 C 52 28, 60 30, 60 36 C 60 42, 58 47, 58 50 C 59 52, 60 53, 60 54 L 40 54 C 40 52, 42 50, 43 48 C 42 42, 40 34, 44 30 Z M110 30 C 118 28, 126 30, 126 36 C 126 42, 124 47, 124 50 C 125 52, 126 53, 126 54 L 106 54 C 106 52, 108 50, 109 48 C 108 42, 106 34, 110 30 Z" fill="#1d1812" opacity="0.34"/>
+  <!-- Stubby tail under the rear margin. -->
+  <path d="M20 30 C 12 32, 5 36, 0 40 C 6 40, 14 38, 24 36 Z" fill="#6c5f4c"/>
+  <path d="M0 40 C 6 40, 14 38, 24 36 L 22 34 C 14 36, 6 38, 0 40 Z" fill="#1d1812" opacity="0.3"/>
+  <!-- Stout head on a short thick neck that cannot fully retract. -->
+  <g class="part-head" style="transform-box: view-box; transform-origin: 144px 26px">
+    <path d="M130 20 C 140 16, 152 15, 164 14 C 172 10, 182 11, 188 16 C 191 20, 191 25, 187 28 C 181 31, 172 32, 164 32 C 156 34, 146 36, 132 36 Z" fill="#6c5f4c"/>
+    <path d="M187 28 C 181 31, 172 32, 164 32 C 156 34, 146 36, 132 36 L 132 30 C 144 30, 156 28, 168 27 C 176 27, 182 27, 187 28 Z" fill="#978870"/>
+    <path d="M130 20 C 140 16, 152 15, 164 14 C 172 10, 182 11, 188 16 C 191 20, 191 25, 187 28 C 181 31, 172 32, 164 32 C 156 34, 146 36, 132 36 Z" fill="url(#prehistoric-basilemys-form)"/>
+    <path d="M188 16 C 191 20, 191 25, 187 28 C 184 28, 182 26, 182 24 C 184 22, 186 19, 188 16 Z" fill="#3a3127" opacity="0.7"/>
+    <path d="M187 26 C 182 26.5, 176 27, 170 27.5" stroke="#1d1812" stroke-width="1.2" opacity="0.5" fill="none"/>
+    <path d="M170 16 C 173 14, 178 14, 181 16 C 178 16, 174 16.5, 170 18 Z" fill="#1d1812" opacity="0.4"/>
+    <circle cx="175.5" cy="18.5" r="1.8" fill="#b88636"/>
+    <circle cx="175.5" cy="18.5" r="1.2" fill="#120e0a"/>
+    <path d="M152 17 C 154 22, 154 28, 152 33 M144 18 C 146 23, 146 29, 144 34" stroke="#1d1812" stroke-width="1.2" opacity="0.3" fill="none"/>
+  </g>
+  <!-- Near legs: elephantine columns, scaly, blunt claws. -->
+  <path d="M20 26 C 34 22, 50 24, 52 33 C 53 40, 50 46, 50 50 C 51 52, 52 53, 53 54 L 20 54 C 20 52, 22 50, 24 48 C 22 42, 18 34, 20 26 Z M118 24 C 132 20, 148 24, 150 33 C 151 40, 148 46, 148 50 C 149 52, 150 53, 151 54 L 118 54 C 118 52, 120 50, 122 48 C 120 42, 116 34, 118 24 Z" fill="#6c5f4c"/>
+  <path d="M20 26 C 34 22, 50 24, 52 33 C 53 40, 50 46, 50 50 C 51 52, 52 53, 53 54 L 20 54 C 20 52, 22 50, 24 48 C 22 42, 18 34, 20 26 Z M118 24 C 132 20, 148 24, 150 33 C 151 40, 148 46, 148 50 C 149 52, 150 53, 151 54 L 118 54 C 118 52, 120 50, 122 48 C 120 42, 116 34, 118 24 Z" fill="url(#prehistoric-basilemys-form)" opacity="0.6"/>
+  <path d="M52 33 C 53 40, 50 46, 50 50 C 51 52, 52 53, 53 54 L 42 54 C 42 48, 42 42, 46 36 Z M150 33 C 151 40, 148 46, 148 50 C 149 52, 150 53, 151 54 L 140 54 C 140 48, 140 42, 144 36 Z" fill="#1d1812" opacity="0.22"/>
+  <g fill="#c2b393" opacity="0.16">
+    <ellipse cx="140" cy="37" rx="3" ry="2.4"/>
+    <ellipse cx="141" cy="43" rx="2.6" ry="2.2"/>
+    <ellipse cx="133" cy="40" rx="2.6" ry="2.2"/>
+    <ellipse cx="38" cy="40" rx="2.6" ry="2.2"/>
+  </g>
+  <path d="M146 54 C 146 52, 147.5 51.5, 149 51.5 C 150.5 51.5, 152 52.5, 152 54 Z M140.5 54 C 140.5 52, 142 52, 143.5 52 C 145 52, 146 53, 146 54 Z M48 54 C 48 52, 49.5 51.5, 51 51.5 C 52.5 51.5, 54 52.5, 54 54 Z M42.5 54 C 42.5 52, 44 52, 45.5 52 C 47 52, 48 53, 48 54 Z" fill="#3a3127"/>
+  <!-- Bridge and plastron edge. -->
+  <path d="M16 30 L 154 28 L 150 36 C 112 38, 62 38, 22 37 Z" fill="#4a4230"/>
+  <path d="M16 30 L 154 28 L 150 36 C 112 38, 62 38, 22 37 Z" fill="#1d1812" opacity="0.3"/>
+  <!-- Carapace: broad, low and flat, margin slightly flared, paler rim. -->
+  <path d="M4 30 C 2 24, 7 16, 18 10 C 36 2, 62 0, 86 0 C 112 0, 132 3, 145 9 C 154 14, 159 21, 159 27 C 150 32, 116 33, 84 33 C 54 33, 22 33, 7 32.5 C 5 32, 4 31, 4 30 Z" fill="#4f4832"/>
+  <path d="M159 27 C 150 32, 116 33, 84 33 C 54 33, 22 33, 7 32.5 C 5 32, 4 31, 4 30 C 3 28, 2.5 26, 3 24 C 20 27, 54 27.5, 84 27.5 C 114 27.5, 142 26, 158.5 21 C 159 23, 159.5 25, 159 27 Z" fill="#6f6a45"/>
+  <path d="M32 10 C 52 4, 72 3, 92 4 C 110 5, 124 7, 136 12 C 116 9, 92 8, 70 9 C 56 10, 44 11, 32 14 Z" fill="#fff1d0" opacity="0.1"/>
+  <path d="M4 30 C 2 24, 7 16, 18 10 C 36 2, 62 0, 86 0 C 112 0, 132 3, 145 9 C 154 14, 159 21, 159 27 C 150 32, 116 33, 84 33 C 54 33, 22 33, 7 32.5 C 5 32, 4 31, 4 30 Z" fill="url(#prehistoric-basilemys-form)"/>
+  <!-- Scute seams and pitting: a few faint marks only. -->
+  <path d="M50 5 C 48 12, 48 18, 50 26 M88 1.5 C 86 10, 86 18, 88 27 M124 6 C 122 13, 122 19, 124 25.5 M32 28 L 32 32.5 M68 28 L 68 33 M106 28 L 106 33 M140 26 L 141 31" stroke="#1d1812" stroke-width="1.2" opacity="0.28" fill="none"/>
+  <g fill="#1d1812" opacity="0.22">
+    <circle cx="66" cy="8" r="1"/>
+    <circle cx="72" cy="15" r="1"/>
+    <circle cx="104" cy="10" r="1"/>
+    <circle cx="110" cy="18" r="1"/>
+    <circle cx="36" cy="18" r="1"/>
+    <circle cx="134" cy="17" r="1"/>
+  </g>
+</svg>

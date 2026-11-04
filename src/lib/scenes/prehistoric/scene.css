@@ -1,0 +1,261 @@
+/* The prehistoric Scene's own styles: how its Creatures' part groups move,
+   its Ambient Life, its page colour and its Too Loud haze. Everything is
+   scoped to the Scene, so the shared part classes (routes/layout.css,
+   scenes/savanna/creatures.css) keep their pace elsewhere. */
+
+/* --- Creatures ----------------------------------------------------------
+
+   These animals are drawn to be read as real animals, and the quick tail
+   wag and wing flap that suit the savanna's cartoons would undo that: big
+   bodies move slowly. Each SVG sets `transform-box: view-box` and its joint
+   as `transform-origin` inline on the group, so no origins are set here. */
+
+/* Tails: a slow, slight swing, the weight of the animal in it. */
+@keyframes prehistoric-tail {
+  0%,
+  100% {
+    transform: rotate(-1.8deg);
+  }
+  50% {
+    transform: rotate(1.8deg);
+  }
+}
+
+/* Heads: a long look about, then down to crop the ferns, and back up. */
+@keyframes prehistoric-graze {
+  0%,
+  45%,
+  100% {
+    transform: rotate(0deg);
+  }
+  55%,
+  80% {
+    transform: rotate(5deg);
+  }
+}
+
+/* Wings: a steady working beat for the small fliers. */
+@keyframes prehistoric-wing {
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes prehistoric-wing-far {
+  0%,
+  100% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+}
+
+/* A soaring giant barely beats at all: a slow flex of the wingtips. */
+@keyframes prehistoric-glide {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+@keyframes prehistoric-glide-far {
+  0%,
+  100% {
+    transform: rotate(2.5deg);
+  }
+  50% {
+    transform: rotate(-2.5deg);
+  }
+}
+
+.scene-stage[data-scene="prehistoric"] .creature .part-tail {
+  animation: prehistoric-tail 6s ease-in-out infinite;
+}
+
+.scene-stage[data-scene="prehistoric"] .creature .part-head {
+  animation: prehistoric-graze 11s ease-in-out infinite;
+}
+
+.scene-stage[data-scene="prehistoric"] .creature .part-wings {
+  animation: prehistoric-wing 1400ms ease-in-out infinite;
+}
+
+.scene-stage[data-scene="prehistoric"] .creature .part-wings-far {
+  animation-name: prehistoric-wing-far;
+}
+
+.scene-stage[data-scene="prehistoric"] .creature .part-wings-slow {
+  animation: prehistoric-glide 8s ease-in-out infinite;
+}
+
+.scene-stage[data-scene="prehistoric"]
+  .creature
+  .part-wings-slow.part-wings-far {
+  animation-name: prehistoric-glide-far;
+}
+
+/* --- Ambient Life -------------------------------------------------------- */
+
+@keyframes prehistoric-fern {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes prehistoric-mist {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100cqw);
+  }
+}
+
+@keyframes prehistoric-glint {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateX(calc(0.8 * var(--wu)));
+  }
+}
+
+/* A far herd shuffles a little along the bank, then back. */
+@keyframes prehistoric-herd {
+  from {
+    transform: translateX(calc(-3 * var(--wu)));
+  }
+  to {
+    transform: translateX(calc(3 * var(--wu)));
+  }
+}
+
+@keyframes prehistoric-sky-drift {
+  from {
+    transform: translateX(min(-20cqw, -100%));
+  }
+  to {
+    transform: translateX(110cqw);
+  }
+}
+
+/* Inlined artwork takes its size from the element placing it; see
+   routes/layout.css. */
+.far-flyers > svg,
+.far-herd > svg,
+.glint > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fern > svg {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.fern {
+  /* Solid, not faded, so one piece of scenery never shows through another.
+     It stays subordinate through its muted colours instead. */
+  transform-origin: bottom center;
+  animation: prehistoric-fern ease-in-out infinite alternate;
+}
+
+.mist {
+  left: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(240 238 226 / 0.9),
+    rgb(240 238 226 / 0.45) 55%,
+    rgb(240 238 226 / 0)
+  );
+  animation: prehistoric-mist linear infinite;
+}
+
+.glint {
+  animation: prehistoric-glint ease-in-out infinite;
+}
+
+.far-herd {
+  opacity: 0.85;
+  animation: prehistoric-herd 180s ease-in-out infinite alternate;
+}
+
+.far-flyers {
+  left: 0;
+  opacity: 0.8;
+  animation: prehistoric-sky-drift linear infinite;
+}
+
+/* --- The page and Too Loud ---------------------------------------------- */
+
+html:has(.scene-stage[data-scene="prehistoric"]),
+html:has(.scene-stage[data-scene="prehistoric"]) body {
+  background: #7a7652;
+}
+
+/* Before the Scene mounts, a rough copy of its backdrop, so a reload of a
+   saved prehistoric Scene doesn't flash the savanna (see app.html). */
+html[data-scene="prehistoric"]:not(:has(.scene-stage)) body {
+  background: linear-gradient(
+    #a9bbba 0%,
+    #d3d8c9 28%,
+    #e8e1c7 48%,
+    #8f8c64 62%,
+    #65633f 100%
+  );
+}
+
+/* Too Loud: mist rolls in off the river, thickest over the ground. */
+.scene-stage[data-scene="prehistoric"][data-murky="true"] {
+  filter: saturate(0.6) brightness(0.9) blur(1px);
+}
+
+.scene-stage[data-scene="prehistoric"] .too-loud-veil {
+  background: linear-gradient(
+    to top,
+    #dcdccd 0%,
+    #dcdccd 35%,
+    rgb(220 220 205 / 0.55) 100%
+  );
+}
+
+.scene-stage[data-scene="prehistoric"][data-murky="true"] .too-loud-veil {
+  opacity: 0.4;
+}
+
+/* When animals run away the freeze and the bolting carry the message, so
+   the haze is only a hint (the veil's own opacity is set in layout.css). */
+.scene-stage[data-scene="prehistoric"][data-scares="true"][data-murky="true"] {
+  filter: saturate(0.85) brightness(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-stage[data-scene="prehistoric"] .creature .part-tail,
+  .scene-stage[data-scene="prehistoric"] .creature .part-head,
+  .scene-stage[data-scene="prehistoric"] .creature .part-wings,
+  .fern,
+  .mist,
+  .glint,
+  .far-herd,
+  .far-flyers {
+    animation: none;
+  }
+}

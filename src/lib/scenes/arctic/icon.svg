@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs><clipPath id="icon-arctic-tile"><rect width="48" height="48" rx="11"/></clipPath></defs>
+  <g clip-path="url(#icon-arctic-tile)">
+    <rect width="48" height="48" fill="#4f6b9e"/>
+    <path d="M0 26h48v4H0Z" fill="#e3b8c6"/>
+    <path d="M-2 12C10 4 22 13 34 7s14-3 16-2" fill="none" stroke="#7fe0b0" stroke-width="3.5" stroke-linecap="round" opacity=".85"/>
+    <path d="M0 30h48v18H0Z" fill="#2d5577"/>
+    <path d="M10 31.5 17 15l4 5 4.5-3L35 31.5Z" fill="#f4f8fc"/>
+    <path d="M25.5 17 35 31.5H22l1-8Z" fill="#bcd8ec"/>
+    <path d="M10 31.5h25l-2 3H12.5Z" fill="#8dbcdc"/>
+    <path d="M0 40c10-2 22-1.5 30-.5S44 40.5 48 40v8H0Z" fill="#dce9f4"/>
+    <path d="M0 44c14-1.5 30-1 48 0v4H0Z" fill="#bcd8ec"/>
+  </g>
+</svg>

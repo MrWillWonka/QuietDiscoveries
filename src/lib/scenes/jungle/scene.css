@@ -1,0 +1,243 @@
+/* The jungle Scene's own styles: its Ambient Life, its page colour and its
+   Too Loud downpour. Its Creatures use the shared part classes
+   (routes/layout.css, scenes/savanna/creatures.css) at their usual pace:
+   they are drawn in the savanna's cartoon style. Every class here is
+   prefixed `jungle-`, so nothing leaks into another Scene. */
+
+/* --- Ambient Life -------------------------------------------------------- */
+
+@keyframes jungle-plant-sway {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+/* A liana hangs from the canopy, so it swings about its top. */
+@keyframes jungle-vine-sway {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes jungle-shaft-drift {
+  0%,
+  100% {
+    transform: translateX(calc(-2 * var(--wu))) skewX(14deg);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateX(calc(2 * var(--wu))) skewX(10deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes jungle-motes-drift {
+  from {
+    transform: translateY(30%);
+    opacity: 0;
+  }
+  20%,
+  80% {
+    opacity: 0.8;
+  }
+  to {
+    transform: translateY(-40%);
+    opacity: 0;
+  }
+}
+
+@keyframes jungle-mist {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100cqw);
+  }
+}
+
+@keyframes jungle-sky-drift {
+  from {
+    transform: translateX(min(-20cqw, -100%));
+  }
+  to {
+    transform: translateX(110cqw);
+  }
+}
+
+/* The water's streaks run down the falls and start again, seamlessly. */
+@keyframes jungle-falls {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 calc(12 * var(--wu));
+  }
+}
+
+/* Inlined artwork takes its size from the element placing it; see
+   routes/layout.css. */
+.jungle-shaft > svg,
+.jungle-motes > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.jungle-flock > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.jungle-plant > svg,
+.jungle-vine > svg {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.jungle-plant {
+  /* Solid, not faded, so one piece of scenery never shows through another.
+     It stays subordinate through its muted colours instead. */
+  transform-origin: bottom center;
+  animation: jungle-plant-sway ease-in-out infinite alternate;
+}
+
+.jungle-vine {
+  /* Hung from its top, and centred on it (the artwork's stem is). */
+  translate: -50% 0;
+  transform-origin: top center;
+  animation: jungle-vine-sway ease-in-out infinite alternate;
+}
+
+.jungle-shaft {
+  transform-origin: top center;
+  animation: jungle-shaft-drift ease-in-out infinite alternate;
+}
+
+.jungle-motes {
+  opacity: 0;
+  animation: jungle-motes-drift linear infinite;
+}
+
+.jungle-mist {
+  left: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(244 250 242 / 0.8),
+    rgb(244 250 242 / 0.35) 55%,
+    rgb(244 250 242 / 0)
+  );
+  animation: jungle-mist linear infinite;
+}
+
+.jungle-falls {
+  /* Pale streaks of falling water, soft at their ends, over the painted
+     falls in the backdrop. */
+  border-radius: calc(0.6 * var(--wu));
+  background:
+    linear-gradient(
+      to right,
+      transparent 8%,
+      rgb(255 255 255 / 0.55) 14%,
+      transparent 22%,
+      transparent 40%,
+      rgb(255 255 255 / 0.45) 47%,
+      transparent 54%,
+      transparent 70%,
+      rgb(255 255 255 / 0.5) 78%,
+      transparent 86%
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 0) 0,
+      rgb(255 255 255 / 0.5) calc(2 * var(--wu)),
+      rgb(255 255 255 / 0) calc(4 * var(--wu))
+    );
+  background-size:
+    100% 100%,
+    100% calc(4 * var(--wu));
+  background-blend-mode: normal;
+  opacity: 0.6;
+  animation: jungle-falls 4s linear infinite;
+}
+
+.jungle-flock {
+  left: 0;
+  opacity: 0.85;
+  animation: jungle-sky-drift linear infinite;
+}
+
+/* --- The page and Too Loud ---------------------------------------------- */
+
+html:has(.scene-stage[data-scene="jungle"]),
+html:has(.scene-stage[data-scene="jungle"]) body {
+  background: #788548;
+}
+
+/* Before the Scene mounts, a rough copy of its backdrop, so a reload of a
+   saved jungle doesn't flash the savanna (see app.html). */
+html[data-scene="jungle"]:not(:has(.scene-stage)) body {
+  background: linear-gradient(
+    #2f6b4f 0%,
+    #4f9468 9%,
+    #e4f0d2 15%,
+    #9ccfae 48%,
+    #7a5a44 52%,
+    #94b38c 58%,
+    #97a85e 62%,
+    #788548 100%
+  );
+}
+
+/* Too Loud: a tropical downpour. The light goes grey, rain streaks the whole
+   Scene and steam rises off the floor. Drawn once, as a still tile: nothing in
+   it moves, so it never becomes a show. */
+.scene-stage[data-scene="jungle"][data-murky="true"] {
+  filter: saturate(0.55) brightness(0.84) blur(1px);
+}
+
+.scene-stage[data-scene="jungle"] .too-loud-veil {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg stroke='%23eef4f6' stroke-width='2' stroke-linecap='round' opacity='0.85'%3E%3Cpath d='M14 6 l-5 22'/%3E%3Cpath d='M52 30 l-5 22'/%3E%3Cpath d='M92 10 l-5 22'/%3E%3Cpath d='M30 64 l-5 22'/%3E%3Cpath d='M74 72 l-5 22'/%3E%3Cpath d='M108 52 l-5 22'/%3E%3Cpath d='M48 92 l-4 18'/%3E%3Cpath d='M100 90 l-4 18'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(
+      to top,
+      #d6e0da 0%,
+      #d6e0da 30%,
+      rgb(170 186 182 / 0.7) 100%
+    );
+  background-size:
+    max(80px, calc(6 * var(--wu))) max(80px, calc(6 * var(--wu))),
+    100% 100%;
+}
+
+.scene-stage[data-scene="jungle"][data-murky="true"] .too-loud-veil {
+  opacity: 0.42;
+}
+
+/* When animals run away the freeze and the bolting carry the message, so
+   the downpour is only a hint (the veil's own opacity is set in layout.css). */
+.scene-stage[data-scene="jungle"][data-scares="true"][data-murky="true"] {
+  filter: saturate(0.85) brightness(0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jungle-plant,
+  .jungle-vine,
+  .jungle-shaft,
+  .jungle-motes,
+  .jungle-mist,
+  .jungle-falls,
+  .jungle-flock {
+    animation: none;
+  }
+}

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 246 46">
+  <defs>
+    <!-- Glows for the half-ellipse trail shapes: brightest at the head (the
+         flat right edge of each shape), fading softly both along and across. -->
+    <radialGradient id="space-meteor-halo" cx="0" cy="0" r="1" gradientTransform="translate(1 0.5) scale(1 0.5)">
+      <stop offset="0" stop-color="#f3dc92" stop-opacity="0.6"/>
+      <stop offset="0.35" stop-color="#f2b36b" stop-opacity="0.3"/>
+      <stop offset="0.7" stop-color="#e8743b" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#e8743b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-meteor-trail" cx="0" cy="0" r="1" gradientTransform="translate(1 0.5) scale(1 0.5)">
+      <stop offset="0" stop-color="#fffbe8" stop-opacity="1"/>
+      <stop offset="0.3" stop-color="#fff6d0" stop-opacity="0.9"/>
+      <stop offset="0.6" stop-color="#f3dc92" stop-opacity="0.7"/>
+      <stop offset="0.82" stop-color="#f2b36b" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#f2b36b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="space-meteor-core" x1="60" y1="0" x2="222" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff6d0" stop-opacity="0"/>
+      <stop offset="0.45" stop-color="#fffbe8" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="1"/>
+    </linearGradient>
+    <radialGradient id="space-meteor-glow" cx="222" cy="23" r="23" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="0.12" stop-color="#fffbe8" stop-opacity="1"/>
+      <stop offset="0.3" stop-color="#f3dc92" stop-opacity="0.7"/>
+      <stop offset="0.6" stop-color="#f2b36b" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#e8743b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-meteor-ion" cx="0" cy="0" r="1" gradientTransform="translate(1 0.5) scale(1 0.5)">
+      <stop offset="0" stop-color="#9ff0c8" stop-opacity="0.45"/>
+      <stop offset="0.5" stop-color="#5fd0a8" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#3fae8a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Trail: a wide dim halo, the luminous trail, then the hot core line. -->
+  <path d="M222 10 A218 13 0 0 0 222 36 Z" fill="url(#space-meteor-halo)"/>
+  <path d="M222 16 A210 7 0 0 0 222 30 Z" fill="url(#space-meteor-trail)"/>
+  <path d="M222 21 C180 21.6 110 22.6 60 23 C110 23.4 180 24.4 222 25 Z" fill="url(#space-meteor-core)"/>
+
+  <!-- The faint green of burning air just behind the head, which is what a
+       meteor has and a comet never does. -->
+  <path d="M222 14 A70 9 0 0 0 222 32 Z" fill="url(#space-meteor-ion)"/>
+
+  <!-- The white-hot head in its glow. -->
+  <circle cx="222" cy="23" r="23" fill="url(#space-meteor-glow)"/>
+  <circle cx="222" cy="23" r="3.4" fill="#ffffff"/>
+</svg>

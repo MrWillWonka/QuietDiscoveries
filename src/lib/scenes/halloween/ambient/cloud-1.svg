@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="10 1 400 145">
+  <!-- Too Loud: the long cloud that slides in over the moon from the right.
+       Soft round puffs in a cold lavender grey, silvered along the top by
+       the moon behind it. No face, nothing that reads as a Creature. -->
+  <clipPath id="halloween-cloud-1-body">
+    <rect x="20" y="93" width="380" height="52" rx="26"/>
+    <circle cx="80" cy="97" r="42"/><circle cx="150" cy="75" r="52"/><circle cx="232" cy="67" r="58"/><circle cx="310" cy="85" r="46"/><circle cx="370" cy="105" r="32"/>
+  </clipPath>
+  <g fill="#c9b8e8">
+    <rect x="20" y="88" width="380" height="52" rx="26"/>
+    <circle cx="80" cy="92" r="42"/><circle cx="150" cy="70" r="52"/><circle cx="232" cy="62" r="58"/><circle cx="310" cy="80" r="46"/><circle cx="370" cy="100" r="32"/>
+  </g>
+  <g fill="#77729a">
+    <rect x="20" y="93" width="380" height="52" rx="26"/>
+    <circle cx="80" cy="97" r="42"/><circle cx="150" cy="75" r="52"/><circle cx="232" cy="67" r="58"/><circle cx="310" cy="85" r="46"/><circle cx="370" cy="105" r="32"/>
+  </g>
+  <g clip-path="url(#halloween-cloud-1-body)" fill="#2b2b3a" opacity="0.16">
+    <ellipse cx="210" cy="150" rx="210" ry="34"/>
+  </g>
+</svg>

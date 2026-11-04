@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 -4.5 317 125">
+  <clipPath id="bowhead-whale-listening-body">
+    <path d="M110 124 C 110.5 98, 117 72, 136.5 60 C 147.5 53.5, 159 50.5, 172.5 50.5 C 186 50.5, 197.5 53.5, 208.5 60 C 228 72, 234.5 98, 235 124 Z"/>
+  </clipPath>
+  <path d="M110 124 C 110.5 98, 117 72, 136.5 60 C 147.5 53.5, 159 50.5, 172.5 50.5 C 186 50.5, 197.5 53.5, 208.5 60 C 228 72, 234.5 98, 235 124 Z" fill="#5f6b7d"/>
+  <g clip-path="url(#bowhead-whale-listening-body)">
+    <path d="M110 133 C 110.5 107, 117 81, 136.5 69 C 147.5 62.5, 159 59.5, 172.5 59.5 C 186 59.5, 197.5 62.5, 208.5 69 C 228 81, 234.5 107, 235 133 Z" fill="#3a4250"/>
+    <path d="M113.5 124 C 114 99, 120 74.5, 138.5 63 C 149 56.8, 160 54, 172.5 54 C 185 54, 196 56.8, 206.5 63 C 225 74.5, 231 99, 231.5 124 L 240 124 L 240 40 L 105 40 L 105 124 Z" fill="#ffffff" opacity="0.2"/>
+    <path d="M100 130 L 100 109.5 C 130 114.5, 215 114.5, 245 109.5 L 245 130 Z" fill="#ffffff"/>
+    <path d="M100 109.5 C 130 114.5, 215 114.5, 245 109.5 L 245 113 C 215 118, 130 118, 100 113 Z" fill="#f4f1de"/>
+  </g>
+  <path d="M143 96 C 152 106, 193 106, 202 96 C 194.5 112.5, 150.5 112.5, 143 96 Z" fill="#2b2b3a" opacity="0.75"/>
+  <path d="M140.2 93.8 C 142.4 94.2, 144.6 95.8, 145.4 98.4 C 143.8 97.6, 142.2 96.2, 140.2 93.8 Z M204.8 93.8 C 202.6 94.2, 200.4 95.8, 199.6 98.4 C 201.2 97.6, 202.8 96.2, 204.8 93.8 Z" fill="#2b2b3a" opacity="0.75"/>
+  <path d="M140 66 C 148 59, 158 55.5, 166 54.5 C 158 57.5, 150 62, 144 68 C 141.5 70.5, 137 68.5, 140 66 Z" fill="#ffffff" opacity="0.18"/>
+  <ellipse cx="166" cy="55" rx="3.5" ry="1.8" fill="#2b2b3a" opacity="0.6"/>
+  <ellipse cx="179" cy="55" rx="3.5" ry="1.8" fill="#2b2b3a" opacity="0.6"/>
+  <circle cx="133" cy="87" r="11.25" fill="#ffffff" opacity="0.12"/>
+  <circle cx="133" cy="87" r="7.5" fill="#2b2b3a"/>
+  <circle cx="130.84" cy="84.84" r="2.16" fill="#ffffff"/>
+  <circle cx="212" cy="87" r="11.25" fill="#ffffff" opacity="0.12"/>
+  <circle cx="212" cy="87" r="7.5" fill="#2b2b3a"/>
+  <circle cx="209.84" cy="84.84" r="2.16" fill="#ffffff"/>
+  <ellipse cx="131.5" cy="101.5" rx="6.5" ry="3.6" fill="#ff7a8a" opacity="0.7"/>
+  <ellipse cx="213.5" cy="101.5" rx="6.5" ry="3.6" fill="#ff7a8a" opacity="0.7"/>
+  <g class="part-pulse">
+    <g fill="#ffffff" opacity="0.8">
+      <circle cx="167.5" cy="43.5" r="4.5"/>
+      <circle cx="162.5" cy="33.5" r="6.5"/>
+      <circle cx="156.5" cy="21.5" r="9"/>
+      <circle cx="149.5" cy="10.5" r="10.5"/>
+      <circle cx="137.5" cy="11.5" r="8"/>
+      <circle cx="157.5" cy="4.5" r="8.5"/>
+      <circle cx="177.5" cy="43.5" r="4.5"/>
+      <circle cx="183.5" cy="33.5" r="6.5"/>
+      <circle cx="190.5" cy="21.5" r="9"/>
+      <circle cx="197.5" cy="10.5" r="10.5"/>
+      <circle cx="209.5" cy="11.5" r="8"/>
+      <circle cx="189.5" cy="4.5" r="8.5"/>
+    </g>
+  </g>
+</svg>

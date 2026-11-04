@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs><clipPath id="icon-jungle-tile"><rect width="48" height="48" rx="11"/></clipPath></defs>
+  <g clip-path="url(#icon-jungle-tile)">
+    <rect width="48" height="48" fill="#3a7a55"/>
+    <path d="M8 0c0 6 1 9-.5 14" fill="none" stroke="#a3c96a" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M7.5 14c-2.8.2-4-1.8-3.6-4 2.4 0 3.6 1.6 3.6 4Z" fill="#a3c96a"/>
+    <path d="M31 34c5 4 9 7 18 9" fill="none" stroke="#2b5e40" stroke-width="3" stroke-linecap="round"/>
+    <path d="M31 34c6-1 11-8 9-15-2-8-11-12-20-12-5 0-8 3-8 7-1 9 2 17 9 23 4 3.5 9 2 10-3Z" fill="#7fbf6a"/>
+    <path d="M28.5 25.5 43 18.5v6ZM24.5 18.5 36.5 8.5l4 4ZM20.5 13 24 4h6ZM19.3 16.8 10 12.5v6ZM25 28l-14-3 1.5 6ZM28.5 33l-10 6 4 3Z" fill="#3a7a55"/>
+    <circle cx="33.5" cy="27" r="1.8" fill="#3a7a55"/>
+    <circle cx="21.5" cy="24" r="1.6" fill="#3a7a55"/>
+    <path d="M31 34C27 27 22 18 17 9" fill="none" stroke="#5a9e55" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>

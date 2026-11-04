@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 330">
+  <path d="M72 330 C 92 316, 208 316, 228 330 Z" fill="#2b2b3a" opacity="0.14"/>
+  <!-- Short stout trunk with a root flare, forking up into the crown. -->
+  <path d="M112 330 C 128 320, 136 296, 137 262 C 128 240, 112 222, 96 200 L114 192
+           C 126 210, 138 226, 148 238 C 158 222, 172 206, 188 190 L204 200
+           C 186 220, 168 240, 163 262 C 164 296, 172 320, 190 330 Z" fill="#7a5a44"/>
+  <path d="M150 330C152 300 152 270 153 246C158 234 170 220 184 206L196 214C179.3 232.4 168 246 163 262C164 296 172 320 190 330Z" fill="#2b2b3a" opacity="0.2"/>
+  <!-- Lumpy crown: darker lobes behind and below, lighter lobes in front and on top. -->
+  <g fill="#6f9c6e"><circle cx="62" cy="152" r="54"/><circle cx="238" cy="152" r="54"/><circle cx="98" cy="192" r="44"/><circle cx="202" cy="192" r="44"/><circle cx="150" cy="202" r="40"/><circle cx="36" cy="110" r="34"/><circle cx="264" cy="112" r="34"/></g>
+  <g fill="#2b2b3a" opacity="0.14"><circle cx="98" cy="192" r="44"/><circle cx="202" cy="192" r="44"/><circle cx="150" cy="202" r="40"/></g>
+  <g fill="#7fae5a"><circle cx="150" cy="122" r="76"/><circle cx="96" cy="88" r="54"/><circle cx="206" cy="90" r="54"/><circle cx="150" cy="60" r="52"/></g>
+  <path d="M47.1 110.8 A54 54 0 0 1 118.8 39.1 A76 76 0 0 0 47.1 110.8 ZM102.9 82 A52 52 0 0 1 172 12.9 A73 73 0 0 0 102.9 82 Z" fill="#ffffff" opacity="0.18"/>
+</svg>

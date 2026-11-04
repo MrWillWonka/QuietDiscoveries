@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 140">
+  <defs>
+    <radialGradient id="space-black-hole-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f2b36b" stop-opacity="0.4"/>
+      <stop offset="0.35" stop-color="#e8743b" stop-opacity="0.14"/>
+      <stop offset="0.7" stop-color="#c44b3a" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#c44b3a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-black-hole-sheen" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff6d0" stop-opacity="0.35"/>
+      <stop offset="0.5" stop-color="#f2b36b" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#e8743b" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Focal point left of the hole: the approaching (left) side stays white
+         far out, the receding right side turns amber and red close in. Both
+         ends still reach zero at the disk's tips. -->
+    <radialGradient id="space-black-hole-disk" cx="120" cy="70" fx="90" fy="70" r="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.18" stop-color="#fffbe8"/>
+      <stop offset="0.28" stop-color="#fff6d0"/>
+      <stop offset="0.36" stop-color="#f3dc92"/>
+      <stop offset="0.44" stop-color="#f2b36b"/>
+      <stop offset="0.54" stop-color="#e8743b"/>
+      <stop offset="0.62" stop-color="#c44b3a"/>
+      <stop offset="0.7" stop-color="#9c3328"/>
+      <stop offset="0.8" stop-color="#7a2418" stop-opacity="0.6"/>
+      <stop offset="0.9" stop-color="#5a1c10" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#5a1c10" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-black-hole-streak-lo" cx="120" cy="70" fx="90" fy="70" r="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a8561f" stop-opacity="0.32"/>
+      <stop offset="0.6" stop-color="#5a1c10" stop-opacity="0.24"/>
+      <stop offset="0.85" stop-color="#3a0c08" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-black-hole-streak-hi" cx="120" cy="70" fx="90" fy="70" r="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0.2" stop-color="#ffffff" stop-opacity="0.3"/>
+      <stop offset="0.6" stop-color="#fff6d0" stop-opacity="0.18"/>
+      <stop offset="0.8" stop-color="#f2b36b" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Upper lensed image: inner edge hugs the shadow, the band is even all round,
+         centered on the shadow. -->
+    <radialGradient id="space-black-hole-lens" cx="120" cy="70" fx="120" fy="70" r="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0.557" stop-color="#ffffff"/>
+      <stop offset="0.58" stop-color="#f3c98a" stop-opacity="0.55"/>
+      <stop offset="0.61" stop-color="#fffbe8"/>
+      <stop offset="0.7" stop-color="#fff6d0"/>
+      <stop offset="0.78" stop-color="#f3dc92"/>
+      <stop offset="0.86" stop-color="#f2b36b" stop-opacity="0.9"/>
+      <stop offset="0.93" stop-color="#e8743b" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#c44b3a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-black-hole-under" cx="120" cy="70" fx="120" fy="70" r="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0.78" stop-color="#fff6d0"/>
+      <stop offset="0.8" stop-color="#f3c98a" stop-opacity="0.45"/>
+      <stop offset="0.83" stop-color="#f3dc92" stop-opacity="0.9"/>
+      <stop offset="0.9" stop-color="#f2b36b" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#e8743b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="space-black-hole-ring" x1="89" y1="0" x2="151" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.5" stop-color="#fff6d0"/>
+      <stop offset="1" stop-color="#e8743b"/>
+    </linearGradient>
+    <clipPath id="space-black-hole-upper">
+      <path d="M0 0 H240 V70 H235 A115 11.4 0 0 0 5 70 H0 Z"/>
+    </clipPath>
+    <clipPath id="space-black-hole-lower">
+      <rect x="0" y="70" width="240" height="70"/>
+    </clipPath>
+    <clipPath id="space-black-hole-near">
+      <circle cx="120" cy="70" r="46"/>
+    </clipPath>
+  </defs>
+
+  <!-- Warm glow around the whole system, and a sheen along the disk plane. -->
+  <ellipse cx="120" cy="70" rx="120" ry="70" fill="url(#space-black-hole-glow)"/>
+  <ellipse cx="120" cy="70" rx="112" ry="22" fill="url(#space-black-hole-sheen)"/>
+
+  <!-- The accretion disk, whole, seen nearly edge-on from just above. -->
+  <path d="M4 70 A116 12 0 1 1 236 70 A116 12 0 1 1 4 70 Z M89 70 A31 3.8 0 1 0 151 70 A31 3.8 0 1 0 89 70 Z" fill="url(#space-black-hole-disk)" fill-rule="evenodd"/>
+  <g fill="none" stroke-width="0.5">
+    <ellipse cx="120" cy="70" rx="42" ry="4.8" stroke="url(#space-black-hole-streak-lo)"/>
+    <ellipse cx="120" cy="70" rx="53" ry="5.9" stroke="url(#space-black-hole-streak-hi)"/>
+    <ellipse cx="120" cy="70" rx="66" ry="7.2" stroke="url(#space-black-hole-streak-lo)"/>
+    <ellipse cx="120" cy="70" rx="81" ry="8.7" stroke="url(#space-black-hole-streak-hi)"/>
+    <ellipse cx="120" cy="70" rx="96" ry="10.2" stroke="url(#space-black-hole-streak-lo)"/>
+  </g>
+
+  <!-- Lensed image of the far side of the disk, arching over the top. -->
+  <g clip-path="url(#space-black-hole-upper)">
+    <path d="M54 70 A66 66 0 1 1 186 70 A66 66 0 1 1 54 70 Z M89 70 A31 31 0 1 0 151 70 A31 31 0 1 0 89 70 Z" fill="url(#space-black-hole-lens)" fill-rule="evenodd"/>
+    <g fill="none" stroke-width="0.6">
+      <circle cx="117" cy="70" r="39" stroke="#c44b3a" opacity="0.14"/>
+      <circle cx="116" cy="70" r="44" stroke="#fffbe8" opacity="0.16"/>
+      <circle cx="115" cy="70" r="49" stroke="#9c3328" opacity="0.14"/>
+    </g>
+  </g>
+  <!-- And the thinner, fainter image under the bottom. -->
+  <path d="M72 70 A48 48 0 1 1 168 70 A48 48 0 1 1 72 70 Z M89 70 A31 31 0 1 0 151 70 A31 31 0 1 0 89 70 Z" fill="url(#space-black-hole-under)" fill-rule="evenodd" clip-path="url(#space-black-hole-lower)"/>
+
+  <!-- The shadow, and the photon ring around it. -->
+  <circle cx="120" cy="70" r="30" fill="#000000"/>
+  <circle cx="120" cy="70" r="30.7" fill="none" stroke="url(#space-black-hole-ring)" stroke-width="1.4"/>
+
+  <!-- Near side of the disk, curving across in front of the shadow. Opaque
+       inside the clip, so it matches the disk behind without a seam. -->
+  <g clip-path="url(#space-black-hole-near)">
+    <path d="M4 70 A116 12 0 0 0 236 70 L151 70 A31 3.8 0 0 1 89 70 Z" fill="url(#space-black-hole-disk)"/>
+    <g fill="none" stroke-width="0.5">
+      <path d="M78 70 A42 4.8 0 0 0 162 70" stroke="url(#space-black-hole-streak-lo)"/>
+      <path d="M67 70 A53 5.9 0 0 0 173 70" stroke="url(#space-black-hole-streak-hi)"/>
+      <path d="M54 70 A66 7.2 0 0 0 186 70" stroke="url(#space-black-hole-streak-lo)"/>
+      <path d="M39 70 A81 8.7 0 0 0 201 70" stroke="url(#space-black-hole-streak-hi)"/>
+      <path d="M24 70 A96 10.2 0 0 0 216 70" stroke="url(#space-black-hole-streak-lo)"/>
+    </g>
+  </g>
+</svg>

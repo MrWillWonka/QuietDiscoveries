@@ -1,0 +1,189 @@
+/* The forest Scene's own styles: its Ambient Life, its page colour and its
+   Too Loud fog. Its Creatures are drawn as the savanna's are and move with
+   the shared part animations (routes/layout.css, scenes/savanna/creatures.css).
+   Everything is prefixed `forest-` or scoped to the Scene, so nothing here
+   reaches another Scene. */
+
+/* --- Ambient Life -------------------------------------------------------- */
+
+@keyframes forest-fern {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+/* Motes rise slowly in the light, and fade before they reach the top. */
+@keyframes forest-motes {
+  from {
+    transform: translateY(40%);
+    opacity: 0;
+  }
+  20%,
+  80% {
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(-60%);
+    opacity: 0;
+  }
+}
+
+/* A leaf comes down the whole height of the Scene and settles out of sight
+   in the grass. */
+@keyframes forest-leaf-fall {
+  from {
+    transform: translateY(-6cqh);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(96cqh);
+    opacity: 0;
+  }
+}
+
+/* …swinging from side to side as it goes, tipping into each swing. */
+@keyframes forest-leaf-swing {
+  0%,
+  100% {
+    transform: translateX(calc(-1.6 * var(--wu))) rotate(-35deg);
+  }
+  50% {
+    transform: translateX(calc(1.6 * var(--wu))) rotate(30deg);
+  }
+}
+
+@keyframes forest-sky-drift {
+  from {
+    transform: translateX(min(-20cqw, -100%));
+  }
+  to {
+    transform: translateX(110cqw);
+  }
+}
+
+/* Inlined artwork takes its size from the element placing it; see
+   routes/layout.css. */
+.forest-flock > svg,
+.forest-motes > svg,
+.forest-leaf > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.forest-fern > svg {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.forest-fern {
+  /* Solid, not faded, so one piece of scenery never shows through another.
+     It stays subordinate through its muted colours instead. */
+  transform-origin: bottom center;
+  animation: forest-fern ease-in-out infinite alternate;
+}
+
+.forest-motes {
+  opacity: 0;
+  animation: forest-motes linear infinite;
+}
+
+.forest-leaf-fall {
+  opacity: 0;
+  animation: forest-leaf-fall linear infinite;
+}
+
+.forest-leaf {
+  animation: forest-leaf-swing ease-in-out infinite;
+}
+
+.forest-flock {
+  left: 0;
+  opacity: 0.75;
+  animation: forest-sky-drift linear infinite;
+}
+
+/* --- The page and Too Loud ---------------------------------------------- */
+
+html:has(.scene-stage[data-scene="forest"]),
+html:has(.scene-stage[data-scene="forest"]) body {
+  background: #9fbb5e;
+}
+
+/* Before the Scene mounts, a rough copy of its backdrop, so a reload of a
+   saved forest Scene doesn't flash the savanna (see app.html). */
+html[data-scene="forest"]:not(:has(.scene-stage)) body {
+  background: linear-gradient(
+    #e4eedb 0%,
+    #c9d9bf 30%,
+    #93b294 52%,
+    #c8d690 60%,
+    #9fbb5e 100%
+  );
+}
+
+/* Too Loud: fog rolls in between the trees, lying thickest in banks over
+   the clearing and thinning out up into the canopy. */
+.scene-stage[data-scene="forest"][data-murky="true"] {
+  filter: saturate(0.6) brightness(0.92) blur(1px);
+}
+
+.scene-stage[data-scene="forest"] .too-loud-veil {
+  background:
+    radial-gradient(
+      ellipse 55% 16% at 22% 70%,
+      rgb(232 237 228 / 0.9),
+      rgb(232 237 228 / 0) 70%
+    ),
+    radial-gradient(
+      ellipse 50% 14% at 78% 62%,
+      rgb(232 237 228 / 0.85),
+      rgb(232 237 228 / 0) 70%
+    ),
+    radial-gradient(
+      ellipse 60% 18% at 55% 88%,
+      rgb(232 237 228 / 0.9),
+      rgb(232 237 228 / 0) 70%
+    ),
+    linear-gradient(
+      to top,
+      #dde4d8 0%,
+      #dde4d8 32%,
+      rgb(221 228 216 / 0.5) 100%
+    );
+}
+
+.scene-stage[data-scene="forest"][data-murky="true"] .too-loud-veil {
+  opacity: 0.42;
+}
+
+/* When animals run away the freeze and the bolting carry the message, so
+   the fog is only a hint (the veil's own opacity is set in layout.css). */
+.scene-stage[data-scene="forest"][data-scares="true"][data-murky="true"] {
+  filter: saturate(0.85) brightness(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forest-fern,
+  .forest-motes,
+  .forest-leaf,
+  .forest-flock {
+    animation: none;
+  }
+
+  /* All a leaf does is fall; held still, it would hang in mid-air. */
+  .forest-leaf-fall {
+    display: none;
+  }
+}

@@ -1,0 +1,145 @@
+/* Jack O. Lantern's entrance, the finale (`welcomes` in scenes/index.ts).
+   When he comes, every jack-o'-lantern in the patch swells warm and the moon
+   brightens, over about three seconds, then settles; while he's here the
+   patch stays lit a little warmer. The stage says when (`data-welcome`,
+   scenes/welcome.ts): "arriving" as he comes, "here" after that and after a
+   refresh, and nothing once he starts to fade away or after Reset.
+
+   It lays its own light over the Ambient Life's (halloween/scene.css)
+   rather than taking over that light's own flicker and breathing: a warm
+   pool inside each lantern's glow and round the moon, and a little more
+   brightness in the lanterns and the moon themselves.
+
+   One slow swell and gentle fades only, never a flash: this is up on a
+   projector all day, in front of photosensitive students. Too Loud wins:
+   while the Scene is murky the extra light fades away, and it comes back
+   when the room settles, without greeting him all over again. */
+
+/* How lit the patch is: 0 as normal, 1 while he's here. */
+@property --halloween-lit {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+/* The swell as he arrives, on top of being lit: up and back down to 0. */
+@property --halloween-flare {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+/* Peaks a little before three seconds in, while being lit fades up, then
+   settles to the steady glow. */
+@keyframes halloween-welcome-flare {
+  0%,
+  100% {
+    --halloween-flare: 0;
+  }
+  55% {
+    --halloween-flare: 1;
+  }
+}
+
+.scene-stage[data-scene="halloween"][data-welcome] .halloween-lantern > svg,
+.scene-stage[data-scene="halloween"][data-welcome]
+  .halloween-lantern-glow::after,
+.scene-stage[data-scene="halloween"][data-welcome] .halloween-moon > svg,
+.scene-stage[data-scene="halloween"][data-welcome] .halloween-moon-glow::after {
+  --halloween-lit: 1;
+}
+
+/* Too Loud wins: the extra light fades with the Scene clouding over
+   (routes/layout.css). Too Loud also holds the swell where it was, so it
+   carries on, rather than starting again, once the room settles. */
+.scene-stage[data-scene="halloween"][data-murky="true"]
+  .halloween-lantern
+  > svg,
+.scene-stage[data-scene="halloween"][data-murky="true"]
+  .halloween-lantern-glow::after,
+.scene-stage[data-scene="halloween"][data-murky="true"] .halloween-moon > svg,
+.scene-stage[data-scene="halloween"][data-murky="true"]
+  .halloween-moon-glow::after {
+  --halloween-lit: 0;
+}
+
+/* The jack-o'-lanterns: brighter, the rind as if lit from inside. */
+.scene-stage[data-scene="halloween"] .halloween-lantern > svg {
+  filter: brightness(
+    calc(1 + var(--halloween-lit) * (0.08 + 0.14 * var(--halloween-flare)))
+  );
+}
+
+/* A warmer pool of candlelight in each lantern's glow, which flickers with
+   it. Centred on the glow's own ellipse (halloween/ambient/lantern-glow.svg). */
+.scene-stage[data-scene="halloween"] .halloween-lantern-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    closest-side,
+    rgb(255 201 94 / 0.32),
+    rgb(255 201 94 / 0.14) 55%,
+    rgb(255 201 94 / 0)
+  );
+  opacity: calc(var(--halloween-lit) * (0.45 + 0.55 * var(--halloween-flare)));
+}
+
+/* The moon brightens as he comes, and stays a touch brighter. */
+.scene-stage[data-scene="halloween"] .halloween-moon > svg {
+  filter: brightness(
+    calc(1 + var(--halloween-lit) * (0.03 + 0.12 * var(--halloween-flare)))
+  );
+}
+
+/* A wider, warmer halo, from the moon's rim (14.79 of the glow's 35.42wu)
+   outwards. It breathes with the glow. */
+.scene-stage[data-scene="halloween"] .halloween-moon-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(246 210 122 / 0.3) 41%,
+    rgb(246 210 122 / 0.12) 65%,
+    rgb(246 210 122 / 0)
+  );
+  opacity: calc(var(--halloween-lit) * (0.25 + 0.75 * var(--halloween-flare)));
+}
+
+/* Slow fades in and out, and the swell as he comes. With reduced motion
+   there are none: it goes straight to how it looks while he's here. */
+@media (prefers-reduced-motion: no-preference) {
+  .scene-stage[data-scene="halloween"] .halloween-lantern > svg,
+  .scene-stage[data-scene="halloween"] .halloween-lantern-glow::after,
+  .scene-stage[data-scene="halloween"] .halloween-moon > svg,
+  .scene-stage[data-scene="halloween"] .halloween-moon-glow::after {
+    transition: --halloween-lit 3s ease-in-out;
+  }
+
+  .scene-stage[data-scene="halloween"][data-welcome="arriving"]
+    .halloween-lantern
+    > svg,
+  .scene-stage[data-scene="halloween"][data-welcome="arriving"]
+    .halloween-lantern-glow::after,
+  .scene-stage[data-scene="halloween"][data-welcome="arriving"]
+    .halloween-moon
+    > svg,
+  .scene-stage[data-scene="halloween"][data-welcome="arriving"]
+    .halloween-moon-glow::after {
+    animation: halloween-welcome-flare 5s ease-in-out;
+  }
+
+  .scene-stage[data-scene="halloween"][data-murky="true"]
+    .halloween-lantern
+    > svg,
+  .scene-stage[data-scene="halloween"][data-murky="true"]
+    .halloween-lantern-glow::after,
+  .scene-stage[data-scene="halloween"][data-murky="true"] .halloween-moon > svg,
+  .scene-stage[data-scene="halloween"][data-murky="true"]
+    .halloween-moon-glow::after {
+    /* As fast as the Scene clouds over. */
+    transition-duration: 1.4s;
+  }
+}

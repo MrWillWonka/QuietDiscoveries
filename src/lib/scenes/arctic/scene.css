@@ -1,0 +1,209 @@
+/* The arctic Scene's own styles: its Ambient Life, its page colour and its
+   Too Loud blizzard. Its Creatures are drawn in the savanna's style and move
+   their parts with the shared keyframes (routes/layout.css,
+   scenes/savanna/creatures.css). Every class and keyframe here is prefixed
+   `arctic-`, so nothing leaks into another Scene. */
+
+/* --- Ambient Life -------------------------------------------------------- */
+
+/* The aurora breathes and its folds shift a little, slowly. */
+@keyframes arctic-aurora {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: skewX(-4deg) scaleY(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: skewX(3deg) scaleY(1.04);
+  }
+}
+
+@keyframes arctic-snowfall {
+  from {
+    transform: translateY(-33.3333%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* A floe rides the swell: rising and settling in the water, rocking a
+   touch. The waterline does not move with it (see .arctic-floe-waterline). */
+@keyframes arctic-bob {
+  0%,
+  100% {
+    transform: translateY(calc(-0.1 * var(--wu))) rotate(-0.5deg);
+  }
+  50% {
+    transform: translateY(calc(0.1 * var(--wu))) rotate(0.5deg);
+  }
+}
+
+@keyframes arctic-sedge {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes arctic-sky-drift {
+  from {
+    transform: translateX(min(-20cqw, -100%));
+  }
+  to {
+    transform: translateX(110cqw);
+  }
+}
+
+/* Inlined artwork takes its size from the element placing it; see
+   routes/layout.css. */
+.arctic-aurora > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.arctic-floe-ice > svg,
+.arctic-flock > svg,
+.arctic-snowfall > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The ice drawn below the waterline has to be there to ride up into view. */
+.arctic-floe-ice > svg {
+  overflow: visible;
+}
+
+.arctic-sedge > svg {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.arctic-aurora {
+  /* A little wider than the world, so the sway's skew never shows a
+     curtain's slanted end. */
+  left: calc(var(--world-left) - 4 * var(--wu));
+  width: calc(108 * var(--wu));
+  transform-origin: 50% 100%;
+  will-change: opacity, transform;
+  animation: arctic-aurora ease-in-out infinite;
+}
+
+.arctic-snowfall {
+  top: 0;
+  left: var(--world-left);
+  width: calc(100 * var(--wu));
+  will-change: transform;
+  animation: arctic-snowfall linear infinite;
+}
+
+/* The water cuts the floe off along its bottom edge, whatever the ice is
+   doing, and a pale line of swell laps along it. */
+.arctic-floe-waterline {
+  clip-path: inset(-100% -10% 0 -10%);
+}
+
+.arctic-floe::after {
+  content: "";
+  position: absolute;
+  left: -1.5%;
+  right: -1.5%;
+  bottom: calc(-0.04 * var(--wu));
+  height: calc(0.08 * var(--wu));
+  border-radius: 999px;
+  background: #d6ecf8;
+  opacity: 0.45;
+}
+
+.arctic-floe-ice {
+  transform-origin: 50% 100%;
+  will-change: transform;
+  animation: arctic-bob ease-in-out infinite;
+}
+
+.arctic-sedge {
+  /* Solid, not faded, so one piece of scenery never shows through another.
+     It stays subordinate through its muted colours instead. */
+  transform-origin: bottom center;
+  animation: arctic-sedge ease-in-out infinite alternate;
+}
+
+.arctic-flock {
+  left: 0;
+  opacity: 0.8;
+  animation: arctic-sky-drift linear infinite;
+}
+
+/* --- The page and Too Loud ---------------------------------------------- */
+
+html:has(.scene-stage[data-scene="arctic"]),
+html:has(.scene-stage[data-scene="arctic"]) body {
+  background: #c3d3e4;
+}
+
+/* Before the Scene mounts, a rough copy of its backdrop, so a reload of a
+   saved arctic Scene doesn't flash the savanna (see app.html). */
+html[data-scene="arctic"]:not(:has(.scene-stage)) body {
+  background: linear-gradient(
+    #27426f 0%,
+    #5e83b5 26%,
+    #b9c9e3 42%,
+    #f3d9d9 50%,
+    #24527c 50%,
+    #24527c 60%,
+    #d0dcea 61%,
+    #adc2da 100%
+  );
+}
+
+/* Too Loud: a whiteout. Wind-blown snow streaks across the Scene and the
+   world pales into the blizzard, thickest near the ground, so the animals
+   are still there to see but the view has gone white. The streaks are
+   painted once and never animated. */
+.scene-stage[data-scene="arctic"][data-murky="true"] {
+  filter: saturate(0.55) brightness(1.04) contrast(0.85) blur(1px);
+}
+
+.scene-stage[data-scene="arctic"] .too-loud-veil {
+  background:
+    repeating-linear-gradient(
+      164deg,
+      transparent 0 calc(1.6 * var(--wu)),
+      rgb(255 255 255 / 0.55) calc(1.6 * var(--wu)) calc(1.75 * var(--wu)),
+      transparent calc(1.75 * var(--wu)) calc(2.9 * var(--wu)),
+      rgb(255 255 255 / 0.35) calc(2.9 * var(--wu)) calc(3 * var(--wu))
+    ),
+    linear-gradient(
+      to top,
+      rgb(240 245 250 / 0.95) 0%,
+      rgb(240 245 250 / 0.85) 40%,
+      rgb(240 245 250 / 0.55) 100%
+    );
+}
+
+.scene-stage[data-scene="arctic"][data-murky="true"] .too-loud-veil {
+  opacity: 0.45;
+}
+
+/* When animals run away the freeze and the bolting carry the message, so
+   the blizzard is only a hint (the veil's own opacity is set in layout.css). */
+.scene-stage[data-scene="arctic"][data-scares="true"][data-murky="true"] {
+  filter: saturate(0.85) brightness(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arctic-aurora,
+  .arctic-snowfall,
+  .arctic-floe-ice,
+  .arctic-sedge,
+  .arctic-flock {
+    animation: none;
+  }
+}

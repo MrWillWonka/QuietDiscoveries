@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.1 10.1 107.8 95.8">
+  <path d="M56.7 19.6 Q 66.9 9.7, 70.9 23.4 Z" fill="#ffd166"/>
+  <path d="M75.5 26.1 Q 89.4 22.6, 85.9 36.5 Z" fill="#ffd166"/>
+  <path d="M88.6 41.1 Q 102.3 45.1, 92.4 55.3 Z" fill="#ffd166"/>
+  <path d="M92.4 60.7 Q 102.3 70.9, 88.6 74.9 Z" fill="#ffd166"/>
+  <path d="M85.9 79.5 Q 89.4 93.4, 75.5 89.9 Z" fill="#ffd166"/>
+  <path d="M70.9 92.6 Q 66.9 106.3, 56.7 96.4 Z" fill="#ffd166"/>
+  <path d="M51.3 96.4 Q 41.1 106.3, 37.1 92.6 Z" fill="#ffd166"/>
+  <path d="M32.5 89.9 Q 18.6 93.4, 22.1 79.5 Z" fill="#ffd166"/>
+  <path d="M19.4 74.9 Q 5.7 70.9, 15.6 60.7 Z" fill="#ffd166"/>
+  <path d="M15.6 55.3 Q 5.7 45.1, 19.4 41.1 Z" fill="#ffd166"/>
+  <path d="M22.1 36.5 Q 18.6 22.6, 32.5 26.1 Z" fill="#ffd166"/>
+  <path d="M37.1 23.4 Q 41.1 9.7, 51.3 19.6 Z" fill="#ffd166"/>
+  <g class="part-fin" style="transform-origin: 16px 58px">
+  <path d="M22 54 C 14 53.5, 6 55, 4.5 58.5 C 6 61.5, 14 63, 22 62.5 Z" fill="#ffd166"/>
+  <path d="M22 54 C 14 53.5, 6 55, 4.5 58.5 C 6 61.5, 14 63, 22 62.5 Z" fill="#2b2b3a" opacity="0.2"/>
+  </g>
+  <g class="part-fin" style="transform-origin: 92px 58px">
+  <path d="M86 54 C 94 53.5, 102 55, 103.5 58.5 C 102 61.5, 94 63, 86 62.5 Z" fill="#ffd166"/>
+  <path d="M86 54 C 94 53.5, 102 55, 103.5 58.5 C 102 61.5, 94 63, 86 62.5 Z" fill="#2b2b3a" opacity="0.2"/>
+  </g>
+  <circle cx="54" cy="58" r="39" fill="#ffd166"/>
+  <path d="M19.4 76 A 39 39 0 0 0 88.6 76 C 72 89.5, 36 89.5, 19.4 76 Z" fill="#2b2b3a" opacity="0.13"/>
+  <circle cx="38" cy="47" r="7.1" fill="#2b2b3a"/>
+  <circle cx="35.6" cy="44.6" r="2.0" fill="#ffffff"/>
+  <circle cx="70" cy="47" r="7.1" fill="#2b2b3a"/>
+  <circle cx="67.6" cy="44.6" r="2.0" fill="#ffffff"/>
+  <ellipse cx="54" cy="68.5" rx="4.2" ry="3.6" fill="#2b2b3a" opacity="0.18"/>
+  <ellipse cx="54" cy="68.5" rx="2.4" ry="2" fill="#2b2b3a" opacity="0.55"/>
+</svg>

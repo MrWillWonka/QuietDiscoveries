@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <radialGradient id="space-twinkle-3-glow">
+      <stop offset="0" stop-color="#dce8ff" stop-opacity="0.5"/>
+      <stop offset="0.35" stop-color="#a9c4f5" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#a9c4f5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="440.5" cy="330.4" r="7" fill="url(#space-twinkle-3-glow)"/><path d="M432.4 330.4 H448.6 M440.5 322.3 V338.5" stroke="#fff6d0" stroke-width="0.6" opacity="0.45"/><circle cx="440.5" cy="330.4" r="1.4" fill="#fff6d0"/>
+  <circle cx="1633.2" cy="923.9" r="9.5" fill="url(#space-twinkle-3-glow)"/><path d="M1622.2 923.9 H1644.2 M1633.2 912.9 V934.9" stroke="#dce8ff" stroke-width="0.6" opacity="0.45"/><circle cx="1633.2" cy="923.9" r="1.9" fill="#dce8ff"/>
+  <circle cx="474.6" cy="684.8" r="8" fill="url(#space-twinkle-3-glow)"/><path d="M465.1 684.8 H484.1 M474.6 675.3 V694.3" stroke="#ffe3c0" stroke-width="0.6" opacity="0.45"/><circle cx="474.6" cy="684.8" r="1.6" fill="#ffe3c0"/>
+  <circle cx="153.5" cy="847.8" r="7.5" fill="url(#space-twinkle-3-glow)"/><path d="M142.5 847.8 H164.5 M153.5 836.8 V858.8" stroke="#dce8ff" stroke-width="0.6" opacity="0.45"/><circle cx="153.5" cy="847.8" r="1.5" fill="#dce8ff"/>
+  <circle cx="1507.1" cy="645.9" r="11" fill="url(#space-twinkle-3-glow)"/><path d="M1495.1 645.9 H1519.1 M1507.1 633.9 V657.9" stroke="#dce8ff" stroke-width="0.6" opacity="0.45"/><circle cx="1507.1" cy="645.9" r="2.2" fill="#dce8ff"/>
+  <circle cx="1756.8" cy="412.9" r="8" fill="url(#space-twinkle-3-glow)"/><path d="M1748 412.9 H1765.6 M1756.8 404.1 V421.7" stroke="#ffe3c0" stroke-width="0.6" opacity="0.45"/><circle cx="1756.8" cy="412.9" r="1.6" fill="#ffe3c0"/>
+  <circle cx="1896.7" cy="362" r="7" fill="url(#space-twinkle-3-glow)"/><path d="M1887.1 362 H1906.3 M1896.7 352.4 V371.6" stroke="#ffe3c0" stroke-width="0.6" opacity="0.45"/><circle cx="1896.7" cy="362" r="1.4" fill="#ffe3c0"/>
+  <circle cx="1901.4" cy="225.8" r="8.5" fill="url(#space-twinkle-3-glow)"/><path d="M1892.6 225.8 H1910.2 M1901.4 217 V234.6" stroke="#dce8ff" stroke-width="0.6" opacity="0.45"/><circle cx="1901.4" cy="225.8" r="1.7" fill="#dce8ff"/>
+  <circle cx="332" cy="184.9" r="6.5" fill="url(#space-twinkle-3-glow)"/><path d="M324.3 184.9 H339.7 M332 177.2 V192.6" stroke="#c9d8f5" stroke-width="0.6" opacity="0.45"/><circle cx="332" cy="184.9" r="1.3" fill="#c9d8f5"/>
+</svg>

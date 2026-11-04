@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 9.5 170 63">
+  <clipPath id="beluga-listening-body">
+    <path d="M56.5 76 C 56.5 68, 57 62, 58 57 C 54.5 51, 53 40, 57 30 C 61 18.5, 72 10.5, 85 10.5 C 98 10.5, 109 18.5, 113 30 C 117 40, 115.5 51, 112 57 C 113 62, 113.5 68, 113.5 76 Z"/>
+  </clipPath>
+  <path d="M56.5 76 C 56.5 68, 57 62, 58 57 C 54.5 51, 53 40, 57 30 C 61 18.5, 72 10.5, 85 10.5 C 98 10.5, 109 18.5, 113 30 C 117 40, 115.5 51, 112 57 C 113 62, 113.5 68, 113.5 76 Z" fill="#ffffff"/>
+  <g clip-path="url(#beluga-listening-body)">
+    <path d="M40 40 C 52 46, 70 49, 85 49 C 100 49, 118 46, 130 40 L 130 76 L 40 76 Z" fill="#2b2b3a" opacity="0.1"/>
+    <path d="M40 10 L 50 10 L 50 18 C 54 22, 58.2 27.1, 58 34 C 57.5 44, 59.5 52, 61.5 58.5 C 61 64, 61 70, 61 76 L 40 76 Z" fill="#2b2b3a" opacity="0.1"/>
+    <path d="M130 10 L 120 10 L 120 18 C 116 22, 111.8 27.1, 112 34 C 112.5 44, 110.5 52, 108.5 58.5 C 109 64, 109 70, 109 76 L 130 76 Z" fill="#2b2b3a" opacity="0.1"/>
+  </g>
+  <path d="M57.5 37 C 64 45.5, 75 49, 85 49 C 95 49, 106 45.5, 112.5 37 C 107 49.5, 96 53, 85 53 C 74 53, 63 49.5, 57.5 37 Z" fill="#2b2b3a" opacity="0.16"/>
+  <path d="M72 62 C 76 69, 94 69, 98 62 C 98 66.5, 92.5 70, 85 70 C 77.5 70, 72 66.5, 72 62 Z" fill="#f4f1de"/>
+  <ellipse cx="85" cy="59" rx="13.5" ry="8.5" fill="#2b2b3a" opacity="0.12"/>
+  <ellipse cx="85" cy="57.5" rx="12.5" ry="7.5" fill="#ffffff"/>
+  <path d="M69.5 57.5 C 75 66, 95 66, 100.5 57.5 C 95 63.5, 75 63.5, 69.5 57.5 Z" fill="#2b2b3a" opacity="0.62"/>
+  <circle cx="66.5" cy="50.5" r="4.8" fill="#2b2b3a"/>
+  <circle cx="65.1" cy="49.1" r="1.4" fill="#ffffff"/>
+  <circle cx="103.5" cy="50.5" r="4.8" fill="#2b2b3a"/>
+  <circle cx="102.1" cy="49.1" r="1.4" fill="#ffffff"/>
+  <ellipse cx="63.5" cy="60" rx="5.5" ry="3.2" fill="#ff7a8a" opacity="0.55"/>
+  <ellipse cx="106.5" cy="60" rx="5.5" ry="3.2" fill="#ff7a8a" opacity="0.55"/>
+</svg>

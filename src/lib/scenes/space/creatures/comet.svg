@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 184">
+  <defs>
+    <radialGradient id="space-comet-dust">
+      <stop offset="0" stop-color="#fff6d0" stop-opacity="1"/>
+      <stop offset="0.45" stop-color="#f3dc92" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#f3dc92" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Tail glows for half-ellipse shapes: brightest at the flat right edge
+         (the head), fading softly both along and across the tail. -->
+    <radialGradient id="space-comet-streak" cx="0" cy="0" r="1" gradientTransform="translate(1 0.5) scale(1 0.5)">
+      <stop offset="0" stop-color="#fffbe8" stop-opacity="0.7"/>
+      <stop offset="0.3" stop-color="#fff6d0" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#f3dc92" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-comet-ion" cx="0" cy="0" r="1" gradientTransform="translate(1 0.5) scale(1 0.5)">
+      <stop offset="0" stop-color="#dce8ff" stop-opacity="0.95"/>
+      <stop offset="0.25" stop-color="#a9c4f5" stop-opacity="0.7"/>
+      <stop offset="0.65" stop-color="#6f8fd0" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#3d5ea6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-comet-coma" cx="256" cy="62" r="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="0.06" stop-color="#eefaff" stop-opacity="1"/>
+      <stop offset="0.2" stop-color="#c4ebf7" stop-opacity="0.7"/>
+      <stop offset="0.45" stop-color="#8cc3e6" stop-opacity="0.25"/>
+      <stop offset="0.75" stop-color="#5f86c4" stop-opacity="0.07"/>
+      <stop offset="1" stop-color="#3d5ea6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Dust tail: a broad pale-cream fan that bends away and down. -->
+  <circle cx="242.2" cy="64.2" r="11.7" fill="url(#space-comet-dust)" opacity="0.42"/>
+  <circle cx="231.5" cy="65.9" r="13.7" fill="url(#space-comet-dust)" opacity="0.40"/>
+  <circle cx="220.1" cy="67.9" r="15.9" fill="url(#space-comet-dust)" opacity="0.37"/>
+  <circle cx="208.2" cy="70.1" r="18.2" fill="url(#space-comet-dust)" opacity="0.35"/>
+  <circle cx="195.5" cy="72.6" r="20.7" fill="url(#space-comet-dust)" opacity="0.32"/>
+  <circle cx="182.1" cy="75.4" r="23.3" fill="url(#space-comet-dust)" opacity="0.29"/>
+  <circle cx="168" cy="78.8" r="26" fill="url(#space-comet-dust)" opacity="0.27"/>
+  <circle cx="153.1" cy="82.7" r="28.9" fill="url(#space-comet-dust)" opacity="0.24"/>
+  <circle cx="137.5" cy="87.3" r="32" fill="url(#space-comet-dust)" opacity="0.21"/>
+  <circle cx="121.1" cy="92.7" r="35.3" fill="url(#space-comet-dust)" opacity="0.18"/>
+  <circle cx="103.9" cy="99.1" r="38.8" fill="url(#space-comet-dust)" opacity="0.15"/>
+  <circle cx="86.1" cy="106.7" r="42.5" fill="url(#space-comet-dust)" opacity="0.12"/>
+  <circle cx="67.6" cy="115.7" r="46.4" fill="url(#space-comet-dust)" opacity="0.09"/>
+  <circle cx="48.5" cy="126.4" r="50.5" fill="url(#space-comet-dust)" opacity="0.06"/>
+  <circle cx="29.1" cy="138.9" r="54.9" fill="url(#space-comet-dust)" opacity="0.03"/>
+  <path transform="rotate(-10 256 62)" d="M256 53 A170 9 0 0 0 256 71 Z" fill="url(#space-comet-streak)"/>
+  <path transform="rotate(-17 256 62)" d="M256 51 A140 11 0 0 0 256 73 Z" fill="url(#space-comet-streak)" opacity="0.7"/>
+
+  <!-- Ion tail: straight, narrow and blue, well clear of the dust tail. -->
+  <path transform="rotate(5 256 62)" d="M256 56.5 A256 5.5 0 0 0 256 67.5 Z" fill="url(#space-comet-ion)"/>
+  <path transform="rotate(5 256 62)" d="M256 60.8 A210 1.2 0 0 0 256 63.2 Z" fill="url(#space-comet-ion)"/>
+
+  <!-- Coma and nucleus. -->
+  <g class="part-pulse">
+    <circle cx="256" cy="62" r="64" fill="url(#space-comet-coma)"/>
+  </g>
+  <circle cx="256" cy="62" r="3" fill="#ffffff"/>
+</svg>

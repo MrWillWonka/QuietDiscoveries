@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240">
+  <defs>
+    <radialGradient id="space-dust-violet">
+      <stop offset="0" stop-color="#9a7fd1" stop-opacity="0.16"/>
+      <stop offset="0.6" stop-color="#6a4c9c" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#3b2466" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-dust-blue">
+      <stop offset="0" stop-color="#6f8fd0" stop-opacity="0.13"/>
+      <stop offset="0.6" stop-color="#3d5ea6" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#1f3470" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- A thin veil of interstellar dust: overlapping soft clouds, nothing with an edge. -->
+  <ellipse cx="170" cy="130" rx="170" ry="70" transform="rotate(-8 170 130)" fill="url(#space-dust-violet)"/>
+  <ellipse cx="320" cy="110" rx="200" ry="60" transform="rotate(6 320 110)" fill="url(#space-dust-blue)"/>
+  <ellipse cx="450" cy="140" rx="150" ry="72" transform="rotate(-14 450 140)" fill="url(#space-dust-violet)"/>
+  <ellipse cx="260" cy="150" rx="120" ry="40" transform="rotate(-4 260 150)" fill="url(#space-dust-blue)"/>
+</svg>

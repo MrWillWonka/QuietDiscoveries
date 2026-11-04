@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 34" overflow="visible">
+  <!-- A small broken floe with a little ridge of ice heaped on it. The
+       bottom edge is the waterline, as on the wide floe. -->
+  <path d="M3.7 44 L10 20 C 12 15, 16 13, 22 13 L40 13 L50 4 C 53 2, 57 2, 60 5 L68 12 L96 12 C 104 12, 108 15, 110 20 L116.9 44 Z" fill="#a9d0ea"/>
+  <path d="M60 5 L68 12 L96 12 C 104 12, 108 15, 110 20 L116.9 44 L84 44 C 87 28, 80 16, 66 14 Z" fill="#2b2b3a" opacity="0.14"/>
+  <path d="M10 20 C 12 15, 16 13, 22 13 L40 13 L50 4 C 53 2, 57 2, 60 5 L68 12 L96 12 C 104 12, 108 15, 110 20 C 76 22, 40 23, 10 20 Z" fill="#f4f8fc"/>
+</svg>

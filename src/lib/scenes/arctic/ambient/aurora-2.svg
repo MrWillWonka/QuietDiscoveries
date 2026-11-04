@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="arctic-aurora-2-glow" x1="0" y1="0" x2="0" y2="230" gradientUnits="userSpaceOnUse">
+      <stop offset="0.2" stop-color="#a06cd5" stop-opacity="0"/>
+      <stop offset="0.6" stop-color="#4ecdc4" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#7ee8b8" stop-opacity="0.5"/>
+    </linearGradient>
+  </defs>
+  <!-- A fainter, higher curtain, folding the other way. It fades upward
+       like the first, and its hem stays above the first curtain's. -->
+  <path d="M0 0 L1200 0 L1200 140 C 1170 140, 1130 148, 1080 162 C 960 196, 840 192, 720 160
+           C 600 128, 500 132, 380 166 C 260 200, 140 194, 0 156 Z" fill="url(#arctic-aurora-2-glow)"/>
+</svg>

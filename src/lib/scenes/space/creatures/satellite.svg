@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 102">
+  <defs>
+    <linearGradient id="space-satellite-panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4f73c0"/>
+      <stop offset="0.35" stop-color="#1f3470"/>
+      <stop offset="1" stop-color="#0c1532"/>
+    </linearGradient>
+    <linearGradient id="space-satellite-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6e3a0"/>
+      <stop offset="0.5" stop-color="#c99a3e"/>
+      <stop offset="1" stop-color="#6e4e1a"/>
+    </linearGradient>
+    <linearGradient id="space-satellite-side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6b4c1c"/>
+      <stop offset="1" stop-color="#2e210b"/>
+    </linearGradient>
+    <linearGradient id="space-satellite-lid" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f4f6fa"/>
+      <stop offset="1" stop-color="#aab2c2"/>
+    </linearGradient>
+    <linearGradient id="space-satellite-dish" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f6fa"/>
+      <stop offset="1" stop-color="#7d869c"/>
+    </linearGradient>
+    <radialGradient id="space-satellite-bowl" cx="0.62" cy="0.62" r="0.7">
+      <stop offset="0" stop-color="#e6e8ee"/>
+      <stop offset="0.6" stop-color="#9aa3b8"/>
+      <stop offset="1" stop-color="#4a5168"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Yokes from the bus out to each wing. -->
+  <path d="M91 64 H108 M152 64 H169" stroke="#8b93a6" stroke-width="2.4"/>
+  <path d="M91 65.2 H108 M152 65.2 H169" stroke="#05070f" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Two wings of three panels, the far one a touch darker. -->
+  <rect x="4" y="50" width="28" height="28" fill="url(#space-satellite-panel)"/>
+  <rect x="33" y="50" width="28" height="28" fill="url(#space-satellite-panel)"/>
+  <rect x="62" y="50" width="29" height="28" fill="url(#space-satellite-panel)"/>
+  <rect x="169" y="50" width="29" height="28" fill="url(#space-satellite-panel)"/>
+  <rect x="199" y="50" width="28" height="28" fill="url(#space-satellite-panel)"/>
+  <rect x="228" y="50" width="28" height="28" fill="url(#space-satellite-panel)"/>
+  <path d="M4 59.3 H91 M4 68.6 H91 M11 50 V78 M18 50 V78 M25 50 V78 M40 50 V78 M47 50 V78 M54 50 V78 M69 50 V78 M76.5 50 V78 M84 50 V78
+           M169 59.3 H256 M169 68.6 H256 M176 50 V78 M183.5 50 V78 M191 50 V78 M206 50 V78 M213 50 V78 M220 50 V78 M235 50 V78 M242 50 V78 M249 50 V78" stroke="#7d9be0" stroke-width="0.6" opacity="0.4"/>
+  <!-- Sunlight catching the near wing. -->
+  <path d="M4 50 H44 L26 78 H4 Z" fill="#dce8ff" opacity="0.12"/>
+  <path d="M50 50 H58 L40 78 H32 Z" fill="#dce8ff" opacity="0.07"/>
+  <rect x="169" y="50" width="87" height="28" fill="#05070f" opacity="0.22"/>
+  <path d="M4 50 H91 V78 H4 Z M32.5 50 V78 M61.5 50 V78 M169 50 H256 V78 H169 Z M198.5 50 V78 M227.5 50 V78" fill="none" stroke="#a9b3c8" stroke-width="1.2"/>
+  <path d="M4 50 H91 M169 50 H256" stroke="#dce8ff" stroke-width="0.6" opacity="0.6"/>
+
+  <!-- Bus: a gold-foiled box seen a little from above and to the left. -->
+  <path d="M108 41 L118 33 L162 33 L152 41 Z" fill="url(#space-satellite-lid)"/>
+  <rect x="108" y="41" width="44" height="46" fill="url(#space-satellite-gold)"/>
+  <path d="M152 41 L162 33 L162 79 L152 87 Z" fill="url(#space-satellite-side)"/>
+  <!-- Foil facets: flat planes of the wrap catching the light differently. -->
+  <path d="M108 41 H130 L122 58 L108 54 Z" fill="#fff6d0" opacity="0.32"/>
+  <path d="M130 41 H152 V52 L138 60 L122 58 Z" fill="#fff6d0" opacity="0.12"/>
+  <path d="M108 54 L122 58 L126 76 L108 72 Z" fill="#fff6d0" opacity="0.1"/>
+  <path d="M138 60 L152 52 V87 H134 L126 76 Z" fill="#3a2a0e" opacity="0.22"/>
+  <path d="M108 72 L126 76 L134 87 H108 Z" fill="#3a2a0e" opacity="0.3"/>
+  <path d="M152 52 L162 46 V60 L152 68 Z" fill="#f3dc92" opacity="0.12"/>
+  <!-- Where the mast stands on the lid, and the lid's lit edges. -->
+  <ellipse cx="136" cy="35.5" rx="4" ry="1.4" fill="#05070f" opacity="0.3"/>
+  <path d="M108 41 L118 33 H162" fill="none" stroke="#ffffff" stroke-width="0.7" opacity="0.8"/>
+  <path d="M108 41 H152" stroke="#fff6d0" stroke-width="0.8" opacity="0.85"/>
+
+  <!-- Dish on its mast, turned up and to the right. -->
+  <path d="M135 34 L140 25" stroke="#8b93a6" stroke-width="2.2"/>
+  <ellipse cx="143" cy="18" rx="25" ry="9" transform="rotate(-18 143 18)" fill="url(#space-satellite-dish)"/>
+  <ellipse cx="143.7" cy="16.4" rx="20.5" ry="6.4" transform="rotate(-18 143.7 16.4)" fill="url(#space-satellite-bowl)"/>
+  <path d="M121.6 26.4 A25 9 -18 0 1 159 4.6" fill="none" stroke="#ffffff" stroke-width="0.7" opacity="0.7"/>
+  <path d="M143.7 16.4 L152 4.8" stroke="#c8ccd6" stroke-width="1.2"/>
+  <circle cx="152.4" cy="4.2" r="2.1" fill="#e6e8ee"/>
+  <circle cx="153" cy="4.8" r="1.2" fill="#8b93a6"/>
+
+  <!-- Whip antenna underneath. -->
+  <path d="M128 87 V100" stroke="#8b93a6" stroke-width="1.2"/>
+</svg>

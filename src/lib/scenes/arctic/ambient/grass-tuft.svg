@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120">
+  <!-- Dry sedge poking up through the snow, rooted on the bottom edge so it
+       sways about its root. -->
+  <path d="M14 120 C 26 110, 54 110, 66 120 Z" fill="#2b2b3a" opacity="0.12"/>
+  <path d="M30 120 Q 6 80, 4 36 Q 14 80, 42 120 Z" fill="#9a7a58"/>
+  <path d="M46 120 Q 72 84, 76 44 Q 74 86, 56 120 Z" fill="#9a7a58"/>
+  <path d="M34 120 Q 20 66, 22 6 Q 30 66, 46 120 Z" fill="#b9875a"/>
+  <path d="M40 120 Q 56 70, 62 14 Q 62 72, 52 120 Z" fill="#b9875a"/>
+  <path d="M36 120 Q 34 70, 40 24 Q 44 72, 48 120 Z" fill="#e6c79a"/>
+  <!-- Snow banked round its foot. -->
+  <path d="M8 120 C 14 110, 28 106, 40 108 C 52 106, 66 110, 72 120 Z" fill="#dce6f1"/>
+</svg>

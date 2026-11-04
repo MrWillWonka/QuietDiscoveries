@@ -1,0 +1,39 @@
+/* Part groups the deep space Creatures add to the shared set in
+   routes/layout.css (part-tail, part-fin, …). Each SVG sets its own pivot as
+   `transform-origin` inline on the group, and may set its own
+   `animation-duration` there too: a tumbling asteroid and a turning galaxy
+   share the spin, not the speed. */
+
+/* Spin: one slow, steady turn after another. */
+@keyframes part-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulse: a glow slowly brightening and settling. */
+@keyframes part-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.creature .part-spin {
+  transform-origin: center;
+  animation: part-spin 60s linear infinite;
+}
+
+.creature .part-pulse {
+  animation: part-pulse 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creature .part-spin,
+  .creature .part-pulse {
+    animation: none;
+  }
+}

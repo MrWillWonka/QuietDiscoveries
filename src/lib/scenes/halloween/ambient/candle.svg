@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="757 458 60 60" preserveAspectRatio="none">
+  <!-- The candle in the farmhouse's larger window (backdrop centre 787 488),
+       in the backdrop's own coordinates and stretched as it is, so it stays
+       on the window at any screen shape. A warm glow spills round the window
+       and its panes burn paler; Ambient Life brightens and dims it. -->
+  <g fill="#ffc95e">
+    <ellipse cx="787.5" cy="488" rx="29" ry="27" opacity="0.04"/>
+    <ellipse cx="787.5" cy="488" rx="26.2" ry="24.6" opacity="0.04"/>
+    <ellipse cx="787.5" cy="488" rx="23.4" ry="22.2" opacity="0.04"/>
+    <ellipse cx="787.5" cy="488" rx="20.6" ry="19.8" opacity="0.04"/>
+    <ellipse cx="787.5" cy="488" rx="17.8" ry="17.4" opacity="0.04"/>
+    <ellipse cx="787.5" cy="488" rx="15" ry="15" opacity="0.04"/>
+    <ellipse cx="787.5" cy="488" rx="12.2" ry="12.6" opacity="0.04"/>
+    <ellipse cx="787.5" cy="488" rx="9.4" ry="10.2" opacity="0.04"/>
+  </g>
+  <g fill="#ffffff" opacity="0.42">
+    <path d="M782.6 481.4 L786.9 481.2 L787 487.6 L782.8 487.8 Z"/>
+    <path d="M788.7 481.1 L792.4 480.9 L792.6 487.5 L788.8 487.6 Z"/>
+    <path d="M783 489.8 L787.1 489.6 L787.3 495.2 L783.1 495.4 Z"/>
+    <path d="M788.9 489.5 L792.7 489.3 L792.8 494.9 L789.1 495.1 Z"/>
+  </g>
+</svg>

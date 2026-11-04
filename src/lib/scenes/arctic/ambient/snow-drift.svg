@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60">
+  <!-- A drift of snow heaped by the wind into a long, low mound, lit from
+       above and shaded on its lee side. It is the snowfield itself rising,
+       so it fades into the snow toward its foot rather than sitting on it:
+       whatever snow it is placed on shows through at the bottom. The ids
+       are the same wherever it is drawn, so they always mean the same
+       thing. Rooted on the bottom edge. -->
+  <defs>
+    <linearGradient id="arctic-snow-drift-lit" x1="0" y1="18" x2="0" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="arctic-snow-drift-lee" x1="0" y1="20" x2="0" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8ea8c6" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#8ea8c6" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path d="M0 60 C 36 58, 62 20, 108 18 C 160 16, 188 54, 220 60 Z" fill="url(#arctic-snow-drift-lit)"/>
+  <path d="M138.9 21.2 C 172 30, 192 56, 220 60 L 158 60 C 166 46, 158 31, 138.9 21.2 Z" fill="url(#arctic-snow-drift-lee)"/>
+  <path d="M40 46 C 58 34, 78 19.5, 108 18 C 119.4 17.6, 129.6 18.9, 138.9 21.2 C 118 22, 96 23, 76 30 C 62 35, 50 40, 40 46 Z" fill="#ffffff" opacity="0.6"/>
+</svg>

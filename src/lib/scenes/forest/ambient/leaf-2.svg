@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <!-- Maple leaf: three big pointed lobes and two small ones, each with a tooth, and a stem. -->
+  <path d="M20 4 L22.5 9 L24.5 8 L24 13 L30 9.5 L30 12 L34.5 11 L31 17 L33 18 L27.5 22 L29 25.5 L23 25
+           L21 27.5 L21 36 L19 36 L19 27.5 L17 25 L11 25.5 L12.5 22 L7 18 L9 17 L5.5 11 L10 12 L10 9.5
+           L16 13 L15.5 8 L17.5 9 Z" fill="#d98c4a"/>
+  <path d="M20 4 L22.5 9 L24.5 8 L24 13 L30 9.5 L30 12 L34.5 11 L31 17 L33 18 L27.5 22 L29 25.5 L23 25
+           L21 27.5 L21 36 L20 36 Z" fill="#2b2b3a" opacity="0.16"/>
+</svg>

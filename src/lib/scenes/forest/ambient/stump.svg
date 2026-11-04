@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 120">
+  <path d="M4 120 C 24 110, 120 110, 140 120 Z" fill="#2b2b3a" opacity="0.14"/>
+  <!-- Body with roots spreading into the ground. -->
+  <path d="M34 34 L110 34 C 110 60, 112 86, 118 100 C 126 108, 136 112, 142 120 L2 120
+           C 8 112, 18 108, 26 100 C 32 86, 34 60, 34 34 Z" fill="#7a5a44"/>
+  <path d="M88 34 L110 34 C 110 60, 112 86, 118 100 C 126 108, 136 112, 142 120 L104 120
+           C 100 100, 94 70, 88 34 Z" fill="#2b2b3a" opacity="0.2"/>
+  <!-- Bark grooves. -->
+  <g fill="#2b2b3a" opacity="0.18">
+    <path d="M48 52 C 46 64, 46 78, 48 92 C 50 78, 50 64, 48 52 Z"/>
+    <path d="M70 58 C 68 70, 68 84, 70 96 C 72 84, 72 70, 70 58 Z"/>
+  </g>
+  <!-- Ring top. -->
+  <ellipse cx="72" cy="34" rx="38" ry="13" fill="#d9b98a"/>
+  <ellipse cx="73" cy="34" rx="26" ry="8.5" fill="#c9a274"/>
+  <ellipse cx="74" cy="34" rx="15" ry="5" fill="#d9b98a"/>
+  <ellipse cx="74" cy="34" rx="5" ry="2" fill="#c9a274"/>
+  <!-- Moss on the roots. -->
+  <path d="M2 120 C 4 112, 14 106, 24 110 C 30 104, 42 106, 46 114 C 52 112, 58 116, 58 120 Z" fill="#8fb27a"/>
+  <path d="M2 120 C 4 112, 14 106, 24 110 C 30 104, 42 106, 46 114 C 38 110, 30 112, 26 116 C 18 112, 8 114, 2 120 Z" fill="#ffffff" opacity="0.18"/>
+</svg>

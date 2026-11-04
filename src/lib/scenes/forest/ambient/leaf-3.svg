@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <!-- A plain oval leaf with a pointed tip. -->
+  <path d="M20 5 C 29 11, 30 26, 21 32 L21 36 L19 36 L19 32 C 10 26, 11 11, 20 5 Z" fill="#bf7048"/>
+  <path d="M20 5 C 29 11, 30 26, 21 32 L21 36 L20 36 Z" fill="#2b2b3a" opacity="0.16"/>
+  <path d="M20 5 C 14 10, 12 18, 14 24 C 15 18, 17 11, 20 5 Z" fill="#ffffff" opacity="0.18"/>
+</svg>

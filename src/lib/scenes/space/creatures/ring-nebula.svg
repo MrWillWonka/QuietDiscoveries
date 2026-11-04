@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 170">
+  <defs>
+    <radialGradient id="space-ring-nebula-halo">
+      <stop offset="0.4" stop-color="#c44b3a" stop-opacity="0"/>
+      <stop offset="0.62" stop-color="#c44b3a" stop-opacity="0.16"/>
+      <stop offset="0.82" stop-color="#6a4c9c" stop-opacity="0.07"/>
+      <stop offset="1" stop-color="#6a4c9c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-ring-nebula-rim">
+      <stop offset="0.6" stop-color="#e8743b" stop-opacity="0"/>
+      <stop offset="0.76" stop-color="#e8743b" stop-opacity="0.75"/>
+      <stop offset="0.86" stop-color="#c44b3a" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#c44b3a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-ring-nebula-body">
+      <stop offset="0.35" stop-color="#3d5ea6" stop-opacity="0"/>
+      <stop offset="0.55" stop-color="#4a8ec8" stop-opacity="0.45"/>
+      <stop offset="0.7" stop-color="#4fb8ae" stop-opacity="0.85"/>
+      <stop offset="0.84" stop-color="#8fd2a0" stop-opacity="0.55"/>
+      <stop offset="0.94" stop-color="#f3dc92" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#f3dc92" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-ring-nebula-hollow">
+      <stop offset="0" stop-color="#7f9ed8" stop-opacity="0.5"/>
+      <stop offset="0.6" stop-color="#3d6aae" stop-opacity="0.38"/>
+      <stop offset="1" stop-color="#3d5ea6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-ring-nebula-knot">
+      <stop offset="0" stop-color="#b8f0e0" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#4fb8ae" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-ring-nebula-dark">
+      <stop offset="0" stop-color="#060a17" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#060a17" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-ring-nebula-ember">
+      <stop offset="0" stop-color="#f2b36b" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#e8743b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-ring-nebula-wisp">
+      <stop offset="0" stop-color="#c44b3a" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#c44b3a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="space-ring-nebula-star">
+      <stop offset="0" stop-color="#f4f8ff"/>
+      <stop offset="0.25" stop-color="#dce8ff" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#a9c4f5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <g transform="translate(100 85) rotate(-20)">
+    <!-- Faint outer halo and its wisps. -->
+    <ellipse rx="98" ry="80" fill="url(#space-ring-nebula-halo)"/>
+    <g fill="url(#space-ring-nebula-wisp)">
+      <ellipse rx="16.6" ry="5" opacity="0.284" transform="translate(68.9 3.4) rotate(113.4)"/>
+      <ellipse rx="17.4" ry="3.5" opacity="0.2" transform="translate(45.2 39.6) rotate(127.9)"/>
+      <ellipse rx="17.2" ry="3.7" opacity="0.243" transform="translate(31.3 45.9) rotate(161.1)"/>
+      <ellipse rx="10.9" ry="3.2" opacity="0.35700000000000004" transform="translate(-33.6 55.7) rotate(189.5)"/>
+      <ellipse rx="11" ry="5.1" opacity="0.28300000000000003" transform="translate(-60.3 36.1) rotate(245.7)"/>
+      <ellipse rx="16.2" ry="5.1" opacity="0.376" transform="translate(-74.6 -1.6) rotate(-84.1)"/>
+      <ellipse rx="14.9" ry="4.7" opacity="0.256" transform="translate(-62.7 -18.4) rotate(-92.5)"/>
+      <ellipse rx="15" ry="3.8" opacity="0.40299999999999997" transform="translate(-53.3 -34.9) rotate(-44.7)"/>
+      <ellipse rx="13.3" ry="4.9" opacity="0.39799999999999996" transform="translate(8.9 -52.3) rotate(17.3)"/>
+      <ellipse rx="14" ry="4.3" opacity="0.406" transform="translate(39.8 -43) rotate(57.5)"/>
+      <ellipse rx="17.3" ry="3.7" opacity="0.415" transform="translate(74.8 -19.8) rotate(83)"/>
+    </g>
+
+    <!-- Red-orange outer rim, two slightly offset shells so it is not a perfect oval. -->
+    <ellipse rx="72" ry="58" fill="url(#space-ring-nebula-rim)"/>
+    <ellipse cx="3" cy="-2" rx="68" ry="57" fill="url(#space-ring-nebula-rim)" opacity="0.5"/>
+    <g fill="url(#space-ring-nebula-ember)">
+      <ellipse rx="5.3" ry="3.5" opacity="0.536" transform="translate(56.3 -4.7) rotate(108.8)"/>
+      <ellipse rx="4.7" ry="3.9" opacity="0.583" transform="translate(51.7 17.8) rotate(91.4)"/>
+      <ellipse rx="4.4" ry="3.2" opacity="0.374" transform="translate(43.9 33.2) rotate(133.8)"/>
+      <ellipse rx="5.9" ry="3" opacity="0.495" transform="translate(18.8 40.2) rotate(148.2)"/>
+      <ellipse rx="4.9" ry="2.1" opacity="0.301" transform="translate(-22 39.1) rotate(200)"/>
+      <ellipse rx="6.8" ry="3.5" opacity="0.5720000000000001" transform="translate(-32 34.5) rotate(203.3)"/>
+      <ellipse rx="6.4" ry="3.1" opacity="0.532" transform="translate(-53.2 21.9) rotate(265.9)"/>
+      <ellipse rx="5.5" ry="3.4" opacity="0.499" transform="translate(-56.2 2.8) rotate(266.3)"/>
+      <ellipse rx="6.7" ry="3.9" opacity="0.596" transform="translate(-50.5 -22.9) rotate(-49)"/>
+      <ellipse rx="6.9" ry="2.2" opacity="0.425" transform="translate(-36.6 -34.9) rotate(-17.1)"/>
+      <ellipse rx="6.2" ry="3.5" opacity="0.634" transform="translate(-17.1 -46.1) rotate(-6.1)"/>
+      <ellipse rx="4.3" ry="3.5" opacity="0.62" transform="translate(5.8 -43.7) rotate(21)"/>
+      <ellipse rx="5.3" ry="3.1" opacity="0.605" transform="translate(39 -35.1) rotate(43.5)"/>
+      <ellipse rx="5.3" ry="2.4" opacity="0.43799999999999994" transform="translate(52.7 -13) rotate(82.3)"/>
+    </g>
+
+    <!-- Teal-green to blue ring body. -->
+    <ellipse rx="64" ry="51" fill="url(#space-ring-nebula-body)"/>
+    <ellipse cx="-2" cy="1.5" rx="61" ry="50" fill="url(#space-ring-nebula-body)" opacity="0.45"/>
+    <!-- M57 is brightest along its long sides. -->
+    <ellipse cy="-36" rx="36" ry="16" fill="url(#space-ring-nebula-knot)" opacity="0.45"/>
+    <ellipse cy="37" rx="34" ry="15" fill="url(#space-ring-nebula-knot)" opacity="0.4"/>
+    <g fill="url(#space-ring-nebula-knot)">
+      <ellipse rx="3.1" ry="2.4" opacity="0.505" transform="translate(46.2 -4) rotate(-21)"/>
+      <ellipse rx="3.9" ry="2.6" opacity="0.49" transform="translate(43.5 7.2) rotate(29.6)"/>
+      <ellipse rx="4.3" ry="1.8" opacity="0.494" transform="translate(32.4 16) rotate(22.8)"/>
+      <ellipse rx="4.5" ry="2.4" opacity="0.293" transform="translate(29.5 22.6) rotate(73.4)"/>
+      <ellipse rx="4" ry="3" opacity="0.569" transform="translate(21.4 30.4) rotate(70.7)"/>
+      <ellipse rx="3.4" ry="2.1" opacity="0.303" transform="translate(14.9 29) rotate(91.2)"/>
+      <ellipse rx="3.9" ry="2.9" opacity="0.505" transform="translate(5.3 30.7) rotate(112.8)"/>
+      <ellipse rx="3.8" ry="2" opacity="0.39799999999999996" transform="translate(-1 30.7) rotate(95.7)"/>
+      <ellipse rx="3.4" ry="3" opacity="0.483" transform="translate(-15.6 25.7) rotate(106.4)"/>
+      <ellipse rx="3.3" ry="2.3" opacity="0.37799999999999995" transform="translate(-21.2 24.4) rotate(118.2)"/>
+      <ellipse rx="3.2" ry="2.3" opacity="0.5670000000000001" transform="translate(-30.1 23) rotate(144.4)"/>
+      <ellipse rx="3.8" ry="2.7" opacity="0.42700000000000005" transform="translate(-39.5 13.5) rotate(166.2)"/>
+      <ellipse rx="3.2" ry="2.2" opacity="0.455" transform="translate(-39.5 4.7) rotate(186.2)"/>
+      <ellipse rx="4.7" ry="2.9" opacity="0.289" transform="translate(-39.9 1.2) rotate(198.5)"/>
+      <ellipse rx="2.8" ry="2" opacity="0.599" transform="translate(-39.6 -4.8) rotate(-195.7)"/>
+      <ellipse rx="4" ry="3" opacity="0.298" transform="translate(-32.1 -14.4) rotate(-153.7)"/>
+      <ellipse rx="4.8" ry="2.1" opacity="0.516" transform="translate(-31.9 -26.7) rotate(-106.7)"/>
+      <ellipse rx="2.6" ry="2" opacity="0.466" transform="translate(-24.9 -23.1) rotate(-160.4)"/>
+      <ellipse rx="3.2" ry="2" opacity="0.5589999999999999" transform="translate(-12.5 -31.3) rotate(-94.6)"/>
+      <ellipse rx="3.8" ry="3" opacity="0.251" transform="translate(-6.8 -36.5) rotate(-125.2)"/>
+      <ellipse rx="4.8" ry="3.1" opacity="0.316" transform="translate(7 -36.8) rotate(-114.9)"/>
+      <ellipse rx="3.1" ry="2.5" opacity="0.32299999999999995" transform="translate(16 -32.4) rotate(-84.8)"/>
+      <ellipse rx="4.3" ry="1.7" opacity="0.424" transform="translate(21.7 -31.2) rotate(-46.9)"/>
+      <ellipse rx="4.3" ry="1.7" opacity="0.563" transform="translate(32.1 -26.9) rotate(-72.2)"/>
+      <ellipse rx="4.9" ry="2.3" opacity="0.518" transform="translate(42.2 -14.3) rotate(11.6)"/>
+      <ellipse rx="3.6" ry="2.3" opacity="0.332" transform="translate(42.2 -10.3) rotate(9.8)"/>
+    </g>
+    <g fill="url(#space-ring-nebula-dark)">
+      <ellipse rx="5.4" ry="2.3" opacity="0.272" transform="translate(46.1 11.8) rotate(4.4)"/>
+      <ellipse rx="4.4" ry="3.4" opacity="0.317" transform="translate(33.9 25.3) rotate(15.9)"/>
+      <ellipse rx="4.1" ry="2" opacity="0.256" transform="translate(16.8 40.3) rotate(109.2)"/>
+      <ellipse rx="6.3" ry="2.1" opacity="0.22699999999999998" transform="translate(-6.8 38.3) rotate(122.5)"/>
+      <ellipse rx="5.1" ry="2.6" opacity="0.24100000000000002" transform="translate(-26.4 26.6) rotate(143.1)"/>
+      <ellipse rx="3.6" ry="2.7" opacity="0.19399999999999998" transform="translate(-45.3 2.9) rotate(198)"/>
+      <ellipse rx="4.2" ry="2.5" opacity="0.259" transform="translate(-50.8 -1.9) rotate(-196.1)"/>
+      <ellipse rx="6.2" ry="2.9" opacity="0.304" transform="translate(-44.8 -20.4) rotate(-121.3)"/>
+      <ellipse rx="5.3" ry="3.2" opacity="0.27" transform="translate(9 -31.5) rotate(-53.6)"/>
+      <ellipse rx="3.8" ry="1.8" opacity="0.155" transform="translate(2.4 -33.6) rotate(-124.4)"/>
+      <ellipse rx="3.9" ry="2.9" opacity="0.17600000000000002" transform="translate(47.9 -20.3) rotate(-55.6)"/>
+    </g>
+
+    <!-- Translucent bluish hollow. -->
+    <g class="part-pulse">
+      <ellipse rx="40" ry="31" fill="url(#space-ring-nebula-hollow)"/>
+    </g>
+
+    <!-- The hot white dwarf at the centre. -->
+    <circle r="5" fill="url(#space-ring-nebula-star)"/>
+  </g>
+</svg>

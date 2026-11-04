@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <radialGradient id="space-twinkle-2-glow">
+      <stop offset="0" stop-color="#dce8ff" stop-opacity="0.5"/>
+      <stop offset="0.35" stop-color="#a9c4f5" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#a9c4f5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="791.5" cy="495.8" r="10" fill="url(#space-twinkle-2-glow)"/><path d="M779.3 495.8 H803.7 M791.5 483.6 V508" stroke="#fff6d0" stroke-width="0.6" opacity="0.45"/><circle cx="791.5" cy="495.8" r="2" fill="#fff6d0"/>
+  <circle cx="1280.8" cy="540.9" r="7.5" fill="url(#space-twinkle-2-glow)"/><path d="M1271.9 540.9 H1289.7 M1280.8 532 V549.8" stroke="#dce8ff" stroke-width="0.6" opacity="0.45"/><circle cx="1280.8" cy="540.9" r="1.5" fill="#dce8ff"/>
+  <circle cx="863.3" cy="652.2" r="7.5" fill="url(#space-twinkle-2-glow)"/><path d="M853.8 652.2 H872.8 M863.3 642.7 V661.7" stroke="#fff6d0" stroke-width="0.6" opacity="0.45"/><circle cx="863.3" cy="652.2" r="1.5" fill="#fff6d0"/>
+  <circle cx="600.8" cy="1039.4" r="9.5" fill="url(#space-twinkle-2-glow)"/><path d="M589 1039.4 H612.6 M600.8 1027.6 V1051.2" stroke="#c9d8f5" stroke-width="0.6" opacity="0.45"/><circle cx="600.8" cy="1039.4" r="1.9" fill="#c9d8f5"/>
+  <circle cx="1818.5" cy="974" r="10.5" fill="url(#space-twinkle-2-glow)"/><path d="M1805.2 974 H1831.8 M1818.5 960.7 V987.3" stroke="#dce8ff" stroke-width="0.6" opacity="0.45"/><circle cx="1818.5" cy="974" r="2.1" fill="#dce8ff"/>
+  <circle cx="1666.8" cy="533.8" r="8" fill="url(#space-twinkle-2-glow)"/><path d="M1657.6 533.8 H1676 M1666.8 524.6 V543" stroke="#dce8ff" stroke-width="0.6" opacity="0.45"/><circle cx="1666.8" cy="533.8" r="1.6" fill="#dce8ff"/>
+  <circle cx="651.6" cy="543.9" r="10" fill="url(#space-twinkle-2-glow)"/><path d="M639.8 543.9 H663.4 M651.6 532.1 V555.7" stroke="#a9c4f5" stroke-width="0.6" opacity="0.45"/><circle cx="651.6" cy="543.9" r="2" fill="#a9c4f5"/>
+  <circle cx="1257.3" cy="61.2" r="7.5" fill="url(#space-twinkle-2-glow)"/><path d="M1246.4 61.2 H1268.2 M1257.3 50.3 V72.1" stroke="#fff6d0" stroke-width="0.6" opacity="0.45"/><circle cx="1257.3" cy="61.2" r="1.5" fill="#fff6d0"/>
+  <circle cx="403.6" cy="847.9" r="7" fill="url(#space-twinkle-2-glow)"/><path d="M393.2 847.9 H414 M403.6 837.5 V858.3" stroke="#ffe3c0" stroke-width="0.6" opacity="0.45"/><circle cx="403.6" cy="847.9" r="1.4" fill="#ffe3c0"/>
+  <circle cx="483.5" cy="848.7" r="6.5" fill="url(#space-twinkle-2-glow)"/><path d="M474.1 848.7 H492.9 M483.5 839.3 V858.1" stroke="#ffe3c0" stroke-width="0.6" opacity="0.45"/><circle cx="483.5" cy="848.7" r="1.3" fill="#ffe3c0"/>
+</svg>

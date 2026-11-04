@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="31.5 34 197.5 136">
+  <g class="part-tail" style="transform-box: fill-box; transform-origin: 100% 0%">
+    <path d="M45 88 C 38 96 34 106 33.5 116 L 37.5 116.5 C 38 107 41.5 99 48 93 Z" fill="#7f8ca3"/>
+    <ellipse cx="35.5" cy="119" rx="4" ry="6" fill="#68748a"/>
+  </g>
+  <rect x="70" y="120" width="22" height="50" rx="7" fill="#8e9bb0"/>
+  <rect x="70" y="120" width="22" height="50" rx="7" fill="#2b2b3a" opacity="0.25"/>
+  <rect x="132" y="120" width="22" height="50" rx="7" fill="#8e9bb0"/>
+  <rect x="132" y="120" width="22" height="50" rx="7" fill="#2b2b3a" opacity="0.25"/>
+  <ellipse cx="96" cy="104" rx="56" ry="42" fill="#8e9bb0"/>
+  <path d="M40 104 A56 42 0 0 0 152 104 A56 30 0 0 1 40 104 Z" fill="#2b2b3a" opacity="0.14"/>
+  <rect x="50" y="118" width="26" height="52" rx="8" fill="#8e9bb0"/>
+  <rect x="114" y="118" width="26" height="52" rx="8" fill="#8e9bb0"/>
+  <path d="M61 170 A3.5 4 0 0 1 68 170 Z M69 170 A3.5 4 0 0 1 76 170 Z M125 170 A3.5 4 0 0 1 132 170 Z M133 170 A3.5 4 0 0 1 140 170 Z" fill="#f4f1de"/>
+  <ellipse cx="172" cy="80" rx="44" ry="46" fill="#8e9bb0"/>
+  <path d="M148 51 C 153 43.5 161 39 170 37.5 C 163.5 41 157 46 152.5 54 C 151 56.5 147 54.5 148 51 Z" fill="#ffffff" opacity="0.35"/>
+  <path d="M214.5 70 C 222 88 223 118 217 138 C 215.5 143 219 146.5 222.5 144 C 226 141.5 230.5 144.5 228.5 149.5 C 224 159 208 160 203 150 C 198 142 200 126 197 112 C 196 106 194 103 193 100 C 194 88 204 76 214.5 70 Z" fill="#68748a"/>
+  <path d="M213.5 100 C 215.5 110 215.5 122 213 132 C 212.5 134 210.5 133.5 210.8 131.5 C 212.5 122 212.5 110 210.5 100.5 C 210.3 98.5 213 98 213.5 100 Z" fill="#ffffff" opacity="0.25"/>
+  <path d="M182 100 C 184.5 104.5 189 106 192.5 103.5 C 189.5 104 185.5 103 182 100 Z" fill="#2b2b3a" opacity="0.5"/>
+  <g class="part-fin" style="transform-box: fill-box; transform-origin: 100% 45%">
+    <path d="M163 50 C 150 39 122 39 110 53 C 99 67 101 96 114 111 C 123 122 133 130.5 144 130.5 C 157 130.5 167 117 167.5 100 C 168.5 82 170.5 62 163 50 Z" fill="#7f8ca3"/>
+    <path d="M157 57 C 146 49 126 49 118 60 C 110 72 112 93 122 105 C 129 113 136 119 144 119 C 153 119 160.5 110 161 97 C 162 82 163 66 157 57 Z" fill="#ff7a8a" opacity="0.38"/>
+  </g>
+  <circle cx="190" cy="74" r="4" fill="#2b2b3a"/>
+  <circle cx="188.7" cy="72.7" r="1.2" fill="#ffffff"/>
+  <ellipse cx="186" cy="87" rx="5.5" ry="3.2" fill="#ff7a8a" opacity="0.55"/>
+</svg>

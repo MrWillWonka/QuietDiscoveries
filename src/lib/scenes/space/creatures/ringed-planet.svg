@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 124">
+  <defs>
+    <radialGradient id="space-ringed-planet-lit" cx="0.34" cy="0.3" r="0.82">
+      <stop offset="0" stop-color="#f4e6bf"/>
+      <stop offset="0.45" stop-color="#d4b57a"/>
+      <stop offset="0.78" stop-color="#7a5c34"/>
+      <stop offset="1" stop-color="#1e1610"/>
+    </radialGradient>
+    <linearGradient id="space-ringed-planet-ring" x1="-108" y1="0" x2="108" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e3d6b8"/>
+      <stop offset="0.5" stop-color="#bba77f"/>
+      <stop offset="1" stop-color="#6e5e44"/>
+    </linearGradient>
+    <linearGradient id="space-ringed-planet-inner" x1="-66" y1="0" x2="66" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6d6352"/>
+      <stop offset="1" stop-color="#3a3328"/>
+    </linearGradient>
+    <clipPath id="space-ringed-planet-far">
+      <path d="M-108 0 A108 27.5 0 0 1 108 0 L-108 0 Z"/>
+    </clipPath>
+    <clipPath id="space-ringed-planet-disc">
+      <circle cx="120" cy="62" r="42"/>
+    </clipPath>
+  </defs>
+
+  <g transform="rotate(-14 120 62)">
+    <!-- The whole ring system, behind the planet. Opaque, so the near half
+         drawn again on top meets it without a seam. -->
+    <g transform="translate(120 62)" fill-rule="evenodd">
+      <path d="M-66 0 A66 17 0 1 1 66 0 A66 17 0 1 1 -66 0 Z M-56 0 A56 14.5 0 1 0 56 0 A56 14.5 0 1 0 -56 0 Z" fill="url(#space-ringed-planet-inner)"/>
+      <path d="M-86 0 A86 22 0 1 1 86 0 A86 22 0 1 1 -86 0 Z M-66 0 A66 17 0 1 0 66 0 A66 17 0 1 0 -66 0 Z" fill="url(#space-ringed-planet-ring)"/>
+      <path d="M-108 0 A108 27.5 0 1 1 108 0 A108 27.5 0 1 1 -108 0 Z M-89 0 A89 23 0 1 0 89 0 A89 23 0 1 0 -89 0 Z" fill="url(#space-ringed-planet-ring)"/>
+      <path d="M-108 0 A108 27.5 0 1 1 108 0 A108 27.5 0 1 1 -108 0 Z M-89 0 A89 23 0 1 0 89 0 A89 23 0 1 0 -89 0 Z" fill="#05070f" opacity="0.22"/>
+      <!-- The planet's shadow, cast back across the far rings. -->
+      <path d="M30 -8 L40 -30 L110 -30 L110 0 L44 0 Z" fill="#05070f" opacity="0.55" clip-path="url(#space-ringed-planet-far)"/>
+    </g>
+
+    <!-- The planet, lit from the upper left, with its cloud bands. -->
+    <circle cx="120" cy="62" r="42" fill="url(#space-ringed-planet-lit)"/>
+    <g clip-path="url(#space-ringed-planet-disc)">
+      <rect x="70" y="36" width="100" height="7" fill="#fff4d6" opacity="0.16"/>
+      <rect x="70" y="46" width="100" height="4" fill="#5a3e1e" opacity="0.2"/>
+      <rect x="70" y="55" width="100" height="9" fill="#fff4d6" opacity="0.12"/>
+      <rect x="70" y="67" width="100" height="4" fill="#5a3e1e" opacity="0.22"/>
+      <rect x="70" y="84" width="100" height="8" fill="#5a3e1e" opacity="0.16"/>
+      <!-- The rings' shadow across the globe. -->
+      <path d="M70 72 C 95 79, 145 79, 170 72 L170 77 C 145 84, 95 84, 70 77 Z" fill="#0c0906" opacity="0.42"/>
+      <!-- Night side. -->
+      <circle cx="102" cy="42" r="64" fill="none" stroke="#05070f" stroke-width="26" opacity="0.4"/>
+    </g>
+
+    <!-- Near half of the rings, crossing in front. -->
+    <g transform="translate(120 62)">
+      <path d="M-66 0 A66 17 0 0 0 66 0 L56 0 A56 14.5 0 0 1 -56 0 Z" fill="url(#space-ringed-planet-inner)"/>
+      <path d="M-86 0 A86 22 0 0 0 86 0 L66 0 A66 17 0 0 1 -66 0 Z" fill="url(#space-ringed-planet-ring)"/>
+      <path d="M-108 0 A108 27.5 0 0 0 108 0 L89 0 A89 23 0 0 1 -89 0 Z" fill="url(#space-ringed-planet-ring)"/>
+      <path d="M-108 0 A108 27.5 0 0 0 108 0 L89 0 A89 23 0 0 1 -89 0 Z" fill="#05070f" opacity="0.22"/>
+      <!-- A faint lit edge along the front of the rings. -->
+      <path d="M-100 10.4 A108 27.5 0 0 0 -30 26.5" fill="none" stroke="#fff4d6" stroke-width="0.8" opacity="0.5"/>
+    </g>
+  </g>
+</svg>

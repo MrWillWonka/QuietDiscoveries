@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="arctic-backdrop-sky" x1="0" y1="0" x2="0" y2="560" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#27426f"/>
+      <stop offset="0.48" stop-color="#5e83b5"/>
+      <stop offset="0.8" stop-color="#b9c9e3"/>
+      <stop offset="1" stop-color="#f3d9d9"/>
+    </linearGradient>
+  </defs>
+  <!-- Polar twilight: deep blue overhead, so white birds read against it,
+       paling to a soft pink at the horizon. -->
+  <rect x="0" y="0" width="1920" height="1080" fill="url(#arctic-backdrop-sky)"/>
+  <!-- A few faint stars high up, where the sky is darkest. -->
+  <g fill="#ffffff">
+    <circle cx="96" cy="58" r="2.4" opacity="0.7"/>
+    <circle cx="318" cy="132" r="1.8" opacity="0.55"/>
+    <circle cx="530" cy="40" r="2.2" opacity="0.65"/>
+    <circle cx="742" cy="168" r="1.6" opacity="0.45"/>
+    <circle cx="1012" cy="74" r="2.4" opacity="0.6"/>
+    <circle cx="1236" cy="30" r="1.8" opacity="0.6"/>
+    <circle cx="1418" cy="150" r="2" opacity="0.5"/>
+    <circle cx="1640" cy="62" r="2.4" opacity="0.7"/>
+    <circle cx="1846" cy="176" r="1.8" opacity="0.5"/>
+    <circle cx="214" cy="236" r="1.5" opacity="0.4"/>
+    <circle cx="1730" cy="262" r="1.5" opacity="0.4"/>
+  </g>
+
+  <!-- Far mountains along the horizon, hazy, capped with snow. The caps
+       and shade are cut to each range's outline, so nothing pokes into the sky. -->
+  <clipPath id="arctic-backdrop-range-west"><path d="M-10 548 L-10 470 C 30 466, 60 452, 96 430 C 120 416, 138 412, 160 424
+           C 190 440, 214 446, 246 436 C 290 420, 318 392, 352 372 C 374 360, 392 362, 410 376
+           C 446 404, 478 436, 520 452 C 566 470, 616 488, 690 508 C 730 520, 760 534, 790 548 Z"/></clipPath>
+  <clipPath id="arctic-backdrop-range-east"><path d="M1460 548 C 1500 530, 1540 506, 1580 480 C 1612 458, 1636 436, 1664 420 C 1684 408, 1700 410, 1716 422
+           C 1740 440, 1760 452, 1790 456 C 1822 460, 1846 444, 1872 436 C 1890 430, 1910 432, 1930 440 L1930 548 Z"/></clipPath>
+  <path d="M-10 548 L-10 470 C 30 466, 60 452, 96 430 C 120 416, 138 412, 160 424
+           C 190 440, 214 446, 246 436 C 290 420, 318 392, 352 372 C 374 360, 392 362, 410 376
+           C 446 404, 478 436, 520 452 C 566 470, 616 488, 690 508 C 730 520, 760 534, 790 548 Z" fill="#a3b3d2"/>
+  <g clip-path="url(#arctic-backdrop-range-west)">
+    <path d="M40 380 L220 380 L220 420 L196 446 L172 434 L156 446 L140 436 L122 446 L104 436 L84 446 L72 436 L40 420 Z" fill="#e8eef7"/>
+    <path d="M280 330 L500 330 L500 420 L470 412 L452 424 L432 410 L414 426 L394 412 L376 428 L356 410 L338 422 L322 402 L300 396 Z" fill="#e8eef7"/>
+    <path d="M150 418 L224 446 C 236 480, 240 520, 238 548 L180 548 C 176 500, 166 446, 150 418 Z M380 360 C 430 420, 470 480, 500 548 L800 548 L800 360 Z" fill="#2b2b3a" opacity="0.08"/>
+  </g>
+  <path d="M1460 548 C 1500 530, 1540 506, 1580 480 C 1612 458, 1636 436, 1664 420 C 1684 408, 1700 410, 1716 422
+           C 1740 440, 1760 452, 1790 456 C 1822 460, 1846 444, 1872 436 C 1890 430, 1910 432, 1930 440 L1930 548 Z" fill="#a3b3d2"/>
+  <g clip-path="url(#arctic-backdrop-range-east)">
+    <path d="M1600 380 L1780 380 L1780 448 L1758 440 L1740 452 L1722 442 L1704 454 L1688 444 L1670 456 L1656 446 L1640 428 Z" fill="#e8eef7"/>
+    <path d="M1690 400 C 1736 450, 1760 500, 1776 548 L1940 548 L1940 400 Z" fill="#2b2b3a" opacity="0.08"/>
+  </g>
+
+  <!-- The open sea, between the far shore and the near ice. -->
+  <rect x="-10" y="540" width="1940" height="140" fill="#24527c"/>
+  <!-- Haze where it meets the sky. -->
+  <rect x="-10" y="540" width="1940" height="14" fill="#3a6c98"/>
+
+  <!-- Icebergs out at sea: a flat-topped one and a peaked one, each with
+       its sunlit face and its shaded face. -->
+  <g>
+    <path d="M840 548 L852 512 C 856 500, 866 494, 880 494 L1010 494 C 1022 494, 1030 500, 1034 510 L1046 548 Z" fill="#bcd8ec"/>
+    <path d="M852 512 C 856 500, 866 494, 880 494 L1010 494 C 1022 494, 1030 500, 1034 510 C 1000 506, 900 506, 852 512 Z" fill="#f4f8fc"/>
+    <path d="M980 507 C 1000 507, 1020 508, 1034 510 L1046 548 L990 548 C 996 532, 994 518, 980 507 Z" fill="#8dbcdc"/>
+    <path d="M881 548 C 882 536, 883 526, 885.5 521 C 888 526, 890 536, 891 548 Z M933 548 C 934 534, 935 524, 937.5 517 C 940 524, 942 534, 943 548 Z" fill="#8dbcdc" opacity="0.55"/>
+  </g>
+  <g>
+    <path d="M1250 548 C 1262 520, 1276 500, 1292 476 C 1300 464, 1310 460, 1318 470 C 1328 482, 1334 490, 1346 488
+             C 1356 486, 1362 494, 1370 506 C 1380 522, 1388 536, 1396 548 Z" fill="#bcd8ec"/>
+    <path d="M1292 476 C 1300 464, 1310 460, 1318 470 C 1328 482, 1334 490, 1346 488 C 1356 486, 1362 494, 1370 506
+             C 1346 500, 1334 504, 1318 494 C 1308 500, 1296 494, 1278 500 C 1282 492, 1286 484, 1292 476 Z" fill="#f4f8fc"/>
+    <path d="M1318 494 C 1334 504, 1346 500, 1370 506 C 1380 522, 1388 536, 1396 548 L1330 548 C 1336 528, 1330 508, 1318 494 Z" fill="#8dbcdc"/>
+  </g>
+  <!-- A far floe, low on the water. -->
+  <path d="M584 552 C 590 546, 640 544, 700 545 C 740 546, 760 548, 764 553 C 740 557, 620 558, 584 552 Z" fill="#dce9f4"/>
+  <path d="M1580 556 C 1590 551, 1640 550, 1680 551 C 1700 552, 1710 554, 1712 557 C 1690 560, 1610 561, 1580 556 Z" fill="#dce9f4"/>
+  <!-- Light on the water, and the bergs' reflections. -->
+  <g fill="#6f9cc6" opacity="0.6">
+    <rect x="862" y="556" width="160" height="4" rx="2"/>
+    <rect x="896" y="566" width="96" height="3" rx="1.5"/>
+    <rect x="1270" y="556" width="110" height="4" rx="2"/>
+    <rect x="1296" y="566" width="62" height="3" rx="1.5"/>
+    <rect x="120" y="584" width="140" height="4" rx="2"/>
+    <rect x="460" y="604" width="120" height="4" rx="2"/>
+    <rect x="1080" y="596" width="150" height="4" rx="2"/>
+    <rect x="1500" y="616" width="130" height="4" rx="2"/>
+    <rect x="1760" y="588" width="110" height="4" rx="2"/>
+    <rect x="700" y="630" width="100" height="4" rx="2"/>
+    <rect x="300" y="640" width="90" height="3" rx="1.5"/>
+  </g>
+
+  <!-- The near ice: a snowfield reaching back to the open water. -->
+  <path d="M-10 658 C 160 650, 330 660, 520 654 C 720 648, 880 660, 1080 654 C 1280 648, 1460 660, 1660 653
+           C 1780 649, 1860 654, 1930 652 L1930 1090 L-10 1090 Z" fill="#d0dcea"/>
+  <!-- Its far edge, catching the light. -->
+  <path d="M-10 658 C 160 650, 330 660, 520 654 C 720 648, 880 660, 1080 654 C 1280 648, 1460 660, 1660 653
+           C 1780 649, 1860 654, 1930 652 L1930 657 C 1860 659, 1780 654, 1660 658 C 1460 665, 1280 653, 1080 659
+           C 880 665, 720 653, 520 659 C 330 665, 160 655, -10 663 Z" fill="#ffffff" opacity="0.7"/>
+  <!-- Drifts, one behind the other, each a little bluer than the last. -->
+  <path d="M-10 740 C 120 722, 260 716, 400 730 C 520 742, 640 744, 780 730 C 920 716, 1060 714, 1200 728
+           C 1340 742, 1480 742, 1620 728 C 1740 716, 1840 720, 1930 730 L1930 1090 L-10 1090 Z" fill="#c3d3e4"/>
+  <path d="M-10 740 C 120 722, 260 716, 400 730 C 340 726, 220 730, 140 742 C 80 750, 30 748, -10 752 Z
+           M780 730 C 920 716, 1060 714, 1200 728 C 1100 724, 980 728, 880 740 C 840 744, 800 740, 780 730 Z
+           M1620 728 C 1740 716, 1840 720, 1930 730 L1930 742 C 1860 734, 1760 732, 1680 738 C 1650 740, 1630 736, 1620 728 Z" fill="#ffffff" opacity="0.55"/>
+  <path d="M-10 860 C 160 836, 340 830, 520 848 C 680 864, 820 866, 980 846 C 1140 826, 1300 826, 1460 846
+           C 1600 862, 1760 862, 1930 844 L1930 1090 L-10 1090 Z" fill="#b8cadf"/>
+  <path d="M-10 860 C 160 836, 340 830, 520 848 C 420 842, 300 846, 200 860 C 120 870, 50 868, -10 874 Z
+           M980 846 C 1140 826, 1300 826, 1460 846 C 1360 840, 1240 842, 1120 858 C 1060 864, 1010 860, 980 846 Z" fill="#ffffff" opacity="0.5"/>
+  <path d="M-10 990 C 200 966, 420 962, 640 980 C 840 996, 1040 996, 1240 976 C 1440 958, 1680 960, 1930 984
+           L1930 1090 L-10 1090 Z" fill="#adc2da"/>
+  <path d="M640 980 C 840 996, 1040 996, 1240 976 C 1140 984, 980 988, 840 982 C 760 978, 700 976, 640 980 Z
+           M-10 990 C 200 966, 420 962, 640 980 C 520 974, 360 976, 220 988 C 120 996, 40 996, -10 1000 Z" fill="#ffffff" opacity="0.45"/>
+  <!-- Soft blue shade in the hollows behind each drift. -->
+  <g fill="#8ea8c6" opacity="0.35">
+    <path d="M400 730 C 520 742, 640 744, 780 730 C 700 750, 560 756, 400 730 Z"/>
+    <path d="M1200 728 C 1340 742, 1480 742, 1620 728 C 1520 752, 1360 756, 1200 728 Z"/>
+    <path d="M520 848 C 680 864, 820 866, 980 846 C 880 872, 680 876, 520 848 Z"/>
+    <path d="M1460 846 C 1600 862, 1760 862, 1930 844 L1930 856 C 1780 878, 1600 876, 1460 846 Z"/>
+    <path d="M1240 976 C 1440 958, 1680 960, 1930 984 L1930 994 C 1700 974, 1440 976, 1240 976 Z"/>
+  </g>
+</svg>

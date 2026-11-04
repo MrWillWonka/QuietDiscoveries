@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 40" overflow="visible">
+  <!-- A flat floe floating in the open water. The bottom edge is the
+       waterline: the Scene's water is behind it, and the ice runs on below
+       the edge so that, as it bobs, the water hides and shows its side
+       (AmbientLife clips it there). -->
+  <path d="M5.5 48 L14 20 C 16 14, 22 11, 30 11 L196 9 C 210 9, 220 12, 226 18 L237 48 Z" fill="#a9d0ea"/>
+  <path d="M182 10 L196 9 C 210 9, 220 12, 226 18 L237 48 L188 48 C 194 32, 192 18, 182 10 Z" fill="#2b2b3a" opacity="0.14"/>
+  <path d="M14 20 C 16 14, 22 11, 30 11 L196 9 C 210 9, 220 12, 226 18 C 180 22, 70 24, 14 20 Z" fill="#f4f8fc"/>
+</svg>

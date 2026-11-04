@@ -1,0 +1,514 @@
+/* Pumpkin Hollow's own styles: its Ambient Life, its page colour and its
+   Too Loud wind. Its Creatures are drawn in the savanna's style and move their parts
+   with the shared keyframes (routes/layout.css, scenes/savanna/creatures.css).
+   Every class and keyframe here is prefixed `halloween-`, so nothing leaks
+   into another Scene. */
+
+/* --- Ambient Life -------------------------------------------------------- */
+
+/* The moon's glow breathes, slowly: this is up on a projector all day. */
+@keyframes halloween-moon-breathe {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.03);
+  }
+}
+
+.halloween-moon-glow,
+.halloween-moon {
+  z-index: 0;
+  transform: translate(-50%, -50%);
+}
+
+.halloween-moon-glow {
+  animation: halloween-moon-breathe 9s ease-in-out infinite;
+}
+
+.halloween-moon-glow > svg,
+.halloween-moon > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halloween-moon-glow {
+    animation: none;
+  }
+}
+
+/* The patch: pumpkins, jack-o'-lanterns, corn and hay, placed by their
+   centre and their foot (halloween/AmbientLife.svelte). Solid, not faded, so
+   no piece shows through another. */
+.halloween-piece {
+  transform: translateX(-50%);
+}
+
+.halloween-piece > svg,
+.halloween-lantern-glow > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The glow round a jack-o'-lantern, to the lantern's own scale: its centre
+   over the lantern's, its pool of light on the ground at the lantern's foot.
+   Both viewBoxes are in the same units, so these follow from them: the
+   lantern's is 96.5 by 88 with its foot at the bottom, the glow's 220 by 159
+   with the ground 45.5 above its bottom. Re-derive them if either changes. */
+.halloween-lantern-glow {
+  position: absolute;
+  left: -63.7%;
+  bottom: -51.7%;
+  width: 228%;
+}
+
+/* How brightly every flame in the Hollow burns, the jack-o'-lanterns' and
+   the farmhouse candle's: 1 normally, turned down when the wind gets up (Too
+   Loud, below). Registered so it can fade, and the flicker's keyframes are
+   multiplied by it, so a lantern gutters low even while Too Loud holds its
+   flicker still. */
+@property --halloween-flame {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+/* A candle's gentle flicker: small, slow and irregular, never a flash. Well
+   under three changes a second, for the projector and for photosensitive
+   students. */
+@keyframes halloween-flicker {
+  0%,
+  100% {
+    opacity: var(--halloween-flame);
+  }
+  18% {
+    opacity: calc(0.88 * var(--halloween-flame));
+  }
+  34% {
+    opacity: calc(0.97 * var(--halloween-flame));
+  }
+  52% {
+    opacity: calc(0.86 * var(--halloween-flame));
+  }
+  71% {
+    opacity: var(--halloween-flame);
+  }
+  86% {
+    opacity: calc(0.9 * var(--halloween-flame));
+  }
+}
+
+.halloween-lantern-glow,
+.halloween-lantern-light,
+.halloween-candle {
+  opacity: var(--halloween-flame);
+  transition: --halloween-flame 2.4s ease;
+}
+
+.halloween-lantern .halloween-lantern-glow,
+.halloween-lantern .halloween-lantern-light {
+  animation: halloween-flicker var(--halloween-beat, 4.6s) ease-in-out
+    var(--halloween-delay, 0s) infinite;
+}
+
+/* The light inside runs a little behind its glow, so the two never pulse as
+   one block. */
+.halloween-lantern .halloween-lantern-light {
+  animation-delay: calc(var(--halloween-delay, 0s) - 0.7s);
+}
+
+/* Dry corn stirring in the night air, about its foot. */
+@keyframes halloween-corn-sway {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(1.5deg);
+  }
+}
+
+.halloween-corn {
+  transform-origin: 50% 100%;
+  animation: halloween-corn-sway 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halloween-lantern .halloween-lantern-glow,
+  .halloween-lantern .halloween-lantern-light,
+  .halloween-corn {
+    animation: none;
+  }
+}
+
+/* A few stars twinkle: a slow swell and fade, never a flash. */
+@keyframes halloween-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+.halloween-star {
+  width: calc(1.3 * var(--wu));
+  transform: translate(-50%, -50%);
+  animation: halloween-twinkle ease-in-out infinite;
+}
+
+/* The farmhouse candle brightens and dims, slowly and unevenly, like a real
+   one in a draught: about 11 seconds round, the smallest step well over a
+   second. */
+@keyframes halloween-candle {
+  0%,
+  100% {
+    opacity: calc(0.55 * var(--halloween-flame));
+  }
+  20% {
+    opacity: calc(0.85 * var(--halloween-flame));
+  }
+  36% {
+    opacity: calc(0.7 * var(--halloween-flame));
+  }
+  56% {
+    opacity: var(--halloween-flame);
+  }
+  72% {
+    opacity: calc(0.75 * var(--halloween-flame));
+  }
+  86% {
+    opacity: calc(0.92 * var(--halloween-flame));
+  }
+}
+
+.halloween-candle {
+  animation: halloween-candle 11s ease-in-out infinite;
+}
+
+/* Stretched exactly as the backdrop is, to stay on its window. */
+.halloween-candle > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* The far skein crosses the sky, then the sky is empty a while before the
+   next. It comes out of the dusk beyond the oak's twigs and goes back into
+   it before the crooked tree, since both trees are nearer than the geese
+   but painted in the backdrop behind them. */
+@keyframes halloween-skein {
+  0% {
+    opacity: 0;
+    transform: translateX(calc(var(--world-left) + 22 * var(--wu)));
+  }
+  5% {
+    opacity: 0.85;
+  }
+  45% {
+    opacity: 0.85;
+  }
+  50%,
+  100% {
+    opacity: 0;
+    transform: translateX(calc(var(--world-left) + 84 * var(--wu)));
+  }
+}
+
+.halloween-skein {
+  left: 0;
+  opacity: 0;
+  animation: halloween-skein linear infinite;
+}
+
+/* A leaf comes down and settles out of sight: a near one at the foot of the
+   Scene, a far one in the meadow beyond the trees. */
+@keyframes halloween-leaf-fall {
+  from {
+    transform: translateY(-6cqh);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(96cqh);
+    opacity: 0;
+  }
+}
+
+@keyframes halloween-leaf-fall-far {
+  from {
+    transform: translateY(-4cqh);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  to {
+    transform: translateY(66cqh);
+    opacity: 0;
+  }
+}
+
+/* …swinging from side to side as it goes, tipping into each swing. */
+@keyframes halloween-leaf-swing {
+  0%,
+  100% {
+    transform: translateX(calc(-1.4 * var(--wu))) rotate(-35deg);
+  }
+  50% {
+    transform: translateX(calc(1.4 * var(--wu))) rotate(30deg);
+  }
+}
+
+@keyframes halloween-leaf-swing-far {
+  0%,
+  100% {
+    transform: translateX(calc(-0.8 * var(--wu))) rotate(-30deg);
+  }
+  50% {
+    transform: translateX(calc(0.8 * var(--wu))) rotate(26deg);
+  }
+}
+
+.halloween-leaf-fall {
+  opacity: 0;
+  animation: halloween-leaf-fall linear infinite;
+}
+
+.halloween-leaf-fall.halloween-leaf-far {
+  animation-name: halloween-leaf-fall-far;
+}
+
+.halloween-leaf {
+  animation: halloween-leaf-swing ease-in-out infinite;
+}
+
+.halloween-leaf-far .halloween-leaf {
+  animation-name: halloween-leaf-swing-far;
+}
+
+/* Low mist, drifting across so slowly it is hard to see it move. Soft at
+   every edge: a bank, never a band. */
+@keyframes halloween-mist {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100cqw);
+  }
+}
+
+.halloween-mist {
+  left: 0;
+  background:
+    radial-gradient(
+      closest-side at 22% 58%,
+      rgb(214 206 236 / 0.5),
+      rgb(214 206 236 / 0.18) 55%,
+      rgb(214 206 236 / 0)
+    ),
+    radial-gradient(
+      closest-side at 52% 46%,
+      rgb(214 206 236 / 0.42),
+      rgb(214 206 236 / 0.14) 55%,
+      rgb(214 206 236 / 0)
+    ),
+    radial-gradient(
+      closest-side at 80% 56%,
+      rgb(214 206 236 / 0.46),
+      rgb(214 206 236 / 0.16) 55%,
+      rgb(214 206 236 / 0)
+    );
+  background-size:
+    40% 100%,
+    45% 100%,
+    40% 100%;
+  background-position:
+    0 0,
+    50% 0,
+    100% 0;
+  background-repeat: no-repeat;
+  animation: halloween-mist linear infinite;
+}
+
+/* Inlined artwork takes its size from the element placing it; see
+   routes/layout.css. */
+.halloween-star > svg,
+.halloween-skein > svg,
+.halloween-leaf > svg,
+.halloween-cloud > svg,
+.halloween-gust > svg,
+.halloween-gust-leaf > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* --- Too Loud: the wind gets up ----------------------------------------- */
+
+/* Clouds slide in over the moon from either side, and away again when the
+   room settles. Too Loud holds every animation still, so these move by
+   transition; they sit just in front of the moon, behind every Creature. */
+.halloween-cloud {
+  z-index: 0;
+  opacity: 0;
+  transition:
+    transform 5s cubic-bezier(0.25, 0.6, 0.3, 1),
+    opacity 3s ease;
+}
+
+.halloween-cloud-right {
+  transform: translate(calc(-50% + 14 * var(--wu)), -50%);
+}
+
+.halloween-cloud-left {
+  transform: translate(calc(-50% - 12 * var(--wu)), -50%);
+}
+
+.scene-stage[data-scene="halloween"][data-murky="true"] .halloween-cloud {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+/* Leaves blown across on the wind: each rides in on its gust and holds
+   there, streaming, until the room settles and it fades away. */
+.halloween-gust {
+  width: calc(7 * var(--wu));
+  opacity: 0;
+  transform: translate(calc(-10 * var(--wu)), -50%)
+    rotate(calc(var(--halloween-tilt, 0deg) - 14deg));
+  transition:
+    opacity 1.4s ease,
+    transform 0s linear 1.4s;
+}
+
+/* The leaf rides the streaks' right-hand end. */
+.halloween-gust-leaf {
+  position: absolute;
+  right: calc(-0.3 * var(--wu));
+  top: calc(-0.4 * var(--wu));
+  width: calc(2.2 * var(--wu));
+}
+
+.scene-stage[data-scene="halloween"][data-murky="true"] .halloween-gust {
+  opacity: 1;
+  transform: translate(0, -50%) rotate(var(--halloween-tilt, 0deg));
+  transition:
+    opacity 1.6s ease var(--halloween-gust-delay, 0s),
+    transform 3s cubic-bezier(0.2, 0.7, 0.3, 1) var(--halloween-gust-delay, 0s);
+}
+
+/* --- The page and Too Loud ---------------------------------------------- */
+
+html:has(.scene-stage[data-scene="halloween"]),
+html:has(.scene-stage[data-scene="halloween"]) body {
+  background: #79634c;
+}
+
+/* Before the Scene mounts, a rough copy of its backdrop, so a reload of a
+   saved Pumpkin Hollow doesn't flash the savanna (see app.html). */
+html[data-scene="halloween"]:not(:has(.scene-stage)) body {
+  background: linear-gradient(
+    #2f2650 0%,
+    #5a3d6b 28%,
+    #7e5869 44%,
+    #644568 52%,
+    #644568 59%,
+    #696350 61%,
+    #79634c 100%
+  );
+}
+
+/* Too Loud: the wind gets up. Clouds cover the moon, the night turns a
+   cold blue-grey, the jack-o'-lanterns and the candle gutter low, and
+   blown leaves streak across. Nothing in it flashes or comes at the class,
+   and every animal stays in plain sight: it is a chilly gust, never a
+   fright. */
+.scene-stage[data-scene="halloween"][data-murky="true"] {
+  --halloween-flame: 0.32;
+  filter: saturate(0.6) brightness(0.86);
+}
+
+.scene-stage[data-scene="halloween"] .too-loud-veil {
+  background: linear-gradient(
+    to bottom,
+    rgb(52 64 98 / 0.9) 0%,
+    rgb(74 88 116 / 0.8) 55%,
+    rgb(86 98 120 / 0.75) 100%
+  );
+}
+
+.scene-stage[data-scene="halloween"][data-murky="true"] .too-loud-veil {
+  opacity: 0.4;
+}
+
+/* When animals run away the freeze and the bolting carry the message, so
+   the wind is only a hint (the veil's own opacity is set in layout.css):
+   the clouds still cover the moon and the lanterns still gutter, but no
+   leaf blows across the ground the animals are running over. */
+.scene-stage[data-scene="halloween"][data-scares="true"][data-murky="true"] {
+  filter: saturate(0.85) brightness(0.95);
+}
+
+.scene-stage[data-scene="halloween"][data-scares="true"][data-murky="true"]
+  .halloween-gust-low {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halloween-star,
+  .halloween-candle,
+  .halloween-leaf,
+  .halloween-mist {
+    animation: none;
+  }
+
+  .halloween-star {
+    opacity: 0.8;
+  }
+
+  /* Held still where it would otherwise drift through. */
+  .halloween-mist {
+    transform: translateX(var(--halloween-rest, 0));
+  }
+
+  /* All a leaf does is fall, and the geese only cross; held still, they
+     would hang in mid-air. */
+  .halloween-leaf-fall,
+  .halloween-skein {
+    display: none;
+  }
+
+  /* Too Loud's clouds and leaves fade in where they would otherwise slide. */
+  .halloween-cloud,
+  .halloween-gust {
+    transition: opacity 2s ease;
+  }
+
+  .halloween-cloud {
+    transform: translate(-50%, -50%);
+  }
+
+  .halloween-gust,
+  .scene-stage[data-scene="halloween"][data-murky="true"] .halloween-gust {
+    transform: translate(0, -50%) rotate(var(--halloween-tilt, 0deg));
+    transition: opacity 2s ease;
+  }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs><clipPath id="icon-forest-tile"><rect width="48" height="48" rx="11"/></clipPath></defs>
+  <g clip-path="url(#icon-forest-tile)">
+    <rect width="48" height="48" fill="#e4eedb"/>
+    <path d="M0 34c12-3 30-3 48 0v14H0Z" fill="#9cbf6a"/>
+    <path d="M33 4 40.5 17h-3.5l5.5 9H38.5l5 8.5h-21l5-8.5H23.5l5.5-9h-3.5Z" fill="#7fa585"/>
+    <path d="M32 34.5h2v4h-2Z" fill="#7b5a3c"/>
+    <path d="M17 6.5 25.5 21h-4l6 10h-4.5l5.5 9H4.5L10 31H5.5l6-10h-4Z" fill="#3f7a52"/>
+    <path d="M17 6.5 25.5 21h-4l6 10h-4.5l5.5 9H17Z" fill="#2b2b3a" opacity=".15"/>
+    <path d="M15.5 40h3v4.5h-3Z" fill="#7b5a3c"/>
+  </g>
+</svg>

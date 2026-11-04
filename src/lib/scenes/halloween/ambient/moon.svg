@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 284 284">
+  <!-- The harvest moon: a warm gold disc with soft amber seas and a pale
+       lit limb. Its own piece rather than part of the backdrop, which
+       stretches with the screen, so it stays round. Centre at 78% across
+       the backdrop and 20% down, 14.792wu wide (284px of 1920). -->
+  <circle cx="142" cy="142" r="142" fill="#f6d27a"/>
+  <path d="M21.577 217.249 A142 142 0 0 1 217.249 21.577 A176 176 0 0 0 21.577 217.249 Z" fill="#ffffff" opacity="0.2"/>
+  <g fill="#e8a85a" opacity="0.42">
+    <ellipse cx="98" cy="104" rx="34" ry="24"/>
+    <ellipse cx="194" cy="178" rx="44" ry="30"/>
+    <ellipse cx="118" cy="218" rx="19" ry="13"/>
+    <circle cx="210" cy="88" r="13"/>
+    <circle cx="64" cy="164" r="9"/>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="14 4 272 113">
+  <!-- Too Loud: the smaller cloud that slides in over the moon from the
+       left, built like the long one. -->
+  <clipPath id="halloween-cloud-2-body">
+    <rect x="16" y="74" width="268" height="43" rx="21"/>
+    <circle cx="70" cy="76" r="34"/><circle cx="130" cy="56" r="44"/><circle cx="196" cy="60" r="38"/><circle cx="250" cy="80" r="28"/>
+  </clipPath>
+  <g fill="#c9b8e8">
+    <rect x="16" y="70" width="268" height="42" rx="21"/>
+    <circle cx="70" cy="72" r="34"/><circle cx="130" cy="52" r="44"/><circle cx="196" cy="56" r="38"/><circle cx="250" cy="76" r="28"/>
+  </g>
+  <g fill="#77729a">
+    <rect x="16" y="74" width="268" height="43" rx="21"/>
+    <circle cx="70" cy="76" r="34"/><circle cx="130" cy="56" r="44"/><circle cx="196" cy="60" r="38"/><circle cx="250" cy="80" r="28"/>
+  </g>
+  <g clip-path="url(#halloween-cloud-2-body)" fill="#2b2b3a" opacity="0.16">
+    <ellipse cx="150" cy="122" rx="150" ry="28"/>
+  </g>
+</svg>

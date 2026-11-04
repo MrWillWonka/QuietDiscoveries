@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 680">
+  <!-- The moon's halo: layered translucent discs, no blur, centred on the
+       moon (35.417wu wide, 680px of 1920) so it can breathe slowly behind it. -->
+  <g fill="#f6d27a">
+    <circle cx="340" cy="340" r="340" opacity="0.022"/>
+    <circle cx="340" cy="340" r="318" opacity="0.022"/>
+    <circle cx="340" cy="340" r="297" opacity="0.022"/>
+    <circle cx="340" cy="340" r="277" opacity="0.022"/>
+    <circle cx="340" cy="340" r="258" opacity="0.022"/>
+    <circle cx="340" cy="340" r="240" opacity="0.022"/>
+    <circle cx="340" cy="340" r="222" opacity="0.022"/>
+    <circle cx="340" cy="340" r="205" opacity="0.022"/>
+    <circle cx="340" cy="340" r="189" opacity="0.022"/>
+    <circle cx="340" cy="340" r="174" opacity="0.022"/>
+    <circle cx="340" cy="340" r="160" opacity="0.022"/>
+  </g>
+</svg>

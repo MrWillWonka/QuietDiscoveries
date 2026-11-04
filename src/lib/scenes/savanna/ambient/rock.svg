@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 90">
+  <!-- Each boulder is its shaded tone overall, with the lit face laid over it,
+       so the shadow side carries the outline and no seam of base colour shows. -->
+  <path d="M96 90 C 94 66, 108 50, 130 50 C 152 50, 168 66, 168 90 Z" fill="#a88978"/>
+  <path d="M96 90 C 94 66, 108 50, 130 50 C 136.6 50, 142.7 51.4, 147.9 54.1 C 150 66, 148 80, 140 90 Z" fill="#b99680"/>
+  <path d="M2 90 C 2 50, 30 20, 66 20 C 102 20, 126 50, 124 90 Z" fill="#b69683"/>
+  <path d="M2 90 C 2 50, 30 20, 66 20 C 76.8 20, 86.5 22.7, 94.8 27.6 C 96 50, 100 72, 88 90 Z" fill="#c9a58d"/>
+  <path d="M20 44 C 34 28, 52 22, 70 22 C 60 30, 48 36, 30 50 C 26 48, 22 46, 20 44 Z" fill="#ffffff" opacity="0.22"/>
+</svg>

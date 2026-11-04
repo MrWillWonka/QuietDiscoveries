@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <defs>
+    <radialGradient id="space-far-satellite-glow">
+      <stop offset="0" stop-color="#fff6d0" stop-opacity="0.8"/>
+      <stop offset="0.3" stop-color="#dce8ff" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#a9c4f5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Too far off to see its shape: a point of sunlight crossing the stars. -->
+  <circle cx="8" cy="8" r="8" fill="url(#space-far-satellite-glow)"/>
+  <circle cx="8" cy="8" r="1.2" fill="#fff6d0"/>
+</svg>

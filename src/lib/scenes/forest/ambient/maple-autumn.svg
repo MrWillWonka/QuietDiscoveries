@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 330">
+  <path d="M74 330 C 92 318, 188 318, 206 330 Z" fill="#2b2b3a" opacity="0.14"/>
+  <!-- Slimmer trunk than the oak, rising into a tall rounded crown. -->
+  <path d="M116 330 C 128 320, 132 296, 132 262 C 124 244, 110 228, 96 214 L110 206
+           C 122 218, 132 230, 140 242 C 148 228, 160 214, 174 202 L186 212
+           C 170 226, 156 244, 150 262 C 150 296, 154 320, 166 330 Z" fill="#7a5a44"/>
+  <path d="M142 330 C 143 300, 143 272, 144 250 C 152 236, 162 224, 176 210 L186 212
+           C 170 226, 156 244, 150 262 C 150 296, 154 320, 166 330 Z" fill="#2b2b3a" opacity="0.2"/>
+  <!-- Taller, rounder crown: deep orange behind, gold in front. -->
+  <g fill="#d38f55"><circle cx="62" cy="164" r="46"/><circle cx="218" cy="164" r="46"/><circle cx="92" cy="208" r="38"/><circle cx="188" cy="208" r="38"/><circle cx="140" cy="216" r="34"/><circle cx="48" cy="116" r="38"/><circle cx="232" cy="116" r="38"/></g>
+  <g fill="#2b2b3a" opacity="0.14"><circle cx="92" cy="208" r="38"/><circle cx="188" cy="208" r="38"/><circle cx="140" cy="216" r="34"/></g>
+  <g fill="#e0b45a"><circle cx="140" cy="126" r="74"/><circle cx="92" cy="86" r="48"/><circle cx="188" cy="86" r="48"/><circle cx="140" cy="54" r="46"/></g>
+  <path d="M48.5 106.3 A48 48 0 0 1 112.3 42.5 A67 67 0 0 0 48.5 106.3 ZM98.3 73.4 A46 46 0 0 1 159.4 12.3 A64 64 0 0 0 98.3 73.4 Z" fill="#ffffff" opacity="0.18"/>
+</svg>

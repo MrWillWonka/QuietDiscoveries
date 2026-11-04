@@ -1,0 +1,11 @@
+{
+  "outputDirectory": "build",
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/how-it-works",
+      "destination": "/#how-it-works",
+      "permanent": true
+    }
+  ]
+}

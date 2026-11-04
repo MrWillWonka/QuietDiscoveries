@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" preserveAspectRatio="none">
+  <defs>
+    <!-- Brightest along its lower edge and fading to nothing upward, as a
+         real curtain of aurora is, so it has no top edge to cross the
+         other curtain with. -->
+    <linearGradient id="arctic-aurora-1-glow" x1="0" y1="0" x2="0" y2="290" gradientUnits="userSpaceOnUse">
+      <stop offset="0.15" stop-color="#7ee8b8" stop-opacity="0"/>
+      <stop offset="0.55" stop-color="#7ee8b8" stop-opacity="0.18"/>
+      <stop offset="0.85" stop-color="#7ee8b8" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#b8f5d6" stop-opacity="0.75"/>
+    </linearGradient>
+    <linearGradient id="arctic-aurora-1-rays" x1="0" y1="40" x2="0" y2="290" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4ecdc4" stop-opacity="0"/>
+      <stop offset="0.6" stop-color="#4ecdc4" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#d6fbe8" stop-opacity="0.4"/>
+    </linearGradient>
+    <clipPath id="arctic-aurora-1-curtain">
+      <path d="M0 0 L1200 0 L1200 210 C 1130 236, 1050 240, 950 214 C 830 184, 730 206, 620 240
+               C 520 272, 430 262, 330 224 C 220 184, 120 192, 0 236 Z"/>
+    </clipPath>
+  </defs>
+  <!-- The curtain: its lower edge folds back and forth. -->
+  <path d="M0 0 L1200 0 L1200 210 C 1130 236, 1050 240, 950 214 C 830 184, 730 206, 620 240
+           C 520 272, 430 262, 330 224 C 220 184, 120 192, 0 236 Z" fill="url(#arctic-aurora-1-glow)"/>
+  <!-- Rays standing up out of its hem, narrowing as they fade. -->
+  <g fill="url(#arctic-aurora-1-rays)" clip-path="url(#arctic-aurora-1-curtain)">
+    <path d="M146 280 L176 40 L186 40 L184 280 Z"/>
+    <path d="M296 280 L326 20 L338 20 L340 280 Z"/>
+    <path d="M466 290 L494 50 L504 50 L508 290 Z"/>
+    <path d="M636 290 L672 10 L686 10 L684 290 Z"/>
+    <path d="M816 280 L842 30 L852 30 L858 280 Z"/>
+    <path d="M996 280 L1026 44 L1036 44 L1036 280 Z"/>
+    <path d="M1116 280 L1138 60 L1146 60 L1150 280 Z"/>
+  </g>
+</svg>
