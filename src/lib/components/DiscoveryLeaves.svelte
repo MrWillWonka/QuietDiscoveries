@@ -54,6 +54,16 @@
   const foundCount = $derived(circles.filter((circle) => circle.found).length);
 
   /**
+   * Up to a dozen to a row, and rows as even as can be: 24 is two rows of
+   * 12 and 13 is 7 over 6, never 12 and one left alone. A screen too narrow
+   * for that wraps the row further.
+   */
+  const ROW = 12;
+  const columns = $derived(
+    Math.ceil(circles.length / Math.ceil(circles.length / ROW)),
+  );
+
+  /**
    * QDs found while this row has been up, which fill with a pop. Those
    * already found when the Scene or the Class changes to this one just show.
    */
@@ -78,7 +88,9 @@
 
 {#if circles.length > 0}
   <ul
-    class="leaves flex max-w-full flex-wrap justify-center"
+    class="leaves flex flex-wrap justify-center"
+    class:many={circles.length > ROW}
+    style:--columns={columns}
     aria-label={tIn(scene.id, "leaves.label", {
       found: foundCount,
       total: circles.length,
@@ -110,10 +122,24 @@
   /* A soft wooden pill: warm planks, a darker rim and a little shadow, in
      rem so it shrinks with a small floating window (layout.css). */
   .leaves {
-    gap: 0.35rem;
-    padding: 0.35rem 0.55rem;
-    border: 0.2rem solid #4a2e1a;
-    border-radius: 999px;
+    --size: 2.25rem;
+    --gap: 0.35rem;
+    --pad: 0.55rem;
+    --rim: 0.2rem;
+    /* `--columns` circles to a row, or fewer on a narrow screen. A hair
+       over, so rounding never pushes the last one down. */
+    max-width: min(
+      100%,
+      calc(
+        var(--columns) * (var(--size) + var(--gap)) - var(--gap) + 2 *
+          (var(--pad) + var(--rim)) + 0.05rem
+      )
+    );
+    gap: var(--gap);
+    padding: 0.35rem var(--pad);
+    border: var(--rim) solid #4a2e1a;
+    /* A pill on one row, a rounded board over two. */
+    border-radius: 1.5rem;
     background:
       repeating-linear-gradient(
         172deg,
@@ -126,11 +152,17 @@
       0 0.25rem 0.6rem rgb(43 30 20 / 0.35);
   }
 
+  /* Two rows of up to a dozen: a little smaller, so the board stays low. */
+  .many {
+    --size: 1.9rem;
+    --gap: 0.3rem;
+  }
+
   .circle {
     display: grid;
     place-items: center;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: var(--size);
+    height: var(--size);
     border-radius: 50%;
     border: 0.14rem solid #4a2e1a;
   }
