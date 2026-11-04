@@ -1452,6 +1452,8 @@ const es = {
       "Los zorros rojos pueden ser de cualquier tono, del dorado claro al rojo oscuro: ¡ver uno dorado es una suerte!",
     "harvest-tom":
       "El pavo macho despliega la cola en abanico y ahueca las plumas para lucirse.",
+    "mr-applewhite":
+      "El QD más raro de todos: un arrendajo azul con un peinado genial que se sabe todos vuestros nombres.",
     "harvest-patch":
       "Una calabaza crece de una sola semilla pequeña en una planta larga y retorcida durante todo el verano.",
     "harvest-apple":
@@ -1635,6 +1637,10 @@ const fr = {
     "counter.label": "QDs arrivés : {count}",
     "leaves.label": "{found} QDs découverts sur {total}",
     "leaves.hidden": "Encore à découvrir",
+    "settings.secretVisit": "Faire venir {name} aujourd’hui à coup sûr",
+    "settings.secretVisitHint":
+      "Il arrivera parmi les prochains QDs, par surprise.",
+    "settings.secretVisited": "Il est venu aujourd’hui ✓",
     "settings.tryIt": "Essayer",
     "settings.summon": "Faire sortir tous les QDs",
     "settings.advanced": "Avancé",
@@ -1707,6 +1713,9 @@ const fr = {
     "chance.common": "{percent} % des arrivées sont communes",
     "chance.uncommon": "{percent} % des arrivées sont peu communes",
     "chance.rare": "{percent} % des arrivées sont rares",
+    "tier.superRare": "Super rares",
+    "chance.superRare.label": "Chances de QDs super rares",
+    "chance.superRare": "Chaque arrivée a 1 chance sur {odds} d’être celui-ci",
     "blocked.title": "Les QDs ont besoin d’entendre la classe",
     "blocked.denied":
       "Ce navigateur a bloqué l’accès au micro. Cliquez sur le cadenas ou l’icône de caméra dans la barre d’adresse, autorisez le micro, puis réessayez.",
@@ -1998,6 +2007,7 @@ const fr = {
     "harvest-ruby": "Ruby le Cardinal",
     "harvest-golden-ember": "Ember Doré",
     "harvest-tom": "Tom le Dindon",
+    "mr-applewhite": "Mr Applewhite",
     "harvest-patch": "Patch la Citrouille",
     "harvest-apple": "Pomme des moissons",
     "autumn-leaf": "Feuille d’automne",
@@ -2166,6 +2176,8 @@ const fr = {
       "Les renards roux vont du doré pâle au rouge foncé : en croiser un tout doré, c’est une vraie chance !",
     "harvest-tom":
       "Le dindon mâle déploie sa queue en éventail et gonfle ses plumes pour se faire remarquer.",
+    "mr-applewhite":
+      "Le plus rare de tous les QDs : un geai bleu à la coiffure épatante, qui connaît tous vos prénoms.",
     "harvest-patch":
       "Une citrouille pousse tout l’été à partir d’une seule petite graine, sur une longue tige tordue.",
     "harvest-apple":
