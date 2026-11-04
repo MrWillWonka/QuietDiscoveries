@@ -65,6 +65,8 @@ const en = {
     "scene.arctic.hint": "Polar bears, seals and narwhals",
     "scene.halloween.name": "Halloween",
     "scene.halloween.hint": "Bats, ghosts and jack-o'-lanterns",
+    "scene.thanksgiving.name": "Thanksgiving",
+    "scene.thanksgiving.hint": "Turkeys, geese and harvest QDs",
     "hollow.limited": "Limited time",
     "hollow.daily": "A new QD every school day",
     "hollow.closesIn": "Leaves in {days} days",
@@ -461,6 +463,21 @@ const en = {
     "howling-wolf": "Howling wolf",
     "great-boo": "The Great Boo",
     "jack-o-lantern": "Jack O. Lantern",
+    "field-mouse": "Field mouse",
+    "northern-cardinal": "Northern cardinal",
+    "bobwhite-quail": "Bobwhite quail",
+    "red-squirrel": "Red squirrel",
+    mallard: "Mallard",
+    "canada-goose": "Canada goose",
+    "wild-turkey": "Wild turkey",
+    "leaf-sprite": "Leaf sprite",
+    "pie-pal": "Pie pal",
+    cornling: "Cornling",
+    opossum: "Opossum",
+    "barred-owl": "Barred owl",
+    "harvest-moon": "Harvest moon",
+    elk: "Elk",
+    "tom-turkey": "Tom Turkey",
   },
   // One line about each prehistoric Creature, shown in the collection.
   facts: {
@@ -562,6 +579,35 @@ const en = {
       "People have been shouting “Boo!” to make each other jump since at least the 1700s.",
     "jack-o-lantern":
       "The first jack-o’-lanterns were carved from turnips in Ireland; in America, pumpkins took over.",
+    "field-mouse":
+      "A field mouse can squeeze through a gap no wider than a pencil.",
+    "northern-cardinal":
+      "Cardinals don’t fly south for the winter, so their bright red feathers cheer up snowy days.",
+    "bobwhite-quail":
+      "It is named after its call: a clear whistle that sounds just like “bob-WHITE!”",
+    "red-squirrel":
+      "It stores its pinecones in big piles called middens, ready for the winter.",
+    mallard:
+      "Only the female mallard makes the loud “quack”; the male’s call is a soft, raspy note.",
+    "canada-goose":
+      "Geese fly in a V so each bird gets a little lift from the one in front.",
+    "wild-turkey":
+      "Wild turkeys can fly, and at night they sleep up in the trees.",
+    "leaf-sprite":
+      "It rides every autumn breeze, and never lands in the same leaf pile twice.",
+    "pie-pal":
+      "It never takes off its whipped cream hat, not even on the windiest day.",
+    cornling:
+      "Like a real ear of corn, it has about 800 kernels, always in an even number of rows.",
+    opossum:
+      "When it is very scared, an opossum may “play dead”, lying still until the danger has gone.",
+    "barred-owl":
+      "Its call sounds like it is asking “Who cooks for you? Who cooks for you all?”",
+    "harvest-moon":
+      "The full moon nearest the start of autumn rises early and bright, and once helped farmers finish the harvest after dark.",
+    elk: "A bull elk grows a brand new set of antlers every year, up to 2.5 cm (an inch) a day.",
+    "tom-turkey":
+      "A male turkey is called a tom. He fans out his tail and puffs up his feathers to say “Look at me!”",
   },
 } as const;
 
@@ -682,6 +728,8 @@ const es = {
     "scene.arctic.hint": "Osos polares, focas y narvales",
     "scene.halloween.name": "Halloween",
     "scene.halloween.hint": "Murciélagos, fantasmas y calabazas",
+    "scene.thanksgiving.name": "Acción de Gracias",
+    "scene.thanksgiving.hint": "Pavos, gansos y QDs de la cosecha",
     "hollow.limited": "Por tiempo limitado",
     "hollow.daily": "Un QD nuevo cada día de clase",
     "hollow.closesIn": "Se va en {days} días",
@@ -1112,6 +1160,21 @@ const es = {
     "howling-wolf": "Lobo aullador",
     "great-boo": "El Gran Bu",
     "jack-o-lantern": "Jack O. Lantern",
+    "field-mouse": "Ratón de campo",
+    "northern-cardinal": "Cardenal norteño",
+    "bobwhite-quail": "Codorniz cotuí",
+    "red-squirrel": "Ardilla roja",
+    mallard: "Ánade real",
+    "canada-goose": "Barnacla canadiense",
+    "wild-turkey": "Pavo salvaje",
+    "leaf-sprite": "Duende de hoja",
+    "pie-pal": "Pastelito",
+    cornling: "Mazorquita",
+    opossum: "Zarigüeya",
+    "barred-owl": "Búho listado",
+    "harvest-moon": "Luna de la cosecha",
+    elk: "Uapití",
+    "tom-turkey": "Tom el Pavo",
   },
   facts: {
     didelphodon:
@@ -1211,6 +1274,35 @@ const es = {
       "La gente lleva gritando «¡Bu!» para asustarse desde por lo menos el siglo XVIII.",
     "jack-o-lantern":
       "Las primeras linternas de Halloween se tallaban en nabos en Irlanda; en América las sustituyeron las calabazas.",
+    "field-mouse":
+      "Un ratón de campo puede colarse por un hueco no más ancho que un lápiz.",
+    "northern-cardinal":
+      "Los cardenales no migran en invierno, así que su rojo intenso alegra los días de nieve.",
+    "bobwhite-quail":
+      "Su nombre en inglés imita su canto: un silbido claro que suena como «¡bob-UAIT!».",
+    "red-squirrel":
+      "Guarda sus piñas en grandes montones, listas para el invierno.",
+    mallard:
+      "Solo la hembra hace el fuerte «cuac»; el macho tiene un canto suave y ronco.",
+    "canada-goose":
+      "Los gansos vuelan en V para que cada uno aproveche el impulso del que va delante.",
+    "wild-turkey":
+      "Los pavos salvajes saben volar, y por la noche duermen en lo alto de los árboles.",
+    "leaf-sprite":
+      "Viaja en cada brisa de otoño y nunca aterriza dos veces en el mismo montón de hojas.",
+    "pie-pal":
+      "Nunca se quita su sombrero de nata, ni siquiera el día de más viento.",
+    cornling:
+      "Como una mazorca de verdad, tiene unos 800 granos, siempre en un número par de hileras.",
+    opossum:
+      "Cuando se asusta mucho, la zarigüeya puede «hacerse la muerta» y quedarse quieta hasta que pasa el peligro.",
+    "barred-owl":
+      "En inglés, su canto parece preguntar «¿Quién cocina para ti? ¿Quién cocina para todos?».",
+    "harvest-moon":
+      "Es la luna llena más cercana al comienzo del otoño: sale pronto y brillante, y ayudaba a los agricultores a terminar la cosecha de noche.",
+    elk: "El uapití macho estrena cornamenta cada año, ¡y puede crecerle unos 2,5 cm al día!",
+    "tom-turkey":
+      "Para presumir, el pavo macho abre la cola en abanico y se infla como diciendo «¡Miradme!».",
   },
 } satisfies Language;
 
@@ -1268,6 +1360,8 @@ const fr = {
     "scene.arctic.hint": "Ours polaires, phoques et narvals",
     "scene.halloween.name": "Halloween",
     "scene.halloween.hint": "Chauves-souris, fantômes et citrouilles",
+    "scene.thanksgiving.name": "Thanksgiving",
+    "scene.thanksgiving.hint": "Dindons, bernaches et QDs des moissons",
     "hollow.limited": "Édition limitée",
     "hollow.daily": "Un nouveau QD chaque jour d’école",
     "hollow.closesIn": "Part dans {days} jours",
@@ -1703,6 +1797,21 @@ const fr = {
     "howling-wolf": "Loup hurleur",
     "great-boo": "Le Grand Bouh",
     "jack-o-lantern": "Jack O. Lantern",
+    "field-mouse": "Mulot",
+    "northern-cardinal": "Cardinal rouge",
+    "bobwhite-quail": "Colin de Virginie",
+    "red-squirrel": "Écureuil roux",
+    mallard: "Canard colvert",
+    "canada-goose": "Bernache du Canada",
+    "wild-turkey": "Dindon sauvage",
+    "leaf-sprite": "Lutin des feuilles",
+    "pie-pal": "Tartelette",
+    cornling: "Petit Épi",
+    opossum: "Opossum",
+    "barred-owl": "Chouette rayée",
+    "harvest-moon": "Lune des moissons",
+    elk: "Wapiti",
+    "tom-turkey": "Tom le Dindon",
   },
   facts: {
     didelphodon:
