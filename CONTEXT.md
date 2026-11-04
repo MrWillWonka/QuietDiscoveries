@@ -99,7 +99,10 @@ In this field the QDs also wander **nearer and further**: a QD walking
 forward across the meadow grows, and one walking back towards the fence
 shrinks, passing in front of or behind the props as it goes. A **picnic
 table** stands in the field; some harvest items land on its top instead of
-the grass and stay there, and one that transforms hops down to wander.
+the grass and stay there, and one that transforms hops down to wander. The
+field runs back past the fence to the foot of the barn: a QD out in the
+back meadow is small and seen over the fence rails. QDs spread out over the
+whole field rather than bunching round the props they arrived at.
 
 ## Secret QD
 

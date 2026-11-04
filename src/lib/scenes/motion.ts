@@ -144,10 +144,15 @@ export type Band = { top: number; bottom: number };
 
 /**
  * The whole field, back to front: the band every ground Creature walks in a
- * Scene whose Creatures wander nearer and further (`SceneDef.depthWander`),
- * whatever band its motion keeps to elsewhere.
+ * Scene whose Creatures wander nearer and further (`SceneDef.depthWander`,
+ * only Autumn Harvest), whatever band its motion keeps to elsewhere. It runs
+ * from the foot of the barn, past the fence (`FENCE_LINE`) into the back
+ * meadow, to the front of the field.
  */
-export const FIELD_BAND: Band = PLAIN;
+export const FIELD_BAND: Band = { top: 0.485, bottom: PLAIN.bottom };
+
+/** Where the back fence meets the ground in that field. */
+export const FENCE_LINE = 0.548;
 
 const WATER: Region = { xMin: 0.06, xMax: 0.94, yMin: 0.1, yMax: 0.78 };
 

@@ -1,7 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import {
   WANDER_RANGE,
+  WANDER_LINES,
   WANDER_SCALE,
+  fieldDepth,
   depthRate,
   depthScale,
   nextLeg,
@@ -9,7 +11,7 @@ import {
   stepDepth,
   wanderScale,
 } from "./depthWander";
-import { FIELD_BAND, groundLayer, groundLine } from "./motion";
+import { FENCE_LINE, FIELD_BAND, groundLayer, groundLine } from "./motion";
 
 function seeded(seed: number) {
   return () => {
@@ -19,12 +21,26 @@ function seeded(seed: number) {
 }
 
 describe("wanderScale", () => {
-  it("is about 0.6× at the fence, 1× mid-field and 1.15× at the front", () => {
-    expect(wanderScale(0)).toBeCloseTo(WANDER_SCALE.back);
-    expect(wanderScale(0.5)).toBeCloseTo(1);
-    expect(wanderScale(1)).toBeCloseTo(WANDER_SCALE.front);
-    expect(WANDER_SCALE.back).toBeCloseTo(0.6);
-    expect(WANDER_SCALE.front).toBeCloseTo(1.15);
+  it("is about 0.45× at the barn, 0.6× at the fence, 1× mid-field and 1.15× at the front", () => {
+    expect(wanderScale(fieldDepth(WANDER_LINES.barn))).toBeCloseTo(0.45);
+    expect(wanderScale(fieldDepth(WANDER_LINES.fence))).toBeCloseTo(0.6);
+    expect(wanderScale(fieldDepth(WANDER_LINES.middle))).toBeCloseTo(1);
+    expect(wanderScale(fieldDepth(WANDER_LINES.front))).toBeCloseTo(1.15);
+    expect(WANDER_SCALE).toEqual({
+      barn: 0.45,
+      fence: 0.6,
+      middle: 1,
+      front: 1.15,
+    });
+  });
+
+  it("reaches back to the foot of the barn, past the fence", () => {
+    expect(FIELD_BAND.top).toBeCloseTo(0.485);
+    expect(FENCE_LINE).toBeGreaterThan(FIELD_BAND.top);
+    // QDs past the fence are drawn behind its rails.
+    const fence = groundLayer(FENCE_LINE);
+    expect(groundLayer(groundLine(0.05, FIELD_BAND))).toBeLessThan(fence);
+    expect(groundLayer(groundLine(0.5, FIELD_BAND))).toBeGreaterThan(fence);
   });
 
   it("grows smoothly all the way forward, with no jumps", () => {

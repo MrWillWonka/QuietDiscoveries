@@ -368,7 +368,7 @@ export const SCENES: Record<SceneId, SceneDef> = {
     // QDs grow as they come forward across the field, and some items land
     // on the picnic table.
     depthWander: true,
-    spread: false,
+    spread: true,
     table: HARVEST_TABLE,
     // Too Loud is a leaf storm, not a fog (`harvest/LeafStorm.svelte`).
     TooLoud: HarvestLeafStorm,
