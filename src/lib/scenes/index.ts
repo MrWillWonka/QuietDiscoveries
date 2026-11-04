@@ -174,6 +174,12 @@ export interface SceneDef {
    * (`scenes/depthWander.ts`). Left out, each keeps the depth it arrived at.
    */
   depthWander?: boolean;
+  /**
+   * QDs spread out over the whole field instead of bunching round the props
+   * they arrived at: waypoints, arrivals and rests weigh where the others
+   * are (`scenes/spread.ts`).
+   */
+  spread?: boolean;
   /** A table some harvest items land on instead of the grass (`table.ts`). */
   table?: TableDef;
   /**
@@ -362,6 +368,7 @@ export const SCENES: Record<SceneId, SceneDef> = {
     // QDs grow as they come forward across the field, and some items land
     // on the picnic table.
     depthWander: true,
+    spread: true,
     table: HARVEST_TABLE,
     // Too Loud is a leaf storm, not a fog (`harvest/LeafStorm.svelte`).
     TooLoud: HarvestLeafStorm,

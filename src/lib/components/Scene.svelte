@@ -104,6 +104,7 @@
       onwake={() => onwake(creature.id)}
       hidingPlaces={scene.hidingPlaces}
       depthWander={scene.depthWander}
+      spread={scene.spread}
       table={scene.table}
       onperch={(x) => onperch?.(creature.id, x)}
     />

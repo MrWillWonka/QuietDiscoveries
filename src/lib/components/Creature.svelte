@@ -1,6 +1,7 @@
 <script lang="ts" module>
   import type { MotionState } from "$lib/scenes/motion";
   import type { CreatureInstance } from "$lib/session/session.svelte";
+  import { createHeat, type Occupant } from "$lib/scenes/spread";
 
   /**
    * Where each Creature had got to, so one that is drawn afresh — when the
@@ -26,6 +27,28 @@
   /** Items sitting on the picnic table, so newcomers land where there is room. */
   // eslint-disable-next-line svelte/prefer-svelte-reactivity
   const tableSpots = new Map<CreatureInstance, Spot>();
+
+  /**
+   * Where each ground QD is and is heading, and how long QDs have spent in
+   * each part of the field lately, so in a Scene that spreads them out
+   * (`SceneDef.spread`) each picks open ground (`scenes/spread.ts`).
+   */
+  // eslint-disable-next-line svelte/prefer-svelte-reactivity
+  const whereabouts = new Map<
+    CreatureInstance,
+    { at: Occupant; heading: Occupant }
+  >();
+  const heat = createHeat();
+  let heatCooled = 0;
+
+  /** Everyone else on the ground, where they are and where they are going. */
+  function othersThan(self: CreatureInstance): Occupant[] {
+    const out: Occupant[] = [];
+    for (const [one, where] of whereabouts) {
+      if (one !== self) out.push(where.at, where.heading);
+    }
+    return out;
+  }
 </script>
 
 <script lang="ts">
@@ -80,6 +103,14 @@
   } from "$lib/scenes/table";
   import { cancelFrame, requestFrame } from "$lib/frames";
   import {
+    chooseOpen,
+    cool,
+    crowding,
+    restShare,
+    warm,
+    type Candidate,
+  } from "$lib/scenes/spread";
+  import {
     blowDirection,
     gustPose,
     leaveStyle,
@@ -117,6 +148,7 @@
     onwake,
     hidingPlaces,
     depthWander = false,
+    spread = false,
     table,
     onperch,
   }: {
@@ -157,6 +189,12 @@
      * the nearest one if that is nearer than the edge of the screen.
      */
     hidingPlaces?: HidingPlace[];
+    /**
+     * QDs spread out over the whole field rather than bunching
+     * (`SceneDef.spread`): waypoints, arrivals and rests take the others
+     * into account.
+     */
+    spread?: boolean;
     /**
      * A ground Creature wanders nearer and further as well as sideways, and
      * its size follows (`SceneDef.depthWander`).
@@ -422,6 +460,29 @@
     let blown: Blown | null = null;
     /** A tilt the gust gives it, over the walking rock. */
     let poseAngle: number | null = null;
+    /** A point in the units `spread.ts` scores in: Scene widths both ways. */
+    const scored = (x: number, feet: number, depth: number): Candidate => ({
+      x,
+      y: (feet * sceneH) / sceneW,
+      across: x,
+      depth,
+    });
+    if (spread && shy && carried && !perched && profile.ground) {
+      // Landing on the grass: the most open of a few spots at its depth.
+      const half = hider(shownDepth).sizeAt(shownDepth).width / 2;
+      const low = Math.max(0.05, half);
+      const high = Math.min(0.95, 1 - half);
+      const feet = feetAt(style, shownDepth, bandFor(style));
+      const spots = Array.from({ length: 5 }, (_, i) =>
+        scored(
+          i === 0 ? state.x : low + Math.random() * (high - low),
+          feet,
+          shownDepth,
+        ),
+      );
+      state.x =
+        spots[chooseOpen(spots, othersThan(creature), heat, Math.random)].x;
+    }
     if (shy && carried) {
       if (reducedMotion.matches) {
         fadingIn = 0;
@@ -448,6 +509,13 @@
             screen(),
             [...busyPlaces],
             Math.random,
+            spread
+              ? (plan) =>
+                  crowding(
+                    scored(plan.outX, plan.feet, plan.depth),
+                    othersThan(creature),
+                  ) * 2
+              : undefined,
           );
       if (plan) {
         busyPlaces.add(plan.place.name);
@@ -733,6 +801,7 @@
           }
         }
       } else {
+        const wasResting = state.resting > 0;
         listenIn = null;
         if (attending) {
           // Talking is over: a shake, a moment to gather itself, and off it
@@ -762,7 +831,48 @@
             );
             state.targetX = leg.targetX;
             targetDepth = leg.targetDepth;
+            if (spread) {
+              // A few more legs like it, and the most open one wins.
+              const half = selfW / sceneW / 2;
+              const low = Math.max(profile.region.xMin, half);
+              const high = Math.min(profile.region.xMax, 1 - half);
+              const legs = [leg];
+              for (let i = 0; i < 4; i++) {
+                const across = Math.min(
+                  high,
+                  Math.max(low, state.x + (Math.random() * 2 - 1) * 0.35),
+                );
+                legs.push(nextLeg(state.x, across, shownDepth, Math.random));
+              }
+              const band = bandFor(style);
+              const best =
+                legs[
+                  chooseOpen(
+                    legs.map((one) =>
+                      scored(
+                        one.targetX,
+                        feetAt(style, one.targetDepth, band),
+                        one.targetDepth,
+                      ),
+                    ),
+                    othersThan(creature),
+                    heat,
+                    Math.random,
+                  )
+                ];
+              state.targetX = best.targetX;
+              targetDepth = best.targetDepth;
+            }
             legTarget = state.targetX;
+          }
+          if (spread && !wasResting && state.resting > 0) {
+            // Come to rest in a crowd: it moves on sooner.
+            const here = scored(
+              state.x,
+              feetAt(style, shownDepth, bandFor(style)),
+              shownDepth,
+            );
+            state.resting *= restShare(crowding(here, othersThan(creature)));
           }
           const walkBand = bandFor(style) ?? FIELD_BAND;
           const next = stepDepth(
@@ -844,6 +954,30 @@
         if (shown >= 1) fadingIn = null;
       }
 
+      if (spread) {
+        if (profile.ground && !perched && !fleeing && !gust) {
+          const band = bandFor(style);
+          const size = selfW / sceneW;
+          const feet = feetAt(style, shownDepth, band);
+          const aspect = sceneH / sceneW;
+          whereabouts.set(creature, {
+            at: { x: state.x, y: feet * aspect, size },
+            heading: {
+              x: state.targetX,
+              y: feetAt(style, targetDepth, band) * aspect,
+              size,
+            },
+          });
+          warm(heat, state.x, shownDepth, elapsed);
+        } else {
+          whereabouts.delete(creature);
+        }
+        if (now - heatCooled > 1000) {
+          if (heatCooled) cool(heat, (now - heatCooled) / 1000);
+          heatCooled = now;
+        }
+      }
+
       const left = state.x * sceneW - selfW / 2;
       const top = state.y * sceneH - selfH / 2;
       swimmer.style.transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -879,6 +1013,7 @@
     return () => {
       if (peek) busyPlaces.delete(peek.plan.place.name);
       tableSpots.delete(creature);
+      whereabouts.delete(creature);
       cancelFrame(frame);
       resize.disconnect();
       clearTimeout(settle);
