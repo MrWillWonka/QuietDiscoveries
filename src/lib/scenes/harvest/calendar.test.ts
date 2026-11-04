@@ -10,6 +10,7 @@ import {
   unlockDay,
   unlockedSlugs,
 } from "./calendar";
+import { HARVEST_ROSTER } from "./roster";
 
 /** Every day from `from` to `to`, inclusive. */
 function days(from: string, to: string): string[] {
@@ -80,6 +81,22 @@ describe("Autumn Harvest's calendar", () => {
       if (weekday(day) === 0 || weekday(day) === 6)
         expect(todaysNewcomer(day)).toBeNull();
       previous = count;
+    }
+  });
+
+  it("matches the Roster, and each Newcomer is no less rare than the last", () => {
+    const tierOf = (slug: string) =>
+      HARVEST_ROSTER.find((def) => def.slug === slug)?.tier;
+    const all = unlockedSlugs("2026-11-30");
+    expect([...all].sort()).toEqual(
+      HARVEST_ROSTER.map(({ slug }) => slug).sort(),
+    );
+    const rank = { common: 0, uncommon: 1, rare: 2 };
+    let previous = 0;
+    for (const { slug } of HARVEST_SCHEDULE.newcomers) {
+      const tier = tierOf(slug)!;
+      expect(`${slug}: ${rank[tier] >= previous}`).toBe(`${slug}: true`);
+      previous = rank[tier];
     }
   });
 

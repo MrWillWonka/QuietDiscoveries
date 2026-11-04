@@ -126,14 +126,14 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   },
   {
     slug: "harvest-maple",
-    tier: "uncommon",
+    tier: "rare",
     width: 70,
     motion: "graze",
     parts: ["part-head", "part-tail"],
   },
   {
     slug: "harvest-oliver",
-    tier: "uncommon",
+    tier: "rare",
     width: 54,
     motion: "soar",
     parts: ["part-body"],
@@ -196,7 +196,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   },
   {
     slug: "golden-acorn",
-    tier: "rare",
+    tier: "uncommon",
     width: 28,
     motion: "rest",
     awake: { motion: "hop", parts: ["part-body", "part-arms"] },
@@ -204,7 +204,7 @@ export const HARVEST_ROSTER: CreatureDef[] = [
   },
   {
     slug: "golden-leaf",
-    tier: "rare",
+    tier: "uncommon",
     width: 32,
     motion: "rest",
     awake: { motion: "drift", parts: ["part-body"] },
