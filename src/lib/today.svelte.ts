@@ -1,7 +1,7 @@
 /**
- * What day it is on this computer, for the one Scene that cares: Pumpkin
- * Hollow, which is only open for a few weeks and grows by the day
- * (`scenes/halloween/calendar.ts`).
+ * What day it is on this computer, for the Scenes that care: those only
+ * open for a few weeks, and above all those that grow by the day, like
+ * Pumpkin Hollow (`scenes/schedule.ts`).
  *
  * Unknown (null) until the page is running in a browser: the page is
  * prerendered with no idea of the date, and hydration must find exactly the
@@ -14,7 +14,7 @@
  */
 
 import { browser, dev } from "$app/environment";
-import { isDay, localDay } from "$lib/scenes/halloween/calendar";
+import { isDay, localDay } from "$lib/scenes/schedule";
 
 function override(): string | null {
   if (!dev) return null;

@@ -12,6 +12,7 @@
   import Scene from "$lib/components/Scene.svelte";
   import ScreenMeter from "$lib/components/ScreenMeter.svelte";
   import ArrivalCounter from "$lib/components/ArrivalCounter.svelte";
+  import DiscoveryLeaves from "$lib/components/DiscoveryLeaves.svelte";
   import SettingsPanel from "$lib/components/SettingsPanel.svelte";
   import Timer from "$lib/components/Timer.svelte";
   import BrandChip from "$lib/components/BrandChip.svelte";
@@ -470,25 +471,29 @@
       {/key}
     {/if}
 
-    {#if app.listening && (app.paused || settings.showMeter)}
+    {#if app.listening && (app.paused || settings.showMeter || app.scene.discoveryDisplay)}
       <!-- Top centre: what the teacher keeps an eye on, which stays up when
          the control bar fades. The Noise Meter, if the teacher turned it on
          in Settings; or, once Paused for an announcement, a reminder in its
          place that the room isn't being judged, to resume from right here.
+         Under it, in a Scene that has them, the class's discovery leaves.
          On a phone it sits below the corner buttons, which leave no room
          between them. -->
       <div
-        class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex justify-center p-4 max-sm:top-12"
+        class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex flex-col items-center gap-2 p-4 max-sm:top-12"
       >
-        {#if !app.paused}
+        {#if app.paused}
+          <PausedPill onresume={() => app.setPaused(false)} />
+        {:else if settings.showMeter}
           <ScreenMeter
             sceneId={app.scene.id}
             level={app.monitor.level}
             goal={settings.volumeGoal}
             tooLoud={app.monitor.state === "too-loud"}
           />
-        {:else}
-          <PausedPill onresume={() => app.setPaused(false)} />
+        {/if}
+        {#if app.scene.discoveryDisplay}
+          <DiscoveryLeaves scene={app.scene} />
         {/if}
       </div>
     {/if}

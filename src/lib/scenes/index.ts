@@ -22,7 +22,7 @@ import ForestAmbient from "./forest/AmbientLife.svelte";
 import { availableToday, drawToday } from "./halloween/arrivals";
 import HalloweenAmbient from "./halloween/AmbientLife.svelte";
 import * as halloweenArt from "./halloween/artwork";
-import { isOpen } from "./halloween/calendar";
+import { HOLLOW_SCHEDULE, isOpen } from "./halloween/calendar";
 import halloweenIcon from "./halloween/icon.svg";
 import { HALLOWEEN_NOTE } from "./halloween/note";
 import { HALLOWEEN_ROSTER } from "./halloween/roster";
@@ -36,6 +36,7 @@ import jungleIcon from "./jungle/icon.svg";
 import { JUNGLE_NOTE } from "./jungle/note";
 import { JUNGLE_ROSTER } from "./jungle/roster";
 import type { DepartureStyle } from "./motion";
+import type { Schedule } from "./schedule";
 import PrehistoricAmbient from "./prehistoric/AmbientLife.svelte";
 import * as prehistoricArt from "./prehistoric/artwork";
 import prehistoricIcon from "./prehistoric/icon.svg";
@@ -133,6 +134,13 @@ export interface SceneDef {
    * does the rest. Pumpkin Hollow's patch lights up for Jack O. Lantern.
    */
   welcomes?: string[];
+  /**
+   * The calendar of a Scene whose Roster grows by the day (`schedule.ts`):
+   * the Collection then shows what is still to unlock, and when.
+   */
+  schedule?: Schedule;
+  /** Shows the row of discovery leaves */
+  discoveryDisplay?: boolean;
 }
 
 export const SCENES: Record<SceneId, SceneDef> = {
@@ -262,6 +270,7 @@ export const SCENES: Record<SceneId, SceneDef> = {
     note: HALLOWEEN_NOTE,
     openOn: isOpen,
     isNew: true,
+    schedule: HOLLOW_SCHEDULE,
     arrivals: { available: availableToday, draw: drawToday },
     // The finale: every jack-o'-lantern flares and the moon brightens as he
     // comes, and the patch stays lit warmer while he's here (entrance.css).

@@ -15,7 +15,8 @@ export type SceneId =
   | "jungle"
   | "arctic"
   | "halloween"
-  | "thanksgiving";
+  | "thanksgiving"
+  | "harvest";
 
 export const SCENE_IDS: SceneId[] = [
   "savanna",
@@ -29,6 +30,9 @@ export const SCENE_IDS: SceneId[] = [
   "halloween",
   // On offer all through November (`scenes/thanksgiving/calendar.ts`).
   "thanksgiving",
+  // Autumn Harvest, through November, growing by the day
+  // (`scenes/harvest/calendar.ts`).
+  "harvest",
 ];
 
 /** What a first visit, and the prerendered page, shows. */
@@ -71,6 +75,12 @@ export interface CreatureDef {
   departure?: DepartureStyle;
   /** The part-* classes actually present in the artwork. */
   parts: AnimatablePart[];
+  /**
+   * A harvest item that, once in a long while, arrives awake
+   * (`session/awake.ts`): drawn from the Scene's `awakeArt`, with a face and
+   * tiny feet, and moving like this instead of settling where it lands.
+   */
+  awake?: { motion: MotionStyle };
 }
 
 /**

@@ -16,6 +16,7 @@ import {
   createArrivalClock,
   type ArrivalClock,
 } from "./arrivalClock";
+import { rollAwake } from "./awake";
 import { rollCreature } from "./roll";
 import {
   advanceScareClock,
@@ -43,6 +44,11 @@ export interface CreatureInstance {
    * arrived, so it comes back plain instead of glistening all over again.
    */
   restored?: boolean;
+  /**
+   * A harvest item that came awake on arrival (`rollAwake`): drawn with a
+   * face and wandering like an animal instead of settling. Kept on refresh.
+   */
+  awake?: boolean;
 }
 
 export class Session {
@@ -248,12 +254,16 @@ export class Session {
   }
 
   #place(def: CreatureDef): CreatureInstance {
-    return {
+    const instance: CreatureInstance = {
       id: this.#nextId++,
       def,
       depth: this.#depth(def),
       spawnX: this.#random(),
       spawnY: this.#random(),
     };
+    // Only items with an awake drawing roll, so no other Scene's random
+    // sequence changes.
+    if (def.awake && rollAwake(this.#random)) instance.awake = true;
+    return instance;
   }
 }

@@ -61,7 +61,12 @@ export type MotionStyle =
    * Pumpkin Hollow: a giant's slow walk along the back of the patch, with
    * long stops to look about, so it towers over the pumpkins in front.
    */
-  | "stride";
+  | "stride"
+  /**
+   * Autumn Harvest's items: a pumpkin or an apple that comes to rest in the
+   * field and stays put, with only a tiny idle wobble. On the plain's band.
+   */
+  | "rest";
 
 interface Region {
   xMin: number;
@@ -114,6 +119,11 @@ export interface MotionProfile {
    * from a branch: the top of its box is on the line, not the bottom.
    */
   hangs?: boolean;
+  /**
+   * Never wanders: settles where it arrives and only rocks very slightly on
+   * the spot now and then (`Creature.svelte`).
+   */
+  still?: boolean;
   /**
    * The depths it may arrive at, if not anywhere from far to near. A giant
    * keeps near the front of its lane, so it never shrinks below the animals
@@ -454,6 +464,22 @@ export const MOTION_PROFILES: Record<MotionStyle, MotionProfile> = {
     ground: true,
     band: PATCH_BACK,
     depths: [0.85, 1],
+  },
+  rest: {
+    region: { xMin: 0.04, xMax: 0.96, yMin: 0, yMax: 1 },
+    speed: 0,
+    agility: 1,
+    reachX: 0,
+    reachY: 0,
+    restChance: 1,
+    rest: [30, 60],
+    pulse: 0,
+    // An object has no front to turn round to.
+    flips: false,
+    tilts: false,
+    ground: true,
+    band: PLAIN,
+    still: true,
   },
 };
 

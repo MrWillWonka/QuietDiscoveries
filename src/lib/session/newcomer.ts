@@ -1,6 +1,6 @@
 /**
  * The Newcomer guarantee, for a Scene whose Roster grows by the day (Pumpkin
- * Hollow, `scenes/halloween/calendar.ts`).
+ * Hollow, Autumn Harvest: `scenes/schedule.ts`).
  *
  * Arrivals are normally a weighted roll (`roll.ts`). On the day a Newcomer
  * unlocks, though, a class should not have to be lucky to meet it: it arrives
