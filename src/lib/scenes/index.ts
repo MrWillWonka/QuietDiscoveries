@@ -19,6 +19,17 @@ import arcticIcon from "./arctic/icon.svg";
 import { ARCTIC_NOTE } from "./arctic/note";
 import { ARCTIC_ROSTER } from "./arctic/roster";
 import ForestAmbient from "./forest/AmbientLife.svelte";
+import {
+  availableToday as harvestAvailableToday,
+  drawToday as harvestDrawToday,
+} from "./harvest/arrivals";
+import HarvestAmbient from "./harvest/AmbientLife.svelte";
+import * as harvestArt from "./harvest/artwork";
+import { isOpen as isHarvestOpen } from "./harvest/calendar";
+import harvestIcon from "./harvest/icon.svg";
+import { HIDING_PLACES as HARVEST_HIDING_PLACES } from "./harvest/layout";
+import { HARVEST_NOTE } from "./harvest/note";
+import { HARVEST_ROSTER } from "./harvest/roster";
 import { availableToday, drawToday } from "./halloween/arrivals";
 import HalloweenAmbient from "./halloween/AmbientLife.svelte";
 import * as halloweenArt from "./halloween/artwork";
@@ -35,6 +46,7 @@ import * as jungleArt from "./jungle/artwork";
 import jungleIcon from "./jungle/icon.svg";
 import { JUNGLE_NOTE } from "./jungle/note";
 import { JUNGLE_ROSTER } from "./jungle/roster";
+import type { HidingPlace } from "./hiding";
 import type { DepartureStyle } from "./motion";
 import type { Schedule } from "./schedule";
 import PrehistoricAmbient from "./prehistoric/AmbientLife.svelte";
@@ -294,6 +306,29 @@ export const SCENES: Record<SceneId, SceneDef> = {
     // All through November, every year. Its whole Roster rolls as usual.
     openOn: isNovember,
     isNew: true,
+  },
+  harvest: {
+    id: "harvest",
+    icon: harvestIcon,
+    roster: HARVEST_ROSTER,
+    creatureArt: harvestArt.CREATURE_ART,
+    listeningArt: harvestArt.LISTENING_ART,
+    awakeArt: harvestArt.AWAKE_ART,
+    ambientArt: harvestArt.AMBIENT_ART,
+    Ambient: HarvestAmbient,
+    depthFade: false,
+    departure: "run",
+    whilePaused: "listen",
+    // Thanksgiving's, the forest's trail sign, which suits the farm too.
+    note: HARVEST_NOTE,
+    // Through November, unlocking a Newcomer on chosen school days.
+    openOn: isHarvestOpen,
+    isNew: true,
+    arrivals: { available: harvestAvailableToday, draw: harvestDrawToday },
+    discoveryDisplay: true,
+    // Every QD hides behind a prop and peeks out before it steps into the
+    // field (`harvest/layout.ts`).
+    hidingPlaces: HARVEST_HIDING_PLACES,
   },
 };
 

@@ -7,5 +7,6 @@
 <path d="M50 63V8M50 50L83 22M50 50L17 22M50 58L84 52M50 58L16 52" fill="none" stroke="#c98a3e" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
 <path d="M58 18C61 24 64 28 70 30" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
 </g>
-<path d="M88 3Q89.1 6.9 93 8Q89.1 9.1 88 13Q86.9 9.1 83 8Q86.9 6.9 88 3ZM14 32.8Q14.7 35.3 17.2 36Q14.7 36.7 14 39.2Q13.3 36.7 10.8 36Q13.3 35.3 14 32.8Z" fill="#ffffff" opacity="0.85"/>
+<path d="M88 2.5Q89.2 6.8 93.5 8Q89.2 9.2 88 13.5Q86.8 9.2 82.5 8Q86.8 6.8 88 2.5ZM13 30.4Q13.8 33.2 16.6 34Q13.8 34.8 13 37.6Q12.2 34.8 9.4 34Q12.2 33.2 13 30.4Z" fill="#F9A53A"/>
+<path d="M88 5Q88.7 7.3 91 8Q88.7 8.7 88 11Q87.3 8.7 85 8Q87.3 7.3 88 5ZM13 32Q13.4 33.6 15 34Q13.4 34.4 13 36Q12.6 34.4 11 34Q12.6 33.6 13 32Z" fill="#ffffff"/>
 </svg>

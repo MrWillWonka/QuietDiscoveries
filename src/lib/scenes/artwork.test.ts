@@ -10,6 +10,7 @@ import { join } from "node:path";
 import { ARCTIC_ROSTER } from "./arctic/roster";
 import { FOREST_ROSTER } from "./forest/roster";
 import { HALLOWEEN_ROSTER } from "./halloween/roster";
+import { HARVEST_ROSTER } from "./harvest/roster";
 import { JUNGLE_ROSTER } from "./jungle/roster";
 import { PREHISTORIC_ROSTER } from "./prehistoric/roster";
 import { REEF_ROSTER } from "./reef/roster";
@@ -28,12 +29,13 @@ const ROSTERS: Record<SceneId, CreatureDef[]> = {
   arctic: ARCTIC_ROSTER,
   halloween: HALLOWEEN_ROSTER,
   thanksgiving: THANKSGIVING_ROSTER,
+  harvest: HARVEST_ROSTER,
 };
 
 /** The Scenes whose art brief (§9, §10) prefixes every id with the Scene. */
 const SHADED_SCENES: SceneId[] = ["space", "prehistoric"];
 
-type ArtKind = "creatures" | "ambient" | "listening";
+type ArtKind = "creatures" | "ambient" | "listening" | "awake";
 
 function artDir(sceneId: SceneId, kind: ArtKind) {
   return join(import.meta.dir, sceneId, kind);
@@ -58,6 +60,13 @@ for (const [sceneId, roster] of Object.entries(ROSTERS) as [
       const slugs = roster.map((def) => def.slug);
       for (const file of svgFiles(sceneId, "listening")) {
         expect(slugs).toContain(file.slice(0, -".svg".length));
+      }
+    });
+
+    it("draws awake only Roster items that can wake", () => {
+      const waking = roster.filter((def) => def.awake).map((def) => def.slug);
+      for (const file of svgFiles(sceneId, "awake")) {
+        expect(waking).toContain(file.slice(0, -".svg".length));
       }
     });
 
@@ -118,6 +127,34 @@ for (const [sceneId, roster] of Object.entries(ROSTERS) as [
             : `${def.slug}-listening-`;
           for (const [, id] of listening.matchAll(/\sid="([^"]*)"/g)) {
             expect(id.startsWith(prefix)).toBe(true);
+          }
+        });
+      }
+
+      // A harvest item's awake drawing, swapped in for the whole Session
+      // when it arrives awake: the same rules, though its viewBox may differ.
+      if (def.awake) {
+        const awakeDef = def.awake;
+        it(`draws ${def.slug} awake, safe to inline`, () => {
+          const awake = readFileSync(
+            join(artDir(sceneId, "awake"), `${def.slug}.svg`),
+            "utf8",
+          );
+          const root = awake.match(/<svg[^>]*>/)?.[0] ?? "";
+          expect(root).not.toMatch(/\s(width|height)=/);
+          expect(awake).not.toContain("<style");
+          expect(awake).not.toContain("<image");
+          expect(awake).not.toContain("<text");
+          expect(awake).not.toMatch(/<filter|filter=|<mask|mask=/);
+          const classes = [...awake.matchAll(/class="([^"]*)"/g)].flatMap(
+            ([, names]) => names.split(/\s+/),
+          );
+          const parts = ANIMATABLE_PARTS.filter((part) =>
+            classes.includes(part),
+          );
+          expect([...awakeDef.parts].sort()).toEqual(parts.sort());
+          for (const [, id] of awake.matchAll(/\sid="([^"]*)"/g)) {
+            expect(id.startsWith(`${def.slug}-`)).toBe(true);
           }
         });
       }

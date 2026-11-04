@@ -8,6 +8,7 @@
 @import "../lib/scenes/halloween/scene.css";
 @import "../lib/scenes/halloween/entrance.css";
 @import "../lib/scenes/thanksgiving/scene.css";
+@import "../lib/scenes/harvest/scene.css";
 
 /* A phone on its side: too short for the start card at full size. */
 @custom-variant short (@media (max-height: 500px));
