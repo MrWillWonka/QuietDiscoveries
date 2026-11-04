@@ -80,10 +80,12 @@ export const FIELD: FieldPiece[] = [
   // bales almost twice and the sheaves over twice their size in the
   // illustration, so that most QDs can hide wholly behind one.
   {
+    // The three sheaves along the back fence are far away, so they grew
+    // only 1.3x in the size pass; the front one grew 2.1x.
     art: "wheat-sheaf",
     x: 14,
     base: 0.64,
-    wu: 9.66,
+    wu: 5.98,
     sway: "sheaf",
     hides: { width: 0.62, height: 0.62 },
   },
@@ -91,7 +93,7 @@ export const FIELD: FieldPiece[] = [
     art: "wheat-sheaf",
     x: 42.5,
     base: 0.628,
-    wu: 7.98,
+    wu: 4.94,
     sway: "sheaf",
     hides: { width: 0.62, height: 0.62 },
   },
@@ -99,7 +101,7 @@ export const FIELD: FieldPiece[] = [
     art: "wheat-sheaf",
     x: 94,
     base: 0.62,
-    wu: 7.98,
+    wu: 4.94,
     sway: "sheaf",
     hides: { width: 0.62, height: 0.62 },
   },
