@@ -365,9 +365,14 @@
           }
         } else {
           vanished += dt;
-          banker.style.opacity = String(
-            Math.max(0, 1 - vanished / PEEK_TIMING.vanish),
-          );
+          const left = String(Math.max(0, 1 - vanished / PEEK_TIMING.vanish));
+          banker.style.opacity = left;
+          // The "!" and the streaks go with it.
+          for (const mark of swimmer.querySelectorAll<HTMLElement>(
+            ".flee-alert, .speed-lines",
+          )) {
+            mark.style.opacity = left;
+          }
           if (vanished >= PEEK_TIMING.vanish) {
             ongone();
             return;
@@ -405,9 +410,7 @@
           // Speed lines trail on the side it is running away from.
           swimmer.dataset.bolting = fleeingTo > 0 ? "right" : "left";
         }
-        if (
-          stepFlee(state, style, shownDepth, footprint(), fleeingTo, dt)
-        ) {
+        if (stepFlee(state, style, shownDepth, footprint(), fleeingTo, dt)) {
           ongone();
           return;
         }

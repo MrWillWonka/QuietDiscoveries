@@ -73,7 +73,8 @@
   <div
     class="harvest-cloud pointer-events-none absolute"
     style="left:calc(var(--world-left) + {cloud.x -
-      cloud.width / 2} * var(--wu)); top:{cloud.y}%; width:calc({cloud.width} * var(--wu)); --harvest-drift:calc({cloud.drift} * var(--wu)); animation-duration:{cloud.duration}s; animation-delay:{cloud.delay}s;"
+      cloud.width /
+        2} * var(--wu)); top:{cloud.y}%; width:calc({cloud.width} * var(--wu)); --harvest-drift:calc({cloud.drift} * var(--wu)); animation-duration:{cloud.duration}s; animation-delay:{cloud.delay}s;"
   >
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html AMBIENT_ART.cloud}
@@ -93,10 +94,7 @@
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html AMBIENT_ART[piece.art]}
     {:else}
-      <div
-        class="harvest-lean"
-        class:harvest-lean-tree={piece.sway === "tree"}
-      >
+      <div class="harvest-lean" class:harvest-lean-tree={piece.sway === "tree"}>
         <div
           class="harvest-{piece.sway}"
           style="animation-duration:{piece.beat}s; animation-delay:{piece.delay}s;"
@@ -129,7 +127,8 @@
   >
     <div
       class="harvest-leaf"
-      style="animation-duration:{leaf.duration / 3}s; animation-delay:{leaf.delay}s;"
+      style="animation-duration:{leaf.duration /
+        3}s; animation-delay:{leaf.delay}s;"
     >
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html AMBIENT_ART[leaf.art]}
