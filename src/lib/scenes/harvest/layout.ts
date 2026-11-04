@@ -15,6 +15,7 @@
  */
 
 import type { HidingPlace } from "$lib/scenes/hiding";
+import type { TableDef } from "$lib/scenes/table";
 import type { MotionStyle } from "$lib/scenes/motion";
 
 /** How a piece moves in the wind (`scene.css`). */
@@ -46,6 +47,7 @@ export const ASPECT: Record<string, number> = {
   rock: 66 / 130,
   stump: 84 / 120,
   shrub: 108 / 160,
+  "picnic-table": 170 / 360,
 };
 
 /** Everything that walks, hops or rests on the ground. */
@@ -116,11 +118,21 @@ export const FIELD: FieldPiece[] = [
   // No pumpkins, apples or corn in the scenery: those are QDs here.
   {
     art: "stump",
-    x: 20,
-    base: 0.74,
+    x: 12,
+    base: 0.78,
     wu: 8.4,
     sway: "none",
     hides: { width: 0.8, height: 0.84 },
+  },
+  // A rustic picnic table in the left-centre of the field: scenery, not a
+  // QD, though harvest items land on it (`TABLE`) and animals hide behind it.
+  {
+    art: "picnic-table",
+    x: 29,
+    base: 0.735,
+    wu: 17,
+    sway: "none",
+    hides: { width: 0.9, height: 0.85 },
   },
   {
     art: "hay-bale",
@@ -132,7 +144,7 @@ export const FIELD: FieldPiece[] = [
   },
   {
     art: "shrub",
-    x: 38.5,
+    x: 43,
     base: 0.8,
     wu: 11.9,
     sway: "tree",
@@ -245,3 +257,30 @@ export const HIDING_PLACES: HidingPlace[] = [
     motions: piece.motions,
   })),
 ];
+
+/**
+ * The picnic table's top, where harvest items can land instead of the
+ * grass (`scenes/table.ts`). The same table as the `picnic-table` piece in
+ * `FIELD`; `top` is in shares of its drawing: how high the tabletop is
+ * from the table's foot, and where along it there is room.
+ */
+export const TABLE: TableDef = (() => {
+  const piece = FIELD.find((one) => one.art === "picnic-table")!;
+  return {
+    x: piece.x,
+    base: piece.base,
+    wu: piece.wu,
+    aspect: ASPECT["picnic-table"],
+    top: { height: 112 / 170, left: 0.1, right: 0.9 },
+    items: [
+      "pumpkin-pie",
+      "harvest-apple",
+      "harvest-basket",
+      "golden-acorn",
+      "harvest-patch",
+      "multicolored-corn",
+    ],
+    chance: 0.5,
+    max: 3,
+  };
+})();

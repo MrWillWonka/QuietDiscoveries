@@ -139,6 +139,16 @@ export const SAND_BOTTOM = 0.98;
 /** The open plain in the savanna backdrop, as fractions of Scene height. */
 const PLAIN = { top: 0.62, bottom: 0.97 };
 
+/** Where a ground Creature's feet may rest, far to near (`MotionProfile.band`). */
+export type Band = { top: number; bottom: number };
+
+/**
+ * The whole field, back to front: the band every ground Creature walks in a
+ * Scene whose Creatures wander nearer and further (`SceneDef.depthWander`),
+ * whatever band its motion keeps to elsewhere.
+ */
+export const FIELD_BAND: Band = PLAIN;
+
 const WATER: Region = { xMin: 0.06, xMax: 0.94, yMin: 0.1, yMax: 0.78 };
 
 /**
@@ -538,8 +548,12 @@ export function groundLayer(y: number): number {
  * A Creature's layer. Ground Creatures by their feet; swimmers and fliers by
  * where their depth would put them on the ground below.
  */
-export function creatureLayer(profile: MotionProfile, depth: number): number {
-  return groundLayer(groundLine(depth, profile.band));
+export function creatureLayer(
+  profile: MotionProfile,
+  depth: number,
+  band: Band | undefined = profile.band,
+): number {
+  return groundLayer(groundLine(depth, band));
 }
 
 /** The box a Creature's centre is allowed in, so no part of it is cut off. */
@@ -547,6 +561,7 @@ function bounds(
   profile: MotionProfile,
   footprint: Footprint,
   depth: number,
+  band: Band | undefined = profile.band,
 ): Region {
   const halfW = footprint.width / 2;
   const halfH = footprint.height / 2;
@@ -555,7 +570,7 @@ function bounds(
   const x = xMin <= xMax ? { xMin, xMax } : { xMin: 0.5, xMax: 0.5 };
 
   if (profile.ground) {
-    const line = groundLine(depth, profile.band);
+    const line = groundLine(depth, band);
     const y = profile.hangs ? line + halfH : line - halfH;
     return { ...x, yMin: y, yMax: y };
   }
@@ -600,9 +615,10 @@ export function createMotion(
   footprint: Footprint,
   random: () => number,
   flips = MOTION_PROFILES[style].flips,
+  band?: Band,
 ): MotionState {
   const profile = MOTION_PROFILES[style];
-  const box = bounds(profile, footprint, depth);
+  const box = bounds(profile, footprint, depth, band ?? profile.band);
   const state: MotionState = {
     x: clamp(box.xMin + spawnX * (box.xMax - box.xMin), box.xMin, box.xMax),
     y: clamp(box.yMin + spawnY * (box.yMax - box.yMin), box.yMin, box.yMax),
@@ -639,9 +655,10 @@ export function stepMotion(
   footprint: Footprint,
   dt: number,
   random: () => number,
+  band?: Band,
 ): MotionState {
   const profile = MOTION_PROFILES[style];
-  const box = bounds(profile, footprint, depth);
+  const box = bounds(profile, footprint, depth, band ?? profile.band);
   state.age += dt;
 
   let desiredX = 0;
@@ -703,8 +720,10 @@ export function stepSettle(
   depth: number,
   footprint: Footprint,
   dt: number,
+  band?: Band,
 ): MotionState {
-  const box = bounds(MOTION_PROFILES[style], footprint, depth);
+  const profile = MOTION_PROFILES[style];
+  const box = bounds(profile, footprint, depth, band ?? profile.band);
   state.age += dt;
   const brake = Math.min(1, dt * SETTLE_BRAKING);
   state.vx -= state.vx * brake;
@@ -763,9 +782,10 @@ export function stepFlee(
   footprint: Footprint,
   direction: -1 | 1,
   dt: number,
+  band?: Band,
 ): boolean {
   const profile = MOTION_PROFILES[style];
-  const box = bounds(profile, footprint, depth);
+  const box = bounds(profile, footprint, depth, band ?? profile.band);
   state.age += dt;
   state.resting = 0;
 

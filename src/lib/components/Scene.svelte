@@ -27,6 +27,7 @@
     fleeing,
     ondepart,
     onwake,
+    onperch,
   }: {
     scene: SceneDef;
     creatures: CreatureInstance[];
@@ -50,6 +51,8 @@
     ondepart: (id: number) => void;
     /** A harvest item has transformed into its awake self (`Session.wake`). */
     onwake: (id: number) => void;
+    /** A harvest item landed on the table there, or left it (null). */
+    onperch?: (id: number, x: number | null) => void;
   } = $props();
 
   /** One the Scene answers to is here, or has just come. */
@@ -100,6 +103,9 @@
       wakeIn={creature.awake ? undefined : creature.wakeIn}
       onwake={() => onwake(creature.id)}
       hidingPlaces={scene.hidingPlaces}
+      depthWander={scene.depthWander}
+      table={scene.table}
+      onperch={(x) => onperch?.(creature.id, x)}
     />
   {/each}
 

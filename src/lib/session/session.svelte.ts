@@ -54,6 +54,11 @@ export interface CreatureInstance {
    * like an animal instead of resting. Kept on refresh.
    */
   awake?: boolean;
+  /**
+   * A harvest item sitting on the picnic table rather than the grass
+   * (`scenes/table.ts`): where across the tabletop, in wu. Kept on refresh.
+   */
+  perch?: number;
 }
 
 export class Session {
@@ -260,8 +265,22 @@ export class Session {
     const creature = this.creatures.find((one) => one.id === id);
     if (!creature || creature.awake || !creature.def.awake) return;
     creature.awake = true;
+    // Awake, it hops down off the table and wanders the field.
+    creature.perch = undefined;
     this.#save();
     sightings.recordTransformed(this.#sceneId, creature.def.slug);
+  }
+
+  /**
+   * A harvest item has landed on the picnic table, at this spot across it
+   * (or left it): kept, so a refresh puts it back there.
+   */
+  perch(id: number, x: number | null) {
+    const creature = this.creatures.find((one) => one.id === id);
+    if (!creature) return;
+    if (x === null) delete creature.perch;
+    else creature.perch = x;
+    this.#save();
   }
 
   /** Anywhere from far to near, unless its motion keeps it to some depths. */

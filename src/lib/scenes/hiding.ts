@@ -15,6 +15,7 @@ import {
   MOTION_PROFILES,
   SAND_BOTTOM,
   SAND_TOP,
+  type Band,
   type MotionStyle,
 } from "./motion";
 
@@ -75,6 +76,8 @@ export type SizeAt = (depth: number) => { width: number; height: number };
 /** Everything a choice needs to know about the Creature. */
 export interface Hider {
   motion: MotionStyle;
+  /** The ground band it walks, if not its motion's own (`FIELD_BAND`). */
+  band?: Band;
   depth: number;
   sizeAt: SizeAt;
 }
@@ -153,19 +156,30 @@ export function coverBox(place: HidingPlace, view: View): Box {
 }
 
 /** The ground band a ground Creature walks, far to near. */
-function bandOf(motion: MotionStyle) {
-  return MOTION_PROFILES[motion].band ?? { top: SAND_TOP, bottom: SAND_BOTTOM };
+function bandOf(motion: MotionStyle, band?: Band): Band {
+  return (
+    band ??
+    MOTION_PROFILES[motion].band ?? { top: SAND_TOP, bottom: SAND_BOTTOM }
+  );
 }
 
 /** The depth whose ground line is `feet` (`groundLine` the other way round). */
-export function depthAt(motion: MotionStyle, feet: number): number {
-  const band = bandOf(motion);
+export function depthAt(
+  motion: MotionStyle,
+  feet: number,
+  over?: Band,
+): number {
+  const band = bandOf(motion, over);
   return (feet - band.top) / (band.bottom - band.top);
 }
 
 /** The ground line for a depth, as `groundLine` has it. */
-export function feetAt(motion: MotionStyle, depth: number): number {
-  const band = bandOf(motion);
+export function feetAt(
+  motion: MotionStyle,
+  depth: number,
+  over?: Band,
+): number {
+  const band = bandOf(motion, over);
   return band.top + depth * (band.bottom - band.top);
 }
 
@@ -197,17 +211,17 @@ export function planFor(
   } else if (place.pin) {
     // A frame is in front of everything, so any depth hides behind it, as
     // long as all of the Creature is inside: its own if it can be.
-    feet = feetAt(hider.motion, depth);
+    feet = feetAt(hider.motion, depth, hider.band);
     for (let i = 0; i < 3; i++) {
       const { height } = hider.sizeAt(depth);
-      const lowest = Math.min(box.bottom, feetAt(hider.motion, 1));
+      const lowest = Math.min(box.bottom, feetAt(hider.motion, 1, hider.band));
       feet = Math.min(lowest, Math.max(feet, box.top + height));
-      depth = depthAt(hider.motion, feet);
+      depth = depthAt(hider.motion, feet, hider.band);
     }
   } else {
     // Just behind the prop, so it is drawn behind it.
     feet = box.bottom - BEHIND;
-    depth = depthAt(hider.motion, feet);
+    depth = depthAt(hider.motion, feet, hider.band);
   }
   if (depth < DEPTH_RANGE[0] || depth > DEPTH_RANGE[1]) return null;
 

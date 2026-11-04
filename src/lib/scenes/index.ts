@@ -28,7 +28,10 @@ import HarvestLeafStorm from "./harvest/LeafStorm.svelte";
 import * as harvestArt from "./harvest/artwork";
 import { HARVEST_SCHEDULE, isOpen as isHarvestOpen } from "./harvest/calendar";
 import harvestIcon from "./harvest/icon.svg";
-import { HIDING_PLACES as HARVEST_HIDING_PLACES } from "./harvest/layout";
+import {
+  HIDING_PLACES as HARVEST_HIDING_PLACES,
+  TABLE as HARVEST_TABLE,
+} from "./harvest/layout";
 import { HARVEST_NOTE } from "./harvest/note";
 import { HARVEST_ROSTER } from "./harvest/roster";
 import { availableToday, drawToday } from "./halloween/arrivals";
@@ -48,6 +51,7 @@ import jungleIcon from "./jungle/icon.svg";
 import { JUNGLE_NOTE } from "./jungle/note";
 import { JUNGLE_ROSTER } from "./jungle/roster";
 import type { HidingPlace } from "./hiding";
+import type { TableDef } from "./table";
 import type { DepartureStyle } from "./motion";
 import type { Schedule } from "./schedule";
 import PrehistoricAmbient from "./prehistoric/AmbientLife.svelte";
@@ -164,6 +168,14 @@ export interface SceneDef {
   hidingPlaces?: HidingPlace[];
   /** The super-rare awake harvest items, keyed by slug (`CreatureDef.awake`). */
   awakeArt?: Record<string, string>;
+  /**
+   * Ground QDs wander nearer and further across the field as well as
+   * sideways, growing as they come forward and shrinking as they go back
+   * (`scenes/depthWander.ts`). Left out, each keeps the depth it arrived at.
+   */
+  depthWander?: boolean;
+  /** A table some harvest items land on instead of the grass (`table.ts`). */
+  table?: TableDef;
   /**
    * Drawn over the Scene for Too Loud instead of its veil: Autumn Harvest's
    * leaf storm, which piles up as the room stays loud and QDs leave. Told
@@ -347,6 +359,10 @@ export const SCENES: Record<SceneId, SceneDef> = {
     // Every QD hides behind a prop and peeks out before it steps into the
     // field (`harvest/layout.ts`).
     hidingPlaces: HARVEST_HIDING_PLACES,
+    // QDs grow as they come forward across the field, and some items land
+    // on the picnic table.
+    depthWander: true,
+    table: HARVEST_TABLE,
     // Too Loud is a leaf storm, not a fog (`harvest/LeafStorm.svelte`).
     TooLoud: HarvestLeafStorm,
   },

@@ -33,6 +33,8 @@ interface SavedCreature {
   awake?: boolean;
   /** A harvest item still to transform, and when (`session/awake.ts`). */
   wakeIn?: number;
+  /** A harvest item on the picnic table, and where across it. */
+  perch?: number;
 }
 
 export function loadReef(
@@ -46,7 +48,7 @@ export function loadReef(
     const saved = JSON.parse(raw) as SavedCreature[];
     if (!Array.isArray(saved)) return [];
     return saved.flatMap(
-      ({ id, slug, depth, spawnX, spawnY, awake, wakeIn }) => {
+      ({ id, slug, depth, spawnX, spawnY, awake, wakeIn, perch }) => {
         // A Creature since dropped from the Roster just does not come back.
         const def = roster.find((candidate) => candidate.slug === slug);
         if (!def) return [];
@@ -63,6 +65,7 @@ export function loadReef(
         if (awake === true && def.awake) instance.awake = true;
         else if (typeof wakeIn === "number" && def.awake)
           instance.wakeIn = wakeIn;
+        if (typeof perch === "number" && !instance.awake) instance.perch = perch;
         return [instance];
       },
     );
@@ -79,7 +82,7 @@ export function saveReef(sceneId: string, creatures: CreatureInstance[]) {
       return;
     }
     const saved: SavedCreature[] = creatures.map(
-      ({ id, def, depth, spawnX, spawnY, awake, wakeIn }) => ({
+      ({ id, def, depth, spawnX, spawnY, awake, wakeIn, perch }) => ({
         id,
         slug: def.slug,
         depth,
@@ -87,6 +90,7 @@ export function saveReef(sceneId: string, creatures: CreatureInstance[]) {
         spawnY,
         ...(awake ? { awake: true } : {}),
         ...(!awake && wakeIn !== undefined ? { wakeIn } : {}),
+        ...(!awake && perch !== undefined ? { perch } : {}),
       }),
     );
     localStorage.setItem(storageKey(sceneId), JSON.stringify(saved));

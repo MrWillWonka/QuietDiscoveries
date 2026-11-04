@@ -70,6 +70,7 @@
     fleeing={app.session.fleeing}
     ondepart={(id) => app.session.depart(id)}
     onwake={(id) => app.session.wake(id)}
+    onperch={(id, x) => app.session.perch(id, x)}
   />
 
   {#if app.paused || settings.showMeter || app.scene.discoveryDisplay}
