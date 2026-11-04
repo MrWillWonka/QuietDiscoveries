@@ -8,7 +8,8 @@ no decisions, no specification. Decisions live in `docs/adr/`.
 The calm world on screen. The teacher chooses between seven Scenes: the
 savanna, the coral reef, deep space, the prehistoric floodplain, the
 forest, the jungle and the Arctic sea ice, and for a few weeks around
-Halloween an eighth, Pumpkin Hollow, a Limited-time Scene. A Scene
+Halloween an eighth, Pumpkin Hollow, and all through November a ninth,
+Thanksgiving; both are Limited-time Scenes. A Scene
 is a backdrop, its Ambient Life, the Roster of Creatures that can live in it,
 and its Departure. Each
 Scene keeps the Creatures it has earned separately, so switching never takes
@@ -29,16 +30,30 @@ Creature in every other way.
 
 The full list of Creatures a Scene can produce. The Roster is fixed; the
 number of Creatures _present_ is not, because common Creatures can arrive more
-than once. The one exception is a Limited-time Scene, whose Roster grows by
+than once. The one exception is Pumpkin Hollow, whose Roster grows by
 one Newcomer on each Unlock Day.
 
 ## Limited-time Scene
 
-A Scene that is only on offer for a while: Pumpkin Hollow, from the Sunday
+A Scene that is only on offer for a while, and is badged "Limited time" in
+the menus. Pumpkin Hollow is on offer from the Sunday
 before the two weeks up to Halloween until a week after it. It opens with
 part of its Roster and gains the rest on Unlock Days. After Halloween it
 counts down the days it has left, and then it is gone from every menu and
 from the Collection, though nothing a Class earned in it is deleted.
+Thanksgiving is on offer all through November, every year, and rolls its
+whole Roster from the first day, like an everyday Scene.
+
+## Thanksgiving
+
+An autumn farm field at golden late afternoon in November: rolling hills,
+autumn trees, a little red barn, a split-rail fence, corn shocks, hay bales
+and pumpkins. Its QDs run from a field mouse, a cardinal and a wild turkey
+to an opossum and a barred owl, with a few made-up harvest characters (a
+leaf sprite, a pie pal and a cornling) among them, and a harvest moon, an
+elk and Tom Turkey as the Rare ones. Nature and harvest only: no food is
+eaten, and there are no costumes or people. Too Loud is a gusty autumn
+wind, and its Note is the forest's trail sign.
 
 ## Unlock Day
 
@@ -65,7 +80,8 @@ clouds on the savanna, seaweed and plankton on the reef, twinkling stars and
 drifting dust in deep space, ferns and river mist in the
 prehistoric Scene, falling leaves and drifting motes in the forest, lianas, sunbeams
 and a far waterfall in the jungle, the aurora, falling snow and bobbing
-ice floes in the Arctic. Ambient Life is present from the first moment of
+ice floes in the Arctic, drifting clouds, falling leaves, swaying corn and
+geese crossing over the Thanksgiving field. Ambient Life is present from the first moment of
 every Session, is never earned, and is never counted. It exists so an
 unpopulated Scene still reads as a living place.
 
@@ -131,7 +147,8 @@ How a Scene's Creatures leave when they Run Away. On the savanna, the
 reef, the prehistoric floodplain, the forest, the jungle and the Arctic they are startled and **run** off the edge of the Scene. In deep space
 they **fade out**: each one stays where it is and breaks up into static, like
 a signal lost to interference. In Pumpkin Hollow the animals run, but the
-ghosts, the moon and Jack O. Lantern fade away. Only the look differs: which
+ghosts, the moon and Jack O. Lantern fade away, and in Thanksgiving
+the leaf sprite and the harvest moon do. Only the look differs: which
 Creatures leave, and when, is the same in every Scene.
 
 ## Paused

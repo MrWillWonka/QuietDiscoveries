@@ -166,23 +166,11 @@
   height: calc(2.2 * var(--wu));
   opacity: 0;
   background:
-    radial-gradient(
-        closest-side,
-        rgb(255 240 210 / 0.75),
-        rgb(255 240 210 / 0)
-      )
+    radial-gradient(closest-side, rgb(255 240 210 / 0.75), rgb(255 240 210 / 0))
       0 22% / 100% 30% no-repeat,
-    radial-gradient(
-        closest-side,
-        rgb(255 240 210 / 0.6),
-        rgb(255 240 210 / 0)
-      )
+    radial-gradient(closest-side, rgb(255 240 210 / 0.6), rgb(255 240 210 / 0))
       70% 55% / 75% 26% no-repeat,
-    radial-gradient(
-        closest-side,
-        rgb(255 240 210 / 0.5),
-        rgb(255 240 210 / 0)
-      )
+    radial-gradient(closest-side, rgb(255 240 210 / 0.5), rgb(255 240 210 / 0))
       100% 86% / 55% 22% no-repeat;
   transform: translate(calc(-10 * var(--wu)), -50%)
     rotate(calc(var(--thanksgiving-tilt, 0deg) - 14deg));

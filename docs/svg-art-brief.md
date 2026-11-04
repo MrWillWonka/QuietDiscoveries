@@ -689,3 +689,86 @@ no Universal monster make-up (no flat-topped head with neck bolts, no
 widow's peak); nothing from _Hocus Pocus_. The finale, Jack O. Lantern, a
 gentle giant of vines and autumn leaves with a glowing carved-pumpkin head,
 comes from public-domain folklore: the Green Man and Stingy Jack's lantern.
+
+## 15. Thanksgiving
+
+An autumn farm field at the edge of a meadow at golden late afternoon in
+November: rolling hills with soft autumn woods, a small red barn and silo
+far off, a split-rail fence along the back of the field, corn shocks, round
+hay bales and pumpkins left from the harvest, and big maples in full colour
+at the corners (`thanksgiving/roster.ts` has the QDs). It is on offer all
+through November, every year. It is drawn in the savanna's cartoon style,
+in the same family as the forest (§11) and Pumpkin Hollow (§14), so §1 and
+§2 apply as they do there, and its Creatures are drawn and checked exactly
+as theirs are: the signature eye, the pink cheek (`#ff7a8a` at 0.55), the
+`#2b2b3a` overlay for shade, part groups with `transform-box: fill-box` and
+their joint inline, and an Arctic contact shadow under ground animals.
+
+- **Warm, cosy, gentle.** Nature and harvest only: no Pilgrims, no Native
+  American imagery or costumes, no people, and no food being eaten (no
+  roasted turkey, nothing on a plate). The made-up characters (the leaf
+  sprite, the pie pal, the cornling and the harvest moon) are friendly
+  faces with the signature eye, never fierce. Trees, the barn and the
+  scenery never get faces; the barn's windows are plain dark squares.
+- **Ground animals** walk the savanna's band (feet on the bottom edge of
+  the viewBox, 62% of the way down to the bottom). Tom Turkey `stride`s
+  along the back of that band, as Pumpkin Hollow's giant does, just in
+  front of the fence. Fliers (`soar`, `drift`) are drawn in flight.
+
+### Palette
+
+§1's ink `#2b2b3a`, highlight `#ffffff`, cream `#f4f1de`, blush `#ff7a8a`,
+accent yellow `#ffd166` and accent red `#ef476f`, the savanna's and the
+forest's animal browns, plus:
+
+| Role                | Hex       |
+| ------------------- | --------- |
+| Sky high (cool)     | `#d9e4e4` |
+| Sky low (gold)      | `#fbdca0` |
+| Sun                 | `#ffe9b8` |
+| Far hills           | `#e8c9a6` |
+| Near hills          | `#d9ad84` |
+| Stubble field       | `#e8c67c` |
+| Meadow grass        | `#c2b871` |
+| Meadow grass (near) | `#b3ad65` |
+| Farm track          | `#dcc08e` |
+| Maple red           | `#c8553a` |
+| Maple orange        | `#e2823a` |
+| Maple gold          | `#ecac48` |
+| Leaf red            | `#d9643a` |
+| Leaf gold           | `#e0a33c` |
+| Pumpkin             | `#e8812a` |
+| Barn red            | `#b8574a` |
+| Weathered wood      | `#6b4f3a` |
+| Fence rail          | `#9a7656` |
+
+The near meadow is a soft olive rather than gold so that brown and bronze
+animals (the mouse, the quail, the turkeys, the elk) stand out on it.
+
+### The backdrop and Ambient Life
+
+`ambient/backdrop.svg` is 1920×1080 with `preserveAspectRatio="none"`, and
+its one gradient is the sky, `thanksgiving-backdrop-sky`, cool and pale
+overhead and warm gold at the hills. The hills meet the field at about
+y 630; the stubble field runs to about y 780 and the olive meadow from
+there to the bottom, with a farm track coming down the middle. The middle
+of the sky (x 0.3–0.7, y 0.1–0.4) is kept empty for a Note.
+
+Everything that stands up is Ambient Life (`thanksgiving/AmbientLife.svelte`
+places it), so it stays its own shape at any screen size and layers with
+the animals by where it meets the ground: `sun`, `cloud` (drifting),
+`geese` (a flat silhouette skein crossing now and then, never mistaken for
+a Creature), `hill-trees` and `barn` on the far hills, `fence` along the
+back of the field (open where the track comes in), `corn-shock` (sways
+about its foot), `hay-bale`, `pumpkins`, `maple-tree`, and three falling
+leaves, `leaf-1` to `leaf-3`. Field pieces sit on the bottom edge of their
+viewBox with a contact shadow and scale with depth exactly as the animals
+do. Every id in the backdrop and Ambient Life is prefixed `thanksgiving-`.
+
+### Too Loud
+
+A gusty autumn wind: a warm amber haze blows over the field, thickest low
+down, the corn shocks lean over and leaves stream across on pale gusts
+(`thanksgiving/scene.css`). It moves by transitions, since Too Loud holds
+every animation still, and nothing flashes. The Note is the forest's trail
+sign (§11).
