@@ -43,7 +43,7 @@
     // On the hills, far beyond the field.
     { x: 8, base: 43, wu: 13, art: "hill-trees" },
     { x: 33, base: 43.5, wu: 10, art: "hill-trees" },
-    { x: 66, base: 42.2, wu: 7, art: "barn" },
+    { x: 66, base: 42.2, wu: 5.5, art: "barn" },
     { x: 85, base: 43, wu: 12, art: "hill-trees" },
     // Big maples at the back corners of the field.
     { x: 2, base: 38.6, wu: 12, art: "maple-tree" },
@@ -57,21 +57,21 @@
     { x: 80, base: 39, wu: 14, art: "fence" },
     { x: 94, base: 39, wu: 14, art: "fence" },
     // At the back of the field.
-    { x: 14, base: 35, width: 52, art: "corn-shock" },
-    { x: 34, base: 32, width: 84, art: "hay-bale" },
-    { x: 46, base: 34.5, width: 50, art: "corn-shock" },
-    { x: 72, base: 33.5, width: 64, art: "pumpkins" },
-    { x: 86, base: 35, width: 52, art: "corn-shock" },
+    { x: 14, base: 35, width: 78, art: "corn-shock" },
+    { x: 34, base: 32, width: 96, art: "hay-bale" },
+    { x: 46, base: 34.5, width: 74, art: "corn-shock" },
+    { x: 72, base: 33.5, width: 90, art: "pumpkins" },
+    { x: 86, base: 35, width: 78, art: "corn-shock" },
     // The middle of the field.
-    { x: 24, base: 22, width: 66, art: "pumpkins" },
-    { x: 42, base: 19, width: 54, art: "corn-shock" },
-    { x: 68, base: 21, width: 54, art: "corn-shock" },
-    { x: 86, base: 23, width: 90, art: "hay-bale" },
+    { x: 24, base: 22, width: 90, art: "pumpkins" },
+    { x: 42, base: 19, width: 78, art: "corn-shock" },
+    { x: 68, base: 21, width: 78, art: "corn-shock" },
+    { x: 86, base: 23, width: 100, art: "hay-bale" },
     // The front, nearest the room.
-    { x: 7, base: 6, width: 58, art: "corn-shock" },
-    { x: 33, base: 3, width: 64, art: "pumpkins" },
+    { x: 7, base: 6, width: 80, art: "corn-shock" },
+    { x: 33, base: 3, width: 84, art: "pumpkins" },
     { x: 71, base: 3, width: 92, art: "hay-bale" },
-    { x: 93, base: 5, width: 58, art: "corn-shock" },
+    { x: 93, base: 5, width: 80, art: "corn-shock" },
   ].map((piece, index) => {
     const ground = 1 - piece.base / 100;
     const depth = Math.min(1.15, Math.max(0, (ground - 0.62) / 0.35));

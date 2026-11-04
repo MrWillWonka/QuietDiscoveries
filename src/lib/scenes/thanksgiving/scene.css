@@ -154,7 +154,7 @@
 
 .scene-stage[data-scene="thanksgiving"][data-murky="true"]
   .thanksgiving-corn-lean {
-  transform: rotate(5deg) skewX(-3deg);
+  transform: rotate(8deg) skewX(-4deg);
 }
 
 /* Leaves blown across on the wind: each rides in on its gust and holds
@@ -166,11 +166,11 @@
   height: calc(2.2 * var(--wu));
   opacity: 0;
   background:
-    radial-gradient(closest-side, rgb(255 240 210 / 0.75), rgb(255 240 210 / 0))
+    radial-gradient(closest-side, rgb(255 246 226 / 0.95), rgb(255 246 226 / 0))
       0 22% / 100% 30% no-repeat,
-    radial-gradient(closest-side, rgb(255 240 210 / 0.6), rgb(255 240 210 / 0))
+    radial-gradient(closest-side, rgb(255 246 226 / 0.85), rgb(255 246 226 / 0))
       70% 55% / 75% 26% no-repeat,
-    radial-gradient(closest-side, rgb(255 240 210 / 0.5), rgb(255 240 210 / 0))
+    radial-gradient(closest-side, rgb(255 246 226 / 0.75), rgb(255 246 226 / 0))
       100% 86% / 55% 22% no-repeat;
   transform: translate(calc(-10 * var(--wu)), -50%)
     rotate(calc(var(--thanksgiving-tilt, 0deg) - 14deg));
@@ -222,7 +222,7 @@ html[data-scene="thanksgiving"]:not(:has(.scene-stage)) body {
    leans and leaves stream across. Nothing in it flashes or comes at the
    class, and every animal stays in plain sight. */
 .scene-stage[data-scene="thanksgiving"][data-murky="true"] {
-  filter: saturate(0.65) sepia(0.2) brightness(0.9) blur(1px);
+  filter: saturate(0.85) sepia(0.35) brightness(0.92) blur(1px);
 }
 
 .scene-stage[data-scene="thanksgiving"] .too-loud-veil {
