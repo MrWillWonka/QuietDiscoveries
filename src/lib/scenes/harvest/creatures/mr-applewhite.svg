@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 106 112">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2.5 -4 100.5 110">
   <ellipse cx="50" cy="106" rx="30" ry="3.2" fill="#2b2b3a" opacity="0.14"/>
   <g class="part-tail" style="transform-box: fill-box; transform-origin: 95% 30%">
-  <path d="M36 74 L2 92 C-3 93 -4 98 0 99.5 C-3 101 -1 105 4 104.5 C4 107 9 107 12 104 L42 86 Z" fill="#3c6fd6"/>
-  <path d="M2 92 C-3 93 -4 98 0 99.5 C-3 101 -1 105 4 104.5 C4 107 9 107 12 104 L15 102.2 C11 103.5 8 102.5 8.2 100.5 C5 100.5 3.5 98 5 96.3 C4 94.8 5 92.5 7.5 91.2 Z" fill="#ffffff"/>
+  <path d="M36 74 L2 92 C-3 93 -4 98 0 99.5 C-3 101 -1 105 4 104.5 C4 106.4 9 106.4 12 104 L42 86 Z" fill="#3c6fd6"/>
+  <path d="M2 92 C-3 93 -4 98 0 99.5 C-3 101 -1 105 4 104.5 C4 106.4 9 106.4 12 104 L15 102.2 C11 103.5 8 102.5 8.2 100.5 C5 100.5 3.5 98 5 96.3 C4 94.8 5 92.5 7.5 91.2 Z" fill="#ffffff"/>
   <path d="M26.4 80.6 L32.4 90.2 M18.9 84.6 L25.8 94.2 M11.4 88.5 L19.2 98.1" stroke="#1f2a55" stroke-width="2.4" stroke-linecap="round"/>
   <path d="M12 104 L42 86 L41 82 L8 101 C9 103 10 104 12 104 Z" fill="#2b2b3a" opacity="0.15"/>
   </g>

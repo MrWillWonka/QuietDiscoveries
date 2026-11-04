@@ -8,8 +8,16 @@
    * to it.
    */
 
-  import { t, tIn, type UiKey } from "$lib/i18n/index.svelte";
+  import { creatureName, t, tIn, type UiKey } from "$lib/i18n/index.svelte";
   import type { App } from "$lib/app.svelte";
+  import { unlockedSecrets } from "$lib/scenes/schedule";
+  import { secretVisits } from "$lib/scenes/secretVisits.svelte";
+  import {
+    askForVisit,
+    cancelVisit,
+    visitToday,
+  } from "$lib/session/secretVisit";
+  import { today } from "$lib/today.svelte";
   import {
     ARRIVAL_RATE_PRESETS,
     MAX_ARRIVAL_MINUTES,
@@ -39,6 +47,36 @@
   const LOUD_RESPONSES: LoudResponse[] = ["flee", "pause"];
 
   let previewOpen = $state(false);
+
+  /**
+   * The Scene's Secret QDs about today (Autumn Harvest's Mr Applewhite),
+   * each with whether the teacher has asked for him and whether he has
+   * been, for the Class on screen. Settings is the teacher's, so he is named.
+   */
+  const secretsToday = $derived.by(() => {
+    const day = today.day;
+    const { id, schedule, roster } = app.scene;
+    if (!schedule || day === null) return [];
+    return unlockedSecrets(schedule, day)
+      .filter((slug) => roster.some((def) => def.slug === slug))
+      .map((slug) => ({
+        slug,
+        day,
+        state: visitToday(secretVisits.get(id, slug), day),
+      }));
+  });
+
+  function toggleVisit(slug: string, day: string) {
+    const id = app.scene.id;
+    const state = secretVisits.get(id, slug);
+    secretVisits.set(
+      id,
+      slug,
+      visitToday(state, day).asked
+        ? cancelVisit(state, day)
+        : askForVisit(state, day, Math.random),
+    );
+  }
 </script>
 
 <div
@@ -237,6 +275,49 @@
         />
         {tIn(app.scene.id, "settings.showCounter")}
       </label>
+      {#each secretsToday as secret (secret.slug)}
+        {@const name = creatureName(secret.slug)}
+        <div class="rounded-lg bg-amber-50 px-3 py-2.5">
+          {#if secret.state.visited}
+            <p class="text-sm text-slate-700">
+              <span class="font-medium">{name}</span> —
+              <span class="font-medium text-emerald-800"
+                >{t("settings.secretVisited")}</span
+              >
+            </p>
+          {:else}
+            <button
+              class="flex w-full items-center justify-between gap-3 text-left text-sm text-slate-700"
+              role="switch"
+              aria-checked={secret.state.asked}
+              aria-describedby="secret-hint-{secret.slug}"
+              onclick={() => toggleVisit(secret.slug, secret.day)}
+            >
+              {t("settings.secretVisit", { name })}
+              <span
+                class="relative h-5 w-9 shrink-0 rounded-full transition-colors {secret
+                  .state.asked
+                  ? 'bg-slate-900'
+                  : 'bg-slate-300'}"
+                aria-hidden="true"
+              >
+                <span
+                  class="absolute top-0.5 left-0.5 size-4 rounded-full bg-white shadow-sm transition-transform {secret
+                    .state.asked
+                    ? 'translate-x-4'
+                    : ''}"
+                ></span>
+              </span>
+            </button>
+            <p
+              id="secret-hint-{secret.slug}"
+              class="mt-1 text-xs text-slate-500"
+            >
+              {t("settings.secretVisitHint")}
+            </p>
+          {/if}
+        </div>
+      {/each}
     </section>
 
     <section class="mt-6 space-y-3">
