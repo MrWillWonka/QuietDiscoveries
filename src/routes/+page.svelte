@@ -37,12 +37,14 @@
    * Tells search engines and AI assistants what kind of thing this page is,
    * and gives them the questions the info drawer answers.
    */
+  // Addresses are left out until SITE_URL is set in $lib/site.
+  const homeUrl = absoluteUrl("/");
   const webApplication = $derived({
     "@type": "WebApplication",
-    name: "Shy Safari",
-    url: absoluteUrl("/"),
+    name: "Quiet Discoveries",
+    ...(homeUrl && { url: homeUrl }),
     description: t("app.description"),
-    image: PREVIEW_IMAGE,
+    ...(PREVIEW_IMAGE && { image: PREVIEW_IMAGE }),
     applicationCategory: "EducationalApplication",
     operatingSystem: "Any (web browser)",
     browserRequirements: "Requires a microphone and a modern web browser",
@@ -50,16 +52,11 @@
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     audience: { "@type": "EducationalAudience", educationalRole: "teacher" },
-    publisher: {
-      "@type": "Organization",
-      name: "teacher.dev",
-      url: "https://teacher.dev",
-    },
   });
 
   const faqPage = $derived({
     "@type": "FAQPage",
-    url: absoluteUrl("/"),
+    ...(homeUrl && { url: homeUrl }),
     mainEntity: FAQ_IDS.map((id) => ({
       "@type": "Question",
       name: t(`guide.faq.${id}.q`),
@@ -163,7 +160,7 @@
       // 4:3, the Scene's own shape, and small enough to sit beside a slide.
       pip = await controller.requestWindow({ width: 480, height: 360 });
       const page = pip.document;
-      page.title = "Shy Safari";
+      page.title = "Quiet Discoveries";
       page.documentElement.lang = current().locale;
       // Scales the corner controls with the window: see layout.css.
       page.documentElement.classList.add("floating");
@@ -296,7 +293,7 @@
               class="mx-auto mb-3 size-24 short:mb-1 short:size-14"
             />
             <h1 class="text-2xl font-semibold text-slate-900 short:text-xl">
-              Shy Safari
+              Quiet Discoveries
             </h1>
             <p
               class="mt-3 rounded-lg bg-amber-50 px-4 py-3 text-balance text-slate-800 short:mt-2 short:py-2 short:text-sm"

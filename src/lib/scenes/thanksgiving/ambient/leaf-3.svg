@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <!-- A plain oval leaf, orange, with its stalk. -->
+  <path d="M20 4 C 30 10, 32 24, 21 33 L 21 37 L 19 37 L 19 33 C 8 24, 10 10, 20 4 Z" fill="#e8813a"/>
+  <path d="M20 4 C 30 10, 32 24, 21 33 L 21 37 L 20 37 Z" fill="#2b2b3a" opacity="0.16"/>
+</svg>

@@ -16,17 +16,16 @@ const en = {
   locale: "en",
   ui: {
     "language.change": "Change language",
-    "app.pageTitle": "Shy Safari — free classroom noise level monitor",
+    "app.pageTitle": "Quiet Discoveries — free classroom noise level monitor",
     "app.description":
-      "A free classroom noise monitor for the projector. Shy savanna and coral reef animals come out the longer the room stays quiet. No sign-up, nothing recorded.",
-    "brand.title": "Built by teacher.dev",
-    "common.builtBy": "Built by teacher.dev",
+      "A free classroom noise monitor for the projector. Shy creatures we call QDs come out the longer the room stays quiet. No sign-up, nothing recorded.",
+    "brand.title": "About Quiet Discoveries",
     "common.about": "about",
     "common.privacy": "privacy",
     "common.howItWorks": "how it works",
     "preview.alt":
-      "A calm savanna with an elephant, zebras, a lion, a giraffe and a meerkat, beside the words Shy Safari, a free classroom noise monitor",
-    "common.back": "← Back to Shy Safari",
+      "A calm savanna with an elephant, zebras, a lion, a giraffe and a meerkat, beside the words Quiet Discoveries, a free classroom noise monitor",
+    "common.back": "← Back to Quiet Discoveries",
     "common.close": "Close",
     "common.cancel": "Cancel",
     "common.done": "Done",
@@ -36,11 +35,11 @@ const en = {
     "float.openHint":
       "Float the scene in a small window over your slides or other tabs",
     "float.failed": "The floating window could not be opened.",
-    "floating.title": "Shy Safari is floating",
+    "floating.title": "Quiet Discoveries is floating",
     "floating.instructions":
       "The scene is in its own window over your other tabs, and keeps listening to the room. Keep this tab open: the window's back-to-tab button brings it back here.",
-    "floating.return": "Bring Shy Safari back here",
-    "start.shy": "Shh… these animals are shy!",
+    "floating.return": "Bring Quiet Discoveries back here",
+    "start.shy": "Shh… these QDs are shy!",
     "start.explain":
       "If it gets too loud, they stay hidden. When the room is calm again, they'll start coming out.",
     "start.button": "Start",
@@ -67,7 +66,7 @@ const en = {
     "scene.halloween.name": "Halloween",
     "scene.halloween.hint": "Bats, ghosts and jack-o'-lanterns",
     "hollow.limited": "Limited time",
-    "hollow.daily": "A new animal every school day",
+    "hollow.daily": "A new QD every school day",
     "hollow.closesIn": "Leaves in {days} days",
     "hollow.lastDay": "Last day!",
     "hollow.newToday": "Someone new is in the pumpkin patch today…",
@@ -84,7 +83,7 @@ const en = {
     "controls.resetYes": "Yes, reset",
     "controls.keepGoing": "Keep going",
     "controls.settings": "Settings",
-    "controls.animals": "Animals",
+    "controls.animals": "QDs",
     "controls.timer": "Timer",
     "timer.label": "Timer",
     "timer.minutes": "Minutes",
@@ -127,7 +126,7 @@ const en = {
     "classes.change": "Change class",
     "classes.unnamed": "My class",
     "classes.edit": "Edit classes",
-    "classes.hint": "Each class keeps its own animals and its own collection.",
+    "classes.hint": "Each class keeps its own QDs and its own collection.",
     "classes.storage":
       "Your classes are saved in this browser, on this computer only. They will not show up on another computer or browser, and clearing your browser data deletes them.",
     "classes.current": "On screen",
@@ -141,7 +140,7 @@ const en = {
     "classes.add": "Add class",
     "classes.deleteTitle": "Are you sure?",
     "classes.deleteBody":
-      "Delete {name}? The animals it has out in every scene and everything in its collection will be gone for good.",
+      "Delete {name}? The QDs it has out in every scene and everything in its collection will be gone for good.",
     "classes.deleteOnly":
       "It's your only class, so a new, empty one will take its place.",
     "classes.deleteYes": "Yes, delete",
@@ -154,18 +153,18 @@ const en = {
     "start.explainFlee":
       "If it gets too loud, they'll run away! Keep the room calm and they'll come out and stay.",
     "settings.tooLoud": "When it's too loud",
-    "loud.flee.label": "Animals run away",
+    "loud.flee.label": "QDs run away",
     "loud.flee.hint":
       "Everyone freezes, and some run off every 5 seconds until it's calm",
     "loud.pause.label": "Pause the scene",
-    "loud.pause.hint": "Animals hold still and no new ones come out",
-    "settings.arrival": "How often animals arrive",
-    "settings.aboutEvery": "About one animal every",
+    "loud.pause.hint": "QDs hold still and no new ones come out",
+    "settings.arrival": "How often QDs arrive",
+    "settings.aboutEvery": "About one QD every",
     "settings.minutes": "minutes",
-    "settings.showCounter": "Count animals as they arrive",
-    "counter.label": "Animals arrived: {count}",
+    "settings.showCounter": "Count QDs as they arrive",
+    "counter.label": "QDs arrived: {count}",
     "settings.tryIt": "Try it out",
-    "settings.summon": "Bring out every animal",
+    "settings.summon": "Bring out every QD",
     "settings.advanced": "Advanced",
     "settings.previewHalloween": "Preview Halloween characters",
     "preview.title": "Halloween characters",
@@ -182,16 +181,16 @@ const en = {
     "rate.relaxed": "Relaxed",
     "rate.normal": "Normal",
     "rate.lively": "Lively",
-    "rate.hint": "about one animal every {minutes} minutes",
+    "rate.hint": "about one QD every {minutes} minutes",
     "mic.default": "Default microphone",
     "mic.numbered": "Microphone {number}",
     "mic.connecting": "Connecting…",
     "mic.connect": "Connect microphone",
     "meter.current": "Current volume",
     "meter.paused": "Paused — too loud",
-    "meter.arriving": "Animals are arriving",
+    "meter.arriving": "QDs are arriving",
     "meter.goal":
-      "Animals arrive while the room stays left of the line ({goal}%)",
+      "QDs arrive while the room stays left of the line ({goal}%)",
     "calibration.title": "Calibration",
     "calibration.needMic": "Connect a microphone first",
     "calibration.calibrated": "✓ Calibrated",
@@ -222,20 +221,20 @@ const en = {
       "Those two samples were too close together to tell apart — the room may not have been quiet, or the microphone may not be picking up the class.",
     "calibration.startAgain": "Start again",
     "calibration.hears": "What the microphone hears",
-    "collection.title": "Animals",
+    "collection.title": "QDs",
     "collection.spotted": "{class}: {seen} of {total} spotted",
     "collection.notSeen": "Not seen yet",
     "collection.seen": "Seen {count}×",
     "tier.common": "Common",
     "tier.uncommon": "Uncommon",
     "tier.rare": "Rare",
-    "chance.common.label": "Chance of common animals",
-    "chance.uncommon.label": "Chance of uncommon animals",
-    "chance.rare.label": "Chance of rare animals",
+    "chance.common.label": "Chance of common QDs",
+    "chance.uncommon.label": "Chance of uncommon QDs",
+    "chance.rare.label": "Chance of rare QDs",
     "chance.common": "{percent}% of arrivals are common",
     "chance.uncommon": "{percent}% of arrivals are uncommon",
     "chance.rare": "{percent}% of arrivals are rare",
-    "blocked.title": "The animals need to hear the room",
+    "blocked.title": "The QDs need to hear the room",
     "blocked.denied":
       "This browser blocked access to the microphone. Click the padlock or camera icon in the address bar, allow the microphone, then try again.",
     "blocked.missing":
@@ -243,56 +242,49 @@ const en = {
     "blocked.unsupported":
       "This browser cannot use a microphone. Chrome, Edge and Safari all work.",
     "blocked.tryAgain": "Try again",
-    "about.pageTitle": "About — Shy Safari",
+    "about.pageTitle": "About — Quiet Discoveries",
     "about.meta":
-      "Shy Safari is a free classroom noise tool made at the EdTech-a-thon and run by teacher.dev. No ads, no accounts.",
+      "Quiet Discoveries is a free classroom noise monitor: a calm scene where shy QDs come out the longer the room stays quiet. No ads, no accounts.",
     "about.title": "About",
     "about.lede":
-      "Put it on the projector. The quieter the room, the more animals come out.",
+      "Put it on the projector. The quieter the room, the more QDs come out.",
     "about.originTitle": "Where it came from",
-    "about.origin.beforeEvent":
-      "Shy Safari started as a three-day project at the ",
-    "about.origin.afterEvent":
-      ", an event where people get together to build free tools for classrooms. It's now run by ",
-    "about.origin.afterTeacher": ", where you can find our other tools.",
-    "about.photoAlt": "Participants of the 2026 EdTech-a-thon",
+    "about.origin.beforeLink": "Based on ",
+    "about.origin.link": "Shy Safari by teacher.dev",
+    "about.origin.afterLink": ", used under the Apache 2.0 licence.",
+    "about.namesTitle": "Why QDs?",
+    "about.names":
+      "We call them QDs — say it out loud. They're the cuties who come out while the room is quiet: zebras and giraffes, reef fish, dinosaurs, foxes and polar bears, and in deep space, sightings through a telescope.",
     "about.purposeTitle": "What it does",
     "about.purpose":
-      "Put the savanna, the coral reef, deep space, the age of dinosaurs, the forest, the jungle or the Arctic up on the board and press Start. While the class stays under the volume goal, animals come out one at a time. If it gets too loud, they run away. You can change that in Settings so the scene just pauses until it's quiet again. Most animals are common, a few are rare, and the class can look back at every one they've spotted.",
+      "Put the savanna, the coral reef, deep space, the age of dinosaurs, the forest, the jungle or the Arctic up on the board and press Start. While the class stays under the volume goal, QDs come out one at a time. If it gets too loud, they run away. You can change that in Settings so the scene just pauses until it's quiet again. Most QDs are common, a few are rare, and the class can look back at every one they've spotted.",
     "about.promiseTitle": "No catch",
     "about.promise":
       "It's free. There's no paid version and no ads, and we don't collect personal information about you or your students.",
-    "about.feedbackTitle": "Get in touch",
-    "about.feedback":
-      "If something isn't working, or you have an idea for Shy Safari or for another tool you'd use in class, send us an email.",
-    "about.email": "Email support@teacher.dev",
-    "privacy.pageTitle": "Privacy — Shy Safari",
-    "privacy.meta": "What Shy Safari collects, what it doesn't, and why.",
+    "privacy.pageTitle": "Privacy — Quiet Discoveries",
+    "privacy.meta":
+      "What Quiet Discoveries collects, what it doesn't, and why.",
     "privacy.title": "Privacy",
     "privacy.lede": "What we collect, what we don't, and why.",
     "privacy.microphone":
-      "Shy Safari listens through your microphone only to measure how loud the room is. The sound is turned into a single volume level on this computer, moment by moment; it is never recorded, never saved, and never sent anywhere.",
+      "Quiet Discoveries listens through your microphone only to measure how loud the room is. The sound is turned into a single volume level on this computer, moment by moment; it is never recorded, never saved, and never sent anywhere.",
     "privacy.local":
-      "There are no accounts, and we do not collect personal information from teachers or students. Your settings, your calibration and the animals each of your classes has spotted are kept in this browser's local storage on this computer only, and clearing your browser data removes them.",
-    "privacy.analytics.beforeLink":
-      "We use Cloudflare Web Analytics to anonymously count visits, which helps us understand how Shy Safari is being used in classrooms. Cloudflare Web Analytics is cookieless, does not fingerprint visitors, and does not track users across other sites; see Cloudflare's ",
-    "privacy.analytics.link": "privacy policy",
-    "privacy.analytics.afterLink":
-      " for details. We do not share, sell, or otherwise transfer any visitor data to third parties.",
-    "privacy.contact": "Questions or concerns? Email ",
-    "guide.title": "How Shy Safari works",
+      "There are no accounts, and we do not collect personal information from teachers or students. Your settings, your calibration and the QDs each of your classes has spotted are kept in this browser's local storage on this computer only, and clearing your browser data removes them.",
+    "privacy.analytics":
+      "There are no analytics, cookies or trackers. We don't count visits, and nothing about you or your class is shared, sold or sent to anyone.",
+    "guide.title": "How Quiet Discoveries works",
     "guide.lede":
       "A free classroom noise level monitor that rewards quiet instead of punishing noise.",
     "guide.whatTitle": "What it is",
     "guide.what":
-      "Shy Safari is a classroom noise monitor that runs in a web browser. Put it on the projector or interactive whiteboard and it shows a calm savanna, coral reef, night sky in deep space, Cretaceous floodplain, woodland clearing, rainforest jungle or Arctic sea ice. It listens to how loud the room is through the computer's microphone, and while the class stays under the volume goal, shy animals come out one at a time. It is the opposite of a bouncing noise meter: there is no score, no needle and no red warning light, so nothing makes being loud more interesting than being quiet.",
+      "Quiet Discoveries is a classroom noise monitor that runs in a web browser. Put it on the projector or interactive whiteboard and it shows a calm savanna, coral reef, night sky in deep space, Cretaceous floodplain, woodland clearing, rainforest jungle or Arctic sea ice. It listens to how loud the room is through the computer's microphone, and while the class stays under the volume goal, shy creatures we call QDs come out one at a time. It is the opposite of a bouncing noise meter: there is no score, no needle and no red warning light, so nothing makes being loud more interesting than being quiet.",
     "guide.useTitle": "Using it in class",
     "guide.use.open":
-      "Open shysafari.com on the computer connected to your projector, pick the savanna, the coral reef, deep space, the prehistoric scene, the forest, the jungle or the Arctic, and press Start. The browser asks to use the microphone.",
+      "Open Quiet Discoveries on the computer connected to your projector, pick the savanna, the coral reef, deep space, the prehistoric scene, the forest, the jungle or the Arctic, and press Start. The browser asks to use the microphone.",
     "guide.use.goal":
       "Set the volume goal for the activity: Silent, Independent (quiet whispers) or Partner work (conversation voices), or drag the line on the meter to anywhere in between.",
     "guide.use.rate":
-      "Let the class work. The first animal appears after 10 to 20 quiet seconds, and after that about one every five minutes of quiet work. Choose Relaxed, Normal or Lively in Settings, or type any number of minutes.",
+      "Let the class work. The first QD appears after 10 to 20 quiet seconds, and after that about one every five minutes of quiet work. Choose Relaxed, Normal or Lively in Settings, or type any number of minutes.",
     "guide.loudTitle": "How it decides the room is too loud",
     "guide.loud":
       "Short noises, like a knock at the door or a dropped book, don't count. The room has to stay over the goal for a bit first: about six seconds if it's just over, or about one second if it's much louder. Once it quiets down, the scene clears within three seconds.",
@@ -300,21 +292,21 @@ const en = {
       "Calibration is optional. Five seconds of silence and five seconds of normal talking teach the app what your room and your microphone sound like.",
     "guide.tooLoudTitle": "What happens when it gets too loud",
     "guide.tooLoud":
-      "The scene clouds over, with a dusty haze on the savanna, murky water on the reef, interference in deep space, mist off the river in the prehistoric scene, fog between the trees in the forest, a tropical downpour in the jungle and a whiteout of blowing snow in the Arctic, and no new animals come out. What happens next is your choice:",
+      "The scene clouds over, with a dusty haze on the savanna, murky water on the reef, interference in deep space, mist off the river in the prehistoric scene, fog between the trees in the forest, a tropical downpour in the jungle and a whiteout of blowing snow in the Arctic, and no new QDs come out. What happens next is your choice:",
     "guide.tooLoud.flee":
-      "Animals run away (the default). The scene freezes and, while the room stays too loud, one animal and then a few more every five seconds run off the edge of the screen. In deep space, they fade out into static instead.",
+      "QDs run away (the default). The scene freezes and, while the room stays too loud, one QD and then a few more every five seconds run off the edge of the screen. In deep space, they fade out into static instead.",
     "guide.tooLoud.pause":
-      "Pause the scene. The animals hold still, nothing is taken away, and progress toward the next animal waits until the room is calm again.",
-    "guide.animalsTitle": "The animals",
+      "Pause the scene. The QDs hold still, nothing is taken away, and progress toward the next QD waits until the room is calm again.",
+    "guide.animalsTitle": "The QDs",
     "guide.animals":
-      "The savanna has 17 animals, from meerkats and zebras to giraffes, hippos and rhinos, with lions, leopards and elephants as the rare ones. The coral reef has 18, from clownfish and seahorses to sea turtles and octopuses, with hammerhead sharks, manta rays and whale sharks as the rare ones. Deep space has 17 sightings for older students, from satellites, asteroids and astronauts to the space station, comets and Saturn-like planets, with a spiral galaxy, a black hole, a pulsar and a ring nebula as the rare ones. The prehistoric scene has 17 animals from the very end of the age of dinosaurs, drawn with up-to-date science, from small mammals, lizards and feathered raptors to Triceratops and Ankylosaurus, with Tyrannosaurus, Quetzalcoatlus and the giant Alamosaurus as the rare ones. The forest has 17 woodland animals, from chipmunks, robins and hedgehogs to raccoons, foxes and deer, with a gray wolf, a black bear and a moose as the rare ones. The jungle has 17 rainforest animals, from poison dart frogs, toucans and capuchin monkeys to sloths, macaws and orangutans, with jaguars, gorillas and tigers as the rare ones. The Arctic has 17 animals, from lemmings, puffins and arctic foxes to caribou, walruses and belugas, with polar bears, narwhals and bowhead whales as the rare ones. Common animals turn up often and rare ones are a real event that many sessions will not see at all. Each scene keeps its own animals, and the collection remembers every animal the class has spotted.",
+      "The savanna has 17 animals, from meerkats and zebras to giraffes, hippos and rhinos, with lions, leopards and elephants as the rare ones. The coral reef has 18, from clownfish and seahorses to sea turtles and octopuses, with hammerhead sharks, manta rays and whale sharks as the rare ones. Deep space has 17 sightings for older students, from satellites, asteroids and astronauts to the space station, comets and Saturn-like planets, with a spiral galaxy, a black hole, a pulsar and a ring nebula as the rare ones. The prehistoric scene has 17 animals from the very end of the age of dinosaurs, drawn with up-to-date science, from small mammals, lizards and feathered raptors to Triceratops and Ankylosaurus, with Tyrannosaurus, Quetzalcoatlus and the giant Alamosaurus as the rare ones. The forest has 17 woodland animals, from chipmunks, robins and hedgehogs to raccoons, foxes and deer, with a gray wolf, a black bear and a moose as the rare ones. The jungle has 17 rainforest animals, from poison dart frogs, toucans and capuchin monkeys to sloths, macaws and orangutans, with jaguars, gorillas and tigers as the rare ones. The Arctic has 17 animals, from lemmings, puffins and arctic foxes to caribou, walruses and belugas, with polar bears, narwhals and bowhead whales as the rare ones. Common QDs turn up often and rare ones are a real event that many sessions will not see at all. Each scene keeps its own QDs, and the collection remembers every QD the class has spotted.",
     "guide.forTitle": "Who it is for",
     "guide.for":
       "Teachers of any grade who want a calm, visual cue for voice levels during independent work, reading time, tests, centers or group work. The whole class shares one screen, and students need nothing at all.",
     "guide.faqTitle": "Questions teachers ask",
-    "guide.faq.free.q": "Is Shy Safari free?",
+    "guide.faq.free.q": "Is Quiet Discoveries free?",
     "guide.faq.free.a":
-      "Yes. There are no paywalls, no ads and no premium version. It came out of the EdTech-a-thon, a community of builders making free tools for classrooms, and is maintained by teacher.dev.",
+      "Yes. There are no paywalls, no ads and no premium version.",
     "guide.faq.record.q": "Does it record the classroom?",
     "guide.faq.record.a":
       "No. The microphone is used only to measure how loud the room is, as a single number, moment by moment, on your computer. Nothing is recorded, saved or sent anywhere.",
@@ -329,7 +321,7 @@ const en = {
       "English, Spanish and French. It follows the browser's language, and you can change it from the menu at the top of the screen.",
     "guide.faq.meter.q": "How is it different from a noise meter?",
     "guide.faq.meter.a":
-      "A noise meter shows the class how loud they are, which can turn getting louder into a game. Shy Safari shows only a peaceful scene that slowly fills with animals, so the reward for quiet work is what the class sees, and there is no score to beat.",
+      "A noise meter shows the class how loud they are, which can turn getting louder into a game. Quiet Discoveries shows only a peaceful scene that slowly fills with QDs, so the reward for quiet work is what the class sees, and there is no score to beat.",
   },
   creatures: {
     meerkat: "Meerkat",
@@ -641,17 +633,17 @@ const es = {
   locale: "es",
   ui: {
     "language.change": "Cambiar idioma",
-    "app.pageTitle": "Shy Safari — medidor de ruido gratuito para el aula",
+    "app.pageTitle":
+      "Quiet Discoveries — medidor de ruido gratuito para el aula",
     "app.description":
-      "Un medidor de ruido gratuito para el proyector del aula. Animales tímidos de la sabana y del arrecife aparecen mientras la clase está en silencio. Sin registro, sin grabaciones.",
-    "brand.title": "Creado por teacher.dev",
-    "common.builtBy": "Creado por teacher.dev",
+      "Un medidor de ruido gratuito para el proyector del aula. Unas criaturas tímidas, los QDs, aparecen mientras la clase está en silencio. Sin registro, sin grabaciones.",
+    "brand.title": "Acerca de Quiet Discoveries",
     "common.about": "acerca de",
     "common.privacy": "privacidad",
     "common.howItWorks": "cómo funciona",
     "preview.alt":
-      "Una sabana tranquila con un elefante, cebras, un león, una jirafa y un suricata, junto a las palabras Shy Safari, un medidor de ruido gratuito para el aula",
-    "common.back": "← Volver a Shy Safari",
+      "Una sabana tranquila con un elefante, cebras, un león, una jirafa y un suricata, junto a las palabras Quiet Discoveries, un medidor de ruido gratuito para el aula",
+    "common.back": "← Volver a Quiet Discoveries",
     "common.close": "Cerrar",
     "common.cancel": "Cancelar",
     "common.done": "Listo",
@@ -661,11 +653,11 @@ const es = {
     "float.openHint":
       "Mostrar la escena en una ventana pequeña sobre tus diapositivas u otras pestañas",
     "float.failed": "No se pudo abrir la ventana flotante.",
-    "floating.title": "Shy Safari está flotando",
+    "floating.title": "Quiet Discoveries está flotando",
     "floating.instructions":
       "La escena está en su propia ventana sobre tus otras pestañas y sigue escuchando el aula. Deja esta pestaña abierta: el botón de la ventana para volver a la pestaña la trae de vuelta aquí.",
-    "floating.return": "Traer Shy Safari de vuelta aquí",
-    "start.shy": "Shh… ¡estos animales son tímidos!",
+    "floating.return": "Traer Quiet Discoveries de vuelta aquí",
+    "start.shy": "Shh… ¡estos QDs son tímidos!",
     "start.explain":
       "Si hay demasiado ruido, se quedan escondidos. Cuando el aula vuelva a estar tranquila, empezarán a salir.",
     "start.button": "Empezar",
@@ -692,7 +684,7 @@ const es = {
     "scene.halloween.name": "Halloween",
     "scene.halloween.hint": "Murciélagos, fantasmas y calabazas",
     "hollow.limited": "Por tiempo limitado",
-    "hollow.daily": "Un animal nuevo cada día de clase",
+    "hollow.daily": "Un QD nuevo cada día de clase",
     "hollow.closesIn": "Se va en {days} días",
     "hollow.lastDay": "¡Último día!",
     "hollow.newToday": "Hoy hay alguien nuevo entre las calabazas…",
@@ -709,7 +701,7 @@ const es = {
     "controls.resetYes": "Sí, reiniciar",
     "controls.keepGoing": "Seguir",
     "controls.settings": "Ajustes",
-    "controls.animals": "Animales",
+    "controls.animals": "QDs",
     "controls.timer": "Temporizador",
     "timer.label": "Temporizador",
     "timer.minutes": "Minutos",
@@ -754,7 +746,7 @@ const es = {
     "classes.unnamed": "Mi clase",
     "classes.edit": "Editar clases",
     "classes.hint":
-      "Cada clase guarda sus propios animales y su propia colección.",
+      "Cada clase guarda sus propios QDs y su propia colección.",
     "classes.storage":
       "Tus clases se guardan en este navegador, solo en esta computadora. No aparecerán en otra computadora ni en otro navegador, y al borrar los datos del navegador se eliminan.",
     "classes.current": "En pantalla",
@@ -768,7 +760,7 @@ const es = {
     "classes.add": "Añadir clase",
     "classes.deleteTitle": "¿Seguro?",
     "classes.deleteBody":
-      "¿Eliminar {name}? Los animales que tiene en cada escena y todo lo de su colección desaparecerán para siempre.",
+      "¿Eliminar {name}? Los QDs que tiene en cada escena y todo lo de su colección desaparecerán para siempre.",
     "classes.deleteOnly":
       "Es tu única clase, así que una nueva y vacía ocupará su lugar.",
     "classes.deleteYes": "Sí, eliminar",
@@ -781,18 +773,18 @@ const es = {
     "start.explainFlee":
       "¡Si hay demasiado ruido, se escaparán! Mantengan el aula tranquila y saldrán y se quedarán.",
     "settings.tooLoud": "Cuando hay demasiado ruido",
-    "loud.flee.label": "Los animales se escapan",
+    "loud.flee.label": "Los QDs se escapan",
     "loud.flee.hint":
       "Todos se quedan quietos y algunos se escapan cada 5 segundos hasta que vuelva la calma",
     "loud.pause.label": "Pausar la escena",
-    "loud.pause.hint": "Los animales se quedan quietos y no sale ninguno nuevo",
-    "settings.arrival": "Con qué frecuencia llegan animales",
-    "settings.aboutEvery": "Más o menos un animal cada",
+    "loud.pause.hint": "Los QDs se quedan quietos y no sale ninguno nuevo",
+    "settings.arrival": "Con qué frecuencia llegan QDs",
+    "settings.aboutEvery": "Más o menos un QD cada",
     "settings.minutes": "minutos",
-    "settings.showCounter": "Contar los animales a medida que llegan",
-    "counter.label": "Animales que han llegado: {count}",
+    "settings.showCounter": "Contar los QDs a medida que llegan",
+    "counter.label": "QDs que han llegado: {count}",
     "settings.tryIt": "Pruébalo",
-    "settings.summon": "Sacar a todos los animales",
+    "settings.summon": "Sacar a todos los QDs",
     "settings.advanced": "Avanzado",
     "settings.previewHalloween": "Ver los personajes de Halloween",
     "preview.title": "Personajes de Halloween",
@@ -809,16 +801,16 @@ const es = {
     "rate.relaxed": "Tranquilo",
     "rate.normal": "Normal",
     "rate.lively": "Animado",
-    "rate.hint": "más o menos un animal cada {minutes} minutos",
+    "rate.hint": "más o menos un QD cada {minutes} minutos",
     "mic.default": "Micrófono predeterminado",
     "mic.numbered": "Micrófono {number}",
     "mic.connecting": "Conectando…",
     "mic.connect": "Conectar el micrófono",
     "meter.current": "Volumen actual",
     "meter.paused": "En pausa — demasiado ruido",
-    "meter.arriving": "Están llegando animales",
+    "meter.arriving": "Están llegando QDs",
     "meter.goal":
-      "Los animales llegan mientras el aula se mantiene a la izquierda de la línea ({goal}%)",
+      "Los QDs llegan mientras el aula se mantiene a la izquierda de la línea ({goal}%)",
     "calibration.title": "Calibración",
     "calibration.needMic": "Primero conecta un micrófono",
     "calibration.calibrated": "✓ Calibrado",
@@ -850,20 +842,20 @@ const es = {
       "Las dos muestras eran demasiado parecidas para distinguirlas: puede que el aula no estuviera en silencio o que el micrófono no capte a la clase.",
     "calibration.startAgain": "Empezar de nuevo",
     "calibration.hears": "Lo que oye el micrófono",
-    "collection.title": "Animales",
+    "collection.title": "QDs",
     "collection.spotted": "{class}: {seen} de {total} vistos",
     "collection.notSeen": "Aún no visto",
     "collection.seen": "Visto {count}×",
     "tier.common": "Comunes",
     "tier.uncommon": "Poco comunes",
     "tier.rare": "Raros",
-    "chance.common.label": "Probabilidad de animales comunes",
-    "chance.uncommon.label": "Probabilidad de animales poco comunes",
-    "chance.rare.label": "Probabilidad de animales raros",
+    "chance.common.label": "Probabilidad de QDs comunes",
+    "chance.uncommon.label": "Probabilidad de QDs poco comunes",
+    "chance.rare.label": "Probabilidad de QDs raros",
     "chance.common": "El {percent}% de las llegadas son comunes",
     "chance.uncommon": "El {percent}% de las llegadas son poco comunes",
     "chance.rare": "El {percent}% de las llegadas son raras",
-    "blocked.title": "Los animales necesitan oír el aula",
+    "blocked.title": "Los QDs necesitan oír el aula",
     "blocked.denied":
       "Este navegador bloqueó el acceso al micrófono. Haz clic en el candado o en el icono de la cámara de la barra de direcciones, permite el micrófono y vuelve a intentarlo.",
     "blocked.missing":
@@ -871,57 +863,48 @@ const es = {
     "blocked.unsupported":
       "Este navegador no puede usar un micrófono. Chrome, Edge y Safari funcionan.",
     "blocked.tryAgain": "Volver a intentarlo",
-    "about.pageTitle": "Acerca de — Shy Safari",
+    "about.pageTitle": "Acerca de — Quiet Discoveries",
     "about.meta":
-      "Shy Safari es una herramienta gratuita para el ruido en el aula, creada en el EdTech-a-thon y gestionada por teacher.dev. Sin anuncios ni cuentas.",
+      "Quiet Discoveries es un medidor de ruido gratuito para el aula: una escena tranquila donde unos QDs tímidos salen mientras la clase está en silencio. Sin anuncios ni cuentas.",
     "about.title": "Acerca de",
     "about.lede":
-      "Ponlo en el proyector. Cuanto más silencio haya, más animales salen.",
+      "Ponlo en el proyector. Cuanto más silencio haya, más QDs salen.",
     "about.originTitle": "De dónde viene",
-    "about.origin.beforeEvent":
-      "Shy Safari empezó como un proyecto de tres días en el ",
-    "about.origin.afterEvent":
-      ", un evento donde la gente se reúne para crear herramientas gratuitas para las aulas. Ahora lo gestiona ",
-    "about.origin.afterTeacher":
-      ", donde también puedes encontrar nuestras otras herramientas.",
-    "about.photoAlt": "Participantes del EdTech-a-thon 2026",
+    "about.origin.beforeLink": "Basado en ",
+    "about.origin.link": "Shy Safari, de teacher.dev",
+    "about.origin.afterLink": ", usado bajo la licencia Apache 2.0.",
+    "about.namesTitle": "¿Por qué QDs?",
+    "about.names":
+      "Los llamamos QDs: dilo en voz alta en inglés y suena como «cuties», que quiere decir «cositas monas». Son las criaturas que salen mientras el aula está en silencio: cebras y jirafas, peces del arrecife, dinosaurios, zorros y osos polares y, en el espacio profundo, avistamientos a través de un telescopio.",
     "about.purposeTitle": "Qué hace",
     "about.purpose":
-      "Proyecta la sabana, el arrecife de coral, el espacio profundo, la era de los dinosaurios, el bosque, la selva o el Ártico y pulsa Empezar. Mientras la clase no pase del límite de volumen, los animales van saliendo de uno en uno. Si hay demasiado ruido, huyen. Puedes cambiarlo en Ajustes para que la escena solo se pause hasta que vuelva el silencio. La mayoría de los animales son comunes, unos pocos son raros, y la clase puede volver a ver todos los que ha encontrado.",
+      "Proyecta la sabana, el arrecife de coral, el espacio profundo, la era de los dinosaurios, el bosque, la selva o el Ártico y pulsa Empezar. Mientras la clase no pase del límite de volumen, los QDs van saliendo de uno en uno. Si hay demasiado ruido, huyen. Puedes cambiarlo en Ajustes para que la escena solo se pause hasta que vuelva el silencio. La mayoría de los QDs son comunes, unos pocos son raros, y la clase puede volver a ver todos los que ha encontrado.",
     "about.promiseTitle": "Sin trampa",
     "about.promise":
       "Es gratis. No hay versión de pago ni anuncios, y no recopilamos datos personales tuyos ni de tus alumnos.",
-    "about.feedbackTitle": "Escríbenos",
-    "about.feedback":
-      "Si algo no funciona, o tienes una idea para Shy Safari o para otra herramienta que usarías en clase, mándanos un correo.",
-    "about.email": "Escribir a support@teacher.dev",
-    "privacy.pageTitle": "Privacidad — Shy Safari",
-    "privacy.meta": "Qué recopila Shy Safari, qué no y por qué.",
+    "privacy.pageTitle": "Privacidad — Quiet Discoveries",
+    "privacy.meta": "Qué recopila Quiet Discoveries, qué no y por qué.",
     "privacy.title": "Privacidad",
     "privacy.lede": "Qué recopilamos, qué no y por qué.",
     "privacy.microphone":
-      "Shy Safari escucha por el micrófono solo para medir cuánto ruido hay en el aula. El sonido se convierte en un único nivel de volumen en esta computadora, momento a momento; nunca se graba, nunca se guarda y nunca se envía a ningún sitio.",
+      "Quiet Discoveries escucha por el micrófono solo para medir cuánto ruido hay en el aula. El sonido se convierte en un único nivel de volumen en esta computadora, momento a momento; nunca se graba, nunca se guarda y nunca se envía a ningún sitio.",
     "privacy.local":
-      "No hay cuentas y no recopilamos información personal de docentes ni estudiantes. Tus ajustes, tu calibración y los animales que ha visto cada una de tus clases se guardan en el almacenamiento local de este navegador, solo en esta computadora; al borrar los datos del navegador se eliminan.",
-    "privacy.analytics.beforeLink":
-      "Usamos Cloudflare Web Analytics para contar las visitas de forma anónima, lo que nos ayuda a entender cómo se usa Shy Safari en las aulas. Cloudflare Web Analytics no usa cookies, no crea huellas digitales de los visitantes y no los rastrea en otros sitios; consulta la ",
-    "privacy.analytics.link": "política de privacidad",
-    "privacy.analytics.afterLink":
-      " de Cloudflare para más detalles. No compartimos, vendemos ni transferimos de ningún otro modo los datos de los visitantes a terceros.",
-    "privacy.contact": "¿Tienes preguntas o dudas? Escribe a ",
-    "guide.title": "Cómo funciona Shy Safari",
+      "No hay cuentas y no recopilamos información personal de docentes ni estudiantes. Tus ajustes, tu calibración y los QDs que ha visto cada una de tus clases se guardan en el almacenamiento local de este navegador, solo en esta computadora; al borrar los datos del navegador se eliminan.",
+    "privacy.analytics":
+      "No hay analíticas, cookies ni rastreadores. No contamos las visitas, y nada sobre ti o tu clase se comparte, se vende ni se envía a nadie.",
+    "guide.title": "Cómo funciona Quiet Discoveries",
     "guide.lede":
       "Un medidor de ruido gratuito para el aula que premia el silencio en lugar de castigar el ruido.",
     "guide.whatTitle": "Qué es",
     "guide.what":
-      "Shy Safari es un medidor de ruido para el aula que funciona en el navegador. Ponlo en el proyector o en la pizarra digital y muestra una sabana, un arrecife de coral, un cielo del espacio profundo, una llanura del Cretácico, un claro del bosque, una selva tropical o el hielo ártico tranquilos. Escucha lo fuerte que suena la clase a través del micrófono del ordenador y, mientras la clase se mantiene por debajo del límite de volumen, van apareciendo animales tímidos uno a uno. Es lo contrario de un medidor de ruido que salta: no hay puntuación, ni aguja, ni luz roja de aviso, así que hacer ruido nunca resulta más interesante que estar en silencio.",
+      "Quiet Discoveries es un medidor de ruido para el aula que funciona en el navegador. Ponlo en el proyector o en la pizarra digital y muestra una sabana, un arrecife de coral, un cielo del espacio profundo, una llanura del Cretácico, un claro del bosque, una selva tropical o el hielo ártico tranquilos. Escucha lo fuerte que suena la clase a través del micrófono del ordenador y, mientras la clase se mantiene por debajo del límite de volumen, van apareciendo uno a uno unos animalitos tímidos a los que llamamos QDs. Es lo contrario de un medidor de ruido que salta: no hay puntuación, ni aguja, ni luz roja de aviso, así que hacer ruido nunca resulta más interesante que estar en silencio.",
     "guide.useTitle": "Cómo usarlo en clase",
     "guide.use.open":
-      "Abre shysafari.com en el ordenador conectado al proyector, elige la sabana, el arrecife de coral, el espacio profundo, la prehistoria, el bosque, la selva o el Ártico y pulsa Empezar. El navegador pedirá permiso para usar el micrófono.",
+      "Abre Quiet Discoveries en el ordenador conectado al proyector, elige la sabana, el arrecife de coral, el espacio profundo, la prehistoria, el bosque, la selva o el Ártico y pulsa Empezar. El navegador pedirá permiso para usar el micrófono.",
     "guide.use.goal":
       "Elige el límite de volumen para la actividad: Silencio, Individual (solo susurros) o En parejas (voz de conversación), o arrastra la línea del medidor a cualquier punto intermedio.",
     "guide.use.rate":
-      "Deja trabajar a la clase. El primer animal aparece tras 10 a 20 segundos de silencio y, después, más o menos uno cada cinco minutos de trabajo en silencio. Elige Tranquilo, Normal o Animado en Ajustes, o escribe cualquier número de minutos.",
+      "Deja trabajar a la clase. El primer QD aparece tras 10 a 20 segundos de silencio y, después, más o menos uno cada cinco minutos de trabajo en silencio. Elige Tranquilo, Normal o Animado en Ajustes, o escribe cualquier número de minutos.",
     "guide.loudTitle": "Cómo decide que hay demasiado ruido",
     "guide.loud":
       "Los ruidos cortos, como un golpe en la puerta o un libro que se cae, no cuentan. La clase tiene que pasarse del límite durante un rato: unos seis segundos si se pasa un poco, o alrededor de un segundo si hay mucho más ruido. Cuando vuelve la calma, la escena se aclara en tres segundos.",
@@ -929,21 +912,21 @@ const es = {
       "La calibración es opcional. Cinco segundos de silencio y cinco segundos de conversación normal le enseñan a la aplicación cómo suenan tu aula y tu micrófono.",
     "guide.tooLoudTitle": "Qué pasa cuando hay demasiado ruido",
     "guide.tooLoud":
-      "La escena se nubla, con una neblina de polvo en la sabana, agua turbia en el arrecife, interferencias en el espacio profundo, niebla del río en la prehistoria, niebla entre los árboles en el bosque, un aguacero tropical en la selva y una ventisca que lo deja todo blanco en el Ártico, y no aparecen animales nuevos. Lo que pasa después lo eliges tú:",
+      "La escena se nubla, con una neblina de polvo en la sabana, agua turbia en el arrecife, interferencias en el espacio profundo, niebla del río en la prehistoria, niebla entre los árboles en el bosque, un aguacero tropical en la selva y una ventisca que lo deja todo blanco en el Ártico, y no aparecen QDs nuevos. Lo que pasa después lo eliges tú:",
     "guide.tooLoud.flee":
-      "Los animales huyen (la opción por defecto). La escena se congela y, mientras siga habiendo demasiado ruido, un animal y luego unos cuantos más cada cinco segundos salen corriendo de la pantalla. En el espacio profundo, en cambio, se desvanecen entre la estática.",
+      "Los QDs huyen (la opción por defecto). La escena se congela y, mientras siga habiendo demasiado ruido, un QD y luego unos cuantos más cada cinco segundos salen corriendo de la pantalla. En el espacio profundo, en cambio, se desvanecen entre la estática.",
     "guide.tooLoud.pause":
-      "Pausar la escena. Los animales se quedan quietos, no se pierde nada y el progreso hacia el siguiente animal espera a que la clase vuelva a estar en calma.",
-    "guide.animalsTitle": "Los animales",
+      "Pausar la escena. Los QDs se quedan quietos, no se pierde nada y el progreso hacia el siguiente QD espera a que la clase vuelva a estar en calma.",
+    "guide.animalsTitle": "Los QDs",
     "guide.animals":
-      "La sabana tiene 17 animales, desde suricatas y cebras hasta jirafas, hipopótamos y rinocerontes, con leones, leopardos y elefantes como los más raros. El arrecife de coral tiene 18, desde peces payaso y caballitos de mar hasta tortugas marinas y pulpos, con tiburones martillo, mantarrayas y tiburones ballena como los más raros. El espacio profundo tiene 17 avistamientos pensados para estudiantes mayores, desde satélites, asteroides y astronautas hasta la estación espacial, cometas y planetas como Saturno, con una galaxia espiral, un agujero negro, un púlsar y una nebulosa anular como los más raros. La prehistoria tiene 17 animales del final de la era de los dinosaurios, dibujados según la ciencia actual, desde pequeños mamíferos, lagartos y raptores con plumas hasta Triceratops y Ankylosaurus, con Tyrannosaurus, Quetzalcoatlus y el gigantesco Alamosaurus como los más raros. El bosque tiene 17 animales, desde ardillas listadas, petirrojos y erizos hasta mapaches, zorros y ciervos, con un lobo gris, un oso negro y un alce como los más raros. La selva tiene 17 animales de la selva tropical, desde ranas venenosas, tucanes y monos capuchinos hasta perezosos, guacamayos y orangutanes, con jaguares, gorilas y tigres como los más raros. El Ártico tiene 17 animales, desde lemmings, frailecillos y zorros árticos hasta caribúes, morsas y belugas, con osos polares, narvales y ballenas de Groenlandia como los más raros. Los animales comunes aparecen a menudo y los raros son todo un acontecimiento que muchas sesiones no llegan a ver. Cada escena guarda sus propios animales, y la colección recuerda todos los que la clase ha visto.",
+      "La sabana tiene 17 animales, desde suricatas y cebras hasta jirafas, hipopótamos y rinocerontes, con leones, leopardos y elefantes como los más raros. El arrecife de coral tiene 18, desde peces payaso y caballitos de mar hasta tortugas marinas y pulpos, con tiburones martillo, mantarrayas y tiburones ballena como los más raros. El espacio profundo tiene 17 avistamientos pensados para estudiantes mayores, desde satélites, asteroides y astronautas hasta la estación espacial, cometas y planetas como Saturno, con una galaxia espiral, un agujero negro, un púlsar y una nebulosa anular como los más raros. La prehistoria tiene 17 animales del final de la era de los dinosaurios, dibujados según la ciencia actual, desde pequeños mamíferos, lagartos y raptores con plumas hasta Triceratops y Ankylosaurus, con Tyrannosaurus, Quetzalcoatlus y el gigantesco Alamosaurus como los más raros. El bosque tiene 17 animales, desde ardillas listadas, petirrojos y erizos hasta mapaches, zorros y ciervos, con un lobo gris, un oso negro y un alce como los más raros. La selva tiene 17 animales de la selva tropical, desde ranas venenosas, tucanes y monos capuchinos hasta perezosos, guacamayos y orangutanes, con jaguares, gorilas y tigres como los más raros. El Ártico tiene 17 animales, desde lemmings, frailecillos y zorros árticos hasta caribúes, morsas y belugas, con osos polares, narvales y ballenas de Groenlandia como los más raros. Los QDs comunes aparecen a menudo y los raros son todo un acontecimiento que muchas sesiones no llegan a ver. Cada escena guarda sus propios QDs, y la colección recuerda todos los que la clase ha visto.",
     "guide.forTitle": "Para quién es",
     "guide.for":
       "Para docentes de cualquier etapa que quieren una señal visual y tranquila del nivel de voz durante el trabajo individual, la lectura, los exámenes, los rincones o el trabajo en grupo. Toda la clase comparte una pantalla y el alumnado no necesita nada.",
     "guide.faqTitle": "Preguntas frecuentes",
-    "guide.faq.free.q": "¿Shy Safari es gratis?",
+    "guide.faq.free.q": "¿Quiet Discoveries es gratis?",
     "guide.faq.free.a":
-      "Sí. No hay muros de pago, ni anuncios, ni versión premium. Nació en el EdTech-a-thon, una comunidad que crea herramientas gratuitas para las aulas, y lo mantiene teacher.dev.",
+      "Sí. No hay muros de pago, ni anuncios, ni versión premium.",
     "guide.faq.record.q": "¿Graba lo que pasa en el aula?",
     "guide.faq.record.a":
       "No. El micrófono solo se usa para medir lo fuerte que suena la clase, como un único número, momento a momento, en tu ordenador. No se graba, no se guarda y no se envía nada a ningún sitio.",
@@ -958,7 +941,7 @@ const es = {
       "En inglés, español y francés. Sigue el idioma del navegador, y puedes cambiarlo desde el menú de la parte superior de la pantalla.",
     "guide.faq.meter.q": "¿En qué se diferencia de un medidor de ruido?",
     "guide.faq.meter.a":
-      "Un medidor de ruido le muestra a la clase lo fuerte que está hablando, y eso puede convertir el hacer ruido en un juego. Shy Safari solo muestra una escena tranquila que se va llenando de animales, así que lo que la clase ve es la recompensa por trabajar en silencio, y no hay ninguna puntuación que batir.",
+      "Un medidor de ruido le muestra a la clase lo fuerte que está hablando, y eso puede convertir el hacer ruido en un juego. Quiet Discoveries solo muestra una escena tranquila que se va llenando de QDs, así que lo que la clase ve es la recompensa por trabajar en silencio, y no hay ninguna puntuación que batir.",
   },
   scenes: {
     space: {
@@ -1238,17 +1221,16 @@ const fr = {
   locale: "fr",
   ui: {
     "language.change": "Changer de langue",
-    "app.pageTitle": "Shy Safari — sonomètre gratuit pour la classe",
+    "app.pageTitle": "Quiet Discoveries — sonomètre gratuit pour la classe",
     "app.description":
-      "Un sonomètre gratuit pour le vidéoprojecteur de la classe. Des animaux timides de la savane et du récif sortent tant que la classe reste calme. Sans inscription, sans enregistrement.",
-    "brand.title": "Créé par teacher.dev",
-    "common.builtBy": "Créé par teacher.dev",
+      "Un sonomètre gratuit pour le vidéoprojecteur de la classe. Des créatures timides, les QDs, sortent tant que la classe reste calme. Sans inscription, sans enregistrement.",
+    "brand.title": "À propos de Quiet Discoveries",
     "common.about": "à propos",
     "common.privacy": "confidentialité",
     "common.howItWorks": "comment ça marche",
     "preview.alt":
-      "Une savane paisible avec un éléphant, des zèbres, un lion, une girafe et un suricate, à côté des mots Shy Safari, un sonomètre gratuit pour la classe",
-    "common.back": "← Retour à Shy Safari",
+      "Une savane paisible avec un éléphant, des zèbres, un lion, une girafe et un suricate, à côté des mots Quiet Discoveries, un sonomètre gratuit pour la classe",
+    "common.back": "← Retour à Quiet Discoveries",
     "common.close": "Fermer",
     "common.cancel": "Annuler",
     "common.done": "Terminé",
@@ -1258,11 +1240,11 @@ const fr = {
     "float.openHint":
       "Afficher la scène dans une petite fenêtre au-dessus de vos diapositives ou d’autres onglets",
     "float.failed": "Impossible d’ouvrir la fenêtre flottante.",
-    "floating.title": "Shy Safari est dans une fenêtre flottante",
+    "floating.title": "Quiet Discoveries est dans une fenêtre flottante",
     "floating.instructions":
       "La scène est dans sa propre fenêtre au-dessus de vos autres onglets et continue d’écouter la classe. Gardez cet onglet ouvert : le bouton de retour à l’onglet de la fenêtre la ramène ici.",
-    "floating.return": "Ramener Shy Safari ici",
-    "start.shy": "Chut… ces animaux sont timides !",
+    "floating.return": "Ramener Quiet Discoveries ici",
+    "start.shy": "Chut… ces QDs sont timides !",
     "start.explain":
       "S’il y a trop de bruit, ils restent cachés. Quand la classe redevient calme, ils commencent à sortir.",
     "start.button": "Commencer",
@@ -1289,7 +1271,7 @@ const fr = {
     "scene.halloween.name": "Halloween",
     "scene.halloween.hint": "Chauves-souris, fantômes et citrouilles",
     "hollow.limited": "Édition limitée",
-    "hollow.daily": "Un nouvel animal chaque jour d’école",
+    "hollow.daily": "Un nouveau QD chaque jour d’école",
     "hollow.closesIn": "Part dans {days} jours",
     "hollow.lastDay": "Dernier jour !",
     "hollow.newToday": "Quelqu’un de nouveau est arrivé parmi les citrouilles…",
@@ -1306,7 +1288,7 @@ const fr = {
     "controls.resetYes": "Oui, réinitialiser",
     "controls.keepGoing": "Continuer",
     "controls.settings": "Réglages",
-    "controls.animals": "Animaux",
+    "controls.animals": "QDs",
     "controls.timer": "Minuteur",
     "timer.label": "Minuteur",
     "timer.minutes": "Minutes",
@@ -1352,7 +1334,7 @@ const fr = {
     "classes.unnamed": "Ma classe",
     "classes.edit": "Modifier les classes",
     "classes.hint":
-      "Chaque classe garde ses propres animaux et sa propre collection.",
+      "Chaque classe garde ses propres QDs et sa propre collection.",
     "classes.storage":
       "Vos classes sont enregistrées dans ce navigateur, sur cet ordinateur uniquement. Elles n’apparaîtront pas sur un autre ordinateur ou navigateur, et effacer les données du navigateur les supprime.",
     "classes.current": "À l’écran",
@@ -1366,7 +1348,7 @@ const fr = {
     "classes.add": "Ajouter une classe",
     "classes.deleteTitle": "Vous confirmez ?",
     "classes.deleteBody":
-      "Supprimer {name} ? Les animaux sortis dans chaque décor et toute sa collection disparaîtront pour de bon.",
+      "Supprimer {name} ? Les QDs sortis dans chaque décor et toute sa collection disparaîtront pour de bon.",
     "classes.deleteOnly":
       "C’est votre seule classe : une nouvelle classe vide la remplacera.",
     "classes.deleteYes": "Oui, supprimer",
@@ -1379,18 +1361,18 @@ const fr = {
     "start.explainFlee":
       "S’il y a trop de bruit, ils s’enfuient ! Gardez la classe calme et ils sortiront et resteront.",
     "settings.tooLoud": "Quand il y a trop de bruit",
-    "loud.flee.label": "Les animaux s’enfuient",
+    "loud.flee.label": "Les QDs s’enfuient",
     "loud.flee.hint":
       "Tout le monde se fige, et certains s’enfuient toutes les 5 secondes jusqu’au retour du calme",
     "loud.pause.label": "Mettre la scène en pause",
-    "loud.pause.hint": "Les animaux restent immobiles et aucun nouveau ne sort",
-    "settings.arrival": "Fréquence d’arrivée des animaux",
-    "settings.aboutEvery": "Environ un animal toutes les",
+    "loud.pause.hint": "Les QDs restent immobiles et aucun nouveau ne sort",
+    "settings.arrival": "Fréquence d’arrivée des QDs",
+    "settings.aboutEvery": "Environ un QD toutes les",
     "settings.minutes": "minutes",
-    "settings.showCounter": "Compter les animaux à mesure qu’ils arrivent",
-    "counter.label": "Animaux arrivés : {count}",
+    "settings.showCounter": "Compter les QDs à mesure qu’ils arrivent",
+    "counter.label": "QDs arrivés : {count}",
     "settings.tryIt": "Essayer",
-    "settings.summon": "Faire sortir tous les animaux",
+    "settings.summon": "Faire sortir tous les QDs",
     "settings.advanced": "Avancé",
     "settings.previewHalloween": "Voir les personnages d’Halloween",
     "preview.title": "Personnages d’Halloween",
@@ -1407,16 +1389,16 @@ const fr = {
     "rate.relaxed": "Tranquille",
     "rate.normal": "Normal",
     "rate.lively": "Animé",
-    "rate.hint": "environ un animal toutes les {minutes} minutes",
+    "rate.hint": "environ un QD toutes les {minutes} minutes",
     "mic.default": "Micro par défaut",
     "mic.numbered": "Micro {number}",
     "mic.connecting": "Connexion…",
     "mic.connect": "Connecter le micro",
     "meter.current": "Volume actuel",
     "meter.paused": "En pause — trop de bruit",
-    "meter.arriving": "Les animaux arrivent",
+    "meter.arriving": "Les QDs arrivent",
     "meter.goal":
-      "Les animaux arrivent tant que la classe reste à gauche de la ligne ({goal} %)",
+      "Les QDs arrivent tant que la classe reste à gauche de la ligne ({goal} %)",
     "calibration.title": "Étalonnage",
     "calibration.needMic": "Connectez d’abord un micro",
     "calibration.calibrated": "✓ Étalonné",
@@ -1448,20 +1430,20 @@ const fr = {
       "Les deux mesures étaient trop proches pour être distinguées — la salle n’était peut-être pas silencieuse, ou le micro ne capte pas la classe.",
     "calibration.startAgain": "Recommencer",
     "calibration.hears": "Ce que le micro entend",
-    "collection.title": "Animaux",
+    "collection.title": "QDs",
     "collection.spotted": "{class} : {seen} sur {total} aperçus",
     "collection.notSeen": "Pas encore vu",
     "collection.seen": "Vu {count}×",
     "tier.common": "Communs",
     "tier.uncommon": "Peu communs",
     "tier.rare": "Rares",
-    "chance.common.label": "Probabilité des animaux communs",
-    "chance.uncommon.label": "Probabilité des animaux peu communs",
-    "chance.rare.label": "Probabilité des animaux rares",
+    "chance.common.label": "Probabilité des QDs communs",
+    "chance.uncommon.label": "Probabilité des QDs peu communs",
+    "chance.rare.label": "Probabilité des QDs rares",
     "chance.common": "{percent} % des arrivées sont communes",
     "chance.uncommon": "{percent} % des arrivées sont peu communes",
     "chance.rare": "{percent} % des arrivées sont rares",
-    "blocked.title": "Les animaux ont besoin d’entendre la classe",
+    "blocked.title": "Les QDs ont besoin d’entendre la classe",
     "blocked.denied":
       "Ce navigateur a bloqué l’accès au micro. Cliquez sur le cadenas ou l’icône de caméra dans la barre d’adresse, autorisez le micro, puis réessayez.",
     "blocked.missing":
@@ -1469,22 +1451,22 @@ const fr = {
     "blocked.unsupported":
       "Ce navigateur ne peut pas utiliser de micro. Chrome, Edge et Safari fonctionnent tous.",
     "blocked.tryAgain": "Réessayer",
-    "about.pageTitle": "À propos — Shy Safari",
+    "about.pageTitle": "À propos — Quiet Discoveries",
     "about.meta":
-      "Shy Safari est un outil gratuit pour le bruit en classe, créé à l’EdTech-a-thon et géré par teacher.dev. Sans publicité ni compte.",
+      "Quiet Discoveries est un sonomètre gratuit pour la classe : une scène paisible où des QDs timides sortent tant que la classe reste calme. Sans publicité ni compte.",
     "about.title": "À propos",
     "about.lede":
-      "Affichez-le au tableau. Plus la classe est calme, plus il y a d’animaux.",
+      "Affichez-le au tableau. Plus la classe est calme, plus il y a de QDs.",
     "about.originTitle": "D’où ça vient",
-    "about.origin.beforeEvent":
-      "Shy Safari a commencé comme un projet de trois jours à l’",
-    "about.origin.afterEvent":
-      ", un événement où l’on se réunit pour créer des outils gratuits pour les classes. Il est maintenant géré par ",
-    "about.origin.afterTeacher": ", où vous trouverez aussi nos autres outils.",
-    "about.photoAlt": "Participants de l’EdTech-a-thon 2026",
+    "about.origin.beforeLink": "D’après ",
+    "about.origin.link": "Shy Safari, de teacher.dev",
+    "about.origin.afterLink": ", utilisé sous licence Apache 2.0.",
+    "about.namesTitle": "Pourquoi « QDs » ?",
+    "about.names":
+      "Nous les appelons les QDs : dites-le à voix haute en anglais, et ça sonne comme « cuties », c’est-à-dire « les mignons ». Ce sont les créatures qui sortent tant que la classe reste calme : zèbres et girafes, poissons du récif, dinosaures, renards et ours polaires et, dans l’espace profond, des observations au télescope.",
     "about.purposeTitle": "Ce qu’il fait",
     "about.purpose":
-      "Affichez la savane, le récif de corail, l’espace profond, l’ère des dinosaures, la forêt, la jungle ou l’Arctique au tableau et appuyez sur Commencer. Tant que la classe reste sous l’objectif de volume, les animaux sortent un par un. S’il y a trop de bruit, ils s’enfuient. Vous pouvez changer ça dans les réglages pour que la scène se mette simplement en pause jusqu’au retour du calme. La plupart des animaux sont communs, quelques-uns sont rares, et la classe peut revoir tous ceux qu’elle a aperçus.",
+      "Affichez la savane, le récif de corail, l’espace profond, l’ère des dinosaures, la forêt, la jungle ou l’Arctique au tableau et appuyez sur Commencer. Tant que la classe reste sous l’objectif de volume, les QDs sortent un par un. S’il y a trop de bruit, ils s’enfuient. Vous pouvez changer ça dans les réglages pour que la scène se mette simplement en pause jusqu’au retour du calme. La plupart des QDs sont communs, quelques-uns sont rares, et la classe peut revoir tous ceux qu’elle a aperçus.",
     "about.promiseTitle": "Gratuit, vraiment",
     "about.promise":
       "C’est gratuit. Il n’y a ni version payante ni publicité, et nous ne collectons aucune donnée personnelle sur vous ou vos élèves.",

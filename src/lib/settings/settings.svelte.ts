@@ -41,6 +41,9 @@ export const ARRIVAL_RATE_PRESETS: Record<
 export const MIN_ARRIVAL_MINUTES = 1;
 export const MAX_ARRIVAL_MINUTES = 60;
 
+// The "class-noise-level:" prefix predates the Quiet Discoveries name. Every
+// localStorage key keeps it on purpose: renaming would wipe teachers' saved
+// settings, classes and collections.
 const STORAGE_KEY = "class-noise-level:settings";
 
 interface StoredSettings {

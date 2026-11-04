@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "class-noise-level",
+      "name": "quiet-discoveries",
       "devDependencies": {
         "@eslint/js": "^10.0.1",
         "@sveltejs/adapter-static": "^3.0.10",

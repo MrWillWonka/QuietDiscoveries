@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
   <defs>
-    <clipPath id="shy-safari-logo-clip"><circle cx="64" cy="64" r="62"/></clipPath>
+    <clipPath id="quiet-discoveries-logo-clip"><circle cx="64" cy="64" r="62"/></clipPath>
   </defs>
   <circle cx="64" cy="64" r="62" fill="#ffd166"/>
-  <g clip-path="url(#shy-safari-logo-clip)">
+  <g clip-path="url(#quiet-discoveries-logo-clip)">
     <g transform="rotate(-7 64 96)">
       <path d="M28 104 C 30 92 36 83 42 78 L 86 78 C 98 80 108 90 112 104 Z" fill="#8e9bb0"/>
       <path d="M44 38 C 26 26 9 38 11 61 C 13 84 30 94 46 84 Z" fill="#7f8ca3"/>

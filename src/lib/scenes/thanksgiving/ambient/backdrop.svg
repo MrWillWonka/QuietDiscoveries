@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+<!-- An autumn farm field at golden late afternoon in November. The sky runs
+     from a pale, cool blue overhead to warm gold at the hills; the sun, the
+     clouds, the far trees, the barn, the fence and everything standing in the
+     field are Ambient Life pieces, so they stay round and layer with the
+     animals. The middle of the sky is kept empty for a Note. The field is
+     open from the far edge (y 630) to the bottom, so ground animals walk the
+     savanna's band (62% to 97% of the way down). -->
+<defs><linearGradient id="thanksgiving-backdrop-sky" x1="0" y1="0" x2="0" y2="640" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9e4e4"/><stop offset="1" stop-color="#fbdca0"/></linearGradient></defs>
+<rect width="1920" height="1080" fill="url(#thanksgiving-backdrop-sky)"/>
+<!-- The farthest hills, hazy in the warm light. -->
+<path d="M-10 640L-10 548C120 526 260 506 420 512C600 518 700 548 860 540C1020 532 1120 494 1290 488C1460 482 1580 510 1720 506C1820 503 1880 494 1930 490L1930 640Z" fill="#e8c9a6"/>
+<g fill="#e2bb93"><circle cx="300" cy="512" r="16"/><circle cx="324" cy="508" r="13"/><circle cx="346" cy="512" r="11"/><circle cx="1240" cy="494" r="15"/><circle cx="1264" cy="488" r="17"/><circle cx="1290" cy="492" r="12"/><circle cx="1650" cy="508" r="13"/><circle cx="1672" cy="504" r="15"/></g>
+<!-- Nearer hills, with soft autumn woods along them. -->
+<path d="M-10 640L-10 596C160 572 330 566 520 578C700 590 820 604 980 598C1140 592 1260 566 1440 562C1620 558 1780 578 1930 572L1930 640Z" fill="#d9ad84"/>
+<g fill="#d39966"><circle cx="40" cy="588" r="26"/><circle cx="80" cy="580" r="30"/><circle cx="122" cy="584" r="24"/><circle cx="560" cy="584" r="20"/><circle cx="590" cy="578" r="24"/><circle cx="622" cy="586" r="18"/><circle cx="1380" cy="566" r="24"/><circle cx="1414" cy="560" r="28"/><circle cx="1450" cy="566" r="22"/><circle cx="1830" cy="574" r="22"/><circle cx="1862" cy="568" r="26"/></g>
+<g fill="#cf8a62"><circle cx="100" cy="592" r="20"/><circle cx="604" cy="592" r="16"/><circle cx="1430" cy="574" r="18"/><circle cx="1846" cy="582" r="17"/></g>
+<g fill="#ffffff" opacity="0.14"><circle cx="70" cy="568" r="14"/><circle cx="582" cy="568" r="11"/><circle cx="1404" cy="548" r="13"/><circle cx="1854" cy="556" r="12"/></g>
+<!-- Low hedgerow where the hills meet the field. -->
+<path d="M-10 640L-10 622C80 612 160 618 240 614C330 610 400 620 500 616C620 612 700 624 820 620C960 616 1060 608 1200 612C1340 616 1420 606 1560 610C1700 614 1800 606 1930 608L1930 640Z" fill="#c99a6c"/>
+<!-- The harvested field: golden stubble in rows, from the far edge to the meadow. -->
+<path d="M-10 632C300 624 640 640 960 632C1280 624 1600 638 1930 628L1930 1090L-10 1090Z" fill="#e8c67c"/>
+<path d="M-10 632C300 624 640 640 960 632C1280 624 1600 638 1930 628L1930 644C1600 652 1280 640 960 648C640 656 300 640 -10 648Z" fill="#2b2b3a" opacity="0.07"/>
+<g fill="#2b2b3a" opacity="0.06"><path d="M-10 664C320 656 640 670 960 663C1280 656 1600 668 1930 660L1930 664C1600 672 1280 661 960 668C640 675 320 661 -10 669Z"/><path d="M-10 690C320 681 640 697 960 689C1280 681 1600 695 1930 686L1930 692C1600 701 1280 688 960 696C640 704 320 688 -10 697Z"/><path d="M-10 720C320 710 640 728 960 719C1280 710 1600 726 1930 716L1930 724C1600 734 1280 718 960 727C640 736 320 718 -10 728Z"/><path d="M-10 754C320 743 640 763 960 753C1280 743 1600 761 1930 750L1930 760C1600 771 1280 753 960 763C640 773 320 753 -10 764Z"/></g>
+<!-- The meadow edge: soft olive grass, so brown and bronze animals stand out. -->
+<path d="M-10 784C260 766 560 792 900 776C1240 760 1560 790 1930 772L1930 1090L-10 1090Z" fill="#c2b871"/>
+<path d="M-10 784C260 766 560 792 900 776C1240 760 1560 790 1930 772L1930 790C1560 808 1240 778 900 794C560 810 260 784 -10 802Z" fill="#2b2b3a" opacity="0.05"/>
+<path d="M-10 902C300 880 620 914 980 896C1320 880 1620 912 1930 892L1930 1090L-10 1090Z" fill="#b3ad65"/>
+<path d="M-10 902C300 880 620 914 980 896C1320 880 1620 912 1930 892L1930 912C1620 932 1320 900 980 916C620 934 300 900 -10 922Z" fill="#2b2b3a" opacity="0.05"/>
+<path d="M-10 1012C300 996 640 1022 980 1008C1320 994 1640 1020 1930 1004L1930 1090L-10 1090Z" fill="#a8a35d"/>
+<!-- A farm track, from the gap in the hedge down through the meadow. -->
+<path d="M1060 634C1040 664 1010 700 1000 740C988 790 1040 840 1020 900C1000 960 900 1020 860 1090L1080 1090C1100 1020 1160 960 1160 900C1160 840 1090 790 1088 740C1086 700 1094 664 1086 634Z" fill="#dcc08e"/>
+<path d="M1060 634C1040 664 1010 700 1000 740C988 790 1040 840 1020 900C1000 960 900 1020 860 1090L920 1090C960 1020 1050 960 1068 900C1086 840 1030 790 1036 740C1042 700 1064 664 1072 634Z" fill="#2b2b3a" opacity="0.06"/>
+<g fill="#2b2b3a" opacity="0.05"><path d="M1050 760C1052 800 1080 840 1074 890L1084 890C1090 840 1062 800 1060 760Z"/><path d="M990 960C960 1000 940 1040 930 1090L944 1090C954 1040 976 1000 1004 960Z"/></g>
+<!-- Tufts of grass, darker, scattered through the meadow. -->
+<g fill="#8f914f" opacity="0.5"><path d="M180 860C184 846 188 840 192 836C192 846 194 852 198 860Z"/><path d="M420 830C424 818 428 812 432 808C432 818 434 824 438 830Z"/><path d="M720 880C724 866 728 860 732 856C732 866 734 872 738 880Z"/><path d="M1320 846C1324 832 1328 826 1332 822C1332 832 1334 838 1338 846Z"/><path d="M1600 870C1604 856 1608 850 1612 846C1612 856 1614 862 1618 870Z"/><path d="M300 980C306 960 312 952 318 946C318 960 320 970 326 980Z"/><path d="M640 1000C646 980 652 972 658 966C658 980 660 990 666 1000Z"/><path d="M1260 990C1266 970 1272 962 1278 956C1278 970 1280 980 1286 990Z"/><path d="M1760 970C1766 950 1772 942 1778 936C1778 950 1780 960 1786 970Z"/></g>
+<!-- A few fallen leaves lying in the grass, flat on the ground. -->
+<g opacity="0.75"><ellipse cx="260" cy="926" rx="9" ry="4" fill="#d9643a"/><ellipse cx="560" cy="864" rx="7" ry="3" fill="#e0a33c"/><ellipse cx="1420" cy="944" rx="9" ry="4" fill="#e8813a"/><ellipse cx="1700" cy="842" rx="7" ry="3" fill="#d9643a"/><ellipse cx="760" cy="1040" rx="11" ry="5" fill="#e0a33c"/><ellipse cx="1520" cy="1050" rx="11" ry="5" fill="#d9643a"/></g>
+</svg>

@@ -15,7 +15,7 @@
 
 <script lang="ts">
   /**
-   * What the Scene only shows, said in words: what Shy Safari is, how to use
+   * What the Scene only shows, said in words: what Quiet Discoveries is, how to use
    * it and what teachers ask about it.
    *
    * Unlike Settings it is always in the document, and closing it only hides

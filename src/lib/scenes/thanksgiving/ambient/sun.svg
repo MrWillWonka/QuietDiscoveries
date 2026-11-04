@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- The low November sun, warm and soft: two pale halos round a gold disc. -->
+  <circle cx="100" cy="100" r="98" fill="#ffe7b0" opacity="0.3"/>
+  <circle cx="100" cy="100" r="74" fill="#ffe2a0" opacity="0.4"/>
+  <circle cx="100" cy="100" r="52" fill="#ffe9b8"/>
+  <circle cx="100" cy="100" r="52" fill="#ffd98a" opacity="0.45"/>
+</svg>

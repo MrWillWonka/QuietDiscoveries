@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 74">
+  <!-- Three pumpkins left in the field: a big orange one, a pale cream one
+       and a little one in front. -->
+  <ellipse cx="66" cy="74" rx="64" ry="3.5" fill="#2b2b3a" opacity="0.2"/>
+  <g>
+    <ellipse cx="96" cy="52" rx="30" ry="22" fill="#e6dcc0"/>
+    <ellipse cx="96" cy="52" rx="14" ry="22" fill="#f4f1de"/>
+    <ellipse cx="110" cy="52" rx="16" ry="22" fill="#2b2b3a" opacity="0.1"/>
+    <path d="M94 31 C 94 24, 98 20, 102 18 L 104 21 C 100 23, 98 26, 98 31 Z" fill="#7a6a44"/>
+  </g>
+  <g>
+    <ellipse cx="44" cy="44" rx="40" ry="30" fill="#c96a24"/>
+    <ellipse cx="44" cy="44" rx="26" ry="30" fill="#e8812a"/>
+    <ellipse cx="44" cy="44" rx="10" ry="30" fill="#f0943c"/>
+    <ellipse cx="62" cy="46" rx="20" ry="28" fill="#2b2b3a" opacity="0.1"/>
+    <path d="M40 16 C 40 8, 46 2, 52 0 L 54 4 C 48 6, 45 10, 45 16 Z" fill="#6f6a38"/>
+    <ellipse cx="30" cy="30" rx="6" ry="10" fill="#ffffff" opacity="0.2"/>
+  </g>
+  <g>
+    <ellipse cx="74" cy="62" rx="16" ry="12" fill="#d9772a"/>
+    <ellipse cx="74" cy="62" rx="8" ry="12" fill="#f0943c"/>
+    <ellipse cx="82" cy="63" rx="8" ry="11" fill="#2b2b3a" opacity="0.1"/>
+    <path d="M72 51 C 72 47, 75 45, 78 44 L 79 46 C 76 47, 75 49, 75 51 Z" fill="#6f6a38"/>
+  </g>
+</svg>

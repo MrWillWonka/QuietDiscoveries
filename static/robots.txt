@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.shysafari.com/sitemap.xml
+# Once SITE_URL is set in src/lib/site.ts, add your sitemap here, e.g.
+# Sitemap: https://www.example.com/sitemap.xml

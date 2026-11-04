@@ -5,7 +5,7 @@
    * The page itself never scrolls (the Scene must not), so this frame does.
    */
 
-  import { asset, resolve } from "$app/paths";
+  import { resolve } from "$app/paths";
   import LanguagePicker from "$lib/components/LanguagePicker.svelte";
   import { t } from "$lib/i18n/index.svelte";
   import logoUrl from "$lib/brand/logo.svg";
@@ -30,7 +30,7 @@
         class="flex items-center gap-2 text-lg font-semibold tracking-tight hover:text-slate-600"
       >
         <img src={logoUrl} alt="" class="size-9" />
-        Shy Safari
+        Quiet Discoveries
       </a>
       <div class="flex items-center gap-2">
         <a
@@ -52,15 +52,6 @@
   <footer
     class="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-center gap-x-4 gap-y-2 px-4 pb-6 text-center text-sm text-slate-600"
   >
-    <a
-      href="https://teacher.dev"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="flex items-center gap-2 hover:text-slate-900"
-    >
-      <img src={asset("/edtechathon-logo.svg")} alt="" class="size-6" />
-      {t("common.builtBy")}
-    </a>
     <a href={resolve("/#how-it-works")} class="hover:text-slate-900"
       >{t("common.howItWorks")}</a
     >
