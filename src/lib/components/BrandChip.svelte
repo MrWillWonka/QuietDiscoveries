@@ -10,6 +10,7 @@
 
   import { resolve } from "$app/paths";
   import { t } from "$lib/i18n/index.svelte";
+  import Credit from "./Credit.svelte";
   import logoUrl from "$lib/brand/logo.svg";
 
   /** Pointing at it is enough on a desktop; nothing has to be clicked. */
@@ -68,6 +69,7 @@
         class="text-sm font-semibold text-slate-900 hover:underline"
         >Quiet Discoveries</a
       >
+      <Credit class="text-xs text-slate-700" />
       <p class="flex items-center gap-2 text-xs font-medium text-slate-600">
         <a href={resolve("/about")} class="hover:text-slate-900 hover:underline"
           >{t("common.about")}</a

@@ -1,6 +1,6 @@
 <script lang="ts">
   /**
-   * Which Scene to start in, on the start card. A drop-down rather than a
+   * Which Scene to start in, on the home screen. A drop-down rather than a
    * row of buttons, now that there are too many Scenes to take in at a
    * glance; it opens the same list as the menu in the bottom right.
    *
@@ -23,7 +23,7 @@
   let flagged = $derived(newScenes.unseen(today.day).length > 0);
 
   /**
-   * The start card sits mid-screen, so the list opens whichever way has
+   * The home screen scrolls, so the list opens whichever way has
    * more room, and is never taller than that room: on a projector the
    * screen is short, and the last Scenes must not end up below its edge.
    */
@@ -55,14 +55,14 @@
   }}
 />
 
-<div class="relative mx-auto w-72 max-w-full" bind:this={container}>
+<div class="relative w-full min-w-0" bind:this={container}>
   <!-- Its contents are hidden, not absent, until the saved Scene is known:
        the page is prerendered, and a reload should not flash the default. -->
   <button
     type="button"
     class={[
-      "relative flex w-full items-center gap-3 rounded-2xl border bg-white py-1.5 pr-3 pl-2 text-left text-sm hover:bg-slate-50",
-      open ? "border-slate-900" : "border-slate-300",
+      "relative flex w-full items-center gap-3 rounded-full py-1.5 pr-4 pl-1.5 text-left transition hover:bg-stone-50",
+      open && "bg-stone-50",
     ]}
     aria-expanded={open}
     aria-controls="start-scene-menu"
@@ -75,22 +75,23 @@
       class="flex min-w-0 flex-1 items-center gap-3"
       class:invisible={!app.restored}
     >
-      <img src={app.scene.icon} alt="" class="size-9 shrink-0" />
+      <span
+        class="grid size-12 shrink-0 place-items-center rounded-2xl bg-meadow-50 ring-1 ring-stone-200"
+      >
+        <img src={app.scene.icon} alt="" class="size-10" />
+      </span>
       <span class="min-w-0 flex-1">
-        <span class="block font-medium text-slate-900"
+        <span class="block truncate text-lg leading-tight font-bold text-ink"
           >{t(`scene.${app.scene.id}.name` as UiKey)}</span
         >
-        <span class="block truncate text-xs text-slate-500"
+        <span class="block truncate text-sm text-ink-soft"
           >{sceneHint(app.scene.id, today.day)}</span
         >
       </span>
     </span>
     <svg
       viewBox="0 0 24 24"
-      class={[
-        "size-4 shrink-0 text-slate-500 transition",
-        open && "rotate-180",
-      ]}
+      class={["size-5 shrink-0 text-ink transition", open && "rotate-180"]}
       fill="none"
       stroke="currentColor"
       stroke-width="2.5"
@@ -102,7 +103,7 @@
     </svg>
     {#if flagged && !open}
       <span
-        class="pointer-events-none absolute -top-2 -right-2 rounded-full bg-orange-500 px-1.5 py-px text-[0.65rem] font-semibold tracking-wide text-white uppercase shadow ring-2 ring-white"
+        class="pointer-events-none absolute -top-3 right-2 rounded-full bg-orange-500 px-1.5 py-px text-[0.65rem] font-semibold tracking-wide text-white uppercase shadow ring-2 ring-white"
         aria-hidden="true">{t("scene.new")}</span
       >
     {/if}

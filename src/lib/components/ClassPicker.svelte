@@ -7,6 +7,9 @@
    * Switching between periods is the everyday job, so it is one click away
    * in a small menu under the chip. Adding, renaming and deleting are rarer
    * and live in the bigger Edit classes dialog the menu links to.
+   *
+   * On the home screen it sits in the header's right-hand corner, so it
+   * takes the "home" look there and its menu opens towards the left.
    */
 
   import type { App } from "$lib/app.svelte";
@@ -17,11 +20,13 @@
     app,
     open = $bindable(false),
     onedit,
+    variant = "overlay",
     onopen,
   }: {
     app: App;
     open?: boolean;
     onedit: () => void;
+    variant?: "overlay" | "home";
     /** Given, the chip opens this (the start menu) instead of its own menu. */
     onopen?: () => void;
   } = $props();
@@ -52,7 +57,9 @@
        prerendered, and a reload should not flash "My class" first. -->
   <button
     type="button"
-    class="flex h-11 w-full max-w-36 items-center gap-2 rounded-full bg-white/95 px-4 text-sm font-medium text-slate-800 shadow-lg transition hover:bg-white sm:max-w-64"
+    class={variant === "home"
+      ? "flex h-12 w-full max-w-44 items-center gap-2.5 rounded-full border border-stone-200 bg-white pr-3 pl-4 text-base font-semibold text-ink shadow-sm transition hover:bg-stone-50 sm:max-w-72"
+      : "flex h-11 w-full max-w-36 items-center gap-2 rounded-full bg-white/95 px-4 text-sm font-medium text-slate-800 shadow-lg transition hover:bg-white sm:max-w-64"}
     class:invisible={!app.restored}
     aria-expanded={onopen ? undefined : open}
     aria-controls={onopen ? undefined : "class-menu"}
@@ -63,7 +70,10 @@
   >
     <svg
       viewBox="0 0 24 24"
-      class="size-5 shrink-0 text-slate-600"
+      class={[
+        "size-5 shrink-0",
+        variant === "home" ? "text-pine-700" : "text-slate-600",
+      ]}
       fill="none"
       stroke="currentColor"
       stroke-width="2"
@@ -76,10 +86,33 @@
       />
     </svg>
     <span class="truncate">{currentName}</span>
+    {#if variant === "home"}
+      <svg
+        viewBox="0 0 24 24"
+        class={[
+          "ml-auto size-4 shrink-0 text-ink-soft transition",
+          open && "rotate-180",
+        ]}
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    {/if}
   </button>
 
   {#if open}
-    <div id="class-menu" class="absolute top-full left-0 z-10 pt-2">
+    <div
+      id="class-menu"
+      class={[
+        "absolute top-full z-10 pt-2",
+        variant === "home" ? "right-0" : "left-0",
+      ]}
+    >
       <div
         class="w-64 max-w-[calc(100vw-2rem)] rounded-2xl bg-white/95 p-1.5 shadow-lg"
       >

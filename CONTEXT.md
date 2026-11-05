@@ -158,7 +158,19 @@ presets or types a number of minutes. It is the only dial that changes how fast 
 One stretch of classroom work, from the teacher pressing start to the teacher
 resetting. A Session begins with an empty Scene and fills as the room stays
 quiet. Refreshing the page does not end a Session; nothing about a Session
-outlives Reset.
+outlives Reset except its entry in the Session History.
+
+## Session History
+
+The list of a Class's past Sessions on the home screen: when each ran, which
+Scenes it was in, how long the room was Quiet and which Creatures arrived. A
+Session joins it when the teacher presses start, and is finished by Reset or
+by another Class taking over the room; one left unfinished for half an hour is
+finished where it was last active, so the next start begins a new one. A
+Session finished within a minute with nothing arrived is not kept. Each Class
+has its own, and Reset does not empty it. The home screen offers each Class's
+latest Session to continue, which switches to that Class and the Scene it was
+last in, and the Sessions page shows the whole history.
 
 ## Class
 

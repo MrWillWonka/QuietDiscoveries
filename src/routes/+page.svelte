@@ -5,6 +5,10 @@
   import ClassPicker from "$lib/components/ClassPicker.svelte";
   import ClassStats from "$lib/components/ClassStats.svelte";
   import StartMenu from "$lib/components/StartMenu.svelte";
+  import HomeScreen from "$lib/components/home/HomeScreen.svelte";
+  import { isAvailable } from "$lib/scenes";
+  import { sceneOf } from "$lib/session/history";
+  import { today } from "$lib/today.svelte";
   import ScenePicker from "$lib/components/ScenePicker.svelte";
   import Collection from "$lib/components/Collection.svelte";
   import ControlBar from "$lib/components/ControlBar.svelte";
@@ -133,6 +137,13 @@
     canFullScreen =
       typeof document.documentElement.requestFullscreen === "function";
   });
+
+  /**
+   * The home screen, until the Session starts. It has its own header, so the
+   * corner buttons over the Scene wait until it is gone. Should the
+   * microphone be refused, the Scene comes back behind the explanation.
+   */
+  const home = $derived(!app.listening && !app.blocked);
 
   /**
    * The corner buttons fade with the control bar, so the class sees only the
@@ -281,7 +292,7 @@
   <!-- dvh, not vh: on a phone, vh is the height with the browser toolbars
      hidden, which would tuck the control bar underneath them. -->
   <main class="relative h-dvh w-full overflow-hidden">
-    {#if app.restored}
+    {#if app.restored && !home}
       <Scene
         scene={app.scene}
         creatures={app.session.creatures}
@@ -308,9 +319,30 @@
       {/key}
     {/if}
 
-    {#if (!app.listening && !app.blocked) || menuOpen}
-      <!-- The start menu: a first visit opens on it, and "My class" opens it
-         again over a Session (`StartMenu.svelte`). -->
+    {#if home}
+      <!-- What a visit opens on, before the Session starts. -->
+      <HomeScreen
+        {app}
+        bind:classMenuOpen
+        {infoOpen}
+        onstart={async () => {
+          if (await app.connect()) app.startSession();
+        }}
+        onresume={async (classId, record) => {
+          app.useClass(classId);
+          // A Scene only on offer some of the year may have gone since.
+          const scene = sceneOf(record);
+          if (isAvailable(scene, today.day)) app.useScene(scene);
+          if (await app.connect()) app.startSession();
+        }}
+        onopenclasses={() => (classesOpen = true)}
+        onopensettings={() => (settingsOpen = true)}
+        onopeninfo={() => (infoOpen = true)}
+        onopenstats={() => (statsOpen = true)}
+      />
+    {:else if menuOpen}
+      <!-- The start menu, which "My class" opens over a Session
+         (`StartMenu.svelte`). -->
       <StartMenu
         {app}
         dialog={app.listening}
@@ -322,80 +354,41 @@
 
     <!-- Top left: who made this, and which Class is on screen. Top right: the
        tools that change how the page looks — the Timer and Notes over the
-       Scene, floating it, and whether it fills the screen. Later than the
-       start card so it sits above it; Settings, Animals and the blocked-
+       Scene, floating it, and whether it fills the screen. Not over the home
+       screen, which has its own header; Settings, Animals and the blocked-
        microphone screen cover it. -->
-    <div
-      class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex items-start justify-between gap-2 p-4 transition-opacity duration-300"
-      class:opacity-0={!topBarVisible}
-      aria-hidden={!topBarVisible}
-      inert={!topBarVisible}
-    >
-      <div class="pointer-events-auto flex min-w-0 gap-2">
-        <BrandChip />
-        <ClassPicker
-          {app}
-          bind:open={classMenuOpen}
-          onedit={() => (classesOpen = true)}
-          onopen={openMenu}
-        />
-      </div>
-      <div class="pointer-events-auto flex shrink-0 gap-2">
-        <!-- Only once listening: neither the Timer nor a Note is shown over
+    {#if !home}
+      <div
+        class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex items-start justify-between gap-2 p-4 transition-opacity duration-300"
+        class:opacity-0={!topBarVisible}
+        aria-hidden={!topBarVisible}
+        inert={!topBarVisible}
+      >
+        <div class="pointer-events-auto flex min-w-0 gap-2">
+          <BrandChip />
+          <ClassPicker
+            {app}
+            bind:open={classMenuOpen}
+            onedit={() => (classesOpen = true)}
+            onopen={openMenu}
+          />
+        </div>
+        <div class="pointer-events-auto flex shrink-0 gap-2">
+          <!-- Only once listening: neither the Timer nor a Note is shown over
            the start card. -->
-        {#if app.listening}
-          <button
-            class={[
-              "grid size-11 place-items-center rounded-full shadow-lg",
-              app.timer.open
-                ? "bg-slate-900 text-white"
-                : "bg-white/95 text-slate-700 hover:bg-white",
-            ]}
-            aria-pressed={app.timer.open}
-            aria-label={t("controls.timer")}
-            title={t("controls.timer")}
-            onclick={() =>
-              app.timer.open ? app.timer.hide() : app.timer.show()}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              class="size-5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="13.5" r="7.5" />
-              <path d="M12 13.5V9.5M10 2.5h4M18.5 6.5l1.5-1.5" />
-            </svg>
-          </button>
-          <button
-            class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
-            aria-label={t("controls.addText")}
-            title={t("controls.addTextHint")}
-            onclick={() => notesLayer?.add()}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              class="size-5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M3 7V4h12v3M9 4v15M6.5 19h5M19 12v8M15 16h8" />
-            </svg>
-          </button>
-          {#if canFloat}
+          {#if app.listening}
             <button
-              class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
-              aria-label={t("float.open")}
-              title={t("float.openHint")}
-              onclick={openFloatingWindow}
+              class={[
+                "grid size-11 place-items-center rounded-full shadow-lg",
+                app.timer.open
+                  ? "bg-slate-900 text-white"
+                  : "bg-white/95 text-slate-700 hover:bg-white",
+              ]}
+              aria-pressed={app.timer.open}
+              aria-label={t("controls.timer")}
+              title={t("controls.timer")}
+              onclick={() =>
+                app.timer.open ? app.timer.hide() : app.timer.show()}
             >
               <svg
                 viewBox="0 0 24 24"
@@ -407,52 +400,93 @@
                 stroke-linejoin="round"
                 aria-hidden="true"
               >
-                <rect x="2.5" y="4" width="19" height="15" rx="2.5" />
-                <rect
-                  x="12"
-                  y="11"
-                  width="6.5"
-                  height="5"
-                  rx="1"
-                  fill="currentColor"
-                />
+                <circle cx="12" cy="13.5" r="7.5" />
+                <path d="M12 13.5V9.5M10 2.5h4M18.5 6.5l1.5-1.5" />
+              </svg>
+            </button>
+            <button
+              class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
+              aria-label={t("controls.addText")}
+              title={t("controls.addTextHint")}
+              onclick={() => notesLayer?.add()}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="size-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M3 7V4h12v3M9 4v15M6.5 19h5M19 12v8M15 16h8" />
+              </svg>
+            </button>
+            {#if canFloat}
+              <button
+                class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
+                aria-label={t("float.open")}
+                title={t("float.openHint")}
+                onclick={openFloatingWindow}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  class="size-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="2.5" y="4" width="19" height="15" rx="2.5" />
+                  <rect
+                    x="12"
+                    y="11"
+                    width="6.5"
+                    height="5"
+                    rx="1"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            {/if}
+          {/if}
+          {#if canFullScreen}
+            <button
+              class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
+              aria-label={fullScreen
+                ? t("fullScreen.exit")
+                : t("fullScreen.enter")}
+              title={fullScreen ? t("fullScreen.exit") : t("fullScreen.enter")}
+              onclick={toggleFullScreen}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="size-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                {#if fullScreen}
+                  <path
+                    d="M9 4v3a2 2 0 0 1-2 2H4M15 4v3a2 2 0 0 0 2 2h3M9 20v-3a2 2 0 0 0-2-2H4M15 20v-3a2 2 0 0 1 2-2h3"
+                  />
+                {:else}
+                  <path
+                    d="M4 9V6a2 2 0 0 1 2-2h3M20 9V6a2 2 0 0 0-2-2h-3M4 15v3a2 2 0 0 0 2 2h3M20 15v3a2 2 0 0 1-2 2h-3"
+                  />
+                {/if}
               </svg>
             </button>
           {/if}
-        {/if}
-        {#if canFullScreen}
-          <button
-            class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
-            aria-label={fullScreen
-              ? t("fullScreen.exit")
-              : t("fullScreen.enter")}
-            title={fullScreen ? t("fullScreen.exit") : t("fullScreen.enter")}
-            onclick={toggleFullScreen}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              class="size-5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              {#if fullScreen}
-                <path
-                  d="M9 4v3a2 2 0 0 1-2 2H4M15 4v3a2 2 0 0 0 2 2h3M9 20v-3a2 2 0 0 0-2-2H4M15 20v-3a2 2 0 0 1 2-2h3"
-                />
-              {:else}
-                <path
-                  d="M4 9V6a2 2 0 0 1 2-2h3M20 9V6a2 2 0 0 0-2-2h-3M4 15v3a2 2 0 0 0 2 2h3M20 15v3a2 2 0 0 1-2 2h-3"
-                />
-              {/if}
-            </svg>
-          </button>
-        {/if}
+        </div>
       </div>
-    </div>
+    {/if}
 
     {#if app.listening && app.timer.open}
       <!-- Keyed by Class, so the length typed in is the new class's own. -->
@@ -492,58 +526,60 @@
       </div>
     {/if}
 
-    <!-- Bottom left: help for the teacher and the page's language, out of
+    {#if !home}
+      <!-- Bottom left: help for the teacher and the page's language, out of
        the way of the controls above and fading with them, and the arrival
        counter, if the teacher turned it on in Settings, which stays up in
        the corner when they fade. On a phone the control bar spans the
        bottom edge, so during a Session they sit just above the bar. -->
-    <div
-      class="safe-edges pointer-events-none absolute bottom-0 left-0 z-40 flex gap-2 p-4 {app.listening
-        ? 'max-sm:bottom-16'
-        : ''}"
-    >
-      {#if app.listening && settings.showCounter}
-        <ArrivalCounter sceneId={app.scene.id} count={app.session.arrived} />
-      {/if}
-      {#if app.listening && settings.showResets && app.scene.strikes}
-        <ResetCounter count={stats.current?.resets ?? 0} />
-      {/if}
       <div
-        class="pointer-events-auto flex gap-2 transition-opacity duration-300"
-        class:opacity-0={!topBarVisible}
-        aria-hidden={!topBarVisible}
-        inert={!topBarVisible}
+        class="safe-edges pointer-events-none absolute bottom-0 left-0 z-40 flex gap-2 p-4 {app.listening
+          ? 'max-sm:bottom-16'
+          : ''}"
       >
-        <button
-          class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
-          aria-label={t("guide.title")}
-          title={t("guide.title")}
-          aria-expanded={infoOpen}
-          aria-controls="how-it-works-panel"
-          onclick={() => (infoOpen = true)}
+        {#if app.listening && settings.showCounter}
+          <ArrivalCounter sceneId={app.scene.id} count={app.session.arrived} />
+        {/if}
+        {#if app.listening && settings.showResets && app.scene.strikes}
+          <ResetCounter count={stats.current?.resets ?? 0} />
+        {/if}
+        <div
+          class="pointer-events-auto flex gap-2 transition-opacity duration-300"
+          class:opacity-0={!topBarVisible}
+          aria-hidden={!topBarVisible}
+          inert={!topBarVisible}
         >
-          <svg
-            viewBox="0 0 24 24"
-            class="size-5"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
+          <button
+            class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
+            aria-label={t("guide.title")}
+            title={t("guide.title")}
+            aria-expanded={infoOpen}
+            aria-controls="how-it-works-panel"
+            onclick={() => (infoOpen = true)}
           >
-            <circle cx="12" cy="12" r="9" />
-            <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6" />
-            <path d="M12 17.5h.01" />
-          </svg>
-        </button>
-        <LanguagePicker />
+            <svg
+              viewBox="0 0 24 24"
+              class="size-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6" />
+              <path d="M12 17.5h.01" />
+            </svg>
+          </button>
+          <LanguagePicker />
+        </div>
+        {#if import.meta.env.QD_DEMO}
+          <!-- Only in the demo build: no microphone, so make some noise here. -->
+          <DemoBar microphone={app.microphone as DemoMicrophone} />
+        {/if}
       </div>
-      {#if import.meta.env.QD_DEMO}
-        <!-- Only in the demo build: no microphone, so make some noise here. -->
-        <DemoBar microphone={app.microphone as DemoMicrophone} />
-      {/if}
-    </div>
+    {/if}
 
     {#if app.blocked}
       <MicBlocked {app} />

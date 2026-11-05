@@ -14,6 +14,7 @@ import { notes } from "$lib/notes/notes.svelte";
 import { RoomMonitor } from "$lib/noise/roomMonitor.svelte";
 import { isAvailable, SCENES } from "$lib/scenes";
 import { DEFAULT_SCENE, type SceneId } from "$lib/scenes/types";
+import { sessionHistory } from "$lib/session/history.svelte";
 import { Session } from "$lib/session/session.svelte";
 import { sightings } from "$lib/session/sightings.svelte";
 import { stats } from "$lib/session/stats.svelte";
@@ -29,6 +30,12 @@ import { untrack } from "svelte";
  * quiet again; three time constants leave only a twentieth of it.
  */
 const CHIME_ECHO_MS = 3 * SMOOTHING_MS;
+
+/**
+ * The longest one frame may add to a Session's listening time. Frames stop
+ * while the computer sleeps, and waking must not count the night as quiet.
+ */
+const MAX_LISTEN_STEP_MS = 1_000;
 
 /**
  * After the third strike: long enough for the falling leaves to cover the
@@ -119,6 +126,7 @@ export class App {
     this.#sceneId = id;
     this.#clearPile();
     this.session.useScene(id, SCENES[id].roster, SCENES[id].arrivals);
+    if (this.session.running) sessionHistory.visit(id);
   }
 
   /**
@@ -128,6 +136,8 @@ export class App {
    */
   useClass(id: string) {
     if (id === classes.currentId) return;
+    // The class leaving ends its Session; it starts afresh when it is back.
+    sessionHistory.end();
     this.timer.useClass(() => classes.select(id));
     this.#enterClass();
   }
@@ -144,6 +154,7 @@ export class App {
 
   #enterClass() {
     sightings.reload();
+    sessionHistory.reload();
     stats.reload();
     notes.reload();
     this.monitor.reset();
@@ -202,12 +213,14 @@ export class App {
     this.paused = false;
     this.monitor.reset();
     this.session.start(settings.arrivalIntervalMs);
+    sessionHistory.begin(this.scene.id);
     stats.startSession();
   }
 
   resetSession() {
     this.paused = false;
     this.session.reset(settings.arrivalIntervalMs);
+    sessionHistory.end();
   }
 
   /**
@@ -310,8 +323,13 @@ export class App {
           settings.arrivalIntervalMs,
           settings.loudResponse === "flee",
         );
-        if (this.session.running)
+        if (this.session.running) {
           stats.tick(delta, this.monitor.state === "quiet");
+          sessionHistory.listen(
+            Math.min(delta, MAX_LISTEN_STEP_MS),
+            this.monitor.state === "quiet",
+          );
+        }
       }
       // The tab is hidden, so its own interval may be held back: keep the
       // Timer's chime on time from the floating window's frames instead.

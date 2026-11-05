@@ -13,7 +13,11 @@ export const SITE_URL: string | null = null;
 /** Every page a search engine should know about, in sitemap order. */
 export const PAGES = ["/", "/about", "/privacy"] as const;
 
-export type PagePath = (typeof PAGES)[number];
+/**
+ * Every page, including those left out of the sitemap because they only
+ * show what is saved on the teacher's own computer.
+ */
+export type PagePath = (typeof PAGES)[number] | "/collection" | "/sessions";
 
 /**
  * The picture link previews show: the savanna with a few animals out and the

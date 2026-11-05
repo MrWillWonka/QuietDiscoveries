@@ -10,7 +10,7 @@
  */
 
 import { MOTION_PROFILES } from "$lib/scenes/motion";
-import type { Arrivals, CreatureDef } from "$lib/scenes/types";
+import type { Arrivals, CreatureDef, SceneId } from "$lib/scenes/types";
 import {
   advanceArrivalClock,
   createArrivalClock,
@@ -25,6 +25,7 @@ import {
   type ScareClock,
 } from "./scareClock";
 import { loadArrived, loadReef, saveArrived, saveReef } from "./savedReef";
+import { sessionHistory } from "./history.svelte";
 import { sightings } from "./sightings.svelte";
 import { stats } from "./stats.svelte";
 import { whoCanArrive } from "./available";
@@ -276,6 +277,7 @@ export class Session {
     if (sightings.count(this.#sceneId, def.slug) === 0)
       stats.discovered(this.#sceneId);
     sightings.record(this.#sceneId, def.slug);
+    sessionHistory.arrive(this.#sceneId as SceneId, def.slug);
   }
 
   /**

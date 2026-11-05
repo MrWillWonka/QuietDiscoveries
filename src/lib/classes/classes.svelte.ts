@@ -85,7 +85,12 @@ class Classes {
 
   /** Where the Class on screen keeps `part` (a Scene's animals, say). */
   storageKey(part: string) {
-    return prefix(this.currentId) + part;
+    return this.storageKeyFor(this.currentId, part);
+  }
+
+  /** Where any Class keeps `part`, for the home screen's look across them. */
+  storageKeyFor(classId: string, part: string) {
+    return prefix(classId) + part;
   }
 
   select(id: string) {

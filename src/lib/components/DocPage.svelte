@@ -6,6 +6,7 @@
    */
 
   import { resolve } from "$app/paths";
+  import Credit from "$lib/components/Credit.svelte";
   import LanguagePicker from "$lib/components/LanguagePicker.svelte";
   import { t } from "$lib/i18n/index.svelte";
   import logoUrl from "$lib/brand/logo.svg";
@@ -52,6 +53,7 @@
   <footer
     class="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-center gap-x-4 gap-y-2 px-4 pb-6 text-center text-sm text-slate-600"
   >
+    <Credit class="text-slate-800" />
     <a href={resolve("/#how-it-works")} class="hover:text-slate-900"
       >{t("common.howItWorks")}</a
     >
