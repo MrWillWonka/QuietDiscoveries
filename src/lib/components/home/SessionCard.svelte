@@ -1,7 +1,7 @@
 <script lang="ts">
   /**
-   * One past Session on the home screen: when it ran, where, how long the
-   * room was Quiet, and who came out.
+   * One past Session on the Sessions page: which Class had it, when it ran,
+   * where, how long the room was Quiet, and who came out.
    */
 
   import {
@@ -15,7 +15,11 @@
   import { artUrl } from "$lib/scenes/collection";
   import { endOf, type SessionRecord } from "$lib/session/history";
 
-  let { record, now }: { record: SessionRecord; now: number } = $props();
+  let {
+    record,
+    now,
+    classLabel,
+  }: { record: SessionRecord; now: number; classLabel: string } = $props();
 
   /** Enough faces to show who came without the card turning into a list. */
   const SHOWN = 6;
@@ -78,6 +82,9 @@
       {/each}
     </span>
     <div class="min-w-0 flex-1">
+      <p class="truncate text-sm font-semibold text-pine-700">
+        {classLabel}
+      </p>
       <h3 class="truncate text-lg leading-tight font-bold text-ink">{date}</h3>
       <p class="text-sm text-ink-soft tabular-nums">{times}</p>
       <p class="truncate text-sm text-ink-soft">

@@ -1,9 +1,12 @@
 <script lang="ts">
   /**
    * What the teacher sees on arriving, before a Session starts: a welcome,
-   * why the animals are shy, the Scene to start in and the button that
-   * starts it, the way into classes, Settings and the Collection, and the
-   * Class's recent Sessions.
+   * the Scene to start in and the button that starts it, the way into
+   * classes, Settings and the Collection, and each Class's latest Session.
+   *
+   * On a first visit the welcome explains why the animals are shy. Once any
+   * Class has had a Session, it welcomes the teacher back instead and offers
+   * to continue the most recent one.
    *
    * Browsers only hand over a microphone after a real gesture, so the
    * Session has to begin with a click either way: Start session asks for the
@@ -18,7 +21,10 @@
   import ClassPicker from "../ClassPicker.svelte";
   import LanguagePicker from "../LanguagePicker.svelte";
   import SceneSelect from "../SceneSelect.svelte";
-  import SessionList from "./SessionList.svelte";
+  import type { SessionRecord } from "$lib/session/history";
+  import { sessionHistory } from "$lib/session/history.svelte";
+  import ContinueCard from "./ContinueCard.svelte";
+  import MySessions from "./MySessions.svelte";
   import SiteFooter from "./SiteFooter.svelte";
   import SiteHeader from "./SiteHeader.svelte";
   import Sprout from "./Sprout.svelte";
@@ -28,6 +34,7 @@
     classMenuOpen = $bindable(false),
     infoOpen,
     onstart,
+    onresume,
     onopenclasses,
     onopensettings,
     onopeninfo,
@@ -36,12 +43,18 @@
     classMenuOpen?: boolean;
     infoOpen: boolean;
     onstart: () => void;
+    /** Carry on a Class's Session: switch to it and its Scene, and start. */
+    onresume: (classId: string, record: SessionRecord) => void;
     onopenclasses: () => void;
     onopensettings: () => void;
     onopeninfo: () => void;
   } = $props();
 
   const starting = $derived(app.microphone.status === "starting");
+
+  /** Saved Sessions are only known once running in the browser. */
+  const latest = $derived(app.restored ? sessionHistory.latestByClass : []);
+  const last = $derived(latest.at(0));
 </script>
 
 <div class="absolute inset-0 z-40 overflow-y-auto bg-paper text-ink">
@@ -111,63 +124,79 @@
     </SiteHeader>
 
     <div class="mt-8 flex flex-col gap-6 sm:mt-12 lg:gap-8">
+      <!-- Side by side once there is room; the Continue card needs more of
+           it than the explanation of why the animals are shy. -->
       <section
-        class="grid items-center gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10"
+        class={[
+          "grid items-center gap-6 lg:gap-10",
+          last
+            ? "xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
+            : "lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]",
+        ]}
       >
-        <div class="lg:pl-2">
+        <div class="lg:pl-2" class:invisible={!app.restored}>
           <h2
             class="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl"
           >
-            {t("home.welcome")}
+            {last ? t("home.welcomeBack") : t("home.welcome")}
           </h2>
           <p class="mt-4 max-w-md text-lg text-pretty text-ink-soft sm:text-xl">
-            {t("home.intro")}
+            {last ? t("home.introBack") : t("home.intro")}
           </p>
         </div>
 
-        <!-- Why the animals are shy, in the words of the Scene chosen below. -->
-        <div
-          class="relative isolate overflow-hidden rounded-[2rem] bg-meadow-100"
-        >
-          <svg
-            viewBox="0 0 800 120"
-            preserveAspectRatio="none"
-            class="absolute inset-x-0 bottom-0 -z-10 h-24 w-full sm:h-28"
-            aria-hidden="true"
-          >
-            <path
-              d="M0 64C120 28 250 36 380 60s270 30 420-14v74H0Z"
-              fill="var(--color-meadow-200)"
-              opacity="0.6"
-            />
-            <path
-              d="M0 92C160 66 310 74 460 88s250 8 340-6v46H0Z"
-              fill="var(--color-meadow-200)"
-            />
-          </svg>
+        {#if last}
+          <ContinueCard
+            classId={last.classId}
+            record={last.record}
+            disabled={starting}
+            onresume={() => onresume(last.classId, last.record)}
+          />
+        {:else}
+          <!-- Why the animals are shy, in the words of the Scene chosen below. -->
           <div
-            class="flex items-center gap-5 px-6 py-7 sm:gap-8 sm:px-10 sm:py-10"
+            class="relative isolate overflow-hidden rounded-[2rem] bg-meadow-100"
           >
-            <Sprout class="w-20 shrink-0 sm:w-32" />
-            <div
-              class="hidden w-px self-stretch bg-meadow-400/40 sm:block"
+            <svg
+              viewBox="0 0 800 120"
+              preserveAspectRatio="none"
+              class="absolute inset-x-0 bottom-0 -z-10 h-24 w-full sm:h-28"
               aria-hidden="true"
-            ></div>
-            <div class="min-w-0">
-              <p class="text-xl font-bold text-pretty sm:text-3xl">
-                {tIn(app.scene.id, "start.shy")}
-              </p>
-              <p class="mt-2 text-base text-pretty text-ink-soft sm:text-lg">
-                <!-- Checked after mount: the page is prerendered with the default. -->
-                {#if app.restored && settings.loudResponse === "pause"}
-                  {tIn(app.scene.id, "start.explain")}
-                {:else}
-                  {tIn(app.scene.id, "start.explainFlee")}
-                {/if}
-              </p>
+            >
+              <path
+                d="M0 64C120 28 250 36 380 60s270 30 420-14v74H0Z"
+                fill="var(--color-meadow-200)"
+                opacity="0.6"
+              />
+              <path
+                d="M0 92C160 66 310 74 460 88s250 8 340-6v46H0Z"
+                fill="var(--color-meadow-200)"
+              />
+            </svg>
+            <div
+              class="flex items-center gap-5 px-6 py-7 sm:gap-8 sm:px-10 sm:py-10"
+            >
+              <Sprout class="w-20 shrink-0 sm:w-32" />
+              <div
+                class="hidden w-px self-stretch bg-meadow-400/40 sm:block"
+                aria-hidden="true"
+              ></div>
+              <div class="min-w-0">
+                <p class="text-xl font-bold text-pretty sm:text-3xl">
+                  {tIn(app.scene.id, "start.shy")}
+                </p>
+                <p class="mt-2 text-base text-pretty text-ink-soft sm:text-lg">
+                  <!-- Checked after mount: the page is prerendered with the default. -->
+                  {#if app.restored && settings.loudResponse === "pause"}
+                    {tIn(app.scene.id, "start.explain")}
+                  {:else}
+                    {tIn(app.scene.id, "start.explainFlee")}
+                  {/if}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        {/if}
       </section>
 
       <section
@@ -273,7 +302,12 @@
       </section>
 
       <div class="mt-4 sm:mt-8">
-        <SessionList {app} />
+        <MySessions
+          {latest}
+          ready={app.restored}
+          disabled={starting}
+          {onresume}
+        />
       </div>
     </div>
 

@@ -7,9 +7,12 @@ import {
   begin,
   end,
   endOf,
+  lastUsed,
+  latestByClass,
   listen,
   openRecord,
   parseHistory,
+  sceneOf,
   visit,
   type SessionRecord,
 } from "./history";
@@ -133,5 +136,51 @@ describe("parseHistory", () => {
     const good = lesson(5)[0];
     expect(parseHistory([good, { id: 3 }, null, "x"])).toEqual([good]);
     expect(parseHistory({})).toEqual([]);
+  });
+});
+
+describe("sceneOf", () => {
+  it("is the Scene the Session was last in, to continue it there", () => {
+    let list = begin([], "savanna", 0, "a");
+    list = visit(list, "reef");
+    list = visit(list, "savanna");
+    expect(sceneOf(list[0])).toBe("savanna");
+  });
+
+  it("falls back to the last new Scene for records saved before", () => {
+    const [record] = visit(begin([], "savanna", 0, "a"), "reef");
+    delete record.lastScene;
+    expect(sceneOf(record)).toBe("reef");
+  });
+});
+
+describe("latestByClass", () => {
+  /** A finished Session that ended at `endedAt` minutes. */
+  function finished(id: string, endedAt: number): SessionRecord {
+    let list = begin([], "savanna", 0, id);
+    list = listen(list, endedAt * MINUTE, true, endedAt * MINUTE);
+    return end(list, endedAt * MINUTE)[0];
+  }
+
+  it("gives each Class its latest Session, most recent first", () => {
+    const latest = latestByClass([
+      { classId: "2nd", records: [finished("a", 10), finished("b", 50)] },
+      { classId: "3rd", records: [finished("c", 90)] },
+      { classId: "4th", records: [] },
+    ]);
+    expect(latest.map(({ classId, record }) => [classId, record.id])).toEqual([
+      ["3rd", "c"],
+      ["2nd", "b"],
+    ]);
+  });
+
+  it("counts an unfinished Session from when it was last active", () => {
+    const open = lesson(120)[0];
+    expect(lastUsed(open)).toBe(120 * MINUTE);
+    const [first] = latestByClass([
+      { classId: "2nd", records: [finished("a", 100)] },
+      { classId: "3rd", records: [open] },
+    ]);
+    expect(first.classId).toBe("3rd");
   });
 });

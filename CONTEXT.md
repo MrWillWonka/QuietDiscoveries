@@ -102,7 +102,9 @@ Session joins it when the teacher presses start, and is finished by Reset or
 by another Class taking over the room; one left unfinished for half an hour is
 finished where it was last active, so the next start begins a new one. A
 Session finished within a minute with nothing arrived is not kept. Each Class
-has its own, and Reset does not empty it.
+has its own, and Reset does not empty it. The home screen offers each Class's
+latest Session to continue, which switches to that Class and the Scene it was
+last in, and the Sessions page shows the whole history.
 
 ## Class
 

@@ -29,6 +29,11 @@ export interface SessionRecord {
   endedAt: number | null;
   /** Every Scene the Session was in, in the order it first went there. */
   scenes: SceneId[];
+  /**
+   * The Scene it was last in, where continuing it picks up. Missing from
+   * records saved before it was kept.
+   */
+  lastScene?: SceneId;
   /** Real arrivals only, in order; "Bring out every animal" is not one. */
   arrivals: SessionArrival[];
   /** Time spent listening to the room, not counting Paused. */
@@ -103,6 +108,7 @@ export function begin(
       ...record,
       lastActiveAt: now,
       scenes: withScene(record.scenes, scene),
+      lastScene: scene,
     }));
   }
   const closed = open ? close(list, open.lastActiveAt) : list;
@@ -112,6 +118,7 @@ export function begin(
     lastActiveAt: now,
     endedAt: null,
     scenes: [scene],
+    lastScene: scene,
     arrivals: [],
     listenedMs: 0,
     quietMs: 0,
@@ -133,6 +140,7 @@ export function visit(list: SessionRecord[], scene: SceneId): SessionRecord[] {
   return replaceOpen(list, (record) => ({
     ...record,
     scenes: withScene(record.scenes, scene),
+    lastScene: scene,
   }));
 }
 
@@ -146,6 +154,7 @@ export function arrive(
     ...record,
     lastActiveAt: now,
     scenes: withScene(record.scenes, arrival.scene),
+    lastScene: arrival.scene,
     arrivals: [...record.arrivals, arrival],
   }));
 }
@@ -165,6 +174,40 @@ export function listen(
   }));
 }
 
+/** The Scene a record was last in. */
+export function sceneOf(record: SessionRecord): SceneId {
+  return record.lastScene ?? record.scenes.at(-1)!;
+}
+
+/** When a record was last used: when it ended, or when it was last active. */
+export function lastUsed(record: SessionRecord): number {
+  return record.endedAt ?? record.lastActiveAt;
+}
+
+export interface ClassSessions {
+  classId: string;
+  records: SessionRecord[];
+}
+
+/**
+ * Each Class's most recent Session, most recently used first; Classes that
+ * have never had one are left out. The first is the one to continue.
+ */
+export function latestByClass(
+  classes: ClassSessions[],
+): { classId: string; record: SessionRecord }[] {
+  return classes
+    .flatMap(({ classId, records }) => {
+      const record = records.reduce<SessionRecord | null>(
+        (latest, next) =>
+          !latest || lastUsed(next) >= lastUsed(latest) ? next : latest,
+        null,
+      );
+      return record ? [{ classId, record }] : [];
+    })
+    .sort((a, b) => lastUsed(b.record) - lastUsed(a.record));
+}
+
 /** Read back a saved list, keeping only records that make sense. */
 export function parseHistory(raw: unknown): SessionRecord[] {
   if (!Array.isArray(raw)) return [];
@@ -177,6 +220,7 @@ export function parseHistory(raw: unknown): SessionRecord[] {
       typeof record.lastActiveAt === "number" &&
       (record.endedAt === null || typeof record.endedAt === "number") &&
       Array.isArray(record.scenes) &&
+      record.scenes.length > 0 &&
       Array.isArray(record.arrivals) &&
       typeof record.listenedMs === "number" &&
       typeof record.quietMs === "number",

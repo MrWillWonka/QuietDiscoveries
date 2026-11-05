@@ -20,6 +20,9 @@
   import FloatingScene from "$lib/components/FloatingScene.svelte";
   import PausedPill from "$lib/components/PausedPill.svelte";
   import HomeScreen from "$lib/components/home/HomeScreen.svelte";
+  import { isAvailable } from "$lib/scenes";
+  import { sceneOf } from "$lib/session/history";
+  import { today } from "$lib/today.svelte";
   import { drawFramesFrom } from "$lib/frames";
   import { current, t, tIn } from "$lib/i18n/index.svelte";
   import {
@@ -292,6 +295,13 @@
         bind:classMenuOpen
         {infoOpen}
         onstart={async () => {
+          if (await app.connect()) app.startSession();
+        }}
+        onresume={async (classId, record) => {
+          app.useClass(classId);
+          // A Scene only on offer some of the year may have gone since.
+          const scene = sceneOf(record);
+          if (isAvailable(scene, today.day)) app.useScene(scene);
           if (await app.connect()) app.startSession();
         }}
         onopenclasses={() => (classesOpen = true)}

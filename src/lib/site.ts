@@ -14,7 +14,7 @@ export const PAGES = ["/", "/about", "/privacy"] as const;
  * Every page, including those left out of the sitemap because they only
  * show what is saved on the teacher's own computer.
  */
-export type PagePath = (typeof PAGES)[number] | "/collection";
+export type PagePath = (typeof PAGES)[number] | "/collection" | "/sessions";
 
 /**
  * The picture link previews show: the savanna with a few animals out and the

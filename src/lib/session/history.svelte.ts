@@ -1,7 +1,8 @@
 /**
  * The Class on screen's past Sessions, kept on this computer
  * (`history.ts` has the rules). Each Class has its own list, like its
- * Creatures and its Collection, so one class never sees another's.
+ * Creatures and its Collection. The home screen and the Sessions page,
+ * which are the teacher's rather than the class's, read across them all.
  */
 
 import { browser } from "$app/environment";
@@ -9,6 +10,7 @@ import { classes } from "$lib/classes/classes.svelte";
 import type { SceneId } from "$lib/scenes/types";
 import {
   arrive,
+  latestByClass,
   begin,
   end,
   listen,
@@ -20,14 +22,16 @@ import {
 /** How often time spent listening is written down, at most. */
 const FLUSH_EVERY_MS = 5_000;
 
-function storageKey() {
-  return classes.storageKey("sessions");
+function storageKey(classId = classes.currentId) {
+  return classes.storageKeyFor(classId, "sessions");
 }
 
-function load(): SessionRecord[] {
+function load(classId?: string): SessionRecord[] {
   if (!browser) return [];
   try {
-    return parseHistory(JSON.parse(localStorage.getItem(storageKey()) ?? "[]"));
+    return parseHistory(
+      JSON.parse(localStorage.getItem(storageKey(classId)) ?? "[]"),
+    );
   } catch {
     return [];
   }
@@ -48,9 +52,19 @@ class SessionHistory {
     if (browser) addEventListener("pagehide", () => this.#flush());
   }
 
-  /** Newest first. */
-  get all(): SessionRecord[] {
-    return [...this.#list].reverse();
+  /** Any Class's list, oldest first. */
+  recordsFor(classId: string): SessionRecord[] {
+    return classId === classes.currentId ? this.#list : load(classId);
+  }
+
+  /** Each Class's latest Session, most recently used first. */
+  get latestByClass() {
+    return latestByClass(
+      classes.all.map(({ id }) => ({
+        classId: id,
+        records: this.recordsFor(id),
+      })),
+    );
   }
 
   /** Switch to the Class now on screen's list. */
