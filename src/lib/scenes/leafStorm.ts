@@ -1,7 +1,7 @@
 /**
  * The leaf storm's pile (Autumn Harvest): leaves fall from the top of the
- * screen onto a pile that grows up from the bottom, a quarter of the screen
- * for each strike (`noise/strikes.ts`), until the fourth covers it and the
+ * screen onto a pile that grows up from the bottom, a third of the screen
+ * for each strike (`noise/strikes.ts`), until the third covers it and the
  * QDs are gone; then the pile drops away off the bottom
  * (`harvest/LeafStorm.svelte`). Only how full the screen is lives here, pure
  * and testable: who leaves, and when, is still the Session's.
@@ -34,7 +34,20 @@ export function steppedFill(fill: number): number {
  */
 export function sheetRise(fill: number, layer: 0 | 1 | 2): number {
   const f = Math.max(0, Math.min(1, fill));
-  if (layer === 0) return Math.min(1, f * 1.08);
-  if (layer === 2) return Math.max(0, f * 1.06 - 0.06);
-  return f;
+  // Shaped so the fringe's middle sits about a third and two thirds of the
+  // way up at one and two strikes, and the screen is covered at the top.
+  const rise = 1 - (1 - f) * (1 + 0.72 * f * f);
+  if (layer === 0) return Math.min(1, rise * 1.05);
+  if (layer === 2) return Math.max(0, rise * 1.04 - 0.04);
+  return rise;
+}
+
+/**
+ * Where, as a share of the screen's height from the top, the fringe along
+ * the top of the pile is, for a fill: each sheet is 1.45 screens tall,
+ * hangs 0.45 of a screen above the top when full, and the middle of its
+ * fringe is a tenth of its height down.
+ */
+export function fringeAt(fill: number): number {
+  return 1.145 - 1.45 * sheetRise(fill, 1);
 }

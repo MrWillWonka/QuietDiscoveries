@@ -175,8 +175,8 @@ export interface SceneDef {
    */
   spread?: boolean;
   /**
-   * Going over the Maximum Volume is a strike: a quarter of the screen in
-   * fallen leaves, and the fourth clears the Scene (`noise/strikes.ts`).
+   * Going over the Maximum Volume is a strike: a third of the screen in
+   * fallen leaves, and the third clears the Scene (`noise/strikes.ts`).
    */
   strikes?: boolean;
   /** A table some harvest items land on instead of the grass (`table.ts`). */

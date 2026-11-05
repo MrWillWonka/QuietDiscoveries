@@ -3,11 +3,13 @@
  * arrivals pause and QDs hide or run off, as the teacher chose. Over the
  * higher Maximum Volume, for long enough (the same slow-in, fast-out
  * hysteresis as Too Loud, `loudState.ts`), it is a STRIKE: in Autumn
- * Harvest a quarter of the screen fills with fallen leaves.
+ * Harvest a third of the screen fills with fallen leaves.
  *
- * The leaf pile holds between strikes and drains slowly while the room is
- * quiet. The fourth strike fills the screen, every QD out leaves, and the
- * pile clears: a reset.
+ * The leaf pile holds between strikes and comes down a level at a time
+ * after enough unbroken quiet (`DRAIN_SECONDS`). Noise over the goal pauses
+ * that wait without starting it again; a new strike starts it again. The
+ * third strike fills the screen, every QD out leaves, and the pile clears:
+ * a reset.
  *
  * Pure: the caller says how long has passed and what the room is doing.
  */
@@ -21,32 +23,58 @@ export function classify(level: number, goal: number, max: number): Loudness {
   return "quiet";
 }
 
-/** How much of the screen each strike fills: four strikes and it is full. */
-export const STRIKE_STEP = 0.25;
 /** Strikes in a full pile, which resets the Scene. */
-export const STRIKES_TO_RESET = 4;
-/** Continuous quiet that drains one strike's worth of leaves. */
-export const DRAIN_STEP_MS = 180_000;
+export const STRIKES_TO_RESET = 3;
 
 /**
- * The pile after a strike, and whether that was the fourth: then it is full
- * and the Scene resets.
+ * Seconds of quiet (under the goal) that take the pile down a level, by how
+ * many strikes it stands at: a minute from one, three minutes from two.
  */
-export function addStrike(pile: number): { pile: number; reset: boolean } {
-  const next = Math.min(1, pile + STRIKE_STEP);
-  return { pile: next, reset: next >= 1 - 1e-9 };
+export const DRAIN_SECONDS: Record<number, number> = { 1: 60, 2: 180 };
+
+export interface Strikes {
+  /** 0 to `STRIKES_TO_RESET`. */
+  count: number;
+  /** Quiet counted towards the next level down, in ms. */
+  quietMs: number;
+}
+
+export function noStrikes(): Strikes {
+  return { count: 0, quietMs: 0 };
+}
+
+/** How much of the screen the leaves cover. */
+export function pileOf(strikes: Strikes): number {
+  return Math.min(1, strikes.count / STRIKES_TO_RESET);
 }
 
 /**
- * The pile a moment later: draining slowly while the room is quiet (under
- * the goal), and holding while it is not.
+ * A strike: a level more leaves, and the wait to drain starts again. The
+ * third fills the screen and the Scene resets.
  */
-export function drainPile(pile: number, dtMs: number, quiet: boolean): number {
-  if (!quiet || pile <= 0) return pile;
-  return Math.max(0, pile - (STRIKE_STEP * dtMs) / DRAIN_STEP_MS);
+export function addStrike(strikes: Strikes): {
+  strikes: Strikes;
+  reset: boolean;
+} {
+  const count = Math.min(STRIKES_TO_RESET, strikes.count + 1);
+  return {
+    strikes: { count, quietMs: 0 },
+    reset: count >= STRIKES_TO_RESET,
+  };
 }
 
-/** How many strikes the pile stands for, rounding a part-drained one up. */
-export function strikesIn(pile: number): number {
-  return Math.min(STRIKES_TO_RESET, Math.ceil(pile / STRIKE_STEP - 1e-9));
+/**
+ * Time passing with no strike. Quiet counts towards the next level down;
+ * noise over the goal holds the count where it is.
+ */
+export function drainStrikes(
+  strikes: Strikes,
+  dtMs: number,
+  quiet: boolean,
+): Strikes {
+  if (strikes.count <= 0 || !quiet) return strikes;
+  const quietMs = strikes.quietMs + dtMs;
+  const needed = (DRAIN_SECONDS[strikes.count] ?? 60) * 1000;
+  if (quietMs < needed) return { count: strikes.count, quietMs };
+  return { count: strikes.count - 1, quietMs: 0 };
 }

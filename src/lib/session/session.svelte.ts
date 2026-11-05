@@ -165,7 +165,7 @@ export class Session {
   }
 
   /**
-   * The leaf storm's fourth strike (`noise/strikes.ts`): every QD out in
+   * The leaf storm's third strike (`noise/strikes.ts`): every QD out in
    * this Scene is gone, as Reset would clear them, but the Session carries
    * on, and the Collection, the arrival count and progress towards the next
    * QD are kept.
@@ -289,7 +289,14 @@ export class Session {
     // Awake, it hops down off the table and wanders the field.
     creature.perch = undefined;
     this.#save();
-    sightings.recordTransformed(this.#sceneId, creature.def.slug);
+    // Seen transforming is seen: one brought out by "Bring out every QD",
+    // never spotted arriving, counts as found from now on.
+    const slug = creature.def.slug;
+    if (sightings.count(this.#sceneId, slug) === 0) {
+      stats.discovered(this.#sceneId);
+      sightings.record(this.#sceneId, slug);
+    }
+    sightings.recordTransformed(this.#sceneId, slug);
   }
 
   /**

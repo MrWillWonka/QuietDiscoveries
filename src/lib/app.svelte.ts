@@ -17,7 +17,7 @@ import { DEFAULT_SCENE, type SceneId } from "$lib/scenes/types";
 import { Session } from "$lib/session/session.svelte";
 import { sightings } from "$lib/session/sightings.svelte";
 import { stats } from "$lib/session/stats.svelte";
-import { addStrike, drainPile } from "$lib/noise/strikes";
+import { addStrike, drainStrikes, noStrikes, pileOf } from "$lib/noise/strikes";
 import { settings } from "$lib/settings/settings.svelte";
 import { ClassTimer } from "$lib/timer/timer.svelte";
 import { today } from "$lib/today.svelte";
@@ -31,7 +31,7 @@ import { untrack } from "svelte";
 const CHIME_ECHO_MS = 3 * SMOOTHING_MS;
 
 /**
- * After the fourth strike: long enough for the falling leaves to cover the
+ * After the third strike: long enough for the falling leaves to cover the
  * screen before the field empties, then the gust that sweeps them away.
  */
 const RESET_HOLD_MS = 3_000;
@@ -84,11 +84,15 @@ export class App {
   );
 
   /**
-   * The leaf pile in a Scene that counts strikes (`SceneDef.strikes`): a
-   * quarter of the screen for each time the room went over the Maximum
-   * Volume, draining while it is quiet (`noise/strikes.ts`).
+   * Strikes in a Scene that counts them (`SceneDef.strikes`): each time the
+   * room went over the Maximum Volume, a third of the screen in leaves,
+   * coming down a level after enough quiet (`noise/strikes.ts`).
    */
-  pile = $state(0);
+  strikes = $state(noStrikes());
+  /** How much of the screen the leaves cover. */
+  get pile() {
+    return pileOf(this.strikes);
+  }
   /** The pile is being swept away after a reset. */
   sweeping = $state(false);
   /** A full pile is about to clear the Scene: no more strikes till then. */
@@ -207,10 +211,10 @@ export class App {
   }
 
   /**
-   * Over the Maximum Volume for long enough: a strike, a quarter of the
-   * screen in leaves. The fourth fills it, and once the leaves have covered
-   * everything the Scene's QDs are gone and the pile is swept away. While
-   * the room is quiet the pile drains slowly.
+   * Over the Maximum Volume for long enough: a strike, a third of the
+   * screen in leaves. The third fills it, and once the leaves have covered
+   * everything the Scene's QDs are gone and the pile is swept away. Enough
+   * unbroken quiet takes it down a level.
    */
   #strikes(delta: number) {
     const over = this.monitor.overMax === "too-loud";
@@ -218,8 +222,8 @@ export class App {
     this.#wasOverMax = over;
     if (this.#resetting) return;
     if (struck) {
-      const step = addStrike(this.pile);
-      this.pile = step.pile;
+      const step = addStrike(this.strikes);
+      this.strikes = step.strikes;
       stats.strike(this.scene.id);
       if (step.reset) {
         this.#resetting = true;
@@ -228,7 +232,7 @@ export class App {
         this.#resetTimers.push(
           setTimeout(() => {
             this.session.clearScene();
-            this.pile = 0;
+            this.strikes = noStrikes();
             this.sweeping = true;
             this.#resetTimers.push(
               setTimeout(() => {
@@ -241,13 +245,18 @@ export class App {
       }
       return;
     }
-    this.pile = drainPile(this.pile, delta, this.monitor.state === "quiet");
+    // Noise over the goal holds the wait; it does not start it again.
+    this.strikes = drainStrikes(
+      this.strikes,
+      delta,
+      this.monitor.state === "quiet",
+    );
   }
 
   #clearPile() {
     for (const timer of this.#resetTimers) clearTimeout(timer);
     this.#resetTimers = [];
-    this.pile = 0;
+    this.strikes = noStrikes();
     this.sweeping = false;
     this.#resetting = false;
     this.#wasOverMax = false;

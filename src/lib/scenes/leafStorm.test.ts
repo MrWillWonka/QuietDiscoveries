@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { STORM, sheetRise, stepFill, steppedFill } from "./leafStorm";
+import { STORM, fringeAt, sheetRise, stepFill, steppedFill } from "./leafStorm";
 
 describe("stepFill", () => {
   it("piles up calmly, however suddenly the target jumps", () => {
@@ -33,5 +33,16 @@ describe("sheetRise", () => {
       expect(sheetRise(0, layer)).toBe(0);
       expect(sheetRise(1, layer)).toBe(1);
     }
+  });
+});
+
+describe("fringeAt", () => {
+  it("puts the pile's edge about a third and two thirds of the way up", () => {
+    expect(fringeAt(1 / 3)).toBeGreaterThan(0.6);
+    expect(fringeAt(1 / 3)).toBeLessThan(0.75);
+    expect(fringeAt(2 / 3)).toBeGreaterThan(0.27);
+    expect(fringeAt(2 / 3)).toBeLessThan(0.4);
+    expect(fringeAt(0)).toBeGreaterThan(1);
+    expect(fringeAt(1)).toBeLessThan(0);
   });
 });

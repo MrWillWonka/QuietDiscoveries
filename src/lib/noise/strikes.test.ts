@@ -1,11 +1,13 @@
 import { describe, expect, it } from "bun:test";
 import {
-  DRAIN_STEP_MS,
-  STRIKE_STEP,
+  DRAIN_SECONDS,
+  STRIKES_TO_RESET,
   addStrike,
   classify,
-  drainPile,
-  strikesIn,
+  drainStrikes,
+  noStrikes,
+  pileOf,
+  type Strikes,
 } from "./strikes";
 import { nextNoiseState, type LevelSample } from "./loudState";
 
@@ -19,38 +21,60 @@ describe("classify", () => {
   });
 });
 
+/** `seconds` of the room doing one thing, a tenth of a second at a time. */
+function pass(strikes: Strikes, seconds: number, quiet: boolean): Strikes {
+  let now = strikes;
+  for (let t = 0; t < seconds * 10; t++) now = drainStrikes(now, 100, quiet);
+  return now;
+}
+
 describe("strikes", () => {
-  it("raises the pile a quarter at a time and resets on the fourth", () => {
-    let pile = 0;
+  it("raises the pile a third at a time and resets on the third", () => {
+    let strikes = noStrikes();
     const resets: boolean[] = [];
-    for (let i = 0; i < 4; i++) {
-      const step = addStrike(pile);
-      pile = step.pile;
+    const piles: number[] = [];
+    for (let i = 0; i < STRIKES_TO_RESET; i++) {
+      const step = addStrike(strikes);
+      strikes = step.strikes;
       resets.push(step.reset);
+      piles.push(pileOf(strikes));
     }
-    expect(resets).toEqual([false, false, false, true]);
-    expect(pile).toBe(1);
-    expect(strikesIn(0.5)).toBe(2);
+    expect(STRIKES_TO_RESET).toBe(3);
+    expect(resets).toEqual([false, false, true]);
+    expect(piles[0]).toBeCloseTo(1 / 3);
+    expect(piles[1]).toBeCloseTo(2 / 3);
+    expect(piles[2]).toBe(1);
   });
 
-  it("holds between strikes while the room is not quiet", () => {
-    expect(drainPile(0.5, 600_000, false)).toBe(0.5);
+  it("drains one strike after a minute of quiet", () => {
+    expect(DRAIN_SECONDS[1]).toBe(60);
+    const one = addStrike(noStrikes()).strikes;
+    expect(pass(one, 59, true).count).toBe(1);
+    expect(pass(one, 60.1, true).count).toBe(0);
   });
 
-  it("drains a quarter per three minutes of quiet", () => {
-    expect(DRAIN_STEP_MS).toBe(180_000);
-    let pile = 0.5;
-    for (let t = 0; t < DRAIN_STEP_MS; t += 100)
-      pile = drainPile(pile, 100, true);
-    expect(pile).toBeCloseTo(0.5 - STRIKE_STEP, 6);
-    expect(strikesIn(pile)).toBe(1);
-    expect(drainPile(0.01, DRAIN_STEP_MS, true)).toBe(0);
+  it("drains two strikes after three minutes, then one more", () => {
+    expect(DRAIN_SECONDS[2]).toBe(180);
+    const two = addStrike(addStrike(noStrikes()).strikes).strikes;
+    expect(pass(two, 179, true).count).toBe(2);
+    const one = pass(two, 180.1, true);
+    expect(one.count).toBe(1);
+    expect(pass(one, 60.1, true).count).toBe(0);
   });
 
-  it("counts a part-drained strike, so the next one tops it up", () => {
-    expect(strikesIn(0.3)).toBe(2);
-    expect(addStrike(0.3).pile).toBeCloseTo(0.55);
-    expect(addStrike(0.8).reset).toBe(true);
+  it("holds while the room is over the goal, without losing the quiet so far", () => {
+    const one = addStrike(noStrikes()).strikes;
+    const half = pass(one, 40, true);
+    const loud = pass(half, 300, false);
+    expect(loud).toEqual(half);
+    expect(pass(loud, 20.1, true).count).toBe(0);
+  });
+
+  it("starts the wait again on a new strike", () => {
+    const one = pass(addStrike(noStrikes()).strikes, 50, true);
+    const two = addStrike(one).strikes;
+    expect(two.quietMs).toBe(0);
+    expect(two.count).toBe(2);
   });
 });
 

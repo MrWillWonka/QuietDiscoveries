@@ -3,12 +3,16 @@
 
   const TIERS: RarityTier[] = ["common", "uncommon", "rare"];
 
-  /** The leaf one tier up, for an item the Class has seen transform. */
-  const UPGRADE: Record<RarityTier, RarityTier> = {
-    common: "uncommon",
-    uncommon: "rare",
-    rare: "rare",
-  };
+  // The preview's pictures, as images: one URL per drawing, kept for the
+  // page's life, as in the Collection.
+  const artUrls: Record<string, string> = {};
+
+  function artUrl(key: string, svg: string) {
+    artUrls[key] ??= URL.createObjectURL(
+      new Blob([svg], { type: "image/svg+xml" }),
+    );
+    return artUrls[key];
+  }
 
   /** A maple leaf with its stem, filling a 24-unit square. */
   const LEAF =
@@ -35,12 +39,15 @@
    * outline, which nothing else has. A QD not found yet is an empty circle
    * with nothing of it shown, its name included.
    *
-   * Like the arrival counter it stays up when the controls fade and only
-   * shows: it never takes a click from the Scene.
+   * Like the arrival counter it stays up when the controls fade. Hovering,
+   * focusing or tapping a circle shows a small preview of it: its picture,
+   * tier and name once found, or a "?" and only its tier before. Only the
+   * circles take the pointer; the gaps between them leave it to the Scene.
    */
 
   import { classes } from "$lib/classes/classes.svelte";
   import { creatureName, t, tIn } from "$lib/i18n/index.svelte";
+  import { leafLook } from "$lib/session/leafLook";
   import type { SceneDef } from "$lib/scenes";
   import { secretSlugs } from "$lib/scenes/schedule";
   import { whoCanArrive } from "$lib/session/available";
@@ -57,29 +64,58 @@
   const circles = $derived.by(() => {
     const available = whoCanArrive(scene.id, scene.roster, scene.arrivals);
     const secrets = scene.schedule ? secretSlugs(scene.schedule) : [];
-    const circle = (slug: string, secret: boolean) => ({
-      slug,
-      secret,
-      found: sightings.count(scene.id, slug) > 0,
-      transformed: sightings.seenTransformed(scene.id, slug),
-    });
+    const circle = (slug: string, tier: RarityTier, secret: boolean) => {
+      const transformed = sightings.seenTransformed(scene.id, slug);
+      const look = leafLook({
+        tier,
+        secret,
+        sightings: sightings.count(scene.id, slug),
+        transformed,
+      });
+      return {
+        slug,
+        tier,
+        secret,
+        look,
+        found: look.found,
+        transformed,
+      };
+    };
     // A Secret, once about, comes last, after the rares.
     return [
       ...TIERS.flatMap((tier) =>
         available
           .filter((def) => def.tier === tier && !secrets.includes(def.slug))
-          .map((def) => ({ ...circle(def.slug, false), tier })),
+          .map((def) => circle(def.slug, tier, false)),
       ),
       ...available
         .filter((def) => secrets.includes(def.slug))
-        .map((def) => ({ ...circle(def.slug, true), tier: def.tier })),
+        .map((def) => circle(def.slug, def.tier, true)),
     ];
   });
 
-  /** For the glows' gradients, unique to this row in the document. */
+  /** For the glows' gradients and the previews, unique to this row. */
   const uid = $props.id();
 
   const foundCount = $derived(circles.filter((circle) => circle.found).length);
+
+  /** The circle whose preview is up: hovered, focused or tapped. */
+  let previewing = $state<string | null>(null);
+
+  /** "Rare · Maple the Fawn", or "Rare · Still to find" before it is found. */
+  function describe(circle: (typeof circles)[number]) {
+    const tier = circle.secret ? t("tier.superRare") : t(`tier.${circle.tier}`);
+    return `${tier} · ${circle.found ? creatureName(circle.slug) : t("leaves.hidden")}`;
+  }
+
+  /** Its picture: awake, once the Class has seen it transform. */
+  function picture(slug: string, transformed: boolean) {
+    const awake = transformed ? scene.awakeArt?.[slug] : undefined;
+    const svg = awake ?? scene.creatureArt[slug];
+    return svg
+      ? artUrl(`${scene.id}/${slug}/${awake ? "awake" : "plain"}`, svg)
+      : null;
+  }
 
   /**
    * Up to a dozen to a row, and rows as even as can be: 24 is two rows of
@@ -125,28 +161,39 @@
     })}
   >
     {#each circles as circle (circle.slug)}
-      <li class="flex">
-        <span
-          class="circle {circle.found
-            ? circle.secret
-              ? 'secret'
-              : circle.transformed
-                ? UPGRADE[circle.tier]
-                : circle.tier
-            : 'hidden-qd'}"
+      {@const look = circle.look}
+      {@const top = look.found && look.top}
+      {@const label = describe(circle)}
+      <li class="relative flex">
+        <!-- A button only so it can be focused and tapped for its preview. -->
+        <button
+          type="button"
+          class="circle {look.found ? look.shows : 'hidden-qd'}"
           class:secret-ring={circle.secret}
-          class:top={circle.found &&
-            circle.transformed &&
-            circle.tier === "rare" &&
-            !circle.secret}
+          class:top
           class:pop={popping.includes(circle.slug)}
-          role="img"
-          aria-label={circle.found
-            ? creatureName(circle.slug)
-            : t("leaves.hidden")}
+          aria-label={label}
+          aria-describedby={previewing === circle.slug
+            ? `${uid}-tip`
+            : undefined}
+          onpointerenter={(event) => {
+            if (event.pointerType === "mouse") previewing = circle.slug;
+          }}
+          onpointerleave={(event) => {
+            if (event.pointerType === "mouse" && previewing === circle.slug)
+              previewing = null;
+          }}
+          onfocus={() => (previewing = circle.slug)}
+          onblur={() => {
+            if (previewing === circle.slug) previewing = null;
+          }}
+          onclick={() =>
+            (previewing = previewing === circle.slug ? null : circle.slug)}
+          onkeydown={(event) => {
+            if (event.key === "Escape") previewing = null;
+          }}
         >
-          {#if circle.found}
-            {@const top = circle.transformed && circle.tier === "rare"}
+          {#if look.found}
             <svg
               viewBox="0 0 24 24"
               class:glowing={circle.secret || top}
@@ -184,7 +231,22 @@
               {/if}
             </svg>
           {/if}
-        </span>
+        </button>
+        {#if previewing === circle.slug}
+          {@const src = look.found
+            ? picture(circle.slug, circle.transformed)
+            : null}
+          <!-- Below the circle: the row sits at the top of the screen. The
+               button carries the same words, so this is not read twice. -->
+          <span id="{uid}-tip" class="tip" role="tooltip" aria-hidden="true">
+            {#if src}
+              <img {src} alt="" draggable="false" />
+            {:else}
+              <span class="tip-unknown">?</span>
+            {/if}
+            <span class="tip-text">{label}</span>
+          </span>
+        {/if}
       </li>
     {/each}
   </ul>
@@ -243,7 +305,12 @@
     }
   }
 
+  /* Only the circles take the pointer, so the Scene behind the gaps and
+     the board still gets every click. */
   .circle {
+    pointer-events: auto;
+    cursor: default;
+    padding: 0;
     display: grid;
     place-items: center;
     width: var(--size);
@@ -399,6 +466,74 @@
     }
     to {
       opacity: 1;
+    }
+  }
+
+  .circle:focus-visible {
+    outline: 0.15rem solid #fff;
+    outline-offset: 0.12rem;
+  }
+
+  /* The preview: a small card under the circle. */
+  .tip {
+    position: absolute;
+    top: calc(100% + 0.45rem);
+    left: 50%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    width: max-content;
+    max-width: 11rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 0.6rem;
+    background: rgb(255 255 255 / 0.97);
+    box-shadow: 0 0.25rem 0.8rem rgb(43 30 20 / 0.3);
+    color: #1e293b;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+  .tip::before {
+    content: "";
+    position: absolute;
+    top: -0.3rem;
+    left: 50%;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: inherit;
+    transform: translateX(-50%) rotate(45deg);
+  }
+  .tip img {
+    width: 3.5rem;
+    height: 3rem;
+    object-fit: contain;
+  }
+  .tip-unknown {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: #eef0e3;
+    color: #6b7342;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tip {
+      animation: tip-in 0.15s ease-out;
+    }
+  }
+
+  @keyframes tip-in {
+    from {
+      opacity: 0;
     }
   }
 

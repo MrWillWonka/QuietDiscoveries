@@ -79,6 +79,21 @@
   }
 </script>
 
+<!-- Escape also works once focus has gone back to the page, as when a
+     dialog opened from here (Class stats) has closed; another dialog that
+     has focus deals with its own Escape. -->
+<svelte:window
+  onkeydown={(event) => {
+    const active = document.activeElement;
+    if (
+      dialog &&
+      event.key === "Escape" &&
+      (!active || active === document.body)
+    )
+      onclose();
+  }}
+/>
+
 <div
   class="absolute inset-0 z-40 overflow-y-auto bg-slate-900/55"
   role="presentation"

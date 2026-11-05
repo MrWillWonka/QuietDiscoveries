@@ -3,9 +3,9 @@
    * Going over the Maximum Volume in Autumn Harvest: a leaf storm. Each
    * strike (`noise/strikes.ts`, driven by `App`) sends leaves falling from
    * the top, tumbling and swaying, onto a pile of red, orange, amber, gold
-   * and brown leaves that grows up from the bottom a quarter of the screen
+   * and brown leaves that grows up from the bottom a third of the screen
    * at a time, its ragged fringe where the leaves settle. The pile holds
-   * between strikes and sinks slowly while the room is quiet. The fourth
+   * between strikes and comes down a level after enough quiet. The third
    * strike covers the screen, the Scene's QDs are gone underneath, and then
    * the pile drops away off the bottom.
    *
@@ -17,7 +17,12 @@
 
   import { onMount } from "svelte";
   import { AMBIENT_ART } from "$lib/scenes/harvest/artwork";
-  import { sheetRise, stepFill, steppedFill } from "$lib/scenes/leafStorm";
+  import {
+    fringeAt,
+    sheetRise,
+    stepFill,
+    steppedFill,
+  } from "$lib/scenes/leafStorm";
 
   let {
     murky,
@@ -40,14 +45,6 @@
   let reduced = $state(false);
 
   const sheets = ["storm-back", "storm-mid", "storm-front"] as const;
-
-  /**
-   * Where the ragged fringe along the top of the pile is, as a share
-   * of the screen's height from the top, for a fill: each sheet is 1.45
-   * screens tall, hangs 0.45 of a screen above the top when full, and its
-   * top fifth or so is the thinning fringe (`ambient/storm-*.svg`).
-   */
-  const fringeAt = (share: number) => 1.2 - 1.45 * share;
 
   /**
    * Leaves that drop onto the fringe as the pile grows, each once the storm
