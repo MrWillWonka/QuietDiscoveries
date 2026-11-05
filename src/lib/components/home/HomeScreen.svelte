@@ -2,8 +2,8 @@
   /**
    * What the teacher sees on arriving, before a Session starts: a welcome,
    * why the animals are shy, the Scene to start in and the button that
-   * starts it, the way into classes and Settings, and what the Class has
-   * spotted so far.
+   * starts it, the way into classes, Settings and the Collection, and the
+   * Class's recent Sessions.
    *
    * Browsers only hand over a microphone after a real gesture, so the
    * Session has to begin with a click either way: Start session asks for the
@@ -11,14 +11,16 @@
    * chosen here.
    */
 
-  import { asset, resolve } from "$app/paths";
+  import { resolve } from "$app/paths";
   import type { App } from "$lib/app.svelte";
   import { t, tIn } from "$lib/i18n/index.svelte";
   import { settings } from "$lib/settings/settings.svelte";
   import ClassPicker from "../ClassPicker.svelte";
   import LanguagePicker from "../LanguagePicker.svelte";
   import SceneSelect from "../SceneSelect.svelte";
-  import CollectionSummary from "./CollectionSummary.svelte";
+  import SessionList from "./SessionList.svelte";
+  import SiteFooter from "./SiteFooter.svelte";
+  import SiteHeader from "./SiteHeader.svelte";
   import Sprout from "./Sprout.svelte";
 
   let {
@@ -29,7 +31,6 @@
     onopenclasses,
     onopensettings,
     onopeninfo,
-    onopencollection,
   }: {
     app: App;
     classMenuOpen?: boolean;
@@ -38,7 +39,6 @@
     onopenclasses: () => void;
     onopensettings: () => void;
     onopeninfo: () => void;
-    onopencollection: () => void;
   } = $props();
 
   const starting = $derived(app.microphone.status === "starting");
@@ -67,33 +67,48 @@
   <div
     class="relative mx-auto flex min-h-full max-w-[104rem] flex-col px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-8 lg:px-10"
   >
-    <header class="flex flex-wrap items-center justify-between gap-3">
-      <h1
-        class="min-w-0 text-[1.65rem] leading-none font-extrabold tracking-tight sm:text-4xl"
+    <SiteHeader>
+      <a
+        href={resolve("/collection")}
+        class="flex h-12 items-center gap-2 rounded-full border border-stone-200 bg-white px-3.5 text-base font-semibold shadow-sm transition hover:bg-stone-50 sm:px-5"
+        aria-label={t("nav.collection")}
+        title={t("nav.collection")}
       >
-        Quiet Discoveries
-      </h1>
-      <div class="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
-        <ClassPicker
-          {app}
-          variant="home"
-          bind:open={classMenuOpen}
-          onedit={onopenclasses}
-        />
-        <LanguagePicker variant="home" />
-        <button
-          type="button"
-          class="grid size-12 shrink-0 place-items-center rounded-full border border-stone-200 bg-white text-xl font-bold shadow-sm transition hover:bg-stone-50"
-          aria-label={t("guide.title")}
-          title={t("guide.title")}
-          aria-expanded={infoOpen}
-          aria-controls="how-it-works-panel"
-          onclick={onopeninfo}
+        <svg
+          viewBox="0 0 24 24"
+          class="size-5 shrink-0 text-pine-700"
+          fill="currentColor"
+          aria-hidden="true"
         >
-          <span aria-hidden="true">?</span>
-        </button>
-      </div>
-    </header>
+          <ellipse cx="5.4" cy="10.6" rx="1.9" ry="2.3" />
+          <ellipse cx="9.4" cy="6.3" rx="2" ry="2.5" />
+          <ellipse cx="14.6" cy="6.3" rx="2" ry="2.5" />
+          <ellipse cx="18.6" cy="10.6" rx="1.9" ry="2.3" />
+          <path
+            d="M12 11.2c-2.6 0-5.6 3.3-5.6 5.8 0 1.7 1.3 2.7 2.8 2.7 1.2 0 1.9-.6 2.8-.6s1.6.6 2.8.6c1.5 0 2.8-1 2.8-2.7 0-2.5-3-5.8-5.6-5.8Z"
+          />
+        </svg>
+        <span class="hidden sm:inline">{t("nav.collection")}</span>
+      </a>
+      <ClassPicker
+        {app}
+        variant="home"
+        bind:open={classMenuOpen}
+        onedit={onopenclasses}
+      />
+      <LanguagePicker variant="home" />
+      <button
+        type="button"
+        class="grid size-12 shrink-0 place-items-center rounded-full border border-stone-200 bg-white text-xl font-bold shadow-sm transition hover:bg-stone-50"
+        aria-label={t("guide.title")}
+        title={t("guide.title")}
+        aria-expanded={infoOpen}
+        aria-controls="how-it-works-panel"
+        onclick={onopeninfo}
+      >
+        <span aria-hidden="true">?</span>
+      </button>
+    </SiteHeader>
 
     <div class="mt-8 flex flex-col gap-6 sm:mt-12 lg:gap-8">
       <section
@@ -258,32 +273,10 @@
       </section>
 
       <div class="mt-4 sm:mt-8">
-        <CollectionSummary {app} onopen={onopencollection} />
+        <SessionList {app} />
       </div>
     </div>
 
-    <!-- What the corner chip says once a Session is on: who built this, and
-         the about and privacy pages. -->
-    <footer
-      class="mt-auto flex flex-wrap items-center justify-center gap-x-3 gap-y-1 pt-12 text-sm text-ink-soft"
-    >
-      <a
-        href="https://teacher.dev"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center gap-2 font-semibold text-ink hover:underline"
-      >
-        <img src={asset("/edtechathon-logo.svg")} alt="" class="size-5" />
-        {t("common.builtBy")}
-      </a>
-      <span aria-hidden="true" class="text-stone-300">·</span>
-      <a href={resolve("/about")} class="hover:text-ink hover:underline"
-        >{t("common.about")}</a
-      >
-      <span aria-hidden="true" class="text-stone-300">·</span>
-      <a href={resolve("/privacy")} class="hover:text-ink hover:underline"
-        >{t("common.privacy")}</a
-      >
-    </footer>
+    <SiteFooter />
   </div>
 </div>

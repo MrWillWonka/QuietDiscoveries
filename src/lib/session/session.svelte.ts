@@ -10,7 +10,7 @@
  */
 
 import { MOTION_PROFILES } from "$lib/scenes/motion";
-import type { Arrivals, CreatureDef } from "$lib/scenes/types";
+import type { Arrivals, CreatureDef, SceneId } from "$lib/scenes/types";
 import {
   advanceArrivalClock,
   createArrivalClock,
@@ -24,6 +24,7 @@ import {
   type ScareClock,
 } from "./scareClock";
 import { loadArrived, loadReef, saveArrived, saveReef } from "./savedReef";
+import { sessionHistory } from "./history.svelte";
 import { sightings } from "./sightings.svelte";
 
 /** One Creature actually in the water, and where it first appears. */
@@ -239,6 +240,7 @@ export class Session {
     this.#save();
     saveArrived(this.arrived);
     sightings.record(this.#sceneId, def.slug);
+    sessionHistory.arrive(this.#sceneId as SceneId, def.slug);
   }
 
   /** Anywhere from far to near, unless its motion keeps it to some depths. */

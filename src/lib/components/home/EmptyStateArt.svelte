@@ -1,7 +1,7 @@
 <script lang="ts">
   /**
-   * Stacked cards with a seedling on the front one: an empty collection,
-   * waiting to grow. Decorative only.
+   * Stacked cards with a seedling on the front one: a list with nothing in
+   * it yet, waiting to grow. Decorative only.
    */
 
   import Sprout from "./Sprout.svelte";

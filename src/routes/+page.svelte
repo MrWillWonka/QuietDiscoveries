@@ -297,7 +297,6 @@
         onopenclasses={() => (classesOpen = true)}
         onopensettings={() => (settingsOpen = true)}
         onopeninfo={() => (infoOpen = true)}
-        onopencollection={() => (collectionOpen = true)}
       />
     {:else}
       <!-- Top left: who made this, and which Class is on screen. Top right: the

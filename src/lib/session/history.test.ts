@@ -1,0 +1,137 @@
+import { describe, expect, it } from "bun:test";
+import {
+  FORGETTABLE_MS,
+  MAX_RECORDS,
+  RESUME_WITHIN_MS,
+  arrive,
+  begin,
+  end,
+  endOf,
+  listen,
+  openRecord,
+  parseHistory,
+  visit,
+  type SessionRecord,
+} from "./history";
+
+const MINUTE = 60_000;
+
+/** A Session that listened for `minutes`, all of it Quiet, from time 0. */
+function lesson(minutes: number): SessionRecord[] {
+  let list = begin([], "savanna", 0, "a");
+  list = listen(list, minutes * MINUTE, true, minutes * MINUTE);
+  return list;
+}
+
+describe("begin", () => {
+  it("opens a record in the Scene on screen", () => {
+    const [record] = begin([], "reef", 1000, "a");
+    expect(record).toMatchObject({
+      id: "a",
+      startedAt: 1000,
+      endedAt: null,
+      scenes: ["reef"],
+      arrivals: [],
+    });
+  });
+
+  it("carries on a recent open record, as after a refresh", () => {
+    let list = lesson(10);
+    list = begin(list, "reef", 15 * MINUTE, "b");
+    expect(list).toHaveLength(1);
+    expect(list[0].id).toBe("a");
+    expect(list[0].scenes).toEqual(["savanna", "reef"]);
+  });
+
+  it("closes a stale open record where it was last active", () => {
+    let list = lesson(10);
+    const later = 10 * MINUTE + RESUME_WITHIN_MS + 1;
+    list = begin(list, "savanna", later, "b");
+    expect(list.map((record) => record.id)).toEqual(["a", "b"]);
+    expect(list[0].endedAt).toBe(10 * MINUTE);
+    expect(openRecord(list)?.id).toBe("b");
+  });
+
+  it("keeps no more than the most recent records", () => {
+    let list: SessionRecord[] = [];
+    for (let n = 0; n < MAX_RECORDS + 5; n++) {
+      list = begin(list, "savanna", n * 10 * MINUTE, String(n));
+      list = listen(list, 5 * MINUTE, true, n * 10 * MINUTE + 5 * MINUTE);
+      list = end(list, n * 10 * MINUTE + 5 * MINUTE);
+    }
+    expect(list).toHaveLength(MAX_RECORDS);
+    expect(list.at(-1)?.id).toBe(String(MAX_RECORDS + 4));
+  });
+});
+
+describe("end", () => {
+  it("closes the open record", () => {
+    const list = end(lesson(10), 10 * MINUTE);
+    expect(list[0].endedAt).toBe(10 * MINUTE);
+    expect(openRecord(list)).toBeNull();
+  });
+
+  it("drops a false start with nothing to show for it", () => {
+    let list = begin([], "savanna", 0, "a");
+    list = listen(list, FORGETTABLE_MS - 1, true, FORGETTABLE_MS - 1);
+    expect(end(list, FORGETTABLE_MS)).toEqual([]);
+  });
+
+  it("keeps a short Session if something arrived", () => {
+    let list = begin([], "savanna", 0, "a");
+    list = arrive(list, { scene: "savanna", slug: "meerkat" }, 1000);
+    expect(end(list, 2000)).toHaveLength(1);
+  });
+
+  it("does nothing with no Session open", () => {
+    const list = end(lesson(10), 10 * MINUTE);
+    expect(end(list, 20 * MINUTE)).toBe(list);
+  });
+});
+
+describe("while a Session runs", () => {
+  it("counts listening and Quiet time separately", () => {
+    let list = begin([], "savanna", 0, "a");
+    list = listen(list, 3000, true, 3000);
+    list = listen(list, 1000, false, 4000);
+    expect(list[0].listenedMs).toBe(4000);
+    expect(list[0].quietMs).toBe(3000);
+    expect(list[0].lastActiveAt).toBe(4000);
+  });
+
+  it("records arrivals and the Scenes they came in", () => {
+    let list = begin([], "savanna", 0, "a");
+    list = visit(list, "reef");
+    list = arrive(list, { scene: "reef", slug: "clownfish" }, 10);
+    list = arrive(list, { scene: "space", slug: "comet" }, 20);
+    expect(list[0].arrivals.map((a) => a.slug)).toEqual(["clownfish", "comet"]);
+    expect(list[0].scenes).toEqual(["savanna", "reef", "space"]);
+  });
+
+  it("ignores everything with no Session open", () => {
+    const closed = end(lesson(10), 10 * MINUTE);
+    expect(listen(closed, 1000, true, 0)).toBe(closed);
+    expect(visit(closed, "reef")).toBe(closed);
+    expect(arrive(closed, { scene: "reef", slug: "x" }, 0)).toBe(closed);
+  });
+});
+
+describe("endOf", () => {
+  it("is unknown while the record can still be carried on", () => {
+    const [record] = lesson(10);
+    expect(endOf(record, 10 * MINUTE + RESUME_WITHIN_MS)).toBeNull();
+  });
+
+  it("is when it was last active once it is stale", () => {
+    const [record] = lesson(10);
+    expect(endOf(record, 10 * MINUTE + RESUME_WITHIN_MS + 1)).toBe(10 * MINUTE);
+  });
+});
+
+describe("parseHistory", () => {
+  it("keeps well-formed records and drops the rest", () => {
+    const good = lesson(5)[0];
+    expect(parseHistory([good, { id: 3 }, null, "x"])).toEqual([good]);
+    expect(parseHistory({})).toEqual([]);
+  });
+});

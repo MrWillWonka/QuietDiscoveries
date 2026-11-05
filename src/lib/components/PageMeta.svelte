@@ -13,11 +13,14 @@
     title,
     description,
     jsonLd,
+    noindex = false,
   }: {
     path: PagePath;
     title: string;
     description: string;
     jsonLd?: Record<string, unknown>;
+    /** For a page that only shows what is saved on this computer. */
+    noindex?: boolean;
   } = $props();
 
   const url = $derived(absoluteUrl(path));
@@ -34,6 +37,9 @@
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={url} />
+  {#if noindex}
+    <meta name="robots" content="noindex" />
+  {/if}
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Shy Safari" />
   <meta property="og:title" content={title} />
