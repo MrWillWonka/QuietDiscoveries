@@ -111,9 +111,10 @@ everything due by then, and catches up on the Newcomers it missed.
 
 ## Newcomer
 
-A Creature an Unlock Day adds. It is certain to arrive within a Class's
-first six arrivals in that Scene that day, and until the Class has spotted
-it, that promise carries over to the next days.
+A Creature an Unlock Day adds. It never comes among a Class's first five
+arrivals in that Scene that day, and is certain to have come by the 20th,
+at a random arrival between, each Newcomer at its own; until the Class has
+spotted it, that promise carries over to the next days.
 
 ## Rarity Tier
 

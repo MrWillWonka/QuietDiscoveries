@@ -16,12 +16,14 @@ Two things here go against what the rest of the app does, on purpose:
   a reason to come back each day. Rarity Tiers still never change and are
   never gated: a Newcomer comes in at its tier and keeps it.
 - **One arrival a day is chosen, not rolled.** A class shouldn't have to be
-  lucky to meet the day's Newcomer, so it is certain to come within the
-  class's first six arrivals in the Hollow that day, at a random one of the
-  2nd to the 6th (`session/newcomer.ts`). It's never the quick first arrival,
-  so the wait still has a surprise in it. Until a Class has spotted a
-  Newcomer, the promise carries over, newest first, so a class that meets
-  twice a week catches up on what it missed. It is kept per Class and
+  lucky to meet the day's Newcomer, so it is certain to come by the class's
+  20th arrival in the Scene that day, at a random one of the 6th to the 20th
+  (`session/newcomer.ts`, `NEWCOMER_WINDOW`). The first five arrivals are
+  always familiar faces, not even a Newcomer by luck, so the wait still has
+  a surprise in it. Several Newcomers each get their own arrival in that
+  window, spaced apart. (Earlier this was the 2nd to the 6th; the owner
+  moved it later.) Until a Class has spotted a Newcomer, the promise carries
+  over, so a class that meets twice a week catches up on what it missed. It is kept per Class and
   survives Reset, because it counts the day's arrivals, not the Session's.
 
 Dates are the teacher's computer's local calendar days. There is no server

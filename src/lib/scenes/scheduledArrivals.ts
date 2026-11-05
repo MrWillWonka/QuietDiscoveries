@@ -2,7 +2,8 @@
  * How Creatures arrive in a Scene whose Roster grows by the day (Pumpkin
  * Hollow, Autumn Harvest): only those its calendar has unlocked
  * (`scenes/schedule.ts`), and each day's Newcomer guaranteed within the
- * Class's first six arrivals there (`session/newcomer.ts`).
+ * Class's 6th to 20th arrivals there that day, never sooner
+ * (`session/newcomer.ts`).
  *
  * The Newcomer state is kept per Class and per Scene, so second period
  * meeting Monday's ghost does nothing for third period. It survives Reset
@@ -105,7 +106,7 @@ export function scheduledArrivals({
           day,
           unlocked: secret !== undefined,
           present: present.includes(slug),
-          taken: def !== draw.def || def?.slug === draw.state.featured,
+          taken: draw.newcomer || def !== draw.def,
           random,
         });
         secretVisits.set(sceneId, slug, result.state);

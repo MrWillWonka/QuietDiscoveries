@@ -6,7 +6,7 @@
  */
 
 import { describe, expect, it } from "bun:test";
-import { drawArrival, NEWCOMER_WITHIN } from "$lib/session/newcomer";
+import { drawArrival, NEWCOMER_WINDOW } from "$lib/session/newcomer";
 import { HOLLOW_SCHEDULE } from "./halloween/calendar";
 import { HALLOWEEN_ROSTER } from "./halloween/roster";
 import { HARVEST_SCHEDULE } from "./harvest/calendar";
@@ -42,20 +42,24 @@ describe.each(SCENES)("catching up in %s", (_, schedule, roster, late) => {
     for (const slug of schedule.opening) expect(unlocked).toContain(slug);
   });
 
-  it("brings every missed Newcomer, each within six arrivals of the last", () => {
+  it("brings every missed Newcomer between the 6th and the 20th arrival", () => {
     const secrets = secretSlugs(schedule);
     const unlocked = unlockedSlugs(schedule, late);
     const available = roster.filter(
       (def) => unlocked.includes(def.slug) && !secrets.includes(def.slug),
     );
     const newcomers = newcomersSoFar(schedule, late);
+    // More than the window holds would spill past it, one after another.
+    expect(newcomers.length).toBeLessThanOrEqual(
+      NEWCOMER_WINDOW.by - NEWCOMER_WINDOW.notBefore + 1,
+    );
     for (let seed = 1; seed <= 300; seed++) {
       const random = seeded(seed);
       const seen = new Set<string>();
       const present: string[] = [];
+      const firstAt: Record<string, number> = {};
       let state = null;
-      let sinceLast = 0;
-      for (let n = 1; newcomers.some((slug) => !seen.has(slug)); n++) {
+      for (let n = 1; n <= NEWCOMER_WINDOW.by + 5; n++) {
         const draw = drawArrival({
           available,
           present,
@@ -67,14 +71,13 @@ describe.each(SCENES)("catching up in %s", (_, schedule, roster, late) => {
         });
         state = draw.state;
         const slug = draw.def!.slug;
-        const missed = newcomers.includes(slug) && !seen.has(slug);
+        firstAt[slug] ??= n;
         seen.add(slug);
         if (draw.def!.tier === "rare") present.push(slug);
-        sinceLast = missed ? 0 : sinceLast + 1;
-        // A Rare already out waits its turn (`drawArrival`), so allow one
-        // window more than the guarantee.
-        expect(sinceLast).toBeLessThan(NEWCOMER_WITHIN * 2);
-        expect(n).toBeLessThan(newcomers.length * NEWCOMER_WITHIN * 2);
+      }
+      for (const slug of newcomers) {
+        expect(firstAt[slug]).toBeGreaterThanOrEqual(NEWCOMER_WINDOW.notBefore);
+        expect(firstAt[slug]).toBeLessThanOrEqual(NEWCOMER_WINDOW.by);
       }
     }
   });
