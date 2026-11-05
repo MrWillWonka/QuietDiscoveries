@@ -8,7 +8,7 @@
    * to it.
    */
 
-  import { creatureName, t, tIn, type UiKey } from "$lib/i18n/index.svelte";
+  import { t, tIn, type UiKey } from "$lib/i18n/index.svelte";
   import type { App } from "$lib/app.svelte";
   import { secretSlugs } from "$lib/scenes/schedule";
   import { whoCanArrive } from "$lib/session/available";
@@ -56,7 +56,8 @@
   let previewOpen = $state(false);
 
   /**
-   * The Scene's Secret QDs about today (Autumn Harvest's Mr Applewhite),
+   * The Scene's Secret QDs about today, never named here (the teacher may be
+   * the one a Secret stands for),
    * each with whether the teacher has asked for him and whether he has
    * been, for the Class on screen. Settings is the teacher's, so he is named.
    */
@@ -316,14 +317,11 @@
         </label>
       {/if}
       {#each secretsToday as secret (secret.slug)}
-        {@const name = creatureName(secret.slug)}
         <div class="rounded-lg bg-amber-50 px-3 py-2.5">
           {#if secret.state.visited}
-            <p class="text-sm text-slate-700">
-              <span class="font-medium">{name}</span> —
-              <span class="font-medium text-emerald-800"
-                >{t("settings.secretVisited")}</span
-              >
+            <!-- Never named: the teacher may be the one it stands for. -->
+            <p class="text-sm font-medium text-emerald-800">
+              {t("settings.secretVisited")}
             </p>
           {:else}
             <button
@@ -333,7 +331,7 @@
               aria-describedby="secret-hint-{secret.slug}"
               onclick={() => toggleVisit(secret.slug, secret.day)}
             >
-              {t("settings.secretVisit", { name })}
+              {t("settings.secretVisit")}
               <span
                 class="relative h-5 w-9 shrink-0 rounded-full transition-colors {secret
                   .state.asked

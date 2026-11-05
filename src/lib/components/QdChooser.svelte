@@ -18,19 +18,25 @@
    * leave any out. Stored with the room's settings, so every Class shares
    * them (`settings.qdChoices`).
    *
-   * This is the teacher's panel, so every QD is named and drawn here, Mr
-   * Applewhite included. The list starts folded away.
+   * Every QD is named and drawn here except a Secret, which stays a "?"
+   * until it is found: the teacher may be the one it stands for. The list
+   * starts folded away.
    */
 
   import { creatureName, t } from "$lib/i18n/index.svelte";
   import type { SceneDef } from "$lib/scenes";
-  import { unlockedSlugs } from "$lib/scenes/schedule";
+  import { secretSlugs, unlockedSlugs } from "$lib/scenes/schedule";
   import { settings } from "$lib/settings/settings.svelte";
   import { today } from "$lib/today.svelte";
 
   let { scene }: { scene: SceneDef } = $props();
 
   const unlockAll = $derived(settings.unlockAll(scene.id));
+
+  /** Secret QDs, shown only as a "?" so the surprise keeps. */
+  const secrets = $derived(
+    new Set(scene.schedule ? secretSlugs(scene.schedule) : []),
+  );
 
   /** In a Scene with a calendar, what it has not unlocked yet today. */
   const notYet = $derived.by(() => {
@@ -94,14 +100,20 @@
     <ul class="mt-2 grid grid-cols-3 gap-2">
       {#each scene.roster as def (def.slug)}
         {@const included = !settings.isExcluded(scene.id, def.slug)}
-        {@const name = creatureName(def.slug)}
+        {@const secret = secrets.has(def.slug)}
+        {@const name = secret ? t("settings.secretQd") : creatureName(def.slug)}
         <li>
           <label
             class="flex h-full cursor-pointer flex-col items-center rounded-lg border p-1.5 text-center text-xs {included
               ? 'border-slate-300'
               : 'border-dashed border-slate-300 opacity-50'}"
           >
-            {#if scene.creatureArt[def.slug]}
+            {#if secret}
+              <span
+                class="grid h-10 w-full place-items-center text-2xl font-bold text-slate-400"
+                aria-hidden="true">?</span
+              >
+            {:else if scene.creatureArt[def.slug]}
               <img
                 src={artUrl(
                   `${scene.id}/${def.slug}`,
