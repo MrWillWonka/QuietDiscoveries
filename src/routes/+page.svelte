@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { sessionHistory } from "$lib/session/history.svelte";
   import { App } from "$lib/app.svelte";
   import { classes } from "$lib/classes/classes.svelte";
   import ClassesPanel from "$lib/components/ClassesPanel.svelte";
@@ -37,7 +38,6 @@
   } from "$lib/ui/documentPictureInPicture";
   import { mount, onMount, tick, unmount } from "svelte";
   import { settings } from "$lib/settings/settings.svelte";
-  import { stats } from "$lib/session/stats.svelte";
   import logoUrl from "$lib/brand/logo.svg";
   import { PREVIEW_IMAGE, absoluteUrl } from "$lib/site";
 
@@ -541,7 +541,7 @@
           <ArrivalCounter sceneId={app.scene.id} count={app.session.arrived} />
         {/if}
         {#if app.listening && settings.showResets && app.scene.strikes}
-          <ResetCounter count={stats.current?.resets ?? 0} />
+          <ResetCounter count={sessionHistory.current?.resets ?? 0} />
         {/if}
         <div
           class="pointer-events-auto flex gap-2 transition-opacity duration-300"

@@ -2,8 +2,8 @@
   /**
    * How many times this Session the leaf storm reset the Scene (four
    * strikes, `noise/strikes.ts`), kept up in the corner beside the arrival
-   * counter for a teacher who turns it on in Settings. Read from the Class's
-   * stats (`session/stats.svelte.ts`).
+   * counter for a teacher who turns it on in Settings. Read from the
+   * Session's record (`session/history.svelte.ts`).
    */
 
   import { t } from "$lib/i18n/index.svelte";

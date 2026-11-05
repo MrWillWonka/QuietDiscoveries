@@ -220,6 +220,7 @@ const en = {
     "stats.date": "Date",
     "stats.none": "No sessions yet. Press Start to begin one.",
     "stats.notStarted": "Not started yet",
+    "stats.arrivals": "QDs arrived",
     "menu.label": "Start menu",
     "menu.class": "Class",
     "settings.showCounter": "Count QDs as they arrive",
@@ -985,6 +986,7 @@ const es = {
     "stats.date": "Fecha",
     "stats.none": "Aún no hay sesiones. Pulsa Empezar para comenzar una.",
     "stats.notStarted": "Aún no ha empezado",
+    "stats.arrivals": "QDs que llegaron",
     "menu.label": "Menú de inicio",
     "menu.class": "Clase",
     "settings.showCounter": "Contar los QDs a medida que llegan",
@@ -1723,6 +1725,7 @@ const fr = {
     "stats.none":
       "Aucune séance pour l’instant. Appuyez sur Commencer pour en lancer une.",
     "stats.notStarted": "Pas encore commencée",
+    "stats.arrivals": "QDs arrivés",
     "menu.label": "Menu de départ",
     "menu.class": "Classe",
     "settings.showCounter": "Compter les QDs à mesure qu’ils arrivent",

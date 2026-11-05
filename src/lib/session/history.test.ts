@@ -5,6 +5,8 @@ import {
   RESUME_WITHIN_MS,
   arrive,
   begin,
+  count,
+  current,
   end,
   endOf,
   lastUsed,
@@ -12,7 +14,9 @@ import {
   listen,
   openRecord,
   parseHistory,
+  quietStretch,
   sceneOf,
+  totals,
   visit,
   type SessionRecord,
 } from "./history";
@@ -197,5 +201,103 @@ describe("latestByClass", () => {
       { classId: "3rd", records: [open] },
     ]);
     expect(first.classId).toBe("3rd");
+  });
+});
+
+describe("Class stats in a record", () => {
+  it("keeps the longest unbroken Quiet stretch", () => {
+    let list = begin([], "harvest", 0, "a");
+    expect(list[0].longestQuietMs).toBe(0);
+    list = quietStretch(list, 3 * MINUTE);
+    list = quietStretch(list, 2 * MINUTE);
+    expect(list[0].longestQuietMs).toBe(3 * MINUTE);
+    list = quietStretch(list, 5 * MINUTE);
+    expect(list[0].longestQuietMs).toBe(5 * MINUTE);
+  });
+
+  it("counts strikes, resets and first discoveries", () => {
+    let list = begin([], "harvest", 0, "a");
+    list = count(list, "strikes", MINUTE);
+    list = count(list, "strikes", 2 * MINUTE);
+    list = count(list, "resets", 3 * MINUTE);
+    list = count(list, "discovered", 4 * MINUTE);
+    expect(list[0]).toMatchObject({ strikes: 2, resets: 1, discovered: 1 });
+    expect(list[0].lastActiveAt).toBe(4 * MINUTE);
+    // Nothing open, nothing counted.
+    const closed = end(list, 5 * MINUTE);
+    expect(count(closed, "strikes", 6 * MINUTE)).toBe(closed);
+  });
+
+  it("sums every Session, with the longest stretch of any one", () => {
+    let list = lesson(10);
+    list = quietStretch(list, 4 * MINUTE);
+    list = count(list, "strikes", 10 * MINUTE);
+    list = end(list, 10 * MINUTE);
+    const later = 10 * MINUTE + RESUME_WITHIN_MS + 1;
+    list = begin(list, "reef", later, "b");
+    list = listen(list, 2 * MINUTE, true, later + 2 * MINUTE);
+    list = quietStretch(list, 2 * MINUTE);
+    list = count(list, "resets", later + 2 * MINUTE);
+    list = arrive(
+      list,
+      { scene: "reef", slug: "clownfish" },
+      later + 3 * MINUTE,
+    );
+    expect(totals(list)).toEqual({
+      sessions: 2,
+      arrivals: 1,
+      listenedMs: 12 * MINUTE,
+      quietMs: 12 * MINUTE,
+      longestQuietMs: 4 * MINUTE,
+      strikes: 1,
+      resets: 1,
+      discovered: 0,
+    });
+    expect(totals([]).sessions).toBe(0);
+  });
+});
+
+describe("resuming", () => {
+  it("carries on after a refresh, and gives the Session going on now", () => {
+    let list = lesson(10);
+    expect(current(list, 12 * MINUTE)?.id).toBe("a");
+    list = begin(list, "savanna", 12 * MINUTE, "b");
+    expect(list).toHaveLength(1);
+    expect(current(list, 12 * MINUTE + RESUME_WITHIN_MS + 1)).toBeNull();
+  });
+
+  it("never carries a Session over into another day", () => {
+    const late = new Date(2026, 10, 5, 23, 50).getTime();
+    const early = new Date(2026, 10, 6, 0, 5).getTime();
+    expect(early - late).toBeLessThan(RESUME_WITHIN_MS);
+    let list = begin([], "harvest", late, "a");
+    list = listen(list, 5 * MINUTE, true, late + 5 * MINUTE);
+    expect(endOf(list[0], early)).toBe(late + 5 * MINUTE);
+    list = begin(list, "harvest", early, "b");
+    expect(list.map((record) => record.id)).toEqual(["a", "b"]);
+  });
+});
+
+describe("older records", () => {
+  it("load with the stats they lack as 0", () => {
+    const [record] = parseHistory([
+      {
+        id: "old",
+        startedAt: 0,
+        lastActiveAt: MINUTE,
+        endedAt: MINUTE,
+        scenes: ["savanna"],
+        arrivals: [],
+        listenedMs: MINUTE,
+        quietMs: MINUTE,
+      },
+    ]);
+    expect(record).toMatchObject({
+      longestQuietMs: 0,
+      strikes: 0,
+      resets: 0,
+      discovered: 0,
+    });
+    expect(totals([record]).quietMs).toBe(MINUTE);
   });
 });

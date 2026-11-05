@@ -17,7 +17,6 @@ import { DEFAULT_SCENE, type SceneId } from "$lib/scenes/types";
 import { sessionHistory } from "$lib/session/history.svelte";
 import { Session } from "$lib/session/session.svelte";
 import { sightings } from "$lib/session/sightings.svelte";
-import { stats } from "$lib/session/stats.svelte";
 import { addStrike, drainStrikes, noStrikes, pileOf } from "$lib/noise/strikes";
 import { settings } from "$lib/settings/settings.svelte";
 import { ClassTimer } from "$lib/timer/timer.svelte";
@@ -136,8 +135,8 @@ export class App {
    */
   useClass(id: string) {
     if (id === classes.currentId) return;
-    // The class leaving ends its Session; it starts afresh when it is back.
-    sessionHistory.end();
+    // The class leaving keeps its Session open: back within the resume
+    // window, the same day, Start carries it on (`session/history.ts`).
     this.timer.useClass(() => classes.select(id));
     this.#enterClass();
   }
@@ -155,7 +154,6 @@ export class App {
   #enterClass() {
     sightings.reload();
     sessionHistory.reload();
-    stats.reload();
     notes.reload();
     this.monitor.reset();
     this.session.useClass(settings.arrivalIntervalMs);
@@ -214,13 +212,15 @@ export class App {
     this.monitor.reset();
     this.session.start(settings.arrivalIntervalMs);
     sessionHistory.begin(this.scene.id);
-    stats.startSession();
   }
 
+  /**
+   * Reset empties the Scene but is still the same lesson, so the Session's
+   * record (and its stats) carry on (`session/history.ts`).
+   */
   resetSession() {
     this.paused = false;
     this.session.reset(settings.arrivalIntervalMs);
-    sessionHistory.end();
   }
 
   /**
@@ -237,10 +237,10 @@ export class App {
     if (struck) {
       const step = addStrike(this.strikes);
       this.strikes = step.strikes;
-      stats.strike(this.scene.id);
+      sessionHistory.strike();
       if (step.reset) {
         this.#resetting = true;
-        stats.reset(this.scene.id);
+        sessionHistory.reset();
         // Let the leaves reach the top before the field empties under them.
         this.#resetTimers.push(
           setTimeout(() => {
@@ -324,7 +324,6 @@ export class App {
           settings.loudResponse === "flee",
         );
         if (this.session.running) {
-          stats.tick(delta, this.monitor.state === "quiet");
           sessionHistory.listen(
             Math.min(delta, MAX_LISTEN_STEP_MS),
             this.monitor.state === "quiet",

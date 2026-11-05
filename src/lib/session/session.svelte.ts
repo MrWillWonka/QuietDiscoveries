@@ -27,7 +27,6 @@ import {
 import { loadArrived, loadReef, saveArrived, saveReef } from "./savedReef";
 import { sessionHistory } from "./history.svelte";
 import { sightings } from "./sightings.svelte";
-import { stats } from "./stats.svelte";
 import { whoCanArrive } from "./available";
 
 /** One Creature actually in the water, and where it first appears. */
@@ -275,7 +274,7 @@ export class Session {
     this.#save();
     saveArrived(this.arrived);
     if (sightings.count(this.#sceneId, def.slug) === 0)
-      stats.discovered(this.#sceneId);
+      sessionHistory.discover();
     sightings.record(this.#sceneId, def.slug);
     sessionHistory.arrive(this.#sceneId as SceneId, def.slug);
   }
@@ -295,7 +294,7 @@ export class Session {
     // never spotted arriving, counts as found from now on.
     const slug = creature.def.slug;
     if (sightings.count(this.#sceneId, slug) === 0) {
-      stats.discovered(this.#sceneId);
+      sessionHistory.discover();
       sightings.record(this.#sceneId, slug);
     }
     sightings.recordTransformed(this.#sceneId, slug);

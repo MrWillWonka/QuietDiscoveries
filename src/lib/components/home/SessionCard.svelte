@@ -1,7 +1,9 @@
 <script lang="ts">
   /**
    * One past Session on the Sessions page: which Class had it, when it ran,
-   * where, how long the room was Quiet, and who came out.
+   * where, how long the room was Quiet (in all, and at a stretch), the leaf
+   * storm's strikes and resets, and who came out. The numbers read exactly
+   * as "Class stats" shows them, from the same record.
    */
 
   import {
@@ -13,6 +15,7 @@
   } from "$lib/i18n/index.svelte";
   import { SCENES } from "$lib/scenes";
   import { artUrl } from "$lib/scenes/collection";
+  import { formatDuration } from "$lib/session/duration";
   import { endOf, type SessionRecord } from "$lib/session/history";
 
   let {
@@ -42,8 +45,6 @@
       minute: "2-digit",
     }).formatRange(record.startedAt, Math.max(record.startedAt, until)),
   );
-
-  const quietMinutes = $derived(Math.round(record.quietMs / 60_000));
 
   /**
    * Each Creature once, in the order it first arrived, leaving out any
@@ -109,8 +110,20 @@
       })}
     </span>
     <span class="rounded-full bg-meadow-50 px-3 py-1 text-pine-800">
-      {t("home.quietFor", { minutes: quietMinutes })}
+      {t("stats.quietTime")}: {formatDuration(record.quietMs / 1000)}
     </span>
+    {#if record.longestQuietMs > 0}
+      <span class="rounded-full bg-meadow-50 px-3 py-1 text-pine-800">
+        {t("stats.longestStreak")}: {formatDuration(
+          record.longestQuietMs / 1000,
+        )}
+      </span>
+    {/if}
+    {#if record.strikes > 0 || record.resets > 0}
+      <span class="rounded-full bg-amber-50 px-3 py-1 text-amber-900">
+        {t("stats.strikes")}: {record.strikes} · {t("stats.resets")}: {record.resets}
+      </span>
+    {/if}
   </div>
 
   {#if faces.length > 0}

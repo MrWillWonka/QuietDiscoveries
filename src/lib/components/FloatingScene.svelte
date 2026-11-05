@@ -15,9 +15,9 @@
    */
 
   import type { App } from "$lib/app.svelte";
+  import { sessionHistory } from "$lib/session/history.svelte";
   import { t } from "$lib/i18n/index.svelte";
   import { settings } from "$lib/settings/settings.svelte";
-  import { stats } from "$lib/session/stats.svelte";
   import ArrivalCounter from "./ArrivalCounter.svelte";
   import ResetCounter from "./ResetCounter.svelte";
   import DiscoveryLeaves from "./DiscoveryLeaves.svelte";
@@ -108,7 +108,7 @@
         <ArrivalCounter sceneId={app.scene.id} count={app.session.arrived} />
       {/if}
       {#if settings.showResets && app.scene.strikes}
-        <ResetCounter count={stats.current?.resets ?? 0} />
+        <ResetCounter count={sessionHistory.current?.resets ?? 0} />
       {/if}
     </div>
     <button

@@ -1,17 +1,21 @@
 <script lang="ts">
   /**
-   * "Class stats": how the Class on screen has done, this Session and in
-   * total, and its recent Sessions (`session/stats.svelte.ts`). Opened from
-   * the start menu and from the Collection.
+   * "Class stats": how the Class on screen has done, in the Session going
+   * on now and over all its Sessions, from the one record of them
+   * (`session/history.ts`). The Sessions themselves, one by one, are on the
+   * Sessions page, which this links to, so the list lives in one place.
    *
-   * Laid out as a list of rows, so more stats can join later without the
-   * dialog changing shape.
+   * Laid out as rows, so more stats can join later without the dialog
+   * changing shape. Opened from the start menu, the home screen and the
+   * Collection.
    */
 
+  import { resolve } from "$app/paths";
   import { classes } from "$lib/classes/classes.svelte";
-  import { className, current, t, type UiKey } from "$lib/i18n/index.svelte";
+  import { className, t, type UiKey } from "$lib/i18n/index.svelte";
+  import { totals, type Totals } from "$lib/session/history";
+  import { sessionHistory } from "$lib/session/history.svelte";
   import { formatDuration } from "$lib/session/duration";
-  import { stats, type Tally } from "$lib/session/stats.svelte";
   import { onMount } from "svelte";
 
   let { onclose }: { onclose: () => void } = $props();
@@ -19,38 +23,29 @@
   let dialog: HTMLElement;
 
   /** The rows, in order: what each shows and how it reads. */
-  const ROWS: { key: keyof Tally; label: UiKey; time?: boolean }[] = [
-    { key: "quietSeconds", label: "stats.quietTime", time: true },
-    { key: "longestStreak", label: "stats.longestStreak", time: true },
+  const ROWS: { key: keyof Totals; label: UiKey; time?: boolean }[] = [
+    { key: "quietMs", label: "stats.quietTime", time: true },
+    { key: "longestQuietMs", label: "stats.longestStreak", time: true },
+    { key: "arrivals", label: "stats.arrivals" },
     { key: "discovered", label: "stats.discovered" },
     { key: "strikes", label: "stats.strikes" },
     { key: "resets", label: "stats.resets" },
   ];
 
-  function show(tally: Tally, row: (typeof ROWS)[number]) {
-    const value = tally[row.key];
-    return row.time ? formatDuration(value) : String(value);
-  }
+  const now = $derived(sessionHistory.current);
+  const thisSession = $derived(now ? totals([now]) : null);
+  const allTime = $derived(totals(sessionHistory.records));
 
-  /** A Session's date and time, in the page's language. */
-  function when(iso: string) {
-    const date = new Date(iso);
-    return Number.isNaN(date.getTime())
-      ? ""
-      : date.toLocaleString(current().locale, {
-          weekday: "short",
-          day: "numeric",
-          month: "short",
-          hour: "numeric",
-          minute: "2-digit",
-        });
+  function show(sum: Totals, row: (typeof ROWS)[number]) {
+    const value = sum[row.key];
+    return row.time ? formatDuration(value / 1000) : String(value);
   }
 
   onMount(() => {
     dialog.querySelector<HTMLElement>("button")?.focus();
   });
 
-  /** Keep Tab inside the dialog while it is open. */
+  /** Escape closes it, and Tab stays inside it. */
   function trap(event: KeyboardEvent) {
     if (event.key === "Escape") {
       event.stopPropagation();
@@ -82,7 +77,7 @@
 >
   <div
     bind:this={dialog}
-    class="relative flex max-h-full w-full max-w-xl flex-col rounded-xl bg-white shadow-xl"
+    class="relative flex max-h-full w-full max-w-lg flex-col rounded-xl bg-white shadow-xl"
     role="dialog"
     aria-modal="true"
     aria-labelledby="class-stats-title"
@@ -123,14 +118,12 @@
                 >{t(row.label)}</th
               >
               <td class="py-2 text-right text-slate-900 tabular-nums">
-                {stats.current
-                  ? show(stats.current, row)
-                  : t("stats.notStarted")}
+                {thisSession ? show(thisSession, row) : t("stats.notStarted")}
               </td>
               <td
                 class="py-2 text-right font-semibold text-slate-900 tabular-nums"
               >
-                {show(stats.totals, row)}
+                {show(allTime, row)}
               </td>
             </tr>
           {/each}
@@ -141,48 +134,20 @@
             <td></td>
             <td
               class="py-2 text-right font-semibold text-slate-900 tabular-nums"
-              >{stats.totals.sessions}</td
+              >{allTime.sessions}</td
             >
           </tr>
         </tbody>
       </table>
 
-      <h2
-        class="mt-6 text-sm font-semibold tracking-wide text-slate-500 uppercase"
+      <!-- The Sessions one by one live on the Sessions page. -->
+      <a
+        href={resolve("/sessions")}
+        class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-slate-800 underline underline-offset-2 hover:text-slate-950"
       >
-        {t("stats.recent")}
-      </h2>
-      {#if stats.recent.length === 0}
-        <p class="mt-2 text-sm text-slate-500">{t("stats.none")}</p>
-      {:else}
-        <table class="mt-2 w-full text-left text-sm">
-          <thead>
-            <tr class="text-xs text-slate-500">
-              <th class="py-1 font-medium">{t("stats.date")}</th>
-              <th class="py-1 text-right font-medium">{t("stats.quietTime")}</th
-              >
-              <th class="py-1 text-right font-medium"
-                >{t("stats.longestStreak")}</th
-              >
-              <th class="py-1 text-right font-medium">{t("stats.resets")}</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100">
-            {#each stats.recent as session, i (session.started + i)}
-              <tr>
-                <td class="py-1.5 text-slate-700">{when(session.started)}</td>
-                <td class="py-1.5 text-right tabular-nums"
-                  >{formatDuration(session.quietSeconds)}</td
-                >
-                <td class="py-1.5 text-right tabular-nums"
-                  >{formatDuration(session.longestStreak)}</td
-                >
-                <td class="py-1.5 text-right tabular-nums">{session.resets}</td>
-              </tr>
-            {/each}
-          </tbody>
-        </table>
-      {/if}
+        {t("home.viewAllSessions")}
+        <span aria-hidden="true">→</span>
+      </a>
     </div>
   </div>
 </div>
