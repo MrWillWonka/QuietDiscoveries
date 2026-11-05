@@ -27,6 +27,7 @@ export {
   type ArrivalRatePreset,
   type ArrivalUnit,
 } from "./arrivalRate";
+import { maxAfterGoalMove, maxVolumeFor } from "./maxVolume";
 
 export type VolumeGoalPreset = "silent" | "independent" | "partner" | "custom";
 /**
@@ -48,15 +49,6 @@ export const VOLUME_GOAL_PRESETS: Record<
 // localStorage key keeps it on purpose: renaming would wipe teachers' saved
 // settings, classes and collections.
 const STORAGE_KEY = "class-noise-level:settings";
-
-/**
- * The Maximum Volume for a goal: the one chosen, or half way from the goal
- * to the top, kept above the goal and no higher than 100.
- */
-export function maxVolumeFor(goal: number, chosen: number | null): number {
-  const level = chosen ?? Math.round((goal + 100) / 2);
-  return Math.min(100, Math.max(goal + 1, level));
-}
 
 interface StoredSettings {
   scene: SceneId;
@@ -192,6 +184,8 @@ class Settings {
       ...this.#stored,
       volumeGoalPreset: preset,
       volumeGoal: VOLUME_GOAL_PRESETS[preset].goal,
+      // A preset is a fresh start: the Maximum goes back to half way up.
+      maxVolume: null,
     };
     this.#save();
   }
@@ -205,6 +199,12 @@ class Settings {
       ...this.#stored,
       volumeGoal: clamped,
       volumeGoalPreset: matching ?? "custom",
+      // The Maximum moves with the goal, keeping the gap the teacher set.
+      maxVolume: maxAfterGoalMove(
+        this.#stored.volumeGoal,
+        clamped,
+        this.#stored.maxVolume,
+      ),
     };
     this.#save();
   }
