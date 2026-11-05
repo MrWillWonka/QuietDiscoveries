@@ -21,6 +21,8 @@
   import InfoDrawer, { FAQ_IDS } from "$lib/components/InfoDrawer.svelte";
   import FloatingScene from "$lib/components/FloatingScene.svelte";
   import PausedPill from "$lib/components/PausedPill.svelte";
+  import DemoBar from "$lib/components/DemoBar.svelte";
+  import type { DemoMicrophone } from "$lib/audio/demoMicrophone.svelte";
   import { drawFramesFrom } from "$lib/frames";
   import { current, t, tIn } from "$lib/i18n/index.svelte";
   import {
@@ -544,6 +546,10 @@
         </button>
         <LanguagePicker />
       </div>
+      {#if import.meta.env.QD_DEMO}
+        <!-- Only in the demo build: no microphone, so make some noise here. -->
+        <DemoBar microphone={app.microphone as DemoMicrophone} />
+      {/if}
     </div>
 
     {#if app.blocked}
