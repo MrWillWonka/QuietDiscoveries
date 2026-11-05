@@ -11,7 +11,7 @@
   import { t } from "$lib/i18n/index.svelte";
   import type { Snippet } from "svelte";
   // In static/, so it loads under any base path (the demo runs in one).
-  const logoUrl = asset("/logo.png");
+  const wordmarkUrl = asset("/wordmark.png");
 
   let {
     title,
@@ -31,8 +31,11 @@
         href={resolve("/")}
         class="flex items-center gap-2 text-lg font-semibold tracking-tight hover:text-slate-600"
       >
-        <img src={logoUrl} alt="" class="size-9 object-contain" />
-        Quiet Discoveries
+        <img
+          src={wordmarkUrl}
+          alt="Quiet Discoveries"
+          class="h-12 w-auto object-contain"
+        />
       </a>
       <div class="flex items-center gap-2">
         <a

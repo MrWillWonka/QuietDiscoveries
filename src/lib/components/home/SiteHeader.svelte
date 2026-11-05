@@ -7,7 +7,7 @@
   import { asset, resolve } from "$app/paths";
   import type { Snippet } from "svelte";
   // In static/, so it loads under any base path (the demo runs in one).
-  const logoUrl = asset("/logo.png");
+  const wordmarkUrl = asset("/wordmark.png");
 
   let { children }: { children: Snippet } = $props();
 </script>
@@ -20,8 +20,11 @@
       href={resolve("/")}
       class="flex items-center gap-3 rounded-lg hover:text-pine-800"
     >
-      <img src={logoUrl} alt="" class="h-11 w-auto sm:h-14" />
-      Quiet Discoveries
+      <img
+        src={wordmarkUrl}
+        alt="Quiet Discoveries"
+        class="h-16 w-auto sm:h-20"
+      />
     </a>
   </h1>
   <div class="ml-auto flex flex-wrap items-center justify-end gap-2 sm:gap-3">

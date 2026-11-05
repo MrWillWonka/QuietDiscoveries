@@ -19,7 +19,7 @@
   import { onMount } from "svelte";
   import SceneSelect from "./SceneSelect.svelte";
   // In static/, so it loads under any base path (the demo runs in one).
-  const logoUrl = asset("/logo.png");
+  const wordmarkUrl = asset("/wordmark.png");
 
   let {
     app,
@@ -138,13 +138,12 @@
           </svg>
         </button>
       {/if}
-      <img
-        src={logoUrl}
-        alt=""
-        class="mx-auto mb-3 size-24 object-contain short:mb-1 short:size-14"
-      />
-      <h1 class="text-2xl font-semibold text-slate-900 short:text-xl">
-        Quiet Discoveries
+      <h1>
+        <img
+          src={wordmarkUrl}
+          alt="Quiet Discoveries"
+          class="mx-auto mb-1 h-28 w-auto max-w-full object-contain short:h-16"
+        />
       </h1>
       <p
         class="mt-3 rounded-lg bg-amber-50 px-4 py-3 text-balance text-slate-800 short:mt-2 short:py-2 short:text-sm"
