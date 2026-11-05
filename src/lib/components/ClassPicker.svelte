@@ -1,6 +1,6 @@
 <script lang="ts">
   /**
-   * Which Class is on screen, in the top bar beside the teacher.dev mark.
+   * Which Class is on screen, in the top bar beside the EdTech-a-thon mark.
    *
    * Switching between periods is the everyday job, so it is one click away
    * in a small menu under the chip. Adding, renaming and deleting are rarer
