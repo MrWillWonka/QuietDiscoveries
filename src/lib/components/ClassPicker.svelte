@@ -1,6 +1,8 @@
 <script lang="ts">
   /**
-   * Which Class is on screen, in the top bar beside the logo.
+   * Which Class is on screen, in the top bar beside the logo. On the page
+   * it opens the start menu (`StartMenu.svelte`), where the Class is
+   * switched; without `onopen`, it opens its own small menu.
    *
    * Switching between periods is the everyday job, so it is one click away
    * in a small menu under the chip. Adding, renaming and deleting are rarer
@@ -19,11 +21,14 @@
     open = $bindable(false),
     onedit,
     variant = "overlay",
+    onopen,
   }: {
     app: App;
     open?: boolean;
     onedit: () => void;
     variant?: "overlay" | "home";
+    /** Given, the chip opens this (the start menu) instead of its own menu. */
+    onopen?: () => void;
   } = $props();
 
   let container: HTMLElement;
@@ -56,11 +61,12 @@
       ? "flex h-12 w-full max-w-44 items-center gap-2.5 rounded-full border border-stone-200 bg-white pr-3 pl-4 text-base font-semibold text-ink shadow-sm transition hover:bg-stone-50 sm:max-w-72"
       : "flex h-11 w-full max-w-36 items-center gap-2 rounded-full bg-white/95 px-4 text-sm font-medium text-slate-800 shadow-lg transition hover:bg-white sm:max-w-64"}
     class:invisible={!app.restored}
-    aria-expanded={open}
-    aria-controls="class-menu"
+    aria-expanded={onopen ? undefined : open}
+    aria-controls={onopen ? undefined : "class-menu"}
+    aria-haspopup={onopen ? "dialog" : undefined}
     aria-label="{t('classes.change')}: {currentName}"
     title={t("classes.change")}
-    onclick={() => (open = !open)}
+    onclick={() => (onopen ? onopen() : (open = !open))}
   >
     <svg
       viewBox="0 0 24 24"

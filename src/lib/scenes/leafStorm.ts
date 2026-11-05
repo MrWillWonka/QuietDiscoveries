@@ -1,55 +1,16 @@
 /**
- * Too Loud as a leaf storm (Autumn Harvest): leaves fall from the top of the
- * screen onto a pile that grows up from the bottom until, if the room stays
- * loud, the screen is covered and the QDs are gone; when it is calm again
- * the pile drops away off the bottom
+ * The leaf storm's pile (Autumn Harvest): leaves fall from the top of the
+ * screen onto a pile that grows up from the bottom, a third of the screen
+ * for each strike (`noise/strikes.ts`), until the third covers it and the
+ * QDs are gone; then the pile drops away off the bottom
  * (`harvest/LeafStorm.svelte`). Only how full the screen is lives here, pure
  * and testable: who leaves, and when, is still the Session's.
  */
 
 export const STORM = {
-  /** "Run away": seconds for time alone to cover the screen. */
-  rampS: 60,
-  /** …or, with no QDs out to lose, this many. */
-  emptyRampS: 20,
-  /** "Pause the scene": nobody leaves, so it builds to this and holds. */
-  pauseHold: 0.65,
-  /** …taking this many seconds to get there. */
-  pauseRampS: 24,
   /** It never grows faster than this share of the screen a second. */
   maxRate: 1 / 8,
-  /** Seconds the leaves take to drop away once it is calm. */
-  clearS: 2.5,
 };
-
-/** One spell of Too Loud, from its start. */
-export interface Spell {
-  /** Seconds since the room got Too Loud. */
-  elapsed: number;
-  /** The teacher's setting: QDs run away, rather than the Scene pausing. */
-  scares: boolean;
-  /** QDs out when it began, and still out (not running) now. */
-  startCount: number;
-  remaining: number;
-}
-
-/**
- * How much of the screen the leaves should cover, 0 to 1. Running away: the
- * larger of a time ramp and the share of QDs gone since the spell began, so
- * it is full once the last one has left. Pausing: up to `pauseHold`.
- */
-export function stormTarget(spell: Spell): number {
-  const t = Math.max(0, spell.elapsed);
-  if (!spell.scares) {
-    return Math.min(STORM.pauseHold, (t / STORM.pauseRampS) * STORM.pauseHold);
-  }
-  const gone =
-    spell.startCount > 0
-      ? (spell.startCount - Math.min(spell.startCount, spell.remaining)) /
-        spell.startCount
-      : Math.min(1, t / STORM.emptyRampS);
-  return Math.min(1, Math.max(t / STORM.rampS, gone));
-}
 
 /**
  * The fill a moment later: growing towards the target no faster than
@@ -73,7 +34,20 @@ export function steppedFill(fill: number): number {
  */
 export function sheetRise(fill: number, layer: 0 | 1 | 2): number {
   const f = Math.max(0, Math.min(1, fill));
-  if (layer === 0) return Math.min(1, f * 1.08);
-  if (layer === 2) return Math.max(0, f * 1.06 - 0.06);
-  return f;
+  // Shaped so the fringe's middle sits about a third and two thirds of the
+  // way up at one and two strikes, and the screen is covered at the top.
+  const rise = 1 - (1 - f) * (1 + 0.72 * f * f);
+  if (layer === 0) return Math.min(1, rise * 1.05);
+  if (layer === 2) return Math.max(0, rise * 1.04 - 0.04);
+  return rise;
+}
+
+/**
+ * Where, as a share of the screen's height from the top, the fringe along
+ * the top of the pile is, for a fill: each sheet is 1.45 screens tall,
+ * hangs 0.45 of a screen above the top when full, and the middle of its
+ * fringe is a tenth of its height down.
+ */
+export function fringeAt(fill: number): number {
+  return 1.145 - 1.45 * sheetRise(fill, 1);
 }

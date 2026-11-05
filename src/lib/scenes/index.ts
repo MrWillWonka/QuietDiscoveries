@@ -74,12 +74,6 @@ import * as spaceArt from "./space/artwork";
 import spaceIcon from "./space/icon.svg";
 import { SPACE_NOTE } from "./space/note";
 import { SPACE_ROSTER } from "./space/roster";
-import ThanksgivingAmbient from "./thanksgiving/AmbientLife.svelte";
-import * as thanksgivingArt from "./thanksgiving/artwork";
-import { isOpen as isNovember } from "./thanksgiving/calendar";
-import thanksgivingIcon from "./thanksgiving/icon.svg";
-import { THANKSGIVING_NOTE } from "./thanksgiving/note";
-import { THANKSGIVING_ROSTER } from "./thanksgiving/roster";
 import type { Arrivals, CreatureDef, SceneId } from "./types";
 
 export type { SceneId };
@@ -180,14 +174,19 @@ export interface SceneDef {
    * are (`scenes/spread.ts`).
    */
   spread?: boolean;
+  /**
+   * Going over the Maximum Volume is a strike: a third of the screen in
+   * fallen leaves, and the third clears the Scene (`noise/strikes.ts`).
+   */
+  strikes?: boolean;
   /** A table some harvest items land on instead of the grass (`table.ts`). */
   table?: TableDef;
   /**
    * Drawn over the Scene for Too Loud instead of its veil: Autumn Harvest's
-   * leaf storm, which piles up as the room stays loud and QDs leave. Told
-   * whether it is loud, the teacher's choice, and how many QDs are still out.
+   * leaf storm. Told whether it is loud, how high the strikes have piled the
+   * leaves (`noise/strikes.ts`), and whether a reset is sweeping them away.
    */
-  TooLoud?: Component<{ murky: boolean; scares: boolean; remaining: number }>;
+  TooLoud?: Component<{ murky: boolean; pile: number; sweeping: boolean }>;
 }
 
 export const SCENES: Record<SceneId, SceneDef> = {
@@ -323,25 +322,6 @@ export const SCENES: Record<SceneId, SceneDef> = {
     // comes, and the patch stays lit warmer while he's here (entrance.css).
     welcomes: ["jack-o-lantern"],
   },
-  thanksgiving: {
-    id: "thanksgiving",
-    icon: thanksgivingIcon,
-    roster: THANKSGIVING_ROSTER,
-    creatureArt: thanksgivingArt.CREATURE_ART,
-    listeningArt: thanksgivingArt.LISTENING_ART,
-    ambientArt: thanksgivingArt.AMBIENT_ART,
-    Ambient: ThanksgivingAmbient,
-    depthFade: false,
-    // The animals run; the leaf sprite and the moon fade away
-    // (`CreatureDef.departure`).
-    departure: "run",
-    whilePaused: "listen",
-    // The forest's trail sign, which suits an autumn farm too.
-    note: THANKSGIVING_NOTE,
-    // All through November, every year. Its whole Roster rolls as usual.
-    openOn: isNovember,
-    isNew: true,
-  },
   harvest: {
     id: "harvest",
     icon: harvestIcon,
@@ -354,7 +334,7 @@ export const SCENES: Record<SceneId, SceneDef> = {
     depthFade: false,
     departure: "run",
     whilePaused: "listen",
-    // Thanksgiving's, the forest's trail sign, which suits the farm too.
+    // The forest's trail sign, which suits the farm too.
     note: HARVEST_NOTE,
     // Through November, unlocking a Newcomer on chosen school days.
     openOn: isHarvestOpen,
@@ -369,8 +349,10 @@ export const SCENES: Record<SceneId, SceneDef> = {
     // on the picnic table.
     depthWander: true,
     spread: true,
+    strikes: true,
     table: HARVEST_TABLE,
-    // Too Loud is a leaf storm, not a fog (`harvest/LeafStorm.svelte`).
+    // Too Loud has no fog here; going over the Maximum Volume brings a leaf
+    // storm (`harvest/LeafStorm.svelte`).
     TooLoud: HarvestLeafStorm,
   },
 };

@@ -4,6 +4,8 @@ import {
   cool,
   createHeat,
   crowding,
+  hiddenRestShare,
+  hiddenStopCost,
   restShare,
   usage,
   warm,
@@ -86,5 +88,27 @@ describe("restShare", () => {
     expect(restShare(0.3)).toBe(1);
     expect(restShare(1.5)).toBeLessThan(0.5);
     expect(restShare(100)).toBe(0.25);
+  });
+});
+
+describe("stopping in plain sight", () => {
+  it("makes a hidden stop cost more than a crowd, for a QD that rests", () => {
+    const crowd = [{ x: 0.7, y: 0.4, size: 0.06 }];
+    const hidden = [0.9, 0];
+    // The first is open but behind a bale; the second crowded but in view.
+    const pick = chooseOpen([at(0.2), at(0.72)], crowd, null, level, (_, i) =>
+      hiddenStopCost(hidden[i], 0.75),
+    );
+    expect(pick).toBe(1);
+  });
+
+  it("costs nothing for a QD that never stops, or a spot in view", () => {
+    expect(hiddenStopCost(1, 0)).toBe(0);
+    expect(hiddenStopCost(0, 0.9)).toBe(0);
+  });
+
+  it("cuts a rest short where it can hardly be seen", () => {
+    expect(hiddenRestShare(0.1)).toBe(1);
+    expect(hiddenRestShare(0.8)).toBeLessThan(0.25);
   });
 });

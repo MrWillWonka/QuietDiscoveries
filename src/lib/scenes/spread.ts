@@ -100,6 +100,7 @@ export function chooseOpen(
   others: Occupant[],
   heat: Heat | null,
   random: () => number,
+  penalty?: (candidate: Candidate, index: number) => number,
 ): number {
   let best = 0;
   let bestScore = Infinity;
@@ -107,6 +108,7 @@ export function chooseOpen(
     const score =
       crowding(one, others) +
       (heat ? SPREAD.pull * usage(heat, one.across, one.depth) : 0) +
+      (penalty?.(one, index) ?? 0) +
       random() * SPREAD.jitter;
     if (score < bestScore) {
       best = index;
@@ -122,4 +124,23 @@ export function chooseOpen(
  */
 export function restShare(crowd: number): number {
   return Math.max(0.25, 1 / (1 + 1.5 * Math.max(0, crowd - 0.3)));
+}
+
+/**
+ * What it costs to stop somewhere a share `hidden` behind props, for a QD
+ * that stops at a waypoint with this chance: far more than any crowd, so
+ * resting in plain sight wins, while just walking past behind a prop costs
+ * nothing.
+ */
+export function hiddenStopCost(hidden: number, restChance: number): number {
+  return hidden * 6 * restChance;
+}
+
+/**
+ * How long a rest lasts, as a share of the one rolled, when it comes to rest
+ * where it is a share `hidden` behind props: barely at all if mostly hidden,
+ * so it moves on into view.
+ */
+export function hiddenRestShare(hidden: number): number {
+  return hidden > 0.35 ? 0.15 : 1;
 }

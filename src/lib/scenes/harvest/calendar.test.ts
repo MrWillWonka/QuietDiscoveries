@@ -7,6 +7,7 @@ import {
   isOpen,
   newcomersSoFar,
   todaysNewcomer,
+  todaysNewcomers,
   unlockDay,
   unlockedSlugs,
 } from "./calendar";
@@ -33,7 +34,6 @@ describe("Autumn Harvest's calendar", () => {
     expect(isOpen(null)).toBe(false);
     expect(isOpen("2026-10-31")).toBe(false);
     expect(isOpen("2026-11-01")).toBe(true);
-    expect(isOpen("2026-11-04")).toBe(true);
     expect(isOpen("2026-11-30")).toBe(true);
     expect(isOpen("2026-12-01")).toBe(false);
     expect(isOpen("2027-11-10")).toBe(false);
@@ -48,45 +48,63 @@ describe("Autumn Harvest's calendar", () => {
     expect(new Set(all).size).toBe(24);
   });
 
-  it("lets Mr Applewhite in from 16 November, as a Secret, not a Newcomer", () => {
-    expect(HARVEST_SCHEDULE.secrets).toEqual([
-      { day: "2026-11-16", slug: "mr-applewhite" },
-    ]);
-    expect(unlockedSlugs("2026-11-15")).not.toContain("mr-applewhite");
-    expect(unlockedSlugs("2026-11-16")).toContain("mr-applewhite");
-    expect(unlockedSlugs("2026-11-16").at(-1)).toBe("mr-applewhite");
-    expect(newcomersSoFar("2026-11-30")).not.toContain("mr-applewhite");
-    expect(todaysNewcomer("2026-11-16")).toBe("golden-acorn");
-  });
-
-  it("unlocks its fourteen Newcomers on school days, Tom the Turkey last", () => {
+  it("unlocks everything regular on weekdays from the 5th to the 19th", () => {
     expect(HARVEST_SCHEDULE.newcomers).toHaveLength(14);
-    // None on Wednesday 18 November.
-    expect(todaysNewcomer("2026-11-18")).toBeNull();
     for (const { day } of HARVEST_SCHEDULE.newcomers) {
+      expect(day >= "2026-11-05" && day <= "2026-11-19").toBe(true);
       expect(weekday(day)).toBeGreaterThanOrEqual(1);
       expect(weekday(day)).toBeLessThanOrEqual(5);
     }
     const days = HARVEST_SCHEDULE.newcomers.map(({ day }) => day);
     expect(days).toEqual([...days].sort());
     expect(HARVEST_SCHEDULE.newcomers.at(-1)).toEqual({
-      day: "2026-11-25",
+      day: "2026-11-19",
       slug: "harvest-tom",
     });
-    expect(unlockDay("harvest-tom")).toBe("2026-11-25");
+    // Every regular QD is out by the 19th; only Mr Applewhite comes after.
+    expect(unlockedSlugs("2026-11-19")).toHaveLength(23);
+    expect(unlockDay("harvest-tom")).toBe("2026-11-19");
     expect(unlockDay(HARVEST_SCHEDULE.opening[0])).toBeNull();
+  });
+
+  it("brings two Newcomers on some days", () => {
+    expect(todaysNewcomers("2026-11-05")).toEqual([
+      "multicolored-corn",
+      "harvest-bandit",
+    ]);
+    expect(todaysNewcomers("2026-11-09")).toEqual([
+      "golden-leaf",
+      "harvest-pip",
+    ]);
+    expect(todaysNewcomers("2026-11-12")).toEqual([
+      "golden-acorn",
+      "harvest-basket",
+    ]);
+    expect(todaysNewcomers("2026-11-07")).toEqual([]);
+    expect(todaysNewcomer("2026-11-05")).toBe("multicolored-corn");
+  });
+
+  it("lets Mr Applewhite in on the 20th, as a Secret, not a Newcomer", () => {
+    expect(HARVEST_SCHEDULE.secrets).toEqual([
+      { day: "2026-11-20", slug: "mr-applewhite" },
+    ]);
+    expect(unlockedSlugs("2026-11-19")).not.toContain("mr-applewhite");
+    expect(unlockedSlugs("2026-11-20")).toContain("mr-applewhite");
+    expect(unlockedSlugs("2026-11-20").at(-1)).toBe("mr-applewhite");
+    expect(newcomersSoFar("2026-11-30")).not.toContain("mr-applewhite");
+    expect(todaysNewcomers("2026-11-20")).toEqual([]);
   });
 
   it("grows from 9 to 24 on its Unlock Days only", () => {
     const expected: Record<string, number> = {
       "2026-11-04": 9,
-      "2026-11-05": 10,
-      "2026-11-08": 11,
-      "2026-11-15": 16,
-      "2026-11-16": 18,
-      "2026-11-18": 19,
-      "2026-11-20": 21,
-      "2026-11-25": 24,
+      "2026-11-05": 11,
+      "2026-11-08": 12,
+      "2026-11-09": 14,
+      "2026-11-12": 18,
+      "2026-11-15": 19,
+      "2026-11-19": 23,
+      "2026-11-20": 24,
       "2026-11-30": 24,
     };
     let previous = 9;
@@ -95,10 +113,10 @@ describe("Autumn Harvest's calendar", () => {
       if (day in expected) expect(count).toBe(expected[day]);
       const secret = HARVEST_SCHEDULE.secrets!.some((s) => s.day === day);
       expect(count - previous).toBe(
-        (todaysNewcomer(day) ? 1 : 0) + (secret ? 1 : 0),
+        todaysNewcomers(day).length + (secret ? 1 : 0),
       );
       if (weekday(day) === 0 || weekday(day) === 6)
-        expect(todaysNewcomer(day)).toBeNull();
+        expect(todaysNewcomers(day)).toEqual([]);
       previous = count;
     }
   });
@@ -120,17 +138,10 @@ describe("Autumn Harvest's calendar", () => {
     }
   });
 
-  it("names today's Newcomer only on its own day", () => {
-    expect(todaysNewcomer("2026-11-04")).toBeNull();
-    expect(todaysNewcomer("2026-11-05")).toBe("multicolored-corn");
-    expect(todaysNewcomer("2026-11-07")).toBeNull();
-    expect(todaysNewcomer("2026-11-25")).toBe("harvest-tom");
-    expect(todaysNewcomer("2026-11-26")).toBeNull();
-  });
-
   it("lists the Newcomers so far newest first", () => {
     expect(newcomersSoFar("2026-11-04")).toEqual([]);
-    expect(newcomersSoFar("2026-11-07")).toEqual([
+    expect(newcomersSoFar("2026-11-06")).toEqual([
+      "harvest-ember",
       "harvest-bandit",
       "multicolored-corn",
     ]);

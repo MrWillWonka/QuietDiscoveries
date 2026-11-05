@@ -14,12 +14,13 @@
     lockedSlugs,
     secretsOf,
   } from "$lib/scenes/collection";
-  import { todaysNewcomer, unlockDay } from "$lib/scenes/schedule";
+  import { todaysNewcomers, unlockDay } from "$lib/scenes/schedule";
   import { unlocksIn } from "$lib/scenes/scheduleWording";
   import { today } from "$lib/today.svelte";
   import type { RarityTier, SceneId } from "$lib/scenes/types";
   import { TIER_WEIGHTS } from "$lib/session/roll";
   import { sightings } from "$lib/session/sightings.svelte";
+  import { settings } from "$lib/settings/settings.svelte";
   import { creatureFact, creatureName, t, tIn } from "$lib/i18n/index.svelte";
 
   let { sceneId }: { sceneId: SceneId } = $props();
@@ -54,7 +55,7 @@
   const locked = $derived(lockedSlugs(sceneId, today.day));
 
   const newToday = $derived(
-    scene.schedule ? todaysNewcomer(scene.schedule, today.day) : null,
+    scene.schedule ? todaysNewcomers(scene.schedule, today.day) : [],
   );
 
   /**
@@ -145,6 +146,7 @@
                 'rare' || tier === 'superRare'
                 ? 'border-amber-300 bg-amber-50'
                 : 'border-slate-200'}"
+              class:opacity-50={settings.isExcluded(sceneId, def.slug)}
             >
               <div
                 class="flex h-12 w-full items-center justify-center"
@@ -170,7 +172,7 @@
                   ? tIn(sceneId, "collection.notSeen")
                   : tIn(sceneId, "collection.seen", { count })}
               </span>
-              {#if def.slug === newToday}
+              {#if newToday.includes(def.slug)}
                 <span
                   class="mt-1 rounded-full bg-orange-100 px-2 py-px text-[0.7rem] font-semibold text-orange-800"
                   >{t("collection.newToday")}</span

@@ -17,6 +17,8 @@ import { DEFAULT_SCENE, type SceneId } from "$lib/scenes/types";
 import { sessionHistory } from "$lib/session/history.svelte";
 import { Session } from "$lib/session/session.svelte";
 import { sightings } from "$lib/session/sightings.svelte";
+import { stats } from "$lib/session/stats.svelte";
+import { addStrike, drainStrikes, noStrikes, pileOf } from "$lib/noise/strikes";
 import { settings } from "$lib/settings/settings.svelte";
 import { ClassTimer } from "$lib/timer/timer.svelte";
 import { today } from "$lib/today.svelte";
@@ -34,6 +36,13 @@ const CHIME_ECHO_MS = 3 * SMOOTHING_MS;
  * while the computer sleeps, and waking must not count the night as quiet.
  */
 const MAX_LISTEN_STEP_MS = 1_000;
+
+/**
+ * After the third strike: long enough for the falling leaves to cover the
+ * screen before the field empties, then the gust that sweeps them away.
+ */
+const RESET_HOLD_MS = 3_000;
+const RESET_SWEEP_MS = 2_600;
 
 export class App {
   /**
@@ -81,6 +90,23 @@ export class App {
     settings.arrivalIntervalMs,
   );
 
+  /**
+   * Strikes in a Scene that counts them (`SceneDef.strikes`): each time the
+   * room went over the Maximum Volume, a third of the screen in leaves,
+   * coming down a level after enough quiet (`noise/strikes.ts`).
+   */
+  strikes = $state(noStrikes());
+  /** How much of the screen the leaves cover. */
+  get pile() {
+    return pileOf(this.strikes);
+  }
+  /** The pile is being swept away after a reset. */
+  sweeping = $state(false);
+  /** A full pile is about to clear the Scene: no more strikes till then. */
+  #resetting = false;
+  #wasOverMax = false;
+  #resetTimers: ReturnType<typeof setTimeout>[] = [];
+
   #frame = 0;
   #lastTick = 0;
   /**
@@ -98,6 +124,7 @@ export class App {
   useScene(id: SceneId) {
     settings.scene = id;
     this.#sceneId = id;
+    this.#clearPile();
     this.session.useScene(id, SCENES[id].roster, SCENES[id].arrivals);
     if (this.session.running) sessionHistory.visit(id);
   }
@@ -128,6 +155,7 @@ export class App {
   #enterClass() {
     sightings.reload();
     sessionHistory.reload();
+    stats.reload();
     notes.reload();
     this.monitor.reset();
     this.session.useClass(settings.arrivalIntervalMs);
@@ -186,12 +214,65 @@ export class App {
     this.monitor.reset();
     this.session.start(settings.arrivalIntervalMs);
     sessionHistory.begin(this.scene.id);
+    stats.startSession();
   }
 
   resetSession() {
     this.paused = false;
     this.session.reset(settings.arrivalIntervalMs);
     sessionHistory.end();
+  }
+
+  /**
+   * Over the Maximum Volume for long enough: a strike, a third of the
+   * screen in leaves. The third fills it, and once the leaves have covered
+   * everything the Scene's QDs are gone and the pile is swept away. Enough
+   * unbroken quiet takes it down a level.
+   */
+  #strikes(delta: number) {
+    const over = this.monitor.overMax === "too-loud";
+    const struck = over && !this.#wasOverMax;
+    this.#wasOverMax = over;
+    if (this.#resetting) return;
+    if (struck) {
+      const step = addStrike(this.strikes);
+      this.strikes = step.strikes;
+      stats.strike(this.scene.id);
+      if (step.reset) {
+        this.#resetting = true;
+        stats.reset(this.scene.id);
+        // Let the leaves reach the top before the field empties under them.
+        this.#resetTimers.push(
+          setTimeout(() => {
+            this.session.clearScene();
+            this.strikes = noStrikes();
+            this.sweeping = true;
+            this.#resetTimers.push(
+              setTimeout(() => {
+                this.sweeping = false;
+                this.#resetting = false;
+              }, RESET_SWEEP_MS),
+            );
+          }, RESET_HOLD_MS),
+        );
+      }
+      return;
+    }
+    // Noise over the goal holds the wait; it does not start it again.
+    this.strikes = drainStrikes(
+      this.strikes,
+      delta,
+      this.monitor.state === "quiet",
+    );
+  }
+
+  #clearPile() {
+    for (const timer of this.#resetTimers) clearTimeout(timer);
+    this.#resetTimers = [];
+    this.strikes = noStrikes();
+    this.sweeping = false;
+    this.#resetting = false;
+    this.#wasOverMax = false;
   }
 
   #ring() {
@@ -233,7 +314,9 @@ export class App {
           this.microphone.levelWith(settings.calibration),
           settings.volumeGoal,
           now,
+          settings.maxVolume,
         );
+        if (this.scene.strikes && this.session.running) this.#strikes(delta);
         this.session.tick(
           delta,
           this.monitor.state === "quiet",
@@ -241,6 +324,7 @@ export class App {
           settings.loudResponse === "flee",
         );
         if (this.session.running) {
+          stats.tick(delta, this.monitor.state === "quiet");
           sessionHistory.listen(
             Math.min(delta, MAX_LISTEN_STEP_MS),
             this.monitor.state === "quiet",

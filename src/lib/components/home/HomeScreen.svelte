@@ -38,6 +38,7 @@
     onopenclasses,
     onopensettings,
     onopeninfo,
+    onopenstats,
   }: {
     app: App;
     classMenuOpen?: boolean;
@@ -48,6 +49,8 @@
     onopenclasses: () => void;
     onopensettings: () => void;
     onopeninfo: () => void;
+    /** "Class stats" (`ClassStats.svelte`). */
+    onopenstats: () => void;
   } = $props();
 
   const starting = $derived(app.microphone.status === "starting");
@@ -307,6 +310,7 @@
           ready={app.restored}
           disabled={starting}
           {onresume}
+          {onopenstats}
         />
       </div>
     </div>

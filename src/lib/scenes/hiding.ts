@@ -407,3 +407,30 @@ export function peekPose(
     done: p >= 1,
   };
 }
+
+/**
+ * How much of a QD standing with its feet at `feet`, in the box `qd`, is
+ * hidden behind props nearer than it: field props whose foot is lower on
+ * screen, and the frames in the corners, which are in front of everything.
+ * 0 in plain sight, 1 wholly hidden. Used to keep a QD from stopping to
+ * rest where the class cannot see it (`scenes/spread.ts`).
+ */
+export function occludedShare(
+  qd: Box,
+  feet: number,
+  places: HidingPlace[],
+  view: View,
+): number {
+  const area = (qd.right - qd.left) * (qd.bottom - qd.top);
+  if (area <= 0) return 0;
+  let hidden = 0;
+  for (const place of places) {
+    const nearer = place.pin !== undefined || (place.ground ?? 0) > feet;
+    if (!nearer) continue;
+    const cover = coverBox(place, view);
+    const w = Math.min(qd.right, cover.right) - Math.max(qd.left, cover.left);
+    const h = Math.min(qd.bottom, cover.bottom) - Math.max(qd.top, cover.top);
+    if (w > 0 && h > 0) hidden += (w * h) / area;
+  }
+  return Math.min(1, hidden);
+}

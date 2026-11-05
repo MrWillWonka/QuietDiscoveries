@@ -27,6 +27,8 @@ import {
 import { loadArrived, loadReef, saveArrived, saveReef } from "./savedReef";
 import { sessionHistory } from "./history.svelte";
 import { sightings } from "./sightings.svelte";
+import { stats } from "./stats.svelte";
+import { whoCanArrive } from "./available";
 
 /** One Creature actually in the water, and where it first appears. */
 export interface CreatureInstance {
@@ -163,6 +165,20 @@ export class Session {
     saveArrived(0);
   }
 
+  /**
+   * The leaf storm's third strike (`noise/strikes.ts`): every QD out in
+   * this Scene is gone, as Reset would clear them, but the Session carries
+   * on, and the Collection, the arrival count and progress towards the next
+   * QD are kept.
+   */
+  clearScene() {
+    this.creatures = [];
+    this.newestId = null;
+    this.fleeing = [];
+    this.#scare = createScareClock();
+    this.#save();
+  }
+
   /** Fraction of the way to the next arrival — teacher-facing only. */
   get progress(): number {
     return Math.min(1, this.#clock.bankedMs / this.#clock.targetMs);
@@ -236,9 +252,12 @@ export class Session {
     );
   }
 
-  /** Who can arrive now: the whole Roster, unless the Scene says otherwise. */
+  /**
+   * Who can arrive now: the whole Roster, unless the Scene says otherwise,
+   * less any QD the teacher has left out (`available.ts`).
+   */
   #available(): CreatureDef[] {
-    return this.#arrivals?.available(this.#roster) ?? this.#roster;
+    return whoCanArrive(this.#sceneId, this.#roster, this.#arrivals);
   }
 
   #arrive() {
@@ -255,6 +274,8 @@ export class Session {
     this.arrived += 1;
     this.#save();
     saveArrived(this.arrived);
+    if (sightings.count(this.#sceneId, def.slug) === 0)
+      stats.discovered(this.#sceneId);
     sightings.record(this.#sceneId, def.slug);
     sessionHistory.arrive(this.#sceneId as SceneId, def.slug);
   }
@@ -270,7 +291,14 @@ export class Session {
     // Awake, it hops down off the table and wanders the field.
     creature.perch = undefined;
     this.#save();
-    sightings.recordTransformed(this.#sceneId, creature.def.slug);
+    // Seen transforming is seen: one brought out by "Bring out every QD",
+    // never spotted arriving, counts as found from now on.
+    const slug = creature.def.slug;
+    if (sightings.count(this.#sceneId, slug) === 0) {
+      stats.discovered(this.#sceneId);
+      sightings.record(this.#sceneId, slug);
+    }
+    sightings.recordTransformed(this.#sceneId, slug);
   }
 
   /**

@@ -13,7 +13,7 @@
  * browser; `history.svelte.ts` keeps the list and saves it.
  */
 
-import type { SceneId } from "$lib/scenes/types";
+import { SCENE_IDS, type SceneId } from "$lib/scenes/types";
 
 export interface SessionArrival {
   scene: SceneId;
@@ -208,21 +208,45 @@ export function latestByClass(
     .sort((a, b) => lastUsed(b.record) - lastUsed(a.record));
 }
 
-/** Read back a saved list, keeping only records that make sense. */
+function known(scene: unknown): scene is SceneId {
+  return SCENE_IDS.includes(scene as SceneId);
+}
+
+/**
+ * Read back a saved list, keeping only records that make sense. A Scene
+ * that has since been taken out of the app is forgotten, with its arrivals;
+ * a record left with no Scene at all is dropped.
+ */
 export function parseHistory(raw: unknown): SessionRecord[] {
   if (!Array.isArray(raw)) return [];
-  return raw.filter(
-    (record): record is SessionRecord =>
-      record !== null &&
-      typeof record === "object" &&
-      typeof record.id === "string" &&
-      typeof record.startedAt === "number" &&
-      typeof record.lastActiveAt === "number" &&
-      (record.endedAt === null || typeof record.endedAt === "number") &&
-      Array.isArray(record.scenes) &&
-      record.scenes.length > 0 &&
-      Array.isArray(record.arrivals) &&
-      typeof record.listenedMs === "number" &&
-      typeof record.quietMs === "number",
-  );
+  return raw
+    .map((record) =>
+      record && typeof record === "object" && Array.isArray(record.scenes)
+        ? {
+            ...record,
+            scenes: record.scenes.filter(known),
+            arrivals: Array.isArray(record.arrivals)
+              ? record.arrivals.filter(
+                  (arrival: { scene?: unknown }) =>
+                    arrival && known(arrival.scene),
+                )
+              : record.arrivals,
+            lastScene: known(record.lastScene) ? record.lastScene : undefined,
+          }
+        : record,
+    )
+    .filter(
+      (record): record is SessionRecord =>
+        record !== null &&
+        typeof record === "object" &&
+        typeof record.id === "string" &&
+        typeof record.startedAt === "number" &&
+        typeof record.lastActiveAt === "number" &&
+        (record.endedAt === null || typeof record.endedAt === "number") &&
+        Array.isArray(record.scenes) &&
+        record.scenes.length > 0 &&
+        Array.isArray(record.arrivals) &&
+        typeof record.listenedMs === "number" &&
+        typeof record.quietMs === "number",
+    );
 }

@@ -97,8 +97,6 @@ const en = {
     "scene.arctic.hint": "Polar bears, seals and narwhals",
     "scene.halloween.name": "Halloween",
     "scene.halloween.hint": "Bats, ghosts and jack-o'-lanterns",
-    "scene.thanksgiving.name": "Thanksgiving",
-    "scene.thanksgiving.hint": "Turkeys, geese and harvest QDs",
     "scene.harvest.name": "Autumn Harvest",
     "scene.harvest.hint": "Foxes, deer and turkeys",
     "hollow.limited": "Limited time",
@@ -198,8 +196,36 @@ const en = {
     "settings.arrival": "How often QDs arrive",
     "settings.aboutEvery": "About one QD every",
     "settings.minutes": "minutes",
+    "settings.seconds": "seconds",
+    "settings.rateUnit": "Unit",
+    "settings.qds": "QDs in this scene",
+    "settings.unlockAll": "Unlock all QDs now",
+    "settings.unlockAllHint":
+      "Ignores this scene’s calendar. Secret QDs stay super rare.",
+    "settings.chooseQds": "Choose QDs…",
+    "settings.chooseQdsHint":
+      "Untick a QD to leave it out: it won’t arrive or show in the leaves.",
+    "settings.includeQd": "Include {name}",
+    "settings.notUnlocked": "Not unlocked yet",
+    "stats.title": "Class stats",
+    "stats.thisSession": "This session",
+    "stats.allTime": "All time",
+    "stats.quietTime": "Quiet time",
+    "stats.longestStreak": "Longest quiet stretch",
+    "stats.strikes": "Noise strikes",
+    "stats.resets": "Resets",
+    "stats.discovered": "QDs discovered",
+    "stats.sessions": "Sessions",
+    "stats.recent": "Recent sessions",
+    "stats.date": "Date",
+    "stats.none": "No sessions yet. Press Start to begin one.",
+    "stats.notStarted": "Not started yet",
+    "menu.label": "Start menu",
+    "menu.class": "Class",
     "settings.showCounter": "Count QDs as they arrive",
     "counter.label": "QDs arrived: {count}",
+    "settings.showResets": "Count the leaf-storm resets",
+    "counter.resets": "Resets: {count}",
     "leaves.label": "{found} of {total} QDs discovered",
     "leaves.hidden": "Still to find",
     "settings.secretVisit": "Make sure {name} visits today",
@@ -233,6 +259,7 @@ const en = {
     "meter.paused": "Paused — too loud",
     "meter.arriving": "QDs are arriving",
     "meter.goal": "QDs arrive while the room stays left of the line ({goal}%)",
+    "meter.max": "Maximum: leaves start falling above this ({max}%)",
     "calibration.title": "Calibration",
     "calibration.needMic": "Connect a microphone first",
     "calibration.calibrated": "✓ Calibrated",
@@ -508,21 +535,6 @@ const en = {
     "howling-wolf": "Howling wolf",
     "great-boo": "The Great Boo",
     "jack-o-lantern": "Jack O. Lantern",
-    "field-mouse": "Field mouse",
-    "northern-cardinal": "Northern cardinal",
-    "bobwhite-quail": "Bobwhite quail",
-    "red-squirrel": "Red squirrel",
-    mallard: "Mallard",
-    "canada-goose": "Canada goose",
-    "wild-turkey": "Wild turkey",
-    "leaf-sprite": "Leaf sprite",
-    "pie-pal": "Pie pal",
-    cornling: "Cornling",
-    opossum: "Opossum",
-    "barred-owl": "Barred owl",
-    "harvest-moon": "Harvest moon",
-    elk: "Elk",
-    "tom-turkey": "Tom Turkey",
     "harvest-tilly": "Tilly the Baby Turkey",
     "harvest-acorn": "Acorn the Squirrel",
     "harvest-chippy": "Chippy the Chipmunk",
@@ -648,35 +660,6 @@ const en = {
       "People have been shouting “Boo!” to make each other jump since at least the 1700s.",
     "jack-o-lantern":
       "The first jack-o’-lanterns were carved from turnips in Ireland; in America, pumpkins took over.",
-    "field-mouse":
-      "A field mouse can squeeze through a gap no wider than a pencil.",
-    "northern-cardinal":
-      "Cardinals don’t fly south for the winter, so their bright red feathers cheer up snowy days.",
-    "bobwhite-quail":
-      "It is named after its call: a clear whistle that sounds just like “bob-WHITE!”",
-    "red-squirrel":
-      "It stores its pinecones in big piles called middens, ready for the winter.",
-    mallard:
-      "Only the female mallard makes the loud “quack”; the male’s call is a soft, raspy note.",
-    "canada-goose":
-      "Geese fly in a V so each bird gets a little lift from the one in front.",
-    "wild-turkey":
-      "Wild turkeys can fly, and at night they sleep up in the trees.",
-    "leaf-sprite":
-      "It rides every autumn breeze, and never lands in the same leaf pile twice.",
-    "pie-pal":
-      "It never takes off its whipped cream hat, not even on the windiest day.",
-    cornling:
-      "Like a real ear of corn, it has about 800 kernels, always in an even number of rows.",
-    opossum:
-      "When it is very scared, an opossum may “play dead”, lying still until the danger has gone.",
-    "barred-owl":
-      "Its call sounds like it is asking “Who cooks for you? Who cooks for you all?”",
-    "harvest-moon":
-      "The full moon nearest the start of autumn rises early and bright, and once helped farmers finish the harvest after dark.",
-    elk: "A bull elk grows a brand new set of antlers every year, up to 2.5 cm (an inch) a day.",
-    "tom-turkey":
-      "A male turkey is called a tom. He fans out his tail and puffs up his feathers to say “Look at me!”",
     "harvest-tilly":
       "A baby turkey is called a poult. It can walk and peck for food the day after it hatches.",
     "harvest-acorn":
@@ -878,8 +861,6 @@ const es = {
     "scene.arctic.hint": "Osos polares, focas y narvales",
     "scene.halloween.name": "Halloween",
     "scene.halloween.hint": "Murciélagos, fantasmas y calabazas",
-    "scene.thanksgiving.name": "Acción de Gracias",
-    "scene.thanksgiving.hint": "Pavos, gansos y QDs de la cosecha",
     "scene.harvest.name": "Cosecha de otoño",
     "scene.harvest.hint": "Zorros, ciervos y pavos",
     "hollow.limited": "Por tiempo limitado",
@@ -980,8 +961,36 @@ const es = {
     "settings.arrival": "Con qué frecuencia llegan QDs",
     "settings.aboutEvery": "Más o menos un QD cada",
     "settings.minutes": "minutos",
+    "settings.seconds": "segundos",
+    "settings.rateUnit": "Unidad",
+    "settings.qds": "QDs de esta escena",
+    "settings.unlockAll": "Desbloquear todos los QDs ya",
+    "settings.unlockAllHint":
+      "Ignora el calendario de esta escena. Los QDs secretos siguen siendo superraros.",
+    "settings.chooseQds": "Elegir QDs…",
+    "settings.chooseQdsHint":
+      "Desmarca un QD para dejarlo fuera: no llegará ni saldrá en las hojas.",
+    "settings.includeQd": "Incluir a {name}",
+    "settings.notUnlocked": "Aún sin desbloquear",
+    "stats.title": "Estadísticas de la clase",
+    "stats.thisSession": "Esta sesión",
+    "stats.allTime": "En total",
+    "stats.quietTime": "Tiempo en silencio",
+    "stats.longestStreak": "Silencio más largo seguido",
+    "stats.strikes": "Avisos de ruido",
+    "stats.resets": "Reinicios",
+    "stats.discovered": "QDs descubiertos",
+    "stats.sessions": "Sesiones",
+    "stats.recent": "Sesiones recientes",
+    "stats.date": "Fecha",
+    "stats.none": "Aún no hay sesiones. Pulsa Empezar para comenzar una.",
+    "stats.notStarted": "Aún no ha empezado",
+    "menu.label": "Menú de inicio",
+    "menu.class": "Clase",
     "settings.showCounter": "Contar los QDs a medida que llegan",
     "counter.label": "QDs que han llegado: {count}",
+    "settings.showResets": "Contar los reinicios por la tormenta de hojas",
+    "counter.resets": "Reinicios: {count}",
     "leaves.label": "{found} de {total} QDs descubiertos",
     "leaves.hidden": "Por descubrir",
     "settings.secretVisit": "Que {name} venga hoy seguro",
@@ -1016,6 +1025,7 @@ const es = {
     "meter.arriving": "Están llegando QDs",
     "meter.goal":
       "Los QDs llegan mientras el aula se mantiene a la izquierda de la línea ({goal}%)",
+    "meter.max": "Máximo: por encima caen las hojas ({max}%)",
     "calibration.title": "Calibración",
     "calibration.needMic": "Primero conecta un micrófono",
     "calibration.calibrated": "✓ Calibrado",
@@ -1324,21 +1334,6 @@ const es = {
     "howling-wolf": "Lobo aullador",
     "great-boo": "El Gran Bu",
     "jack-o-lantern": "Jack O. Lantern",
-    "field-mouse": "Ratón de campo",
-    "northern-cardinal": "Cardenal norteño",
-    "bobwhite-quail": "Codorniz cotuí",
-    "red-squirrel": "Ardilla roja",
-    mallard: "Ánade real",
-    "canada-goose": "Barnacla canadiense",
-    "wild-turkey": "Pavo salvaje",
-    "leaf-sprite": "Duende de hoja",
-    "pie-pal": "Pastelito",
-    cornling: "Mazorquita",
-    opossum: "Zarigüeya",
-    "barred-owl": "Búho listado",
-    "harvest-moon": "Luna de la cosecha",
-    elk: "Uapití",
-    "tom-turkey": "Tom el Pavo",
     "harvest-tilly": "Tilly la Pavita",
     "harvest-acorn": "Acorn la Ardilla",
     "harvest-chippy": "Chippy la Ardilla Listada",
@@ -1462,35 +1457,6 @@ const es = {
       "La gente lleva gritando «¡Bu!» para asustarse desde por lo menos el siglo XVIII.",
     "jack-o-lantern":
       "Las primeras linternas de Halloween se tallaban en nabos en Irlanda; en América las sustituyeron las calabazas.",
-    "field-mouse":
-      "Un ratón de campo puede colarse por un hueco no más ancho que un lápiz.",
-    "northern-cardinal":
-      "Los cardenales no migran en invierno, así que su rojo intenso alegra los días de nieve.",
-    "bobwhite-quail":
-      "Su nombre en inglés imita su canto: un silbido claro que suena como «¡bob-UAIT!».",
-    "red-squirrel":
-      "Guarda sus piñas en grandes montones, listas para el invierno.",
-    mallard:
-      "Solo la hembra hace el fuerte «cuac»; el macho tiene un canto suave y ronco.",
-    "canada-goose":
-      "Los gansos vuelan en V para que cada uno aproveche el impulso del que va delante.",
-    "wild-turkey":
-      "Los pavos salvajes saben volar, y por la noche duermen en lo alto de los árboles.",
-    "leaf-sprite":
-      "Viaja en cada brisa de otoño y nunca aterriza dos veces en el mismo montón de hojas.",
-    "pie-pal":
-      "Nunca se quita su sombrero de nata, ni siquiera el día de más viento.",
-    cornling:
-      "Como una mazorca de verdad, tiene unos 800 granos, siempre en un número par de hileras.",
-    opossum:
-      "Cuando se asusta mucho, la zarigüeya puede «hacerse la muerta» y quedarse quieta hasta que pasa el peligro.",
-    "barred-owl":
-      "En inglés, su canto parece preguntar «¿Quién cocina para ti? ¿Quién cocina para todos?».",
-    "harvest-moon":
-      "Es la luna llena más cercana al comienzo del otoño: sale pronto y brillante, y ayudaba a los agricultores a terminar la cosecha de noche.",
-    elk: "El uapití macho estrena cornamenta cada año, ¡y puede crecerle unos 2,5 cm al día!",
-    "tom-turkey":
-      "Para presumir, el pavo macho abre la cola en abanico y se infla como diciendo «¡Mírame!».",
     "harvest-tilly":
       "Una cría de pavo se llama pavipollo. Ya camina y picotea comida al día siguiente de nacer.",
     "harvest-acorn":
@@ -1630,8 +1596,6 @@ const fr = {
     "scene.arctic.hint": "Ours polaires, phoques et narvals",
     "scene.halloween.name": "Halloween",
     "scene.halloween.hint": "Chauves-souris, fantômes et citrouilles",
-    "scene.thanksgiving.name": "Thanksgiving",
-    "scene.thanksgiving.hint": "Dindons, bernaches et QDs des moissons",
     "scene.harvest.name": "Moissons d’automne",
     "scene.harvest.hint": "Renards, cerfs et dindons",
     "hollow.limited": "Édition limitée",
@@ -1734,8 +1698,38 @@ const fr = {
     "settings.arrival": "Fréquence d’arrivée des QDs",
     "settings.aboutEvery": "Environ un QD toutes les",
     "settings.minutes": "minutes",
+    "settings.seconds": "secondes",
+    "settings.rateUnit": "Unité",
+    "settings.qds": "QDs de cette scène",
+    "settings.unlockAll": "Débloquer tous les QDs maintenant",
+    "settings.unlockAllHint":
+      "Ignore le calendrier de cette scène. Les QDs secrets restent super rares.",
+    "settings.chooseQds": "Choisir les QDs…",
+    "settings.chooseQdsHint":
+      "Décochez un QD pour l’écarter : il n’arrivera pas et n’apparaîtra pas dans les feuilles.",
+    "settings.includeQd": "Inclure {name}",
+    "settings.notUnlocked": "Pas encore débloqué",
+    "stats.title": "Statistiques de la classe",
+    "stats.thisSession": "Cette séance",
+    "stats.allTime": "Au total",
+    "stats.quietTime": "Temps calme",
+    "stats.longestStreak": "Plus long moment calme",
+    "stats.strikes": "Alertes de bruit",
+    "stats.resets": "Remises à zéro",
+    "stats.discovered": "QDs découverts",
+    "stats.sessions": "Séances",
+    "stats.recent": "Séances récentes",
+    "stats.date": "Date",
+    "stats.none":
+      "Aucune séance pour l’instant. Appuyez sur Commencer pour en lancer une.",
+    "stats.notStarted": "Pas encore commencée",
+    "menu.label": "Menu de départ",
+    "menu.class": "Classe",
     "settings.showCounter": "Compter les QDs à mesure qu’ils arrivent",
     "counter.label": "QDs arrivés : {count}",
+    "settings.showResets":
+      "Compter les remises à zéro par la tempête de feuilles",
+    "counter.resets": "Remises à zéro : {count}",
     "leaves.label": "{found} QDs découverts sur {total}",
     "leaves.hidden": "Encore à découvrir",
     "settings.secretVisit": "Faire venir {name} aujourd’hui à coup sûr",
@@ -1770,6 +1764,7 @@ const fr = {
     "meter.arriving": "Les QDs arrivent",
     "meter.goal":
       "Les QDs arrivent tant que la classe reste à gauche de la ligne ({goal} %)",
+    "meter.max": "Maximum : au-dessus, les feuilles tombent ({max} %)",
     "calibration.title": "Étalonnage",
     "calibration.needMic": "Connectez d’abord un micro",
     "calibration.calibrated": "✓ Étalonné",
@@ -2080,21 +2075,6 @@ const fr = {
     "howling-wolf": "Loup hurleur",
     "great-boo": "Le Grand Bouh",
     "jack-o-lantern": "Jack O. Lantern",
-    "field-mouse": "Mulot",
-    "northern-cardinal": "Cardinal rouge",
-    "bobwhite-quail": "Colin de Virginie",
-    "red-squirrel": "Écureuil roux",
-    mallard: "Canard colvert",
-    "canada-goose": "Bernache du Canada",
-    "wild-turkey": "Dindon sauvage",
-    "leaf-sprite": "Lutin des feuilles",
-    "pie-pal": "Tartelette",
-    cornling: "Petit Épi",
-    opossum: "Opossum",
-    "barred-owl": "Chouette rayée",
-    "harvest-moon": "Lune des moissons",
-    elk: "Wapiti",
-    "tom-turkey": "Tom le Dindon",
     "harvest-tilly": "Tilly le Dindonneau",
     "harvest-acorn": "Acorn l’Écureuil",
     "harvest-chippy": "Chippy le Tamia",
@@ -2220,35 +2200,6 @@ const fr = {
       "On crie « Bouh ! » pour se faire sursauter depuis au moins le XVIIIe siècle.",
     "jack-o-lantern":
       "Les premières lanternes d’Halloween étaient taillées dans des navets en Irlande ; en Amérique, la citrouille les a remplacés.",
-    "field-mouse":
-      "Un mulot peut se faufiler par un trou pas plus large qu’un crayon.",
-    "northern-cardinal":
-      "Le cardinal ne part pas pour l’hiver : son rouge vif égaie les jours de neige.",
-    "bobwhite-quail":
-      "Son nom anglais imite son chant : un sifflement clair qui fait « bob-OUAÏTE ! ».",
-    "red-squirrel":
-      "Il entasse ses pommes de pin en gros tas, prêtes pour l’hiver.",
-    mallard:
-      "Seule la cane fait le fameux « coin-coin » ; le mâle a une petite voix enrouée.",
-    "canada-goose":
-      "Les bernaches volent en V : chacune profite de l’élan de celle de devant.",
-    "wild-turkey":
-      "Les dindons sauvages savent voler, et la nuit ils dorment en haut des arbres.",
-    "leaf-sprite":
-      "Il voyage sur chaque brise d’automne et n’atterrit jamais deux fois dans le même tas de feuilles.",
-    "pie-pal":
-      "Elle ne quitte jamais son chapeau de crème chantilly, même les jours de grand vent.",
-    cornling:
-      "Comme un vrai épi de maïs, il a environ 800 grains, toujours sur un nombre pair de rangées.",
-    opossum:
-      "Quand il a très peur, l’opossum peut « faire le mort » et rester immobile jusqu’à ce que le danger passe.",
-    "barred-owl":
-      "En anglais, son chant semble demander « Qui cuisine pour toi ? Qui cuisine pour vous tous ? ».",
-    "harvest-moon":
-      "C’est la pleine lune la plus proche du début de l’automne : elle se lève tôt et brille fort, et aidait les fermiers à finir la moisson le soir.",
-    elk: "Le wapiti mâle refait tous ses bois chaque année, et ils peuvent pousser de 2,5 cm par jour !",
-    "tom-turkey":
-      "Pour se faire remarquer, le dindon mâle déploie sa queue en éventail et gonfle ses plumes comme pour dire « Regardez-moi ! ».",
     "harvest-tilly":
       "Un bébé dindon s’appelle un dindonneau. Dès le lendemain de son éclosion, il marche et picore.",
     "harvest-acorn":

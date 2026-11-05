@@ -15,12 +15,20 @@
   import { className, t, tIn } from "$lib/i18n/index.svelte";
   import CollectionGrid from "./CollectionGrid.svelte";
 
-  let { app, onclose }: { app: App; onclose: () => void } = $props();
+  let {
+    app,
+    onclose,
+    onstats,
+  }: {
+    app: App;
+    onclose: () => void;
+    /** Opens "Class stats" (`ClassStats.svelte`). */
+    onstats?: () => void;
+  } = $props();
 
   // Opens on the Scene on screen; browsing another does not switch to it.
   // svelte-ignore state_referenced_locally
   let sceneId = $state<SceneId>(app.scene.id);
-
   /** The Scenes on offer today, and always the one on screen. */
   const tabs = $derived(
     Object.values(SCENES).filter(
@@ -72,6 +80,13 @@
           })}
           {#if locked.size > 0}
             · {t("collection.toCome", { count: locked.size })}
+          {/if}
+          {#if onstats}
+            ·
+            <button
+              class="font-medium text-slate-700 underline underline-offset-2 hover:text-slate-900"
+              onclick={onstats}>{t("stats.title")}</button
+            >
           {/if}
         </p>
       </div>

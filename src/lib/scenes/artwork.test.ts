@@ -16,7 +16,6 @@ import { PREHISTORIC_ROSTER } from "./prehistoric/roster";
 import { REEF_ROSTER } from "./reef/roster";
 import { SAVANNA_ROSTER } from "./savanna/roster";
 import { SPACE_ROSTER } from "./space/roster";
-import { THANKSGIVING_ROSTER } from "./thanksgiving/roster";
 import { ANIMATABLE_PARTS, type CreatureDef, type SceneId } from "./types";
 
 const ROSTERS: Record<SceneId, CreatureDef[]> = {
@@ -28,7 +27,6 @@ const ROSTERS: Record<SceneId, CreatureDef[]> = {
   jungle: JUNGLE_ROSTER,
   arctic: ARCTIC_ROSTER,
   halloween: HALLOWEEN_ROSTER,
-  thanksgiving: THANKSGIVING_ROSTER,
   harvest: HARVEST_ROSTER,
 };
 

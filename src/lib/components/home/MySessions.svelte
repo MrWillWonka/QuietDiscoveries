@@ -18,12 +18,15 @@
     ready,
     disabled,
     onresume,
+    onopenstats,
   }: {
     latest: { classId: string; record: SessionRecord }[];
     /** Saved Sessions are only known once running in the browser. */
     ready: boolean;
     disabled: boolean;
     onresume: (classId: string, record: SessionRecord) => void;
+    /** "Class stats" for the Class on screen. */
+    onopenstats: () => void;
   } = $props();
 
   /** One row of cards; the rest are on the Sessions page. */
@@ -54,24 +57,44 @@
       </svg>
       {t("home.mySessions")}
     </h2>
-    <a
-      href={resolve("/sessions")}
-      class="flex items-center gap-2 rounded-full px-2 py-1 text-lg font-bold text-pine-800 hover:underline"
-    >
-      {t("home.viewAllSessions")}
-      <svg
-        viewBox="0 0 24 24"
-        class="size-5"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
+    <div class="flex flex-wrap items-center gap-2 sm:gap-4">
+      <button
+        type="button"
+        class="flex h-11 items-center gap-2 rounded-full border border-stone-200 bg-white px-5 font-semibold text-ink shadow-sm transition hover:bg-stone-50"
+        onclick={onopenstats}
       >
-        <path d="M5 12h14m-6-6 6 6-6 6" />
-      </svg>
-    </a>
+        <svg
+          viewBox="0 0 24 24"
+          class="size-5 text-pine-700"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M5 20V12M12 20V5M19 20v-9" />
+        </svg>
+        {t("stats.title")}
+      </button>
+      <a
+        href={resolve("/sessions")}
+        class="flex items-center gap-2 rounded-full px-2 py-1 text-lg font-bold text-pine-800 hover:underline"
+      >
+        {t("home.viewAllSessions")}
+        <svg
+          viewBox="0 0 24 24"
+          class="size-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14m-6-6 6 6-6 6" />
+        </svg>
+      </a>
+    </div>
   </div>
 
   {#if ready && latest.length > 0}

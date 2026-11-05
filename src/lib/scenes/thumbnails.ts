@@ -12,7 +12,6 @@ import prehistoric from "./prehistoric/ambient/backdrop.svg";
 import reef from "./reef/ambient/backdrop.svg";
 import savanna from "./savanna/ambient/backdrop.svg";
 import space from "./space/ambient/backdrop.svg";
-import thanksgiving from "./thanksgiving/ambient/backdrop.svg";
 import type { SceneId } from "./types";
 
 export const SCENE_THUMBNAILS: Record<SceneId, string> = {
@@ -25,5 +24,4 @@ export const SCENE_THUMBNAILS: Record<SceneId, string> = {
   reef,
   savanna,
   space,
-  thanksgiving,
 };

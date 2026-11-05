@@ -7,6 +7,7 @@ import {
   chooseHidingPlace,
   coverBox,
   feetAt,
+  occludedShare,
   peekPose,
   planFor,
   type HidingPlace,
@@ -272,5 +273,39 @@ describe("peekPose", () => {
     expect(out.done).toBe(true);
     expect(out.x).toBeCloseTo(plan.outX);
     expect(out.depth).toBeCloseTo(own);
+  });
+});
+
+describe("occludedShare", () => {
+  const box = (cx: number, feet: number, w = 0.04, h = 0.06) => ({
+    left: cx - w / 2,
+    right: cx + w / 2,
+    top: feet - h,
+    bottom: feet,
+  });
+  const cover = coverBox(bale, WIDE);
+  const middle = (cover.left + cover.right) / 2;
+
+  it("is all of a QD standing just behind a bale", () => {
+    const feet = 0.8 - BEHIND;
+    expect(occludedShare(box(middle, feet), feet, [bale], WIDE)).toBeCloseTo(1);
+  });
+
+  it("is none of one standing in front of it, or off to the side", () => {
+    expect(occludedShare(box(middle, 0.85), 0.85, [bale], WIDE)).toBe(0);
+    expect(occludedShare(box(0.9, 0.79), 0.79, [bale], WIDE)).toBe(0);
+  });
+
+  it("counts the corner frames, which are in front of everything", () => {
+    const frame = coverBox(canopy, WIDE);
+    const cx = (frame.left + frame.right) / 2;
+    const at = box(cx, frame.bottom - 0.01, 0.04, 0.04);
+    expect(occludedShare(at, 0.95, [canopy], WIDE)).toBeGreaterThan(0.5);
+  });
+
+  it("counts half a QD half behind a prop", () => {
+    const feet = 0.8 - BEHIND;
+    const at = box(cover.right, feet);
+    expect(occludedShare(at, feet, [bale], WIDE)).toBeCloseTo(0.5, 1);
   });
 });

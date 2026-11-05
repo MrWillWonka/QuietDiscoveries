@@ -132,6 +132,21 @@ describe("endOf", () => {
 });
 
 describe("parseHistory", () => {
+  it("forgets Scenes that are no longer in the app", () => {
+    let list = begin([], "savanna", 0, "a");
+    list = arrive(list, { scene: "savanna", slug: "zebra" }, 1);
+    const saved = JSON.parse(JSON.stringify(list));
+    saved[0].scenes.push("retired");
+    saved[0].arrivals.push({ scene: "retired", slug: "goose" });
+    saved[0].lastScene = "retired";
+    const gone = { ...saved[0], id: "b", scenes: ["retired"], arrivals: [] };
+    const [record, ...rest] = parseHistory([...saved, gone]);
+    expect(rest).toEqual([]);
+    expect(record.scenes).toEqual(["savanna"]);
+    expect(record.arrivals).toEqual([{ scene: "savanna", slug: "zebra" }]);
+    expect(sceneOf(record)).toBe("savanna");
+  });
+
   it("keeps well-formed records and drops the rest", () => {
     const good = lesson(5)[0];
     expect(parseHistory([good, { id: 3 }, null, "x"])).toEqual([good]);

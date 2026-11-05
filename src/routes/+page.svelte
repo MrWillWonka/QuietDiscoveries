@@ -3,6 +3,12 @@
   import { classes } from "$lib/classes/classes.svelte";
   import ClassesPanel from "$lib/components/ClassesPanel.svelte";
   import ClassPicker from "$lib/components/ClassPicker.svelte";
+  import ClassStats from "$lib/components/ClassStats.svelte";
+  import StartMenu from "$lib/components/StartMenu.svelte";
+  import HomeScreen from "$lib/components/home/HomeScreen.svelte";
+  import { isAvailable } from "$lib/scenes";
+  import { sceneOf } from "$lib/session/history";
+  import { today } from "$lib/today.svelte";
   import ScenePicker from "$lib/components/ScenePicker.svelte";
   import Collection from "$lib/components/Collection.svelte";
   import ControlBar from "$lib/components/ControlBar.svelte";
@@ -11,6 +17,7 @@
   import Scene from "$lib/components/Scene.svelte";
   import ScreenMeter from "$lib/components/ScreenMeter.svelte";
   import ArrivalCounter from "$lib/components/ArrivalCounter.svelte";
+  import ResetCounter from "$lib/components/ResetCounter.svelte";
   import DiscoveryLeaves from "$lib/components/DiscoveryLeaves.svelte";
   import SettingsPanel from "$lib/components/SettingsPanel.svelte";
   import Timer from "$lib/components/Timer.svelte";
@@ -21,10 +28,6 @@
   import FloatingScene from "$lib/components/FloatingScene.svelte";
   import PausedPill from "$lib/components/PausedPill.svelte";
   import DemoBar from "$lib/components/DemoBar.svelte";
-  import HomeScreen from "$lib/components/home/HomeScreen.svelte";
-  import { isAvailable } from "$lib/scenes";
-  import { sceneOf } from "$lib/session/history";
-  import { today } from "$lib/today.svelte";
   import type { DemoMicrophone } from "$lib/audio/demoMicrophone.svelte";
   import { drawFramesFrom } from "$lib/frames";
   import { current, t, tIn } from "$lib/i18n/index.svelte";
@@ -34,6 +37,7 @@
   } from "$lib/ui/documentPictureInPicture";
   import { mount, onMount, tick, unmount } from "svelte";
   import { settings } from "$lib/settings/settings.svelte";
+  import { stats } from "$lib/session/stats.svelte";
   import logoUrl from "$lib/brand/logo.svg";
   import { PREVIEW_IMAGE, absoluteUrl } from "$lib/site";
 
@@ -80,6 +84,24 @@
   let infoOpen = $state(false);
   let classesOpen = $state(false);
   let classMenuOpen = $state(false);
+  /** The start menu, opened again from "My class" over a Session. */
+  let menuOpen = $state(false);
+  let statsOpen = $state(false);
+  /** Whether opening the start menu paused the Session, to resume on close. */
+  let pausedByMenu = false;
+
+  function openMenu() {
+    pausedByMenu = app.listening && app.session.running && !app.paused;
+    if (pausedByMenu) app.setPaused(true);
+    menuOpen = true;
+  }
+
+  function closeMenu() {
+    menuOpen = false;
+    // Resume only what the menu paused, and only if it is still under way.
+    if (pausedByMenu && app.session.running && app.paused) app.setPaused(false);
+    pausedByMenu = false;
+  }
   let sceneMenuOpen = $state(false);
   let fullScreen = $state(false);
   let controlsVisible = $state(true);
@@ -128,7 +150,11 @@
    * Scene; before the Session starts there is nothing to hide them for.
    */
   const topBarVisible = $derived(
-    controlsVisible || !app.listening || classMenuOpen || sceneMenuOpen,
+    controlsVisible ||
+      !app.listening ||
+      classMenuOpen ||
+      sceneMenuOpen ||
+      menuOpen,
   );
 
   /**
@@ -279,6 +305,8 @@
         ondepart={(id) => app.session.depart(id)}
         onwake={(id) => app.session.wake(id)}
         onperch={(id, x) => app.session.perch(id, x)}
+        pile={app.pile}
+        sweeping={app.sweeping}
       />
       <!-- Over the Scene, so the animals pass behind the words. Keyed by
          Class, so nothing stays chosen from the last class's Notes. -->
@@ -292,6 +320,7 @@
     {/if}
 
     {#if home}
+      <!-- What a visit opens on, before the Session starts. -->
       <HomeScreen
         {app}
         bind:classMenuOpen
@@ -309,6 +338,17 @@
         onopenclasses={() => (classesOpen = true)}
         onopensettings={() => (settingsOpen = true)}
         onopeninfo={() => (infoOpen = true)}
+        onopenstats={() => (statsOpen = true)}
+      />
+    {:else if menuOpen}
+      <!-- The start menu, which "My class" opens over a Session
+         (`StartMenu.svelte`). -->
+      <StartMenu
+        {app}
+        dialog={app.listening}
+        onclose={closeMenu}
+        onstats={() => (statsOpen = true)}
+        oneditclasses={() => (classesOpen = true)}
       />
     {/if}
 
@@ -330,6 +370,7 @@
             {app}
             bind:open={classMenuOpen}
             onedit={() => (classesOpen = true)}
+            onopen={openMenu}
           />
         </div>
         <div class="pointer-events-auto flex shrink-0 gap-2">
@@ -475,6 +516,7 @@
             sceneId={app.scene.id}
             level={app.monitor.level}
             goal={settings.volumeGoal}
+            max={settings.maxVolume}
             tooLoud={app.monitor.state === "too-loud"}
           />
         {/if}
@@ -497,6 +539,9 @@
       >
         {#if app.listening && settings.showCounter}
           <ArrivalCounter sceneId={app.scene.id} count={app.session.arrived} />
+        {/if}
+        {#if app.listening && settings.showResets && app.scene.strikes}
+          <ResetCounter count={stats.current?.resets ?? 0} />
         {/if}
         <div
           class="pointer-events-auto flex gap-2 transition-opacity duration-300"
@@ -597,7 +642,15 @@
     {/if}
 
     {#if collectionOpen}
-      <Collection {app} onclose={() => (collectionOpen = false)} />
+      <Collection
+        {app}
+        onclose={() => (collectionOpen = false)}
+        onstats={() => (statsOpen = true)}
+      />
+    {/if}
+
+    {#if statsOpen}
+      <ClassStats onclose={() => (statsOpen = false)} />
     {/if}
 
     <InfoDrawer bind:open={infoOpen} />

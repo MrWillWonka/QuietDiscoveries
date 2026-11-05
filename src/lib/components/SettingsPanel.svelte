@@ -10,7 +10,8 @@
 
   import { creatureName, t, tIn, type UiKey } from "$lib/i18n/index.svelte";
   import type { App } from "$lib/app.svelte";
-  import { unlockedSecrets } from "$lib/scenes/schedule";
+  import { secretSlugs } from "$lib/scenes/schedule";
+  import { whoCanArrive } from "$lib/session/available";
   import { secretVisits } from "$lib/scenes/secretVisits.svelte";
   import {
     askForVisit,
@@ -19,9 +20,14 @@
   } from "$lib/session/secretVisit";
   import { today } from "$lib/today.svelte";
   import {
+    inBounds,
+    inUnit,
+    MAX_ARRIVAL_SECONDS,
+    MIN_ARRIVAL_SECONDS,
+    type ArrivalUnit,
+  } from "$lib/settings/arrivalRate";
+  import {
     ARRIVAL_RATE_PRESETS,
-    MAX_ARRIVAL_MINUTES,
-    MIN_ARRIVAL_MINUTES,
     VOLUME_GOAL_PRESETS,
     settings,
     type ArrivalRatePreset,
@@ -31,6 +37,7 @@
   import Calibration from "./Calibration.svelte";
   import HalloweenPreview from "./HalloweenPreview.svelte";
   import LevelMeter from "./LevelMeter.svelte";
+  import QdChooser from "./QdChooser.svelte";
 
   let { app, onclose }: { app: App; onclose: () => void } = $props();
 
@@ -55,10 +62,13 @@
    */
   const secretsToday = $derived.by(() => {
     const day = today.day;
-    const { id, schedule, roster } = app.scene;
+    const { id, schedule, roster, arrivals } = app.scene;
     if (!schedule || day === null) return [];
-    return unlockedSecrets(schedule, day)
-      .filter((slug) => roster.some((def) => def.slug === slug))
+    // About today, by the calendar or because the teacher unlocked it all,
+    // and not left out.
+    const about = whoCanArrive(id, roster, arrivals).map(({ slug }) => slug);
+    return secretSlugs(schedule)
+      .filter((slug) => about.includes(slug))
       .map((slug) => ({
         slug,
         day,
@@ -163,6 +173,8 @@
         goal={settings.volumeGoal}
         tooLoud={app.monitor.state === "too-loud"}
         onGoalChange={(goal) => settings.setVolumeGoal(goal)}
+        max={settings.maxVolume}
+        onMaxChange={(max) => settings.setMaxVolume(max)}
       />
       <div class="grid grid-cols-3 gap-2">
         {#each goalPresets as [key] (key)}
@@ -236,14 +248,19 @@
           </button>
         {/each}
       </div>
-      <label class="flex items-center gap-2 text-sm text-slate-600">
-        {tIn(app.scene.id, "settings.aboutEvery")}
+      <!-- In seconds or minutes, whichever reads better: down to 10 s for a
+           short activity, up to an hour (`settings/arrivalRate.ts`). -->
+      <div class="flex flex-wrap items-center gap-2 text-sm text-slate-600">
+        <label for="arrival-rate">
+          {tIn(app.scene.id, "settings.aboutEvery")}
+        </label>
         <input
+          id="arrival-rate"
           type="number"
-          min={MIN_ARRIVAL_MINUTES}
-          max={MAX_ARRIVAL_MINUTES}
-          step="1"
-          value={settings.arrivalMinutes}
+          min={inUnit(MIN_ARRIVAL_SECONDS, settings.arrivalUnit)}
+          max={inUnit(MAX_ARRIVAL_SECONDS, settings.arrivalUnit)}
+          step={settings.arrivalUnit === "seconds" ? 5 : 0.5}
+          value={inUnit(settings.arrivalSeconds, settings.arrivalUnit)}
           class="w-20 rounded-md border px-2 py-1 text-slate-900 {settings.arrivalRatePreset ===
           'custom'
             ? 'border-slate-900'
@@ -251,20 +268,31 @@
           oninput={(event) => {
             // Apply as the teacher types, but leave a half-typed or
             // out-of-range value alone until they finish.
-            const minutes = event.currentTarget.valueAsNumber;
-            if (
-              minutes >= MIN_ARRIVAL_MINUTES &&
-              minutes <= MAX_ARRIVAL_MINUTES
-            )
-              settings.setArrivalMinutes(minutes);
+            const value = event.currentTarget.valueAsNumber;
+            if (inBounds(value, settings.arrivalUnit))
+              settings.setArrivalRate(value, settings.arrivalUnit);
           }}
           onchange={(event) => {
-            settings.setArrivalMinutes(event.currentTarget.valueAsNumber);
-            event.currentTarget.value = String(settings.arrivalMinutes);
+            settings.setArrivalRate(
+              event.currentTarget.valueAsNumber,
+              settings.arrivalUnit,
+            );
+            event.currentTarget.value = String(
+              inUnit(settings.arrivalSeconds, settings.arrivalUnit),
+            );
           }}
         />
-        {t("settings.minutes")}
-      </label>
+        <select
+          class="rounded-md border border-slate-300 px-2 py-1 text-slate-900"
+          aria-label={t("settings.rateUnit")}
+          value={settings.arrivalUnit}
+          onchange={(event) =>
+            (settings.arrivalUnit = event.currentTarget.value as ArrivalUnit)}
+        >
+          <option value="seconds">{t("settings.seconds")}</option>
+          <option value="minutes">{t("settings.minutes")}</option>
+        </select>
+      </div>
       <label class="flex items-center gap-2 text-sm text-slate-600">
         <input
           type="checkbox"
@@ -275,6 +303,18 @@
         />
         {tIn(app.scene.id, "settings.showCounter")}
       </label>
+      {#if app.scene.strikes}
+        <label class="flex items-center gap-2 text-sm text-slate-600">
+          <input
+            type="checkbox"
+            class="size-4 shrink-0 accent-slate-900"
+            checked={settings.showResets}
+            onchange={(event) =>
+              (settings.showResets = event.currentTarget.checked)}
+          />
+          {t("settings.showResets")}
+        </label>
+      {/if}
       {#each secretsToday as secret (secret.slug)}
         {@const name = creatureName(secret.slug)}
         <div class="rounded-lg bg-amber-50 px-3 py-2.5">
@@ -319,6 +359,8 @@
         </div>
       {/each}
     </section>
+
+    <QdChooser scene={app.scene} />
 
     <section class="mt-6 space-y-3">
       <h2 class="text-sm font-semibold tracking-wide text-slate-500 uppercase">
