@@ -4,7 +4,9 @@
  * many QDs it has discovered, for the Session running now and in total.
  *
  * Each Class has its own (`classes.svelte.ts`), stored under its prefix, so
- * deleting a Class deletes them. Like the Collection they outlive Reset.
+ * deleting a Class deletes them. Like the Collection they outlive Reset,
+ * and a refresh or a Reset carries the same Session on (`statsSession.ts`);
+ * switching Class carries on, or starts, that Class's own.
  *
  * Quiet time counts only while the room is listened to and not Paused, and
  * only while it is at or below the goal (`App.run`). Strikes and resets come
@@ -14,6 +16,7 @@
 
 import { browser } from "$app/environment";
 import { classes } from "$lib/classes/classes.svelte";
+import { continuesSession } from "./statsSession";
 
 /** One Session's numbers, or the running total. */
 export interface Tally {
@@ -32,6 +35,8 @@ export interface Tally {
 export interface SessionStats extends Tally {
   /** When the Session began, as an ISO time. */
   started: string;
+  /** When it last counted anything, as an ISO time. */
+  lastActive?: string;
 }
 
 export interface Totals extends Tally {
@@ -42,6 +47,11 @@ interface Saved {
   totals: Totals;
   /** Most recent first; the first is the Session running now, if any. */
   recent: SessionStats[];
+  /**
+   * The `started` of the Session last counted into, so that pressing Start
+   * after a refresh carries it on (`statsSession.ts`).
+   */
+  currentId?: string | null;
 }
 
 /** Recent Sessions kept, for the list in "Class stats". */
@@ -80,6 +90,7 @@ export function parseStats(raw: unknown): Saved {
     return out as T;
   };
   return {
+    currentId: typeof saved.currentId === "string" ? saved.currentId : null,
     totals: tally(fresh.totals, saved.totals),
     recent: Array.isArray(saved.recent)
       ? saved.recent
@@ -132,16 +143,32 @@ class Stats {
     this.#streak = 0;
   }
 
-  /** A Session has started: count it, and count into it from now. */
+  /**
+   * Start pressed: carry on the Class's last Session if it is the same
+   * lesson (`statsSession.ts`), or count a new one, and count into it.
+   */
   startSession(now = new Date()) {
-    this.#data.totals.sessions += 1;
-    this.#data.recent = [
-      { ...emptyTally(), started: now.toISOString() },
-      ...this.#data.recent,
-    ].slice(0, RECENT_KEPT);
     this.#counting = true;
     this.#streak = 0;
-    this.#save();
+    // The same lesson carries on: after a refresh, a Reset or a short
+    // break, the same local day.
+    const last = this.#data.recent[0];
+    if (
+      last &&
+      this.#data.currentId === last.started &&
+      continuesSession(last.lastActive ?? last.started, now)
+    ) {
+      this.#save(now.getTime());
+      return;
+    }
+    const started = now.toISOString();
+    this.#data.totals.sessions += 1;
+    this.#data.recent = [
+      { ...emptyTally(), started, lastActive: started },
+      ...this.#data.recent,
+    ].slice(0, RECENT_KEPT);
+    this.#data.currentId = started;
+    this.#save(now.getTime());
   }
 
   /**
@@ -197,6 +224,8 @@ class Stats {
 
   #save(now = Date.now()) {
     this.#lastSave = now;
+    const session = this.current;
+    if (session) session.lastActive = new Date(now).toISOString();
     if (!browser) return;
     try {
       localStorage.setItem(storageKey(), JSON.stringify(this.#data));
