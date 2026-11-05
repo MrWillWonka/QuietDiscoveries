@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { asset } from "$app/paths";
   /**
    * The start menu: the card a first visit opens on, and what "My class"
    * opens again later. It holds which Class is on screen (to switch, or to
@@ -12,12 +13,13 @@
    */
 
   import type { App } from "$lib/app.svelte";
-  import logoUrl from "$lib/brand/logo.svg";
   import { classes } from "$lib/classes/classes.svelte";
   import { className, t, tIn } from "$lib/i18n/index.svelte";
   import { settings } from "$lib/settings/settings.svelte";
   import { onMount } from "svelte";
   import SceneSelect from "./SceneSelect.svelte";
+  // In static/, so it loads under any base path (the demo runs in one).
+  const logoUrl = asset("/logo.png");
 
   let {
     app,
@@ -139,7 +141,7 @@
       <img
         src={logoUrl}
         alt=""
-        class="mx-auto mb-3 size-24 short:mb-1 short:size-14"
+        class="mx-auto mb-3 size-24 object-contain short:mb-1 short:size-14"
       />
       <h1 class="text-2xl font-semibold text-slate-900 short:text-xl">
         Quiet Discoveries

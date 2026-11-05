@@ -8,10 +8,11 @@
    * pages. How it works has its own button in the bottom corner.
    */
 
-  import { resolve } from "$app/paths";
+  import { asset, resolve } from "$app/paths";
   import { t } from "$lib/i18n/index.svelte";
   import Credit from "./Credit.svelte";
-  import logoUrl from "$lib/brand/logo.svg";
+  // In static/, so it loads under any base path (the demo runs in one).
+  const logoUrl = asset("/logo.png");
 
   /** Pointing at it is enough on a desktop; nothing has to be clicked. */
   let hovering = $state(false);
@@ -49,7 +50,7 @@
     title={t("brand.title")}
     onclick={() => (pinned = !pinned)}
   >
-    <img src={logoUrl} alt="" class="size-9" />
+    <img src={logoUrl} alt="" class="size-9 object-contain" />
   </button>
 
   <!-- Always in the document, so the button keeps something to point its

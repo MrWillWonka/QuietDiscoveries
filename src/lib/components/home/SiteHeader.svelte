@@ -4,8 +4,10 @@
    * name, which leads home, and whatever the page puts on the right.
    */
 
-  import { resolve } from "$app/paths";
+  import { asset, resolve } from "$app/paths";
   import type { Snippet } from "svelte";
+  // In static/, so it loads under any base path (the demo runs in one).
+  const logoUrl = asset("/logo.png");
 
   let { children }: { children: Snippet } = $props();
 </script>
@@ -14,7 +16,11 @@
   <h1
     class="min-w-0 text-[1.65rem] leading-none font-extrabold tracking-tight sm:text-4xl"
   >
-    <a href={resolve("/")} class="rounded-lg hover:text-pine-800">
+    <a
+      href={resolve("/")}
+      class="flex items-center gap-3 rounded-lg hover:text-pine-800"
+    >
+      <img src={logoUrl} alt="" class="h-11 w-auto sm:h-14" />
       Quiet Discoveries
     </a>
   </h1>

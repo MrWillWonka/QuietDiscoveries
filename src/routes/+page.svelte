@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { asset } from "$app/paths";
   import { sessionHistory } from "$lib/session/history.svelte";
   import { App } from "$lib/app.svelte";
   import { classes } from "$lib/classes/classes.svelte";
@@ -38,8 +39,9 @@
   } from "$lib/ui/documentPictureInPicture";
   import { mount, onMount, tick, unmount } from "svelte";
   import { settings } from "$lib/settings/settings.svelte";
-  import logoUrl from "$lib/brand/logo.svg";
   import { PREVIEW_IMAGE, absoluteUrl } from "$lib/site";
+  // In static/, so it loads under any base path (the demo runs in one).
+  const logoUrl = asset("/logo.png");
 
   const app = new App();
 
@@ -273,7 +275,7 @@
     class="grid h-dvh place-items-center overflow-y-auto bg-slate-900/55 p-4"
   >
     <div class="max-w-md rounded-xl bg-white p-6 text-center shadow-xl">
-      <img src={logoUrl} alt="" class="mx-auto mb-3 size-20" />
+      <img src={logoUrl} alt="" class="mx-auto mb-3 size-20 object-contain" />
       <h1 class="text-2xl font-semibold text-slate-900">
         {t("floating.title")}
       </h1>

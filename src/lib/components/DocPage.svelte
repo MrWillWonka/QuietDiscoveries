@@ -5,12 +5,13 @@
    * The page itself never scrolls (the Scene must not), so this frame does.
    */
 
-  import { resolve } from "$app/paths";
+  import { asset, resolve } from "$app/paths";
   import Credit from "$lib/components/Credit.svelte";
   import LanguagePicker from "$lib/components/LanguagePicker.svelte";
   import { t } from "$lib/i18n/index.svelte";
-  import logoUrl from "$lib/brand/logo.svg";
   import type { Snippet } from "svelte";
+  // In static/, so it loads under any base path (the demo runs in one).
+  const logoUrl = asset("/logo.png");
 
   let {
     title,
@@ -30,7 +31,7 @@
         href={resolve("/")}
         class="flex items-center gap-2 text-lg font-semibold tracking-tight hover:text-slate-600"
       >
-        <img src={logoUrl} alt="" class="size-9" />
+        <img src={logoUrl} alt="" class="size-9 object-contain" />
         Quiet Discoveries
       </a>
       <div class="flex items-center gap-2">
