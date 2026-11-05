@@ -9,6 +9,7 @@
 
 import { browser } from "$app/environment";
 import type { Calibration } from "$lib/audio/calibration";
+import { DEMO, DEMO_ARRIVAL_MS } from "$lib/demo";
 import { DEFAULT_SCENE, SCENE_IDS, type SceneId } from "$lib/scenes/types";
 
 export type VolumeGoalPreset = "silent" | "independent" | "partner" | "custom";
@@ -41,6 +42,9 @@ export const ARRIVAL_RATE_PRESETS: Record<
 export const MIN_ARRIVAL_MINUTES = 1;
 export const MAX_ARRIVAL_MINUTES = 60;
 
+// The "class-noise-level:" prefix predates the Quiet Discoveries name. Every
+// localStorage key keeps it on purpose: renaming would wipe teachers' saved
+// settings, classes and collections.
 const STORAGE_KEY = "class-noise-level:settings";
 
 interface StoredSettings {
@@ -59,7 +63,8 @@ interface StoredSettings {
 }
 
 const DEFAULTS: StoredSettings = {
-  scene: DEFAULT_SCENE,
+  // The demo build opens on Autumn Harvest (`lib/demo.ts`).
+  scene: DEMO ? "harvest" : DEFAULT_SCENE,
   deviceId: "",
   calibration: null,
   volumeGoalPreset: "independent",
@@ -231,6 +236,8 @@ class Settings {
   }
 
   get arrivalIntervalMs() {
+    // The demo has to show something quickly (`lib/demo.ts`).
+    if (DEMO) return DEMO_ARRIVAL_MS;
     return this.#stored.arrivalMinutes * 60_000;
   }
 }

@@ -7,8 +7,8 @@
 
   import { t } from "$lib/i18n/index.svelte";
 
-  /** The original app this one is based on. */
-  const ORIGINAL_URL = "https://www.shysafari.com";
+  /** The original app this one is based on (see NOTICE). */
+  const ORIGINAL_URL = "https://github.com/teacherdotdev/shy-safari";
 
   let { class: className = "" }: { class?: string } = $props();
 </script>

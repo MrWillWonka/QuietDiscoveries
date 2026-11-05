@@ -16,6 +16,7 @@ import {
   createArrivalClock,
   type ArrivalClock,
 } from "./arrivalClock";
+import { rollAwake, wakeDelay } from "./awake";
 import { rollCreature } from "./roll";
 import {
   advanceScareClock,
@@ -44,6 +45,21 @@ export interface CreatureInstance {
    * arrived, so it comes back plain instead of glistening all over again.
    */
   restored?: boolean;
+  /**
+   * A harvest item rolled on arrival to transform (`rollAwake`): this many
+   * seconds after it settles, it wakes. Kept on refresh.
+   */
+  wakeIn?: number;
+  /**
+   * A harvest item that has transformed: drawn with a face and wandering
+   * like an animal instead of resting. Kept on refresh.
+   */
+  awake?: boolean;
+  /**
+   * A harvest item sitting on the picnic table rather than the grass
+   * (`scenes/table.ts`): where across the tabletop, in wu. Kept on refresh.
+   */
+  perch?: number;
 }
 
 export class Session {
@@ -243,6 +259,32 @@ export class Session {
     sessionHistory.arrive(this.#sceneId as SceneId, def.slug);
   }
 
+  /**
+   * An item rolled to wake has transformed, on screen: from now on it is
+   * awake, and the Class has seen that item transform, for good.
+   */
+  wake(id: number) {
+    const creature = this.creatures.find((one) => one.id === id);
+    if (!creature || creature.awake || !creature.def.awake) return;
+    creature.awake = true;
+    // Awake, it hops down off the table and wanders the field.
+    creature.perch = undefined;
+    this.#save();
+    sightings.recordTransformed(this.#sceneId, creature.def.slug);
+  }
+
+  /**
+   * A harvest item has landed on the picnic table, at this spot across it
+   * (or left it): kept, so a refresh puts it back there.
+   */
+  perch(id: number, x: number | null) {
+    const creature = this.creatures.find((one) => one.id === id);
+    if (!creature) return;
+    if (x === null) delete creature.perch;
+    else creature.perch = x;
+    this.#save();
+  }
+
   /** Anywhere from far to near, unless its motion keeps it to some depths. */
   #depth(def: CreatureDef): number {
     const [min, max] = MOTION_PROFILES[def.motion].depths ?? [0, 1];
@@ -250,12 +292,18 @@ export class Session {
   }
 
   #place(def: CreatureDef): CreatureInstance {
-    return {
+    const instance: CreatureInstance = {
       id: this.#nextId++,
       def,
       depth: this.#depth(def),
       spawnX: this.#random(),
       spawnY: this.#random(),
     };
+    // Only items with an awake drawing roll, so no other Scene's random
+    // sequence changes. Every item arrives plain; one rolled to wake
+    // transforms a little after it settles (`wake`).
+    if (def.awake && rollAwake(this.#random))
+      instance.wakeIn = wakeDelay(this.#random);
+    return instance;
   }
 }

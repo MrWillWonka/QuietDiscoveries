@@ -3,13 +3,17 @@ import adapter from "@sveltejs/adapter-static";
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
 
+/**
+ * The demo build (`bun run build:demo`): a simulated quiet room instead of
+ * the microphone, for frames that refuse one, such as a claude.ai artifact.
+ * Fixed at build time, so the real build carries none of it.
+ */
+const demo = process.env.PUBLIC_DEMO === "1";
+
 export default defineConfig({
-  server: {
-    allowedHosts: ["class-noise-level.edtechathon.com"],
+  define: {
+    "import.meta.env.QD_DEMO": JSON.stringify(demo),
   },
-  // Expose the Cloudflare Web Analytics token (set only in Vercel's
-  // production environment) to client code.
-  envPrefix: ["VITE_", "CF_BEACON_TOKEN"],
   plugins: [
     tailwindcss(),
     sveltekit({
@@ -21,7 +25,15 @@ export default defineConfig({
 
       // Everything happens in the browser: the microphone never leaves the
       // device and there is no server to talk to.
-      adapter: adapter({ fallback: "404.html" }),
+      adapter: adapter({
+        pages: demo ? "build-demo" : "build",
+        assets: demo ? "build-demo" : "build",
+        fallback: "404.html",
+      }),
+
+      // claude.ai artifacts reserve paths that start with "_", so the demo
+      // build keeps its scripts in app/ rather than the default _app/.
+      ...(demo ? { appDir: "app" } : {}),
 
       prerender: {
         // #how-it-works opens the info drawer rather than naming an element,

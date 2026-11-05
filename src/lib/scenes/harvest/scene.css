@@ -1,0 +1,366 @@
+/* The Autumn Harvest Scene's own styles: its Ambient Life, its page colour,
+   its Too Loud leaf storm and its QDs peeking out from behind the props. Every
+   class and keyframe here is prefixed `harvest-` or scoped to the Scene, so
+   nothing leaks into another. */
+
+/* --- Ambient Life -------------------------------------------------------- */
+
+/* Pieces standing in the field are placed by their centre and their foot
+   (harvest/AmbientLife.svelte). */
+.harvest-piece {
+  transform: translateX(-50%);
+}
+
+/* Inlined artwork takes its size from the element placing it; see
+   routes/layout.css. */
+.harvest-piece svg,
+.harvest-sun > svg,
+.harvest-cloud > svg,
+.harvest-frame > svg,
+.harvest-leaf > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The frames run off the screen's edge a touch, and their artwork carries
+   on past its own box (the trunks off the side, the crowns above the top,
+   the shrubs past the corner), so a sway or Too Loud's lean uncovers more
+   tree, never a gap where a trunk or a bush meets the edge. The stage
+   clips it at the screen. */
+.harvest-frame > svg {
+  overflow: visible;
+}
+
+.harvest-frame-top {
+  margin-top: calc(-0.4 * var(--wu));
+}
+
+.harvest-frame-bottom {
+  margin-bottom: calc(-0.4 * var(--wu));
+}
+
+/* The wind in the trees: round trees rock about their foot, the maples'
+   leaf clusters and the bushes about where they grow from, 2-4 degrees,
+   each at its own pace (their groups carry their own origin). */
+@keyframes harvest-sway {
+  0%,
+  100% {
+    transform: rotate(-1.2deg);
+  }
+  50% {
+    transform: rotate(1.2deg);
+  }
+}
+
+@keyframes harvest-sway-wide {
+  0%,
+  100% {
+    transform: rotate(-1.8deg);
+  }
+  50% {
+    transform: rotate(1.6deg);
+  }
+}
+
+.harvest-tree,
+.harvest-sheaf,
+.harvest-lean {
+  transform-origin: 50% 100%;
+}
+
+.harvest-tree {
+  animation: harvest-sway ease-in-out infinite;
+}
+
+.harvest-sheaf {
+  animation: harvest-sway ease-in-out infinite;
+}
+
+.harvest-sway {
+  animation: harvest-sway-wide 8s ease-in-out infinite;
+}
+
+.harvest-sway-1 {
+  animation-duration: 9.5s;
+  animation-delay: -3s;
+}
+
+.harvest-sway-2 {
+  animation-duration: 7.2s;
+  animation-delay: -5s;
+}
+
+.harvest-frame:nth-of-type(even) .harvest-sway {
+  animation-direction: reverse;
+}
+
+/* The windmill's wheel turns slowly about its hub. */
+@keyframes harvest-windmill-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.harvest-windmill-wheel {
+  animation: harvest-windmill-turn 30s linear infinite;
+}
+
+/* Clouds drift slowly to one side and back, so the sky keeps its shape. */
+@keyframes harvest-cloud-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(var(--harvest-drift, 3vw));
+  }
+}
+
+.harvest-cloud {
+  animation: harvest-cloud-drift ease-in-out infinite alternate;
+}
+
+/* A leaf comes down off a maple, swinging from side to side, and is gone
+   before the next: a slow drift, never a shower. */
+@keyframes harvest-leaf-fall {
+  from {
+    transform: translateY(8cqh);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(78cqh);
+    opacity: 0;
+  }
+}
+
+@keyframes harvest-leaf-swing {
+  0%,
+  100% {
+    transform: translateX(calc(-1.6 * var(--wu))) rotate(-30deg);
+  }
+  50% {
+    transform: translateX(calc(1.6 * var(--wu))) rotate(28deg);
+  }
+}
+
+.harvest-leaf-fall {
+  opacity: 0;
+  animation: harvest-leaf-fall linear infinite;
+}
+
+.harvest-leaf {
+  animation: harvest-leaf-swing ease-in-out infinite;
+}
+
+/* --- Too Loud: a stronger wind ------------------------------------------ */
+
+/* The trees, the wheat, the maples and the bushes lean a little further
+   into the wind, and stand up again when the room settles. Too Loud holds
+   every animation still, so this is a transition. */
+.harvest-lean,
+.harvest-frame > svg {
+  transition: transform 2.6s cubic-bezier(0.3, 0.6, 0.3, 1);
+}
+
+.harvest-frame-top > svg {
+  transform-origin: 50% 0;
+}
+
+.harvest-frame-bottom > svg {
+  transform-origin: 50% 100%;
+}
+
+.scene-stage[data-scene="harvest"][data-murky="true"] .harvest-lean {
+  transform: rotate(3deg);
+}
+
+.scene-stage[data-scene="harvest"][data-murky="true"] .harvest-frame > svg {
+  transform: rotate(1.5deg);
+}
+
+/* --- The page and Too Loud ---------------------------------------------- */
+
+html:has(.scene-stage[data-scene="harvest"]),
+html:has(.scene-stage[data-scene="harvest"]) body {
+  background: #a9a853;
+}
+
+/* Before the Scene mounts, a rough copy of its backdrop, so a reload of a
+   saved Autumn Harvest doesn't flash the savanna (see app.html). */
+html[data-scene="harvest"]:not(:has(.scene-stage)) body {
+  background: linear-gradient(
+    #a9d8fb 0%,
+    #d8e6f3 34%,
+    #e9c3b2 40%,
+    #efbc6c 48%,
+    #efc562 54%,
+    #c3b257 70%,
+    #979b4b 100%
+  );
+}
+
+/* Too Loud: no fog here. A leaf storm piles up over the field instead
+   (harvest/LeafStorm.svelte), so the Scene itself stays clear and sharp
+   underneath, and there is no veil. */
+.scene-stage[data-scene="harvest"] .too-loud-veil {
+  display: none;
+}
+
+/* The leaf storm: above every QD and all the scenery (whose layers run up
+   to 1500), under the veil's place and everything outside the stage. */
+.leaf-storm {
+  z-index: 1900;
+  overflow: hidden;
+  transition: opacity 1.2s ease;
+}
+
+/* When the room is calm again the pile drops away off the bottom, the
+   landed leaves fall with it, and the last of it fades (LeafStorm sets the
+   sheets' way out). */
+.leaf-storm-sweep {
+  transition: opacity 2.5s cubic-bezier(0.6, 0, 0.9, 0.6);
+}
+
+.leaf-storm[data-phase="clearing"] .leaf-storm-sweep {
+  opacity: 0;
+}
+
+.leaf-storm[data-phase="clearing"] .leaf-storm-sheet {
+  transition: transform 2.5s cubic-bezier(0.5, 0, 0.75, 0.4);
+}
+
+.leaf-storm[data-phase="clearing"] .leaf-storm-stuck.shown {
+  transform: translate(-50%, 110cqh) rotate(calc(var(--turn) + 160deg));
+  transition: transform 2.2s cubic-bezier(0.5, 0, 0.75, 0.4);
+}
+
+/* Back in the calm, everything goes home at once, out of sight. */
+.leaf-storm[data-phase="calm"] .leaf-storm-sweep,
+.leaf-storm[data-phase="calm"] .leaf-storm-sheet,
+.leaf-storm[data-phase="calm"] .leaf-storm-stuck {
+  transition: none;
+}
+
+/* Each sheet is a little taller than the screen, with a ragged fringe of
+   leaves along its top, and the pile grows by it moving up, a little at a
+   time as leaves land on it: drawn once, then only moved. */
+.leaf-storm-sheet {
+  position: absolute;
+  /* Wider than the screen, so the sweep never shows a sheet's side. */
+  inset-inline: -15%;
+  /* Its ragged fringe is above the top of the screen once it is full. */
+  top: -45%;
+  height: 145%;
+  will-change: transform;
+  transition: transform 0.4s linear;
+}
+
+.leaf-storm-sheet > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Leaves that land along the fringe and stay there. */
+.leaf-storm-stuck {
+  position: absolute;
+  opacity: 0;
+  transform: translate(-50%, -30cqh) scale(0.8)
+    rotate(calc(var(--turn) - 120deg));
+  transition:
+    opacity 0.9s ease-out,
+    transform 1.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.leaf-storm-stuck.shown {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(var(--turn));
+}
+
+.leaf-storm-stuck > svg,
+.leaf-storm-spin > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Leaves raining down while it is loud, swaying and tumbling, each landing
+   on the pile's fringe (`--land`, set by LeafStorm as the pile grows) and
+   settling into it. */
+@keyframes leaf-storm-fall {
+  0% {
+    transform: translate(0, -12cqh);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  30% {
+    transform: translate(calc(2.4 * var(--wu)), calc(var(--land) * 0.3));
+  }
+  60% {
+    transform: translate(calc(-2 * var(--wu)), calc(var(--land) * 0.65));
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(0.6 * var(--wu)), var(--land));
+    opacity: 0;
+  }
+}
+
+@keyframes leaf-storm-tumble {
+  0%,
+  100% {
+    transform: rotate(-40deg);
+  }
+  50% {
+    transform: rotate(50deg);
+  }
+}
+
+.leaf-storm-fall {
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  animation: leaf-storm-fall ease-in-out infinite;
+}
+
+.leaf-storm-spin {
+  animation: leaf-storm-tumble ease-in-out infinite;
+}
+
+/* Under reduced motion it only fades in by steps, and out (LeafStorm). */
+.leaf-storm[data-reduced="true"] .leaf-storm-sheet,
+.leaf-storm[data-reduced="true"] .leaf-storm-sweep {
+  transition: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .harvest-tree,
+  .harvest-sheaf,
+  .harvest-sway,
+  .harvest-windmill-wheel,
+  .harvest-cloud,
+  .harvest-leaf {
+    animation: none;
+  }
+
+  /* All a leaf does is fall; held still, it would hang in mid-air. */
+  .harvest-leaf-fall {
+    display: none;
+  }
+
+  .harvest-lean,
+  .harvest-frame > svg {
+    transition: none;
+  }
+}

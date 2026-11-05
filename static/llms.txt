@@ -1,18 +1,14 @@
-# Shy Safari
+# Quiet Discoveries
 
-> Shy Safari is a free, browser-based classroom noise level monitor for the projector or interactive whiteboard. It shows a calm savanna, coral reef, woodland clearing, rainforest jungle or Arctic sea ice where shy animals come out the longer the room stays quiet, or, for older students, deep space, where a telescope picks up satellites, comets and galaxies, and a prehistoric floodplain with dinosaurs drawn from up-to-date science. There is no sign-up, no ads and nothing to install, and microphone audio is measured on the computer and never recorded or sent anywhere.
+> Quiet Discoveries is a free, browser-based classroom noise level monitor for the projector or interactive whiteboard. It shows a calm savanna, coral reef, woodland clearing, rainforest jungle or Arctic sea ice where shy creatures called QDs (say it out loud: "cuties") come out the longer the room stays quiet, or, for older students, deep space, where a telescope picks up satellites, comets and galaxies, and a prehistoric floodplain with dinosaurs drawn from up-to-date science. There is no sign-up, no ads and nothing to install, and microphone audio is measured on the computer and never recorded or sent anywhere.
 
-Shy Safari is the opposite of a bouncing noise meter: there is no score, no needle and no red warning light. The teacher sets a volume goal (Silent, Independent or Partner work, or anything in between) and presses Start. The first animal appears after 10 to 20 quiet seconds, then about one every few minutes of quiet work (Relaxed, Normal or Lively, or a custom number of minutes). Brief noises such as a knock at the door do not count. When the room stays too loud, the scene clouds over and, by default, animals run away; teachers can instead choose to pause the scene so nothing is taken away. The savanna has 17 animals, the coral reef 18, deep space 17 sightings, the prehistoric scene 17 animals, the forest 17 animals, the jungle 17 animals and the Arctic 17 animals, in common, uncommon and rare tiers. In deep space, noise shows up as interference, and sightings fade into static rather than run away. It is available in English, Spanish and French, and works in Chrome, Edge, Firefox and Safari on laptops, Chromebooks and interactive whiteboards.
+Quiet Discoveries is the opposite of a bouncing noise meter: there is no score, no needle and no red warning light. The teacher sets a volume goal (Silent, Independent or Partner work, or anything in between) and presses Start. The first QD appears after 10 to 20 quiet seconds, then about one every few minutes of quiet work (Relaxed, Normal or Lively, or a custom number of minutes). Brief noises such as a knock at the door do not count. When the room stays too loud, the scene clouds over and, by default, QDs run away; teachers can instead choose to pause the scene so nothing is taken away. The savanna has 17 animals, the coral reef 18, deep space 17 sightings, the prehistoric scene 17 animals, the forest 17 animals, the jungle 17 animals and the Arctic 17 animals, in common, uncommon and rare tiers. In deep space, noise shows up as interference, and sightings fade into static rather than run away. It is available in English, Spanish and French, and works in Chrome, Edge, Firefox and Safari on laptops, Chromebooks and interactive whiteboards.
 
-Shy Safari came out of the EdTech-a-thon and is maintained by teacher.dev. It is free, with no paywalls, no ads and no tracking of personal data.
+Quiet Discoveries is a modified version of Shy Safari by teacher.dev (https://github.com/teacherdotdev/shy-safari), used under the Apache 2.0 licence. It is free, with no paywalls, no ads, no analytics and no tracking of personal data.
 
 ## Pages
 
-- [Shy Safari](https://www.shysafari.com/): the app itself
-- [How it works](https://www.shysafari.com/#how-it-works): what it does, how to use it in class, how it decides the room is too loud, and answers to common questions
-- [About](https://www.shysafari.com/about): who built it and why
-- [Privacy](https://www.shysafari.com/privacy): what is and is not collected
-
-## Contact
-
-- support@teacher.dev
+- [Quiet Discoveries](/): the app itself
+- [How it works](/#how-it-works): what it does, how to use it in class, how it decides the room is too loud, and answers to common questions
+- [About](/about): what it is and where it came from
+- [Privacy](/privacy): what is and is not collected

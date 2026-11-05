@@ -1,7 +1,7 @@
 # SVG art brief — coral reef Scene
 
 > **Reef Scene.** This brief describes the coral reef artwork, one of the three
-> Scenes in Shy Safari. The savanna (`src/lib/scenes/savanna/`) follows the
+> Scenes in Quiet Discoveries. The savanna (`src/lib/scenes/savanna/`) follows the
 > same style rules and SVG constraints with its own palette and Roster, and so
 > does the Arctic (`src/lib/scenes/arctic/`, §13). The
 > palette, backdrop and Roster specifics below are reef-only. The jungle
@@ -689,3 +689,234 @@ no Universal monster make-up (no flat-topped head with neck bolts, no
 widow's peak); nothing from _Hocus Pocus_. The finale, Jack O. Lantern, a
 gentle giant of vines and autumn leaves with a glowing carved-pumpkin head,
 comes from public-domain folklore: the Green Man and Stingy Jack's lantern.
+
+## 15. Thanksgiving
+
+An autumn farm on a bright, clear November afternoon: a clear blue sky with
+crisp white clouds and a soft pale sun, soft mauve and peach hills dotted
+with round orange trees, a red barn and a farm windmill beyond a split-rail
+fence, a fresh green field with wheat sheaves, round hay bales, pumpkins and
+rocks, a sandy path curving up to a gap in the fence, and big maples and
+leafy bushes in full colour framing the corners (`thanksgiving/roster.ts`
+has the QDs). It is on offer all
+through November, every year. It is drawn in the savanna's cartoon style,
+in the same family as the forest (§11) and Pumpkin Hollow (§14), so §1 and
+§2 apply as they do there, and its Creatures are drawn and checked exactly
+as theirs are: the signature eye, the pink cheek (`#ff7a8a` at 0.55), the
+`#2b2b3a` overlay for shade, part groups with `transform-box: fill-box` and
+their joint inline, and an Arctic contact shadow under ground animals.
+
+- **Warm, cosy, gentle.** Nature and harvest only: no Pilgrims, no Native
+  American imagery or costumes, no people, and no food being eaten (no
+  roasted turkey, nothing on a plate). The made-up characters (the leaf
+  sprite, the pie pal, the cornling and the harvest moon) are friendly
+  faces with the signature eye, never fierce. Trees, the barn and the
+  scenery never get faces; the barn's windows are plain dark squares.
+- **Ground animals** walk the savanna's band (feet on the bottom edge of
+  the viewBox, 62% of the way down to the bottom). Tom Turkey `stride`s
+  along the back of that band, as Pumpkin Hollow's giant does, just in
+  front of the fence. Fliers (`soar`, `drift`) are drawn in flight.
+
+- **Crisp, bright and clean.** It runs on classroom projectors, which wash
+  out pale, hazy colour, so the Scene is drawn in clear, saturated flat
+  colour with very little haze: a clear blue sky, vivid orange, red and
+  gold leaves, fresh mid-green grass. Shade is the `#2b2b3a` overlay at low
+  opacity and light is white at low opacity, as everywhere else; the sky is
+  the only gradient.
+
+### Palette
+
+§1's ink `#2b2b3a`, highlight `#ffffff`, cream `#f4f1de`, blush `#ff7a8a`,
+accent yellow `#ffd166` and accent red `#ef476f`, the savanna's and the
+forest's animal browns, plus:
+
+| Role              | Hex       |
+| ----------------- | --------- |
+| Sky high          | `#8ccaee` |
+| Sky low           | `#e2f2f9` |
+| Cloud shade       | `#dcebf3` |
+| Sun               | `#fde98e` |
+| Sun halo          | `#fff6c9` |
+| Far hills         | `#eecdc2` |
+| Middle hills      | `#e6bba8` |
+| Near hills        | `#dcaa92` |
+| Hill woods        | `#d6977f` |
+| Golden meadow     | `#ecc77c` |
+| Grass             | `#a7c263` |
+| Grass (middle)    | `#9ebb5b` |
+| Grass (near)      | `#94b253` |
+| Grass tuft        | `#7c9c42` |
+| Sandy path        | `#e8c693` |
+| Maple red         | `#e2452e` |
+| Maple deep red    | `#c8342b` |
+| Maple orange      | `#f2822a` |
+| Maple rust        | `#d95d23` |
+| Maple gold        | `#f7b232` |
+| Maple yellow      | `#fbd04f` |
+| Round tree orange | `#f28f30` |
+| Trunk             | `#7b4a2c` |
+| Barn red          | `#d2443a` |
+| Barn roof         | `#b9b7c0` |
+| Barn trim         | `#fbf7ee` |
+| Windmill wood     | `#8a6448` |
+| Windmill vanes    | `#e6cfa6` |
+| Wheat             | `#e8b94c` |
+| Wheat light       | `#f5d47a` |
+| Hay               | `#e9c060` |
+| Rock              | `#a09fa9` |
+| Fence rail        | `#9c6d48` |
+| Fence post        | `#7d5537` |
+| Pumpkin           | `#e8812a` |
+
+The grass is a fresh mid-green, not gold, so that brown and bronze animals
+(the mouse, the quail, the turkeys, the elk) stand out on it.
+
+### The backdrop and Ambient Life
+
+`ambient/backdrop.svg` is 1920×1080 with `preserveAspectRatio="none"`, and
+its one gradient is the sky, `thanksgiving-backdrop-sky`, a clear light blue
+overhead paling towards the hills. Three layers of soft hills, mauve to
+peach, with low distant woods along them, end at about y 600; a strip of
+golden meadow runs from there to the fence (about y 655), with a faint
+track to the barn, and fresh green grass runs from the fence to the bottom
+in a few gently darker bands. A sandy path curves up from the bottom centre
+and narrows to the gap in the fence (about x 0.5–0.57). Grass tufts and
+fallen red, orange and gold leaves lie flat on the grass. The middle of the
+sky (x 0.3–0.7, y 0.1–0.4) is kept empty for a Note.
+
+Everything that stands up is Ambient Life (`thanksgiving/AmbientLife.svelte`
+places it), so it stays its own shape at any screen size and layers with
+the animals by where it meets the ground:
+
+- **In the sky:** `sun` (a pale-yellow disc with two halo rings, upper
+  left), `cloud` (crisp white with a flat, faintly shaded base, drifting),
+  and `geese` (a flat silhouette skein crossing now and then, never
+  mistaken for a Creature).
+- **Beyond the fence:** `round-tree` and `round-tree-red` (round bushy
+  crowns with visible trunks, dotted along the hills), `windmill` (a wooden
+  lattice tower with a tail vane; its wheel, the
+  `thanksgiving-windmill-wheel` group, turns slowly, once every 24 s) and
+  `barn` (clear red, white trim, a grey gambrel roof, white X-braced doors
+  and loft door, a lean-to with plain dark windows). Nothing beyond the
+  fence reaches higher than about y 0.36 (the top of the windmill's wheel,
+  at the lower right edge of the Note's sky); the trees stay below y 0.4.
+- **In the field:** `fence` along the back (open where the path comes in),
+  `wheat-sheaf` (tied sheaves with fanned ears of grain; sways about its
+  foot), `hay-bale`, `pumpkins` and `rock`. These sit on the bottom edge of
+  their viewBox with a contact shadow and scale with depth exactly as the
+  animals do.
+- **Framing the corners, in front of every animal:** `maple-left` and
+  `maple-right` (a trunk coming in off the side of the screen and boughs
+  reaching in along the top, under clusters of red, orange and gold maple
+  leaves) and `bush-left` and `bush-right` (leafy red, orange and gold
+  shrubs with dark olive leaves at their foot). These four are traced from
+  the owner's reference scene with OpenCV: each is cut out of the scene by
+  colour and by touching its corner, its colours are sorted into about ten
+  flat bands with k-means, and each band is traced with `findContours` into
+  smooth paths, so they keep the reference's shapes in the flat house
+  style. They are pinned to the screen's corners, not the landscape's. The
+  maples take about the outer 36% across the top, a little bolder than the
+  reference; the shrubs about the outer 20–25% across the bottom, so
+  neither hides the middle of the sky or much of the walking band. The
+  trunk and boughs stay still and each leaf cluster is its own
+  `harvest-sway` group, cut along edges already in the art and swaying
+  from where it meets the wood; every band reaches a little under the
+  bands beside it, and further under any cluster drawn over it, so a sway
+  shows more of what is behind, never a hole. Each piece also runs on past
+  its own viewBox (the trunk past the screen's side, the crown above its
+  top, the shrub past the corner), and `scene.css` lets the frame's
+  `<svg>` overflow, so a sway or Too Loud's lean never shows a gap at the
+  screen's edge.
+- **Falling leaves:** `leaf-1` to `leaf-3`, coming down off the two maples.
+
+Every id in the backdrop and Ambient Life is prefixed `thanksgiving-`.
+
+### Too Loud
+
+A gusty autumn wind: a warm amber haze blows over the farm, thickest low
+down, and dulls the clear blue sky to a dusty gold; the wheat sheaves lean over and leaves stream across on pale gusts
+(`thanksgiving/scene.css`). It moves by transitions, since Too Loud holds
+every animation still, and nothing flashes. The Note is the forest's trail
+sign (§11).
+
+## 16. Autumn Harvest
+
+An autumn farm field matching the approved illustration
+(`docs/reference/autumn-harvest/approved_style_reference.png`; the palette
+is in `visual_design_guide.png`): a clear blue sky with soft flat clouds and
+a pale sun with two halo rings, layered peach and mauve hills with soft far
+woods and round orange trees, a red barn and a windmill, a split-rail
+fence with a gap, a green-gold meadow with a winding sandy path, two hay
+bales, four wheat sheaves, two grey rocks, a stump and a small shrub (no
+pumpkins, apples, corn or anything else that is also a QD), big maples
+framing the top corners and leafy bushes the bottom ones. It is drawn in
+the savanna's flat cartoon style, like Thanksgiving (§15), but softer and
+more muted, with fewer, larger leaves. Its QDs follow §1 and §2 as
+Thanksgiving's do, with the guide's palette.
+
+### Palette
+
+The guide's twelve: Bark `#5B2E1F`, Autumn Red `#C84B2B`, Pumpkin
+`#E66A1E`, Amber `#F9A53A`, Harvest `#F7D27A`, Meadow `#8BB56A`, Green
+`#5E8F5C`, Sky `#A6C9F5`, Cream `#FBE8D0`, Path `#F5C8A4`, Field `#C2A07A`
+and Rock `#BE6F5A`, with softer leaf tones between them (`#c9452d`,
+`#a93a26`, `#e8742c`, `#f39a34`, `#f6b847`, `#f8cd68`) and the meadow taken
+from the illustration itself, gold below the fence (`#efc562`) to olive
+green at the front (`#979b4b`). Rocks are grey (`#9f9597`), as drawn.
+
+### Files and layout
+
+The artwork is generated flat SVG in `harvest/ambient/`: `backdrop`
+(1920×1080, `preserveAspectRatio="none"`; sky, hills, far woods, golden
+meadow, field, path, tufts and fallen leaves, with the sky and the field
+as its only gradients), `sun`, `cloud`, `round-tree`, `round-tree-far`,
+`barn`, `windmill` (its `harvest-windmill-wheel` turns slowly),
+`fence-left`, `fence-right`, `hay-bale`, `wheat-sheaf`, `rock`, `stump`, `shrub`, `picnic-table` (dark weathered wood, benches
+included; items can sit on its top),
+`maple-left`, `maple-right`, `bush-left`, `bush-right` and `leaf-1` to
+`leaf-3`. Props are drawn at 20 units per wu. Every id is prefixed
+`harvest-`. The maples and bushes group their leaves in `harvest-sway`
+clusters, each with its own `transform-origin` where it grows from, so the
+wind can sway them 2–4° out of step.
+
+`harvest/layout.ts` places every prop, in wu across the landscape and by
+where it meets the ground, and derives from the same list the **hiding
+places** (`SceneDef.hidingPlaces`, `scenes/hiding.ts`): the solid middle of
+each hay bale, rock, wheat sheaf, the stump and the shrub, and of the corner bushes and
+the maple canopies (for fliers). Move a prop there and its hiding place
+moves with it.
+
+### QDs
+
+24: 14 animals in `creatures/`, and 10 harvest items in `creatures/`
+(asleep: a plain object, no face, resting on the ground) and `awake/` (the
+super-rare awake version: the same object with a friendly face and tiny
+feet or arms, facing right; its viewBox may differ). The artwork test
+checks `awake/` with the same rules as `creatures/`, against
+`CreatureDef.awake.parts`. Animals arrive by peeking from a hiding place;
+items by `roll`, `tumble` or `float` (`CreatureDef.arrival`,
+`scenes/gust.ts`), so a round item must still read well turned upside down
+mid-roll, and a floating one tilted.
+
+### Ambient Life and Too Loud
+
+The trees, the maples' leaf clusters, the bushes and the wheat sway gently,
+each at its own pace; the clouds drift a little to one side and back; three
+or four leaves come down at a time, on 7–12 s drifts. Nothing sparkles or
+flashes. Too Loud is a leaf storm, not a fog, with no veil and no filter
+(`harvest/LeafStorm.svelte`, `scenes/leafStorm.ts`): leaves rain down
+from above the top edge, tumbling and swaying, and land on a pile that
+grows up from the bottom like a wall: three pre-drawn leaf sheets
+(`storm-back`, `storm-mid`, `storm-front`, 1600×1500, `xMidYMin slice`,
+their top 300 a ragged, thinning fringe, the back one on a solid brown
+base), each a little ahead of or behind the next. The falling leaves land
+on the fringe, and single leaves drop onto it and are buried as it grows.
+The sheets only move, so they are drawn once. Running away, the screen is
+covered by the time the last QD has left (or within a minute); pausing, it
+grows about two thirds of the way up and holds. Calm again, the pile drops
+away off the bottom and fades in 2.5 s.
+The trees and bushes still lean a little further into the wind by
+transitions, since Too Loud holds every animation still. Under reduced
+motion nothing sways or falls, QDs fade in where they stand instead of
+peeking or being carried in, and the leaf storm fades in by steps and fades
+out, without falling or sliding.

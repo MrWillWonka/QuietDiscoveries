@@ -3,15 +3,19 @@
  *
  * The Hollow is a limited-time Scene: it opens with seven animals, gains one
  * Newcomer every school day until Halloween, counts down for a week after it
- * and then closes. Everything here works on a local calendar day as a
- * `YYYY-MM-DD` key, never a time, so a class in the evening is never pushed
- * into tomorrow by a time zone and the clocks going back on 1 November never
- * skip or repeat a day of the countdown.
+ * and then closes. The working out is shared with every Scene that grows by
+ * the day (`scenes/schedule.ts`); what is the Hollow's own is its dates and
+ * the countdown after Halloween.
  *
  * Bringing the Hollow back another year is a matter of the dates below.
  *
  * Pure: the caller says what day it is (`today.svelte.ts`).
  */
+
+import * as schedule from "../schedule";
+import type { Schedule } from "../schedule";
+
+export { isDay, localDay, untilUnlock, weekday } from "../schedule";
 
 /** The first day the Hollow is open, with the opening seven out. */
 export const OPENS = "2026-10-18";
@@ -48,94 +52,46 @@ export const NEWCOMERS: { day: string; slug: string }[] = [
   { day: "2026-10-30", slug: "jack-o-lantern" },
 ];
 
+/** The Hollow's calendar, as every Scene that grows by the day gives it. */
+export const HOLLOW_SCHEDULE: Schedule = {
+  opens: OPENS,
+  lastDay: LAST_DAY,
+  opening: OPENING_SEVEN,
+  newcomers: NEWCOMERS,
+};
+
 export type HollowPhase = "hidden" | "unlocking" | "countdown" | "closed";
 
-/** A date's local calendar day, as `YYYY-MM-DD`. */
-export function localDay(date: Date): string {
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-}
-
-/** True for a well-formed `YYYY-MM-DD` that is a real date. */
-export function isDay(text: string): boolean {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return false;
-  const [y, m, d] = text.split("-").map(Number);
-  const date = new Date(Date.UTC(y, m - 1, d));
-  return date.getUTCMonth() === m - 1 && date.getUTCDate() === d;
-}
-
-/** Whole days from one calendar day to another. */
-function daysBetween(from: string, to: string): number {
-  const utc = (day: string) => {
-    const [y, m, d] = day.split("-").map(Number);
-    return Date.UTC(y, m - 1, d);
-  };
-  return Math.round((utc(to) - utc(from)) / 86_400_000);
-}
-
 export function hollowPhase(day: string | null): HollowPhase {
-  if (day === null || day < OPENS) return "hidden";
-  if (day <= HALLOWEEN) return "unlocking";
-  if (day <= LAST_DAY) return "countdown";
-  return "closed";
+  const phase = schedule.schedulePhase(HOLLOW_SCHEDULE, day);
+  if (phase === "upcoming") return "hidden";
+  if (phase === "closed") return "closed";
+  return day! <= HALLOWEEN ? "unlocking" : "countdown";
 }
 
 /** Whether the Hollow is on offer at all. Unknown days (prerendering) are not. */
 export function isOpen(day: string | null): boolean {
-  const phase = hollowPhase(day);
-  return phase === "unlocking" || phase === "countdown";
+  return schedule.isOpenOn(HOLLOW_SCHEDULE, day);
 }
 
 /** Every slug unlocked by this day: the opening seven, then the Newcomers so far. */
 export function unlockedSlugs(day: string | null): string[] {
-  if (hollowPhase(day) === "hidden") return [];
-  return [
-    ...OPENING_SEVEN,
-    ...NEWCOMERS.filter((newcomer) => newcomer.day <= day!).map(
-      ({ slug }) => slug,
-    ),
-  ];
+  return schedule.unlockedSlugs(HOLLOW_SCHEDULE, day);
 }
 
 /** The Newcomers unlocked by this day, newest first. */
 export function newcomersSoFar(day: string | null): string[] {
-  if (hollowPhase(day) === "hidden") return [];
-  return NEWCOMERS.filter((newcomer) => newcomer.day <= day!)
-    .map(({ slug }) => slug)
-    .reverse();
+  return schedule.newcomersSoFar(HOLLOW_SCHEDULE, day);
 }
 
 /** The Newcomer that unlocks on this very day, if one does. */
 export function todaysNewcomer(day: string | null): string | null {
-  return NEWCOMERS.find((newcomer) => newcomer.day === day)?.slug ?? null;
+  return schedule.todaysNewcomer(HOLLOW_SCHEDULE, day);
 }
 
 /** The day a Newcomer unlocks, or null for the opening seven. */
 export function unlockDay(slug: string): string | null {
-  return NEWCOMERS.find((newcomer) => newcomer.slug === slug)?.day ?? null;
-}
-
-/**
- * How long until a Newcomer unlocks, at midnight at the start of its day:
- * whole days while it is two or more away, and the seconds left on the day
- * before. The seconds go by this computer's clock and time zone, as `now`
- * gives them, so moving the clock or the time zone moves the countdown.
- */
-export function untilUnlock(
-  unlocks: string,
-  day: string,
-  now: Date,
-): { days: number } | { seconds: number } {
-  const days = daysBetween(day, unlocks);
-  if (days > 1) return { days };
-  const midnight = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + 1,
-  );
-  // Rounded up, so it reads 00:00:01 until the day turns, never 00:00:00.
-  const seconds = Math.ceil((midnight.getTime() - now.getTime()) / 1_000);
-  return { seconds: Math.max(0, seconds) };
+  return schedule.unlockDay(HOLLOW_SCHEDULE, slug);
 }
 
 /**
@@ -143,11 +99,5 @@ export function untilUnlock(
  * Halloween, 1 on its last day. Only meaningful while counting down.
  */
 export function daysLeft(day: string): number {
-  return daysBetween(day, LAST_DAY) + 1;
-}
-
-/** Which day of the week a calendar day falls on, 0 for Sunday. */
-export function weekday(day: string): number {
-  const [y, m, d] = day.split("-").map(Number);
-  return new Date(Date.UTC(y, m - 1, d)).getUTCDay();
+  return schedule.daysLeft(HOLLOW_SCHEDULE, day);
 }

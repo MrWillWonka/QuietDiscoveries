@@ -6,6 +6,7 @@
  */
 
 import { CHIME_MS, playChime } from "$lib/audio/chime";
+import { DemoMicrophone } from "$lib/audio/demoMicrophone.svelte";
 import { Microphone, SMOOTHING_MS } from "$lib/audio/microphone.svelte";
 import { classes } from "$lib/classes/classes.svelte";
 import { cancelFrame, requestFrame } from "$lib/frames";
@@ -35,7 +36,14 @@ const CHIME_ECHO_MS = 3 * SMOOTHING_MS;
 const MAX_LISTEN_STEP_MS = 1_000;
 
 export class App {
-  microphone = new Microphone();
+  /**
+   * The demo build has no microphone: a simulated quiet room instead
+   * (`lib/demo.ts`). Read straight from the build, so the real build drops
+   * the stand-in altogether.
+   */
+  microphone: Microphone = import.meta.env.QD_DEMO
+    ? new DemoMicrophone()
+    : new Microphone();
   monitor = new RoomMonitor();
   /**
    * Starts on the default, not the teacher's choice, because the page is

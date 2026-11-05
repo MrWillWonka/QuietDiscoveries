@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208 130">
+<!-- A round hay bale lying in the field, its rolled end towards the left. -->
+<ellipse cx="104" cy="122" rx="98" ry="7" fill="#2b2b3a" opacity="0.14"/>
+<path d="M58 6L172 6C196 6 206 36 206 64C206 92 196 122 172 122L58 122Z" fill="#efbf62"/>
+<path d="M100 6L172 6C196 6 206 36 206 64C206 92 196 122 172 122L100 122Z" fill="#5B2E1F" opacity="0.06"/>
+<path d="M58 106L172 106C186 106 196 100 201 92C196 112 186 122 172 122L58 122Z" fill="#5B2E1F" opacity="0.1"/>
+<g fill="#5B2E1F" opacity="0.1"><rect x="74" y="26" width="118" height="3" rx="1.5"/><rect x="74" y="50" width="128" height="3" rx="1.5"/><rect x="74" y="76" width="128" height="3" rx="1.5"/><rect x="74" y="100" width="116" height="3" rx="1.5"/></g>
+<g fill="#ffffff" opacity="0.22"><rect x="74" y="16" width="100" height="3" rx="1.5"/><rect x="74" y="40" width="120" height="3" rx="1.5"/><rect x="74" y="64" width="124" height="3" rx="1.5"/></g>
+<path d="M128 6C136 40 136 88 128 122L134 122C142 88 142 40 134 6Z M160 6C168 40 168 88 160 122L166 122C174 88 174 40 166 6Z" fill="#b98636" opacity="0.6"/>
+<circle cx="62" cy="64" r="58" fill="#f6cd76"/>
+<circle cx="62" cy="64" r="46" fill="none" stroke="#e5ad52" stroke-width="3"/>
+<circle cx="62" cy="64" r="30" fill="none" stroke="#e5ad52" stroke-width="3"/>
+<circle cx="62" cy="64" r="14" fill="#e9b65c"/>
+<path d="M62 64L60 50M62 64L72 56M62 64L66 78" stroke="#c99343" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.7"/>
+<path d="M20 36C32 14 56 6 76 10C54 12 34 22 26 40Z" fill="#ffffff" opacity="0.35"/>
+</svg>

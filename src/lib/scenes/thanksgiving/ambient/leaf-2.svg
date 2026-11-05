@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+<!-- Maple leaf, gold. -->
+<path transform="translate(20 20)" d="M0-20L5-11L10-14L9-5L19-8L15 1L20 4L9 8L10 13L2 10L1 19L-1 19L-2 10L-10 13L-9 8L-20 4L-15 1L-19-8L-9-5L-10-14L-5-11Z" fill="#f7b232"/>
+<path transform="translate(20 20)" d="M0-20L5-11L10-14L9-5L19-8L15 1L20 4L9 8L10 13L2 10L1 19L0 19Z" fill="#2b2b3a" opacity="0.14"/>
+</svg>

@@ -7,6 +7,8 @@
 @import "../lib/scenes/arctic/scene.css";
 @import "../lib/scenes/halloween/scene.css";
 @import "../lib/scenes/halloween/entrance.css";
+@import "../lib/scenes/thanksgiving/scene.css";
+@import "../lib/scenes/harvest/scene.css";
 
 /* A phone on its side: too short for the start card at full size. */
 @custom-variant short (@media (max-height: 500px));
@@ -281,10 +283,14 @@ html.floating {
    with them, until the room settles. Creatures' wandering runs in script and
    stops there too (Creature.svelte); this catches every CSS sway, bob and
    drift. The veil's fade is a transition, so it is unaffected. A Creature
-   running away is the one thing still moving, "!" and all. */
-.scene-stage[data-frozen="true"] :not(.fleeing, .fleeing *),
-.scene-stage[data-frozen="true"] :not(.fleeing, .fleeing *)::before,
-.scene-stage[data-frozen="true"] :not(.fleeing, .fleeing *)::after {
+   running away is the one thing still moving, "!" and all, besides
+   Autumn Harvest's leaf storm, which is the Too Loud itself. */
+.scene-stage[data-frozen="true"]
+  :not(.fleeing, .fleeing *, .leaf-storm, .leaf-storm *),
+.scene-stage[data-frozen="true"]
+  :not(.fleeing, .fleeing *, .leaf-storm, .leaf-storm *)::before,
+.scene-stage[data-frozen="true"]
+  :not(.fleeing, .fleeing *, .leaf-storm, .leaf-storm *)::after {
   animation-play-state: paused !important;
 }
 
@@ -579,6 +585,110 @@ html.floating {
 
 .speed-lines > i:nth-child(3) {
   animation-delay: 260ms;
+}
+
+/* --- Arriving on the wind ----------------------------------------------- */
+
+/* A harvest item carried in on a gust (scenes/gust.ts): two pale streaks
+   trail behind it and a few small leaves swirl along with it, only while it
+   is on its way. Soft, short and never flashing. Script sets which way it is
+   travelling (`data-gust`). */
+@keyframes gust-streak {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes gust-swirl {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(calc(0.8 * var(--wu)), calc(-0.9 * var(--wu)))
+      rotate(180deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+.gust {
+  position: absolute;
+  top: 10%;
+  width: max(80%, calc(5 * var(--wu)));
+  height: 80%;
+  pointer-events: none;
+}
+
+.gust[data-gust="right"] {
+  right: 70%;
+}
+
+.gust[data-gust="left"] {
+  left: 70%;
+  transform: scaleX(-1);
+}
+
+.gust > i {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: max(2px, calc(0.22 * var(--wu)));
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    rgb(255 255 255 / 0),
+    rgb(255 255 255 / 0.75)
+  );
+  transform-origin: right;
+  animation: gust-streak 900ms ease-out infinite;
+}
+
+.gust > i:nth-of-type(1) {
+  top: 30%;
+}
+
+.gust > i:nth-of-type(2) {
+  top: 65%;
+  width: 70%;
+  animation-delay: 350ms;
+}
+
+.gust > b {
+  position: absolute;
+  width: calc(0.9 * var(--wu));
+  aspect-ratio: 1;
+  border-radius: 0 70%;
+  background: #e8742c;
+  animation: gust-swirl 1.4s linear infinite;
+}
+
+.gust > b:nth-of-type(1) {
+  top: 10%;
+  left: 20%;
+}
+
+.gust > b:nth-of-type(2) {
+  top: 55%;
+  left: 50%;
+  background: #c9452d;
+  animation-delay: -0.5s;
+}
+
+.gust > b:nth-of-type(3) {
+  top: 80%;
+  left: 5%;
+  width: calc(0.7 * var(--wu));
+  background: #f6b847;
+  animation-delay: -0.9s;
 }
 
 /* --- Fading out --------------------------------------------------------- */
@@ -1110,10 +1220,4 @@ html.floating {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-
-/* The EdTech-a-thon photo's caption on the about page. */
-.handwriting {
-  font-family:
-    "Segoe Script", "Bradley Hand", "Snell Roundhand", "Comic Sans MS", cursive;
 }

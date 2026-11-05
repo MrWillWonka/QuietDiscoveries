@@ -19,10 +19,25 @@ import arcticIcon from "./arctic/icon.svg";
 import { ARCTIC_NOTE } from "./arctic/note";
 import { ARCTIC_ROSTER } from "./arctic/roster";
 import ForestAmbient from "./forest/AmbientLife.svelte";
+import {
+  availableToday as harvestAvailableToday,
+  drawToday as harvestDrawToday,
+} from "./harvest/arrivals";
+import HarvestAmbient from "./harvest/AmbientLife.svelte";
+import HarvestLeafStorm from "./harvest/LeafStorm.svelte";
+import * as harvestArt from "./harvest/artwork";
+import { HARVEST_SCHEDULE, isOpen as isHarvestOpen } from "./harvest/calendar";
+import harvestIcon from "./harvest/icon.svg";
+import {
+  HIDING_PLACES as HARVEST_HIDING_PLACES,
+  TABLE as HARVEST_TABLE,
+} from "./harvest/layout";
+import { HARVEST_NOTE } from "./harvest/note";
+import { HARVEST_ROSTER } from "./harvest/roster";
 import { availableToday, drawToday } from "./halloween/arrivals";
 import HalloweenAmbient from "./halloween/AmbientLife.svelte";
 import * as halloweenArt from "./halloween/artwork";
-import { isOpen } from "./halloween/calendar";
+import { HOLLOW_SCHEDULE, isOpen } from "./halloween/calendar";
 import halloweenIcon from "./halloween/icon.svg";
 import { HALLOWEEN_NOTE } from "./halloween/note";
 import { HALLOWEEN_ROSTER } from "./halloween/roster";
@@ -35,7 +50,10 @@ import * as jungleArt from "./jungle/artwork";
 import jungleIcon from "./jungle/icon.svg";
 import { JUNGLE_NOTE } from "./jungle/note";
 import { JUNGLE_ROSTER } from "./jungle/roster";
+import type { HidingPlace } from "./hiding";
+import type { TableDef } from "./table";
 import type { DepartureStyle } from "./motion";
+import type { Schedule } from "./schedule";
 import PrehistoricAmbient from "./prehistoric/AmbientLife.svelte";
 import * as prehistoricArt from "./prehistoric/artwork";
 import prehistoricIcon from "./prehistoric/icon.svg";
@@ -56,6 +74,12 @@ import * as spaceArt from "./space/artwork";
 import spaceIcon from "./space/icon.svg";
 import { SPACE_NOTE } from "./space/note";
 import { SPACE_ROSTER } from "./space/roster";
+import ThanksgivingAmbient from "./thanksgiving/AmbientLife.svelte";
+import * as thanksgivingArt from "./thanksgiving/artwork";
+import { isOpen as isNovember } from "./thanksgiving/calendar";
+import thanksgivingIcon from "./thanksgiving/icon.svg";
+import { THANKSGIVING_NOTE } from "./thanksgiving/note";
+import { THANKSGIVING_ROSTER } from "./thanksgiving/roster";
 import type { Arrivals, CreatureDef, SceneId } from "./types";
 
 export type { SceneId };
@@ -127,6 +151,43 @@ export interface SceneDef {
    * does the rest. Pumpkin Hollow's patch lights up for Jack O. Lantern.
    */
   welcomes?: string[];
+  /**
+   * The calendar of a Scene whose Roster grows by the day (`schedule.ts`):
+   * the Collection then shows what is still to unlock, and when.
+   */
+  schedule?: Schedule;
+  /** Shows the row of discovery leaves */
+  discoveryDisplay?: boolean;
+  /**
+   * Props a shy QD can hide behind (`scenes/hiding.ts`). Given, a QD that
+   * has just arrived starts hidden behind one, peeks out and then steps
+   * into the Scene, and one that Runs Away ducks back behind the nearest
+   * when that is nearer than the edge. Left out, QDs arrive and leave as in
+   * every other Scene.
+   */
+  hidingPlaces?: HidingPlace[];
+  /** The super-rare awake harvest items, keyed by slug (`CreatureDef.awake`). */
+  awakeArt?: Record<string, string>;
+  /**
+   * Ground QDs wander nearer and further across the field as well as
+   * sideways, growing as they come forward and shrinking as they go back
+   * (`scenes/depthWander.ts`). Left out, each keeps the depth it arrived at.
+   */
+  depthWander?: boolean;
+  /**
+   * QDs spread out over the whole field instead of bunching round the props
+   * they arrived at: waypoints, arrivals and rests weigh where the others
+   * are (`scenes/spread.ts`).
+   */
+  spread?: boolean;
+  /** A table some harvest items land on instead of the grass (`table.ts`). */
+  table?: TableDef;
+  /**
+   * Drawn over the Scene for Too Loud instead of its veil: Autumn Harvest's
+   * leaf storm, which piles up as the room stays loud and QDs leave. Told
+   * whether it is loud, the teacher's choice, and how many QDs are still out.
+   */
+  TooLoud?: Component<{ murky: boolean; scares: boolean; remaining: number }>;
 }
 
 export const SCENES: Record<SceneId, SceneDef> = {
@@ -256,16 +317,75 @@ export const SCENES: Record<SceneId, SceneDef> = {
     note: HALLOWEEN_NOTE,
     openOn: isOpen,
     isNew: true,
+    schedule: HOLLOW_SCHEDULE,
     arrivals: { available: availableToday, draw: drawToday },
     // The finale: every jack-o'-lantern flares and the moon brightens as he
     // comes, and the patch stays lit warmer while he's here (entrance.css).
     welcomes: ["jack-o-lantern"],
+  },
+  thanksgiving: {
+    id: "thanksgiving",
+    icon: thanksgivingIcon,
+    roster: THANKSGIVING_ROSTER,
+    creatureArt: thanksgivingArt.CREATURE_ART,
+    listeningArt: thanksgivingArt.LISTENING_ART,
+    ambientArt: thanksgivingArt.AMBIENT_ART,
+    Ambient: ThanksgivingAmbient,
+    depthFade: false,
+    // The animals run; the leaf sprite and the moon fade away
+    // (`CreatureDef.departure`).
+    departure: "run",
+    whilePaused: "listen",
+    // The forest's trail sign, which suits an autumn farm too.
+    note: THANKSGIVING_NOTE,
+    // All through November, every year. Its whole Roster rolls as usual.
+    openOn: isNovember,
+    isNew: true,
+  },
+  harvest: {
+    id: "harvest",
+    icon: harvestIcon,
+    roster: HARVEST_ROSTER,
+    creatureArt: harvestArt.CREATURE_ART,
+    listeningArt: harvestArt.LISTENING_ART,
+    awakeArt: harvestArt.AWAKE_ART,
+    ambientArt: harvestArt.AMBIENT_ART,
+    Ambient: HarvestAmbient,
+    depthFade: false,
+    departure: "run",
+    whilePaused: "listen",
+    // Thanksgiving's, the forest's trail sign, which suits the farm too.
+    note: HARVEST_NOTE,
+    // Through November, unlocking a Newcomer on chosen school days.
+    openOn: isHarvestOpen,
+    schedule: HARVEST_SCHEDULE,
+    isNew: true,
+    arrivals: { available: harvestAvailableToday, draw: harvestDrawToday },
+    discoveryDisplay: true,
+    // Every QD hides behind a prop and peeks out before it steps into the
+    // field (`harvest/layout.ts`).
+    hidingPlaces: HARVEST_HIDING_PLACES,
+    // QDs grow as they come forward across the field, and some items land
+    // on the picnic table.
+    depthWander: true,
+    spread: true,
+    table: HARVEST_TABLE,
+    // Too Loud is a leaf storm, not a fog (`harvest/LeafStorm.svelte`).
+    TooLoud: HarvestLeafStorm,
   },
 };
 
 /** Whether a Scene is on offer on a given day (null: not known yet). */
 export function isAvailable(id: SceneId, day: string | null): boolean {
   return SCENES[id].openOn?.(day) ?? true;
+}
+
+/**
+ * Whether a Scene is only on offer for a while, for the "Limited time" badge
+ * in the menus: any Scene with its own calendar (`SceneDef.openOn`).
+ */
+export function isLimited(id: SceneId): boolean {
+  return SCENES[id].openOn !== undefined;
 }
 
 /**

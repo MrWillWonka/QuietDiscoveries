@@ -1,11 +1,12 @@
 {
-  "name": "class-noise-level",
+  "name": "quiet-discoveries",
   "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:demo": "PUBLIC_DEMO=1 vite build",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
     "test": "bun test",

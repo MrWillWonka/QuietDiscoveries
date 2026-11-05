@@ -18,7 +18,7 @@
   import PageMeta from "$lib/components/PageMeta.svelte";
   import { className, t, tIn, type UiKey } from "$lib/i18n/index.svelte";
   import { isAvailable, SCENES } from "$lib/scenes";
-  import { lockedSlugs } from "$lib/scenes/collection";
+  import { listedRoster, lockedSlugs } from "$lib/scenes/collection";
   import { DEFAULT_SCENE, type SceneId } from "$lib/scenes/types";
   import { sightings } from "$lib/session/sightings.svelte";
   import { settings } from "$lib/settings/settings.svelte";
@@ -51,7 +51,9 @@
 
   function progress(id: SceneId) {
     const locked = lockedSlugs(id, today.day);
-    const roster = SCENES[id].roster.filter((def) => !locked.has(def.slug));
+    const roster = listedRoster(id, today.day).filter(
+      (def) => !locked.has(def.slug),
+    );
     return {
       seen: roster.filter((def) => sightings.count(id, def.slug) > 0).length,
       total: roster.length,

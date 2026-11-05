@@ -7,7 +7,7 @@
 
   import type { App } from "$lib/app.svelte";
   import { isAvailable, SCENES } from "$lib/scenes";
-  import { lockedSlugs } from "$lib/scenes/collection";
+  import { listedRoster, lockedSlugs } from "$lib/scenes/collection";
   import { today } from "$lib/today.svelte";
   import type { SceneId } from "$lib/scenes/types";
   import { sightings } from "$lib/session/sightings.svelte";
@@ -20,7 +20,6 @@
   // Opens on the Scene on screen; browsing another does not switch to it.
   // svelte-ignore state_referenced_locally
   let sceneId = $state<SceneId>(app.scene.id);
-  const scene = $derived(SCENES[sceneId]);
 
   /** The Scenes on offer today, and always the one on screen. */
   const tabs = $derived(
@@ -30,11 +29,12 @@
     ),
   );
 
-  /** Pumpkin Hollow's Creatures still to come are not counted yet. */
+  const listed = $derived(listedRoster(sceneId, today.day));
+  /** Creatures still to come are not counted yet. */
   const locked = $derived(lockedSlugs(sceneId, today.day));
 
   const seen = $derived(
-    scene.roster.filter((def) => sightings.count(sceneId, def.slug) > 0).length,
+    listed.filter((def) => sightings.count(sceneId, def.slug) > 0).length,
   );
 </script>
 
@@ -68,7 +68,7 @@
           {tIn(sceneId, "collection.spotted", {
             class: className(classes.current.name),
             seen,
-            total: scene.roster.length - locked.size,
+            total: listed.length - locked.size,
           })}
           {#if locked.size > 0}
             · {t("collection.toCome", { count: locked.size })}

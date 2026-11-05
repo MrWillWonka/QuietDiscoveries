@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="2.3 4 99 86">
+<g class="part-tail" style="transform-box: fill-box; transform-origin: 50% 0%">
+<path d="M48.4 70 C48.4 78 47 84 43 88 C42 89.2 43.6 90.6 44.8 89.6 C49.6 85.6 51.6 79 51.6 70 Z" fill="#7a4a2e"/>
+</g>
+<g class="part-arms" style="transform-box: fill-box; transform-origin: 100% 50%">
+<path d="M10 50 C6 52 3 56 2.4 60 C2 62.4 4.8 63 5.6 61 C6.6 58 8.4 56 11 54.6 Z" fill="#C84B2B"/>
+</g>
+<g class="part-arms" style="transform-box: fill-box; transform-origin: 0% 50%">
+<path d="M90 48 C94 46 97 42 98 38 C98.6 35.8 101.4 36.4 101.2 38.6 C100.6 43 97 48.6 91.6 52 Z" fill="#C84B2B"/>
+</g>
+<g class="part-body" style="transform-box: fill-box; transform-origin: 50% 50%">
+<path d="M50 4 L58 20 L66 16 L63 37 L76 27 L94 33 L87 43 L93 50 L68 57 L80 72 L56 67 L52 73 L48 73 L44 67 L20 72 L32 57 L7 50 L13 43 L6 33 L24 27 L37 37 L34 16 L42 20 Z" fill="#E66A1E" stroke="#E66A1E" stroke-width="5" stroke-linejoin="round"/>
+<path d="M50 4 L58 20 L66 16 L63 37 L76 27 L94 33 L87 43 L93 50 L68 57 L80 72 L56 67 L52 73 L50 73 Z" fill="#C84B2B" opacity="0.35" stroke="#C84B2B" stroke-opacity="0.35" stroke-width="0"/>
+<path d="M50 70 L50 14 M50 56 L82 36 M50 56 L18 36 M50 64 L72 68 M50 64 L28 68" fill="none" stroke="#C84B2B" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/>
+<ellipse cx="34" cy="30" rx="3.4" ry="7" transform="rotate(25 34 30)" fill="#ffffff" opacity="0.28"/>
+<ellipse cx="61" cy="44" rx="15" ry="11" fill="#E66A1E"/>
+<ellipse cx="55" cy="42" rx="4.86" ry="5.67" fill="#2b2b3a"/>
+<circle cx="53.24" cy="39.84" r="2.03" fill="#ffffff"/>
+<circle cx="56.89" cy="44.16" r="0.81" fill="#ffffff"/>
+<ellipse cx="69" cy="42" rx="4.5" ry="5.25" fill="#2b2b3a"/>
+<circle cx="67.38" cy="40" r="1.88" fill="#ffffff"/>
+<circle cx="70.75" cy="44" r="0.75" fill="#ffffff"/>
+<ellipse cx="49" cy="50" rx="3.23" ry="1.99" fill="#ff7a8a" opacity="0.55"/>
+<ellipse cx="74.5" cy="50" rx="2.89" ry="1.78" fill="#ff7a8a" opacity="0.55"/>
+<path d="M58.85 48.5 C59.48 52.7 64.52 52.7 65.15 48.5 C63.05 49.34 60.95 49.34 58.85 48.5 Z" fill="#2b2b3a"/>
+</g>
+</svg>

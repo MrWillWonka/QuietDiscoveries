@@ -29,6 +29,12 @@ interface SavedCreature {
   depth: number;
   spawnX: number;
   spawnY: number;
+  /** A harvest item that has transformed; left out (older saves) means not. */
+  awake?: boolean;
+  /** A harvest item still to transform, and when (`session/awake.ts`). */
+  wakeIn?: number;
+  /** A harvest item on the picnic table, and where across it. */
+  perch?: number;
 }
 
 export function loadReef(
@@ -41,11 +47,29 @@ export function loadReef(
     if (!raw) return [];
     const saved = JSON.parse(raw) as SavedCreature[];
     if (!Array.isArray(saved)) return [];
-    return saved.flatMap(({ id, slug, depth, spawnX, spawnY }) => {
-      // A Creature since dropped from the Roster just does not come back.
-      const def = roster.find((candidate) => candidate.slug === slug);
-      return def ? [{ id, def, depth, spawnX, spawnY, restored: true }] : [];
-    });
+    return saved.flatMap(
+      ({ id, slug, depth, spawnX, spawnY, awake, wakeIn, perch }) => {
+        // A Creature since dropped from the Roster just does not come back.
+        const def = roster.find((candidate) => candidate.slug === slug);
+        if (!def) return [];
+        const instance: CreatureInstance = {
+          id,
+          def,
+          depth,
+          spawnX,
+          spawnY,
+          restored: true,
+        };
+        // Only one whose drawing has an awake version can stay awake, or be
+        // still to wake.
+        if (awake === true && def.awake) instance.awake = true;
+        else if (typeof wakeIn === "number" && def.awake)
+          instance.wakeIn = wakeIn;
+        if (typeof perch === "number" && !instance.awake)
+          instance.perch = perch;
+        return [instance];
+      },
+    );
   } catch {
     return [];
   }
@@ -59,12 +83,15 @@ export function saveReef(sceneId: string, creatures: CreatureInstance[]) {
       return;
     }
     const saved: SavedCreature[] = creatures.map(
-      ({ id, def, depth, spawnX, spawnY }) => ({
+      ({ id, def, depth, spawnX, spawnY, awake, wakeIn, perch }) => ({
         id,
         slug: def.slug,
         depth,
         spawnX,
         spawnY,
+        ...(awake ? { awake: true } : {}),
+        ...(!awake && wakeIn !== undefined ? { wakeIn } : {}),
+        ...(!awake && perch !== undefined ? { perch } : {}),
       }),
     );
     localStorage.setItem(storageKey(sceneId), JSON.stringify(saved));

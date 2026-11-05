@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+<!-- A soft pale-yellow sun with two pale halo rings round it. -->
+<circle cx="100" cy="100" r="99" fill="#fff6c9" opacity="0.32"/>
+<circle cx="100" cy="100" r="78" fill="#fff6c9" opacity="0.45"/>
+<circle cx="100" cy="100" r="54" fill="#fde98e"/>
+<path d="M62 84A42 42 0 0 1 116 50A54 54 0 0 0 62 84Z" fill="#ffffff" opacity="0.45"/>
+</svg>

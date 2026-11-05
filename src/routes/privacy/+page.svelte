@@ -4,7 +4,6 @@
   import { t } from "$lib/i18n/index.svelte";
 
   const card = "mb-6 rounded-2xl bg-white/90 p-6 shadow-lg shadow-amber-900/5";
-  const link = "font-semibold text-teal-700 underline-offset-4 hover:underline";
 </script>
 
 <PageMeta
@@ -17,19 +16,6 @@
   <section class="{card} space-y-4 leading-relaxed text-slate-700">
     <p>{t("privacy.microphone")}</p>
     <p>{t("privacy.local")}</p>
-    <p>
-      {t("privacy.analytics.beforeLink")}<a
-        href="https://www.cloudflare.com/privacypolicy/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class={link}>{t("privacy.analytics.link")}</a
-      >{t("privacy.analytics.afterLink")}
-    </p>
-    <p>
-      {t("privacy.contact")}<a
-        href="mailto:support@teacher.dev?subject=Shy%20Safari%20privacy"
-        class={link}>support@teacher.dev</a
-      >.
-    </p>
+    <p>{t("privacy.analytics")}</p>
   </section>
 </DocPage>

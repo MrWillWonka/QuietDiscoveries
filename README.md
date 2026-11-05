@@ -1,13 +1,14 @@
-# Shy Safari
+# Quiet Discoveries
 
 A calm scene on the classroom projector — a savanna, a coral reef, deep
-space, the age of dinosaurs, a woodland clearing, the jungle or the Arctic — where animals (or, in deep space, sightings
-through a telescope) come out the longer the room stays quiet. The animals are shy: if the room is too loud,
-they stay hidden until it is calm again.
+space, the age of dinosaurs, a woodland clearing, the jungle or the Arctic — where
+creatures (or, in deep space, sightings through a telescope) come out the
+longer the room stays quiet. We call them **QDs** — say it out loud. The QDs
+are shy: if the room is too loud, they stay hidden until it is calm again.
 
 It is the opposite of a noise meter. There is no bouncing, no score, no red
 warning light — nothing that makes being loud more interesting than being
-quiet. The class starts with an empty scene. The first animal comes out
+quiet. The class starts with an empty scene. The first QD comes out
 after 10–20 quiet seconds, as a taste of what is coming; after that, every few
 minutes of quiet working brings another one. Some of them are rare.
 
@@ -22,10 +23,10 @@ minutes of quiet working brings another one. Some of them are rare.
    (squirrels, foxes, deer), **Jungle** (sloths, toucans, jaguars) or
    **Arctic** (polar bears, seals, narwhals) first if you like. Deep space and
    the prehistoric scene are drawn to appeal to older students too.
-2. Press **Start**. The class begins earning animals.
+2. Press **Start**. The class begins earning QDs.
 3. Move the mouse to bring up the controls. **Settings** has everything:
-   which scene, which microphone, how loud is too loud, and how often animals
-   arrive. Each scene keeps its own animals, so switching never loses any.
+   which scene, which microphone, how loud is too loud, and how often QDs
+   arrive. Each scene keeps its own QDs, so switching never loses any.
 
 That is the whole app. No account, no sign-in, nothing to install.
 
@@ -33,7 +34,7 @@ That is the whole app. No account, no sign-in, nothing to install.
 
 The teacher sets a **Volume Goal** — Silent, Independent or Partner work, or
 anywhere in between by dragging the line on the meter. While the room stays
-under it, animals arrive. To watch the room's level live without opening
+under it, QDs arrive. To watch the room's level live without opening
 Settings, turn on **Show on screen** beside the Noise Meter: it stays at the
 top of the scene until you turn it off.
 
@@ -48,9 +49,9 @@ serve a sentence.
 When the room is too loud, the whole scene slowly clouds over — a dusty haze
 on the savanna, murky water on the reef, interference in deep space, mist off the river in the
 prehistoric scene, fog between the trees in the forest, a tropical downpour in the jungle, a whiteout of blowing snow in the Arctic. That is
-the only signal the class sees. The shy animals simply wait to come out:
+the only signal the class sees. The shy QDs simply wait to come out:
 nothing already out runs away, nothing gets startled, and progress
-toward the next animal pauses rather than resetting — a loud spell costs
+toward the next QD pauses rather than resetting — a loud spell costs
 exactly the time it lasted. This is deliberate; see
 [docs/adr/0001](docs/adr/0001-nothing-is-taken-away.md).
 
@@ -60,15 +61,14 @@ the meter match your room and your microphone.
 
 ## Running it locally
 
-This project lives in a shared workspace where several agents run dev servers
-at once, so ports are leased rather than hardcoded. From the **workspace
-root**:
+You need [Bun](https://bun.sh). From this directory:
 
 ```sh
-./scripts/agent-dev.mjs class-noise-level --no-pocketbase
+bun install      # install dependencies
+bun run dev      # start the dev server (Vite prints the local address)
 ```
 
-Other useful commands, from this directory:
+Other useful commands:
 
 ```sh
 bun run check    # typecheck
@@ -77,8 +77,10 @@ bun run lint     # prettier + eslint
 bun run build    # static production build into build/
 ```
 
-Cloudflare Web Analytics is added to the build only when `CF_BEACON_TOKEN` is
-set, which it is only in Vercel's production environment.
+The build is a plain folder of static files, so any static host will do.
+Before publishing, set your domain as `SITE_URL` in `src/lib/site.ts`: until
+it is set, canonical links, social-preview tags, structured-data addresses and
+sitemap entries are left out. There are no analytics or trackers.
 
 ## How it is put together
 
@@ -88,7 +90,8 @@ device.
 
 Each scene is SVG in the DOM rather than video or canvas
 ([docs/adr/0002](docs/adr/0002-svg-dom-scene.md)), so each animal is an
-ordinary element that CSS animates.
+ordinary element that CSS animates. (In the code and in `CONTEXT.md` a QD is
+called a Creature.)
 
 The three decisions that matter most are pure functions with unit tests, so
 they can be checked without a microphone or a ten-second wait:
@@ -102,3 +105,9 @@ they can be checked without a microphone or a ten-second wait:
 architecture decisions, the implementation plan, and the brief for drawing the
 reef artwork, whose style rules the savanna, the forest, the jungle and the Arctic follow too; deep
 space, the prehistoric scene, the forest, the jungle and the Arctic each have their own section there.
+
+## Licence and origin
+
+Quiet Discoveries is a modified version of
+[Shy Safari](https://github.com/teacherdotdev/shy-safari) by teacher.dev,
+used under the Apache License 2.0. See `LICENSE.txt` and `NOTICE`.

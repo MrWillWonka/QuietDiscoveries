@@ -61,7 +61,12 @@ export type MotionStyle =
    * Pumpkin Hollow: a giant's slow walk along the back of the patch, with
    * long stops to look about, so it towers over the pumpkins in front.
    */
-  | "stride";
+  | "stride"
+  /**
+   * Autumn Harvest's items: a pumpkin or an apple that comes to rest in the
+   * field and stays put, with only a tiny idle wobble. On the plain's band.
+   */
+  | "rest";
 
 interface Region {
   xMin: number;
@@ -115,6 +120,11 @@ export interface MotionProfile {
    */
   hangs?: boolean;
   /**
+   * Never wanders: settles where it arrives and only rocks very slightly on
+   * the spot now and then (`Creature.svelte`).
+   */
+  still?: boolean;
+  /**
    * The depths it may arrive at, if not anywhere from far to near. A giant
    * keeps near the front of its lane, so it never shrinks below the animals
    * walking in front of it.
@@ -128,6 +138,21 @@ export const SAND_BOTTOM = 0.98;
 
 /** The open plain in the savanna backdrop, as fractions of Scene height. */
 const PLAIN = { top: 0.62, bottom: 0.97 };
+
+/** Where a ground Creature's feet may rest, far to near (`MotionProfile.band`). */
+export type Band = { top: number; bottom: number };
+
+/**
+ * The whole field, back to front: the band every ground Creature walks in a
+ * Scene whose Creatures wander nearer and further (`SceneDef.depthWander`,
+ * only Autumn Harvest), whatever band its motion keeps to elsewhere. It runs
+ * from the foot of the barn, past the fence (`FENCE_LINE`) into the back
+ * meadow, to the front of the field.
+ */
+export const FIELD_BAND: Band = { top: 0.485, bottom: PLAIN.bottom };
+
+/** Where the back fence meets the ground in that field. */
+export const FENCE_LINE = 0.548;
 
 const WATER: Region = { xMin: 0.06, xMax: 0.94, yMin: 0.1, yMax: 0.78 };
 
@@ -455,6 +480,23 @@ export const MOTION_PROFILES: Record<MotionStyle, MotionProfile> = {
     band: PATCH_BACK,
     depths: [0.85, 1],
   },
+  rest: {
+    region: { xMin: 0.04, xMax: 0.96, yMin: 0, yMax: 1 },
+    // Only ever settles a hair further into the grass, once in a long while.
+    speed: 0.0008,
+    agility: 1,
+    reachX: 0.004,
+    reachY: 0,
+    restChance: 1,
+    rest: [30, 60],
+    pulse: 0,
+    // An object has no front to turn round to.
+    flips: false,
+    tilts: false,
+    ground: true,
+    band: PLAIN,
+    still: true,
+  },
 };
 
 export interface MotionState {
@@ -511,8 +553,12 @@ export function groundLayer(y: number): number {
  * A Creature's layer. Ground Creatures by their feet; swimmers and fliers by
  * where their depth would put them on the ground below.
  */
-export function creatureLayer(profile: MotionProfile, depth: number): number {
-  return groundLayer(groundLine(depth, profile.band));
+export function creatureLayer(
+  profile: MotionProfile,
+  depth: number,
+  band: Band | undefined = profile.band,
+): number {
+  return groundLayer(groundLine(depth, band));
 }
 
 /** The box a Creature's centre is allowed in, so no part of it is cut off. */
@@ -520,6 +566,7 @@ function bounds(
   profile: MotionProfile,
   footprint: Footprint,
   depth: number,
+  band: Band | undefined = profile.band,
 ): Region {
   const halfW = footprint.width / 2;
   const halfH = footprint.height / 2;
@@ -528,7 +575,7 @@ function bounds(
   const x = xMin <= xMax ? { xMin, xMax } : { xMin: 0.5, xMax: 0.5 };
 
   if (profile.ground) {
-    const line = groundLine(depth, profile.band);
+    const line = groundLine(depth, band);
     const y = profile.hangs ? line + halfH : line - halfH;
     return { ...x, yMin: y, yMax: y };
   }
@@ -573,9 +620,10 @@ export function createMotion(
   footprint: Footprint,
   random: () => number,
   flips = MOTION_PROFILES[style].flips,
+  band?: Band,
 ): MotionState {
   const profile = MOTION_PROFILES[style];
-  const box = bounds(profile, footprint, depth);
+  const box = bounds(profile, footprint, depth, band ?? profile.band);
   const state: MotionState = {
     x: clamp(box.xMin + spawnX * (box.xMax - box.xMin), box.xMin, box.xMax),
     y: clamp(box.yMin + spawnY * (box.yMax - box.yMin), box.yMin, box.yMax),
@@ -612,9 +660,10 @@ export function stepMotion(
   footprint: Footprint,
   dt: number,
   random: () => number,
+  band?: Band,
 ): MotionState {
   const profile = MOTION_PROFILES[style];
-  const box = bounds(profile, footprint, depth);
+  const box = bounds(profile, footprint, depth, band ?? profile.band);
   state.age += dt;
 
   let desiredX = 0;
@@ -676,8 +725,10 @@ export function stepSettle(
   depth: number,
   footprint: Footprint,
   dt: number,
+  band?: Band,
 ): MotionState {
-  const box = bounds(MOTION_PROFILES[style], footprint, depth);
+  const profile = MOTION_PROFILES[style];
+  const box = bounds(profile, footprint, depth, band ?? profile.band);
   state.age += dt;
   const brake = Math.min(1, dt * SETTLE_BRAKING);
   state.vx -= state.vx * brake;
@@ -736,9 +787,10 @@ export function stepFlee(
   footprint: Footprint,
   direction: -1 | 1,
   dt: number,
+  band?: Band,
 ): boolean {
   const profile = MOTION_PROFILES[style];
-  const box = bounds(profile, footprint, depth);
+  const box = bounds(profile, footprint, depth, band ?? profile.band);
   state.age += dt;
   state.resting = 0;
 

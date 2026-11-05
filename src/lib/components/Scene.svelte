@@ -26,6 +26,8 @@
     scares,
     fleeing,
     ondepart,
+    onwake,
+    onperch,
   }: {
     scene: SceneDef;
     creatures: CreatureInstance[];
@@ -47,6 +49,10 @@
     fleeing: number[];
     /** A fleeing Creature has run out of sight, or faded away. */
     ondepart: (id: number) => void;
+    /** A harvest item has transformed into its awake self (`Session.wake`). */
+    onwake: (id: number) => void;
+    /** A harvest item landed on the table there, or left it (null). */
+    onperch?: (id: number, x: number | null) => void;
   } = $props();
 
   /** One the Scene answers to is here, or has just come. */
@@ -83,7 +89,8 @@
   {#each creatures as creature (`${scene.id}:${creature.id}`)}
     <Creature
       {creature}
-      art={scene.creatureArt[creature.def.slug]}
+      art={(creature.awake && scene.awakeArt?.[creature.def.slug]) ||
+        scene.creatureArt[creature.def.slug]}
       listeningArt={scene.listeningArt[creature.def.slug]}
       depthFade={scene.depthFade}
       departure={creature.def.departure ?? scene.departure}
@@ -93,11 +100,28 @@
       {listening}
       fleeing={fleeing.includes(creature.id)}
       ongone={() => ondepart(creature.id)}
+      wakeIn={creature.awake ? undefined : creature.wakeIn}
+      onwake={() => onwake(creature.id)}
+      hidingPlaces={scene.hidingPlaces}
+      depthWander={scene.depthWander}
+      spread={scene.spread}
+      table={scene.table}
+      onperch={(x) => onperch?.(creature.id, x)}
     />
   {/each}
 
   {#if scene.id === "halloween"}
     <HollowSign />
+  {/if}
+
+  {#if scene.TooLoud}
+    <!-- The Scene's own Too Loud over everything in it, such as Autumn
+         Harvest's leaf storm. -->
+    <scene.TooLoud
+      {murky}
+      {scares}
+      remaining={creatures.length - fleeing.length}
+    />
   {/if}
 
   <!-- One veil over the whole Scene, never a per-Creature effect. -->

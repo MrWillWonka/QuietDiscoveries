@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="2 0 78 100">
+<g class="part-tail" style="transform-box: fill-box; transform-origin: 100% 50%">
+  <circle cx="12" cy="80" r="8.5" fill="#FBE8D0"/>
+  </g>
+  <ellipse cx="32" cy="94" rx="15" ry="5.5" fill="#b8875f"/>
+  <path d="M14 78 C14 58 26 50 38 50 C52 50 58 62 58 76 C58 90 48 97 36 97 C22 97 14 90 14 78 Z" fill="#cfa67e"/>
+  <path d="M14 78 C14 90 22 97 36 97 C48 97 58 90 58 80 C52 90 44 92 36 92 C26 92 18 88 14 78 Z" fill="#5B2E1F" opacity="0.18"/>
+  <ellipse cx="45" cy="78" rx="10" ry="14" fill="#FBE8D0"/>
+  <ellipse cx="51" cy="96" rx="8" ry="4" fill="#cfa67e"/>
+  <ellipse cx="53" cy="70" rx="5" ry="4" fill="#cfa67e"/>
+  <g class="part-ears" style="transform-box: fill-box; transform-origin: 40% 100%">
+  <path d="M34 30 C26 18 24 4 30 1 C36 -1 42 12 42 28 Z" fill="#b8875f"/>
+  <path d="M42 28 C40 14 42 2 49 1 C56 0 56 16 50 30 Z" fill="#cfa67e"/>
+  <path d="M44.5 25 C43.5 15 45 6 48.5 5.5 C52 5 51.5 16 48.5 26 Z" fill="#f2a7a0"/>
+  </g>
+  <circle cx="47" cy="44" r="21" fill="#cfa67e"/>
+  <path d="M26 46 C27 57 36 65 47 65 C56 65 63 60 66 52 C58 59 50 61 44 60 C34 59 28 54 26 46 Z" fill="#5B2E1F" opacity="0.15"/>
+  <ellipse cx="62" cy="52" rx="9" ry="7" fill="#FBE8D0"/>
+  <ellipse cx="57" cy="41" rx="4.2" ry="5" fill="#2b2b3a"/>
+  <circle cx="55.5" cy="39.1" r="1.8" fill="#ffffff"/>
+  <circle cx="58.7" cy="42.9" r="0.7" fill="#ffffff"/>
+  <path d="M66.5 46.5 L71 46 C71.5 48 69.5 49.5 68 49.5 C66.8 49.5 66 48 66.5 46.5 Z" fill="#e0707a"/>
+  <path d="M63.6 52 Q64.8 53.9 66 52 Q67.2 53.9 68.4 52" fill="none" stroke="#2b2b3a" stroke-width="1" stroke-linecap="round"/>
+  <ellipse cx="53.5" cy="51.5" rx="3.6" ry="2.2" fill="#ff7a8a" opacity="0.5"/>
+</svg>

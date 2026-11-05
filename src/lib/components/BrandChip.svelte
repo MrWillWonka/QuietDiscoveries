@@ -3,14 +3,15 @@
    * The footer, folded into a corner.
    *
    * The Scene fills the whole screen, so there is no strip of page left to
-   * stand a footer in. Instead the EdTech-a-thon mark sits in the top bar and
-   * opens what a footer would have said: who built this, and the about and
-   * privacy pages. How it works has its own button in the bottom corner.
+   * stand a footer in. Instead the app's logo sits in the top bar and opens
+   * what a footer would have said: the name, and the about and privacy
+   * pages. How it works has its own button in the bottom corner.
    */
 
-  import { asset, resolve } from "$app/paths";
+  import { resolve } from "$app/paths";
   import { t } from "$lib/i18n/index.svelte";
   import Credit from "./Credit.svelte";
+  import logoUrl from "$lib/brand/logo.svg";
 
   /** Pointing at it is enough on a desktop; nothing has to be clicked. */
   let hovering = $state(false);
@@ -48,7 +49,7 @@
     title={t("brand.title")}
     onclick={() => (pinned = !pinned)}
   >
-    <img src={asset("/edtechathon-logo.svg")} alt="" class="size-7" />
+    <img src={logoUrl} alt="" class="size-9" />
   </button>
 
   <!-- Always in the document, so the button keeps something to point its
@@ -63,7 +64,12 @@
     <div
       class="flex w-max flex-col items-start gap-1 rounded-2xl bg-white/95 px-4 py-2.5 shadow-lg"
     >
-      <Credit class="text-sm text-slate-900" />
+      <a
+        href={resolve("/about")}
+        class="text-sm font-semibold text-slate-900 hover:underline"
+        >Quiet Discoveries</a
+      >
+      <Credit class="text-xs text-slate-700" />
       <p class="flex items-center gap-2 text-xs font-medium text-slate-600">
         <a href={resolve("/about")} class="hover:text-slate-900 hover:underline"
           >{t("common.about")}</a

@@ -3,6 +3,7 @@
  * the animation layer never care which Scene is on screen.
  */
 
+import type { ArrivalStyle } from "./gust";
 import type { DepartureStyle, MotionStyle } from "./motion";
 
 /** Which Scene is on screen. See `scenes/index.ts`. */
@@ -14,7 +15,9 @@ export type SceneId =
   | "forest"
   | "jungle"
   | "arctic"
-  | "halloween";
+  | "halloween"
+  | "thanksgiving"
+  | "harvest";
 
 export const SCENE_IDS: SceneId[] = [
   "savanna",
@@ -26,6 +29,11 @@ export const SCENE_IDS: SceneId[] = [
   "arctic",
   // Only on offer for a few weeks a year (`scenes/halloween/calendar.ts`).
   "halloween",
+  // On offer all through November (`scenes/thanksgiving/calendar.ts`).
+  "thanksgiving",
+  // Autumn Harvest, through November, growing by the day
+  // (`scenes/harvest/calendar.ts`).
+  "harvest",
 ];
 
 /** What a first visit, and the prerendered page, shows. */
@@ -68,6 +76,28 @@ export interface CreatureDef {
   departure?: DepartureStyle;
   /** The part-* classes actually present in the artwork. */
   parts: AnimatablePart[];
+  /**
+   * Keeps its arrival glow and sparkles for as long as it stays, instead of
+   * settling after a minute like any other Rare: for a Secret so rare the
+   * class should never mistake it for everyone else (Mr Applewhite).
+   */
+  alwaysGlistens?: boolean;
+  /**
+   * A harvest item that, once in a long while, transforms into its awake
+   * self a little after settling (`session/awake.ts`): drawn from then on
+   * from the Scene's `awakeArt`, with a face and tiny feet, and moving like
+   * this instead of resting where it landed. Its
+   * own width when the awake drawing stands differently (corn lies on its
+   * side asleep but stands up awake), and the part-* classes in that file.
+   */
+  awake?: { motion: MotionStyle; width?: number; parts: AnimatablePart[] };
+  /**
+   * How it comes into a Scene with hiding places (`SceneDef.hidingPlaces`):
+   * an animal peeks out from behind a prop (the default), while a harvest
+   * item is carried in on a gust, rolling or floating (`scenes/gust.ts`), and
+   * blown away the same way.
+   */
+  arrival?: ArrivalStyle;
 }
 
 /**

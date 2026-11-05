@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 1 94 85">
+<ellipse cx="46" cy="86" rx="32" ry="4" fill="#2b2b3a" opacity="0.22"/>
+<g transform="rotate(-8 50 80)">
+<path d="M50 62C50 70 49 76 45 81" fill="none" stroke="#a86c38" stroke-width="3" stroke-linecap="round"/>
+<path d="M50 2L55 13L61 10L60 23L64 31L73 21L76 26L90 17L86 31L94 35L82 43L80 49L90 58L76 59L71 56L58 66L50 64L42 66L29 56L24 59L10 58L20 49L18 43L6 35L14 31L10 17L24 26L27 21L36 31L40 23L39 10L45 13Z" fill="#F9A53A" stroke="#F9A53A" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M50 2L55 13L61 10L60 23L64 31L73 21L76 26L90 17L86 31L94 35L82 43L80 49L90 58L76 59L71 56L58 66L50 64Z" fill="#F7D27A" stroke="#F7D27A" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M50 63V8M50 50L83 22M50 50L17 22M50 58L84 52M50 58L16 52" fill="none" stroke="#c98a3e" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+<path d="M58 18C61 24 64 28 70 30" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+</g>
+<path d="M88 2.5Q89.2 6.8 93.5 8Q89.2 9.2 88 13.5Q86.8 9.2 82.5 8Q86.8 6.8 88 2.5ZM13 30.4Q13.8 33.2 16.6 34Q13.8 34.8 13 37.6Q12.2 34.8 9.4 34Q12.2 33.2 13 30.4Z" fill="#F9A53A"/>
+<path d="M88 5Q88.7 7.3 91 8Q88.7 8.7 88 11Q87.3 8.7 85 8Q87.3 7.3 88 5ZM13 32Q13.4 33.6 15 34Q13.4 34.4 13 36Q12.6 34.4 11 34Q12.6 33.6 13 32Z" fill="#ffffff"/>
+</svg>

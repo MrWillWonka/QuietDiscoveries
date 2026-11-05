@@ -11,6 +11,7 @@
   import Scene from "$lib/components/Scene.svelte";
   import ScreenMeter from "$lib/components/ScreenMeter.svelte";
   import ArrivalCounter from "$lib/components/ArrivalCounter.svelte";
+  import DiscoveryLeaves from "$lib/components/DiscoveryLeaves.svelte";
   import SettingsPanel from "$lib/components/SettingsPanel.svelte";
   import Timer from "$lib/components/Timer.svelte";
   import BrandChip from "$lib/components/BrandChip.svelte";
@@ -19,10 +20,12 @@
   import InfoDrawer, { FAQ_IDS } from "$lib/components/InfoDrawer.svelte";
   import FloatingScene from "$lib/components/FloatingScene.svelte";
   import PausedPill from "$lib/components/PausedPill.svelte";
+  import DemoBar from "$lib/components/DemoBar.svelte";
   import HomeScreen from "$lib/components/home/HomeScreen.svelte";
   import { isAvailable } from "$lib/scenes";
   import { sceneOf } from "$lib/session/history";
   import { today } from "$lib/today.svelte";
+  import type { DemoMicrophone } from "$lib/audio/demoMicrophone.svelte";
   import { drawFramesFrom } from "$lib/frames";
   import { current, t, tIn } from "$lib/i18n/index.svelte";
   import {
@@ -40,12 +43,14 @@
    * Tells search engines and AI assistants what kind of thing this page is,
    * and gives them the questions the info drawer answers.
    */
+  // Addresses are left out until SITE_URL is set in $lib/site.
+  const homeUrl = absoluteUrl("/");
   const webApplication = $derived({
     "@type": "WebApplication",
-    name: "Shy Safari",
-    url: absoluteUrl("/"),
+    name: "Quiet Discoveries",
+    ...(homeUrl && { url: homeUrl }),
     description: t("app.description"),
-    image: PREVIEW_IMAGE,
+    ...(PREVIEW_IMAGE && { image: PREVIEW_IMAGE }),
     applicationCategory: "EducationalApplication",
     operatingSystem: "Any (web browser)",
     browserRequirements: "Requires a microphone and a modern web browser",
@@ -53,16 +58,11 @@
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     audience: { "@type": "EducationalAudience", educationalRole: "teacher" },
-    publisher: {
-      "@type": "Organization",
-      name: "teacher.dev",
-      url: "https://teacher.dev",
-    },
   });
 
   const faqPage = $derived({
     "@type": "FAQPage",
-    url: absoluteUrl("/"),
+    ...(homeUrl && { url: homeUrl }),
     mainEntity: FAQ_IDS.map((id) => ({
       "@type": "Question",
       name: t(`guide.faq.${id}.q`),
@@ -277,6 +277,8 @@
         scares={settings.loudResponse === "flee"}
         fleeing={app.session.fleeing}
         ondepart={(id) => app.session.depart(id)}
+        onwake={(id) => app.session.wake(id)}
+        onperch={(id, x) => app.session.perch(id, x)}
       />
       <!-- Over the Scene, so the animals pass behind the words. Keyed by
          Class, so nothing stays chosen from the last class's Notes. -->
@@ -308,11 +310,14 @@
         onopensettings={() => (settingsOpen = true)}
         onopeninfo={() => (infoOpen = true)}
       />
-    {:else}
-      <!-- Top left: who made this, and which Class is on screen. Top right: the
+    {/if}
+
+    <!-- Top left: who made this, and which Class is on screen. Top right: the
        tools that change how the page looks — the Timer and Notes over the
-       Scene, floating it, and whether it fills the screen. Settings, Animals
-       and the blocked-microphone screen cover it. -->
+       Scene, floating it, and whether it fills the screen. Not over the home
+       screen, which has its own header; Settings, Animals and the blocked-
+       microphone screen cover it. -->
+    {#if !home}
       <div
         class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex items-start justify-between gap-2 p-4 transition-opacity duration-300"
         class:opacity-0={!topBarVisible}
@@ -440,40 +445,46 @@
           {/if}
         </div>
       </div>
+    {/if}
 
-      {#if app.listening && app.timer.open}
-        <!-- Keyed by Class, so the length typed in is the new class's own. -->
-        {#key classes.currentId}
-          <Timer
-            timer={app.timer}
-            controlsVisible={controlsVisible || settingsOpen || collectionOpen}
-          />
-        {/key}
-      {/if}
+    {#if app.listening && app.timer.open}
+      <!-- Keyed by Class, so the length typed in is the new class's own. -->
+      {#key classes.currentId}
+        <Timer
+          timer={app.timer}
+          controlsVisible={controlsVisible || settingsOpen || collectionOpen}
+        />
+      {/key}
+    {/if}
 
-      {#if app.listening && (app.paused || settings.showMeter)}
-        <!-- Top centre: what the teacher keeps an eye on, which stays up when
+    {#if app.listening && (app.paused || settings.showMeter || app.scene.discoveryDisplay)}
+      <!-- Top centre: what the teacher keeps an eye on, which stays up when
          the control bar fades. The Noise Meter, if the teacher turned it on
          in Settings; or, once Paused for an announcement, a reminder in its
          place that the room isn't being judged, to resume from right here.
+         Under it, in a Scene that has them, the class's discovery leaves.
          On a phone it sits below the corner buttons, which leave no room
          between them. -->
-        <div
-          class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex justify-center p-4 max-sm:top-12"
-        >
-          {#if !app.paused}
-            <ScreenMeter
-              sceneId={app.scene.id}
-              level={app.monitor.level}
-              goal={settings.volumeGoal}
-              tooLoud={app.monitor.state === "too-loud"}
-            />
-          {:else}
-            <PausedPill onresume={() => app.setPaused(false)} />
-          {/if}
-        </div>
-      {/if}
+      <div
+        class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex flex-col items-center gap-2 p-4 max-sm:top-12"
+      >
+        {#if app.paused}
+          <PausedPill onresume={() => app.setPaused(false)} />
+        {:else if settings.showMeter}
+          <ScreenMeter
+            sceneId={app.scene.id}
+            level={app.monitor.level}
+            goal={settings.volumeGoal}
+            tooLoud={app.monitor.state === "too-loud"}
+          />
+        {/if}
+        {#if app.scene.discoveryDisplay}
+          <DiscoveryLeaves scene={app.scene} />
+        {/if}
+      </div>
+    {/if}
 
+    {#if !home}
       <!-- Bottom left: help for the teacher and the page's language, out of
        the way of the controls above and fading with them, and the arrival
        counter, if the teacher turned it on in Settings, which stays up in
@@ -518,6 +529,10 @@
           </button>
           <LanguagePicker />
         </div>
+        {#if import.meta.env.QD_DEMO}
+          <!-- Only in the demo build: no microphone, so make some noise here. -->
+          <DemoBar microphone={app.microphone as DemoMicrophone} />
+        {/if}
       </div>
     {/if}
 

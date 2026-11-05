@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="5 8 96 48">
+<ellipse cx="52" cy="56" rx="45" ry="4" fill="#2b2b3a" opacity="0.22"/>
+<path d="M12 38A28 11 0 0 1 68 38" fill="none" stroke="#C84B2B" stroke-width="12"/>
+<path d="M12 38A28 11 0 0 1 68 38" fill="none" stroke="#F9A53A" stroke-width="12" stroke-dasharray="5 10" stroke-dashoffset="0"/>
+<path d="M12 38A28 11 0 0 1 68 38" fill="none" stroke="#FBE8D0" stroke-width="12" stroke-dasharray="2 13" stroke-dashoffset="-7.5"/>
+<path d="M12 38A28 11 0 0 1 68 38" fill="none" stroke="#5B2E1F" stroke-width="12" opacity="0.28"/>
+<path d="M18 25A24 10 0 0 1 66 25" fill="none" stroke="#C84B2B" stroke-width="12"/>
+<path d="M18 25A24 10 0 0 1 66 25" fill="none" stroke="#F9A53A" stroke-width="12" stroke-dasharray="5 10" stroke-dashoffset="3"/>
+<path d="M18 25A24 10 0 0 1 66 25" fill="none" stroke="#FBE8D0" stroke-width="12" stroke-dasharray="2 13" stroke-dashoffset="-4.5"/>
+<path d="M18 25A24 10 0 0 1 66 25" fill="none" stroke="#5B2E1F" stroke-width="12" opacity="0.28"/>
+<path d="M66 40C74 46 82 46 94 46" fill="none" stroke="#C84B2B" stroke-width="11"/>
+<path d="M66 40C74 46 82 46 94 46" fill="none" stroke="#F9A53A" stroke-width="11" stroke-dasharray="5 10" stroke-dashoffset="2"/>
+<path d="M66 40C74 46 82 46 94 46" fill="none" stroke="#FBE8D0" stroke-width="11" stroke-dasharray="2 13" stroke-dashoffset="-5.5"/>
+
+<path d="M12 38A28 11 0 0 0 68 38" fill="none" stroke="#C84B2B" stroke-width="12"/>
+<path d="M12 38A28 11 0 0 0 68 38" fill="none" stroke="#F9A53A" stroke-width="12" stroke-dasharray="5 10" stroke-dashoffset="0"/>
+<path d="M12 38A28 11 0 0 0 68 38" fill="none" stroke="#FBE8D0" stroke-width="12" stroke-dasharray="2 13" stroke-dashoffset="-7.5"/>
+
+<path d="M15 41C24 50 56 51 66 44" fill="none" stroke="#5B2E1F" stroke-width="3" opacity="0.25"/>
+<path d="M18 25A24 10 0 0 0 66 25" fill="none" stroke="#C84B2B" stroke-width="12"/>
+<path d="M18 25A24 10 0 0 0 66 25" fill="none" stroke="#F9A53A" stroke-width="12" stroke-dasharray="5 10" stroke-dashoffset="3"/>
+<path d="M18 25A24 10 0 0 0 66 25" fill="none" stroke="#FBE8D0" stroke-width="12" stroke-dasharray="2 13" stroke-dashoffset="-4.5"/>
+
+<path d="M26 18C34 13 50 13 58 17" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.25"/>
+<path d="M95 41.6h4.5M95 44.5h4.5M95 47.5h4.5M95 50.4h4.5" stroke="#F9A53A" stroke-width="2.2" stroke-linecap="round"/>
+</svg>

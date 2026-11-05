@@ -4,10 +4,11 @@
    * window they can size to anything from a corner of the slides to most of
    * the screen. See docs/adr/0008-float-over-other-tabs.md.
    *
-   * Only what the class watches comes along: the Scene, and the Noise Meter
-   * and arrival counter if the teacher turned them on. Of the controls, only
-   * pausing does, for an announcement mid-lesson; everything else waits in
-   * the tab, which the window's own back-to-tab button returns to.
+   * Only what the class watches comes along: the Scene, its discovery
+   * leaves if it has them, and the Noise Meter and arrival counter if the
+   * teacher turned them on. Of the controls, only pausing does, for an
+   * announcement mid-lesson; everything else waits in the tab, which the
+   * window's own back-to-tab button returns to.
    *
    * Mounted into the floating window's document, so anything that listens to
    * a window here listens to that one rather than to `window`, the tab's.
@@ -17,6 +18,7 @@
   import { t } from "$lib/i18n/index.svelte";
   import { settings } from "$lib/settings/settings.svelte";
   import ArrivalCounter from "./ArrivalCounter.svelte";
+  import DiscoveryLeaves from "./DiscoveryLeaves.svelte";
   import PausedPill from "./PausedPill.svelte";
   import Scene from "./Scene.svelte";
   import ScreenMeter from "./ScreenMeter.svelte";
@@ -67,23 +69,28 @@
     scares={settings.loudResponse === "flee"}
     fleeing={app.session.fleeing}
     ondepart={(id) => app.session.depart(id)}
+    onwake={(id) => app.session.wake(id)}
+    onperch={(id, x) => app.session.perch(id, x)}
   />
 
-  {#if app.paused || settings.showMeter}
+  {#if app.paused || settings.showMeter || app.scene.discoveryDisplay}
     <!-- The page's root font size follows the window's (layout.css), so
          everything here is in rem and shrinks with a small window. -->
     <div
-      class="pointer-events-none absolute inset-x-0 top-0 z-40 flex justify-center p-2"
+      class="pointer-events-none absolute inset-x-0 top-0 z-40 flex flex-col items-center gap-1.5 p-2"
     >
-      {#if !app.paused}
+      {#if app.paused}
+        <PausedPill onresume={() => app.setPaused(false)} />
+      {:else if settings.showMeter}
         <ScreenMeter
           sceneId={app.scene.id}
           level={app.monitor.level}
           goal={settings.volumeGoal}
           tooLoud={app.monitor.state === "too-loud"}
         />
-      {:else}
-        <PausedPill onresume={() => app.setPaused(false)} />
+      {/if}
+      {#if app.scene.discoveryDisplay}
+        <DiscoveryLeaves scene={app.scene} />
       {/if}
     </div>
   {/if}

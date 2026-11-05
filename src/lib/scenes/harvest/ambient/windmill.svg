@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 4 164 300">
+<!-- A farm windmill: a wooden lattice tower, a tail vane and a wheel of pale blades (harvest-windmill-wheel), which turns slowly. -->
+<g fill="#8a5a3c">
+<path d="M76 92L84 92L64 300L52 300Z"/><path d="M92 92L100 92L124 300L112 300Z"/>
+<path d="M84 92L92 92L92 300L84 300Z" opacity="0.6"/>
+<rect x="66" y="140" width="44" height="5"/><rect x="60" y="200" width="56" height="5"/><rect x="54" y="258" width="70" height="5"/>
+<path d="M70 145L108 198L104 202L66 149Z"/><path d="M106 145L68 198L72 202L110 149Z"/>
+<path d="M64 205L114 256L110 260L60 209Z"/><path d="M112 205L62 256L66 260L116 209Z"/>
+</g>
+<path d="M96 66L150 62L176 50L180 92L150 80L96 74Z" fill="#c99b6e"/>
+<path d="M150 62L176 50L180 92L150 80Z" fill="#e4c59b"/>
+<g class="harvest-windmill-wheel" style="transform-box: fill-box; transform-origin: 50% 50%"><g transform="translate(88 70)">
+<circle r="64" fill="none"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(0)" fill="#e4c59b"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(20)" fill="#c99b6e"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(40)" fill="#e4c59b"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(60)" fill="#c99b6e"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(80)" fill="#e4c59b"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(100)" fill="#c99b6e"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(120)" fill="#e4c59b"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(140)" fill="#c99b6e"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(160)" fill="#e4c59b"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(180)" fill="#c99b6e"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(200)" fill="#e4c59b"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(220)" fill="#c99b6e"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(240)" fill="#e4c59b"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(260)" fill="#c99b6e"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(280)" fill="#e4c59b"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(300)" fill="#c99b6e"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(320)" fill="#e4c59b"/><path d="M-5 -24L-10 -62L10 -62L5 -24Z" transform="rotate(340)" fill="#c99b6e"/>
+<circle r="30" fill="none" stroke="#8a5a3c" stroke-width="3"/>
+<circle r="24" fill="none" stroke="#c99b6e" stroke-width="2" opacity="0.6"/>
+</g></g>
+<circle cx="88" cy="70" r="8" fill="#6b4630"/>
+<ellipse cx="88" cy="300" rx="44" ry="4" fill="#2b2b3a" opacity="0.12"/>
+</svg>

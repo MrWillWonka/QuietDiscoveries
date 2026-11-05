@@ -1,0 +1,9 @@
+Quiet Discoveries
+
+Quiet Discoveries is a modified version of Shy Safari by teacherdotdev
+(teacher.dev), https://github.com/teacherdotdev/shy-safari, which is licensed
+under the Apache License, Version 2.0 (see LICENSE.txt).
+
+Changes from the original include renaming the app to Quiet Discoveries,
+rewording its copy (the creatures are called "QDs"), and removing the
+original project's branding, web analytics and hosting configuration.
