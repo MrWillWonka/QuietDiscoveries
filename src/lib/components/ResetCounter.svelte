@@ -1,7 +1,7 @@
 <script lang="ts">
   /**
-   * How many times this Session the leaf storm reset the Scene (four
-   * strikes, `noise/strikes.ts`), kept up in the corner beside the arrival
+   * How many times this Session the leaf storm filled the screen and reset
+   * the Scene (`scenes/leafStorm.ts`), kept up in the corner beside the arrival
    * counter for a teacher who turns it on in Settings. Read from the
    * Session's record (`session/history.svelte.ts`).
    */

@@ -54,12 +54,14 @@ out and gains one or two Newcomers each weekday from the 5th to the 19th,
 Tom the Turkey last, and lets Mr Applewhite in on the 20th. Its 23 QDs are 14 named animals, from Tilly the Baby Turkey to
 Tom the Turkey, and 9 **harvest items**, from a pumpkin to a pumpkin pie:
 10 Common, 8 Uncommon and 5 Rare. On top of those it has a Secret QD, Mr
-Applewhite. Its Note is the forest's trail sign. Too Loud is a **leaf
-storm**: leaves fall from the top of the screen and land on a pile that
-grows up from the bottom like a wall of leaves, until, if the QDs run away,
-the screen is covered by the time the last has gone; if the Scene only
-pauses, it grows about two thirds of the way up and holds. When the room is
-calm again the pile drops away off the bottom.
+Applewhite. Its Note is the forest's trail sign. Over the **Maximum
+Volume**, a second line above the Volume Goal, comes a **leaf storm**:
+leaves fall from the top of the screen and land on a pile that grows up
+from the bottom like a wall of leaves, until, if the QDs run away, the
+screen is covered by the time the last has gone and the field **resets**:
+its QDs are gone, though the Collection keeps them. If the Scene only
+pauses, the pile grows about two thirds of the way up and holds. Back under
+the maximum, a gust clears the pile in a few seconds.
 
 Over the Scene a wooden pill holds its **Discovery Leaves**: one circle for
 each QD unlocked so far, which fills with a leaf once the Class has spotted

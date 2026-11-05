@@ -68,7 +68,7 @@ interface StoredSettings {
   showCounter: boolean;
   /**
    * The Maximum Volume, above the Volume Goal: over it the leaves start to
-   * fall (`noise/strikes.ts`). Null until the teacher moves it: then it sits
+   * fall (`noise/thresholds.ts`). Null until the teacher moves it: then it sits
    * half way between the goal and the top.
    */
   maxVolume: number | null;

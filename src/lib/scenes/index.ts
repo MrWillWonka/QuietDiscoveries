@@ -175,16 +175,17 @@ export interface SceneDef {
    */
   spread?: boolean;
   /**
-   * Going over the Maximum Volume is a strike: a third of the screen in
-   * fallen leaves, and the third clears the Scene (`noise/strikes.ts`).
+   * Going over the Maximum Volume brings a leaf storm: leaves pile up while
+   * the room stays over it, and if they fill the screen the field resets
+   * (`scenes/leafStorm.ts`). Each storm counts as a strike in the stats.
    */
   strikes?: boolean;
   /** A table some harvest items land on instead of the grass (`table.ts`). */
   table?: TableDef;
   /**
    * Drawn over the Scene for Too Loud instead of its veil: Autumn Harvest's
-   * leaf storm. Told whether it is loud, how high the strikes have piled the
-   * leaves (`noise/strikes.ts`), and whether a reset is sweeping them away.
+   * leaf storm. Told whether it is loud, how high the leaves have piled up
+   * (`App.pile`), and whether a gust is clearing them.
    */
   TooLoud?: Component<{ murky: boolean; pile: number; sweeping: boolean }>;
 }

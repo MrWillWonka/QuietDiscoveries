@@ -17,7 +17,7 @@ import { DEFAULT_SCENE, type SceneId } from "$lib/scenes/types";
 import { sessionHistory } from "$lib/session/history.svelte";
 import { Session } from "$lib/session/session.svelte";
 import { sightings } from "$lib/session/sightings.svelte";
-import { addStrike, drainStrikes, noStrikes, pileOf } from "$lib/noise/strikes";
+import { calmStorm, stepStorm } from "$lib/scenes/leafStorm";
 import { settings } from "$lib/settings/settings.svelte";
 import { ClassTimer } from "$lib/timer/timer.svelte";
 import { today } from "$lib/today.svelte";
@@ -35,13 +35,6 @@ const CHIME_ECHO_MS = 3 * SMOOTHING_MS;
  * while the computer sleeps, and waking must not count the night as quiet.
  */
 const MAX_LISTEN_STEP_MS = 1_000;
-
-/**
- * After the third strike: long enough for the falling leaves to cover the
- * screen before the field empties, then the gust that sweeps them away.
- */
-const RESET_HOLD_MS = 3_000;
-const RESET_SWEEP_MS = 2_600;
 
 export class App {
   /**
@@ -90,21 +83,16 @@ export class App {
   );
 
   /**
-   * Strikes in a Scene that counts them (`SceneDef.strikes`): each time the
-   * room went over the Maximum Volume, a third of the screen in leaves,
-   * coming down a level after enough quiet (`noise/strikes.ts`).
+   * The leaf storm in a Scene that has one (`SceneDef.strikes`): while the
+   * room stays over the Maximum Volume leaves pile up, a gust clears them
+   * once it is back under, and a pile that reaches the top resets the field
+   * (`scenes/leafStorm.ts`).
    */
-  strikes = $state(noStrikes());
+  #storm = calmStorm();
   /** How much of the screen the leaves cover. */
-  get pile() {
-    return pileOf(this.strikes);
-  }
-  /** The pile is being swept away after a reset. */
+  pile = $state(0);
+  /** A gust is clearing the leaves. */
   sweeping = $state(false);
-  /** A full pile is about to clear the Scene: no more strikes till then. */
-  #resetting = false;
-  #wasOverMax = false;
-  #resetTimers: ReturnType<typeof setTimeout>[] = [];
 
   #frame = 0;
   #lastTick = 0;
@@ -235,55 +223,30 @@ export class App {
   }
 
   /**
-   * Over the Maximum Volume for long enough: a strike, a third of the
-   * screen in leaves. The third fills it, and once the leaves have covered
-   * everything the Scene's QDs are gone and the pile is swept away. Enough
-   * unbroken quiet takes it down a level.
+   * One step of the leaf storm. Each storm counts as one strike; a pile
+   * that reaches the top counts one reset, and once it has held a moment
+   * the Scene's QDs are gone from under it (`Session.clearScene`).
    */
-  #strikes(delta: number) {
-    const over = this.monitor.overMax === "too-loud";
-    const struck = over && !this.#wasOverMax;
-    this.#wasOverMax = over;
-    if (this.#resetting) return;
-    if (struck) {
-      const step = addStrike(this.strikes);
-      this.strikes = step.strikes;
-      sessionHistory.strike();
-      if (step.reset) {
-        this.#resetting = true;
-        sessionHistory.reset();
-        // Let the leaves reach the top before the field empties under them.
-        this.#resetTimers.push(
-          setTimeout(() => {
-            this.session.clearScene();
-            this.strikes = noStrikes();
-            this.sweeping = true;
-            this.#resetTimers.push(
-              setTimeout(() => {
-                this.sweeping = false;
-                this.#resetting = false;
-              }, RESET_SWEEP_MS),
-            );
-          }, RESET_HOLD_MS),
-        );
-      }
-      return;
-    }
-    // Noise over the goal holds the wait; it does not start it again.
-    this.strikes = drainStrikes(
-      this.strikes,
-      delta,
-      this.monitor.state === "quiet",
-    );
+  #leafStorm(delta: number) {
+    const { state, events } = stepStorm(this.#storm, {
+      over: this.monitor.overMax === "too-loud",
+      dt: delta / 1000,
+      scares: settings.loudResponse === "flee",
+      remaining: this.session.creatures.length - this.session.fleeing.length,
+    });
+    this.#storm = state;
+    // Only what is drawn is reactive, and only when it changes.
+    if (state.pile !== this.pile) this.pile = state.pile;
+    if (state.sweep > 0 !== this.sweeping) this.sweeping = state.sweep > 0;
+    if (events.started) sessionHistory.strike();
+    if (events.full) sessionHistory.reset();
+    if (events.clearField) this.session.clearScene();
   }
 
   #clearPile() {
-    for (const timer of this.#resetTimers) clearTimeout(timer);
-    this.#resetTimers = [];
-    this.strikes = noStrikes();
+    this.#storm = calmStorm();
+    this.pile = 0;
     this.sweeping = false;
-    this.#resetting = false;
-    this.#wasOverMax = false;
   }
 
   #ring() {
@@ -327,7 +290,7 @@ export class App {
           now,
           settings.maxVolume,
         );
-        if (this.scene.strikes && this.session.running) this.#strikes(delta);
+        if (this.scene.strikes && this.session.running) this.#leafStorm(delta);
         this.session.tick(
           delta,
           this.monitor.state === "quiet",

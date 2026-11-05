@@ -55,9 +55,9 @@
     onwake: (id: number) => void;
     /** A harvest item landed on the table there, or left it (null). */
     onperch?: (id: number, x: number | null) => void;
-    /** The leaf pile from strikes, 0 to 1 (`App.pile`). */
+    /** The leaf storm's pile, 0 to 1 (`App.pile`). */
     pile?: number;
-    /** A reset is sweeping the pile away. */
+    /** A gust is clearing the pile. */
     sweeping?: boolean;
   } = $props();
 

@@ -165,7 +165,7 @@ export class Session {
   }
 
   /**
-   * The leaf storm's third strike (`noise/strikes.ts`): every QD out in
+   * The leaf storm filled the screen (`scenes/leafStorm.ts`): every QD out in
    * this Scene is gone, as Reset would clear them, but the Session carries
    * on, and the Collection, the arrival count and progress towards the next
    * QD are kept.

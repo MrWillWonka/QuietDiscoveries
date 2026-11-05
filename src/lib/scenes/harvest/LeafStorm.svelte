@@ -1,13 +1,12 @@
 <script lang="ts">
   /**
-   * Going over the Maximum Volume in Autumn Harvest: a leaf storm. Each
-   * strike (`noise/strikes.ts`, driven by `App`) sends leaves falling from
-   * the top, tumbling and swaying, onto a pile of red, orange, amber, gold
-   * and brown leaves that grows up from the bottom a third of the screen
-   * at a time, its ragged fringe where the leaves settle. The pile holds
-   * between strikes and comes down a level after enough quiet. The third
-   * strike covers the screen, the Scene's QDs are gone underneath, and then
-   * the pile drops away off the bottom.
+   * Going over the Maximum Volume in Autumn Harvest: a leaf storm. While
+   * the room stays over it, leaves fall from the top, tumbling and swaying,
+   * onto a pile of red, orange, amber, gold and brown leaves that grows up
+   * from the bottom, its ragged fringe where the leaves settle. Back under
+   * the maximum, a gust clears it. If it reaches the top, the Scene's QDs
+   * are gone underneath, and then the gust clears it. How full it is comes
+   * from `App` (`scenes/leafStorm.ts`); this only draws it.
    *
    * The pile is three pre-drawn sheets (`ambient/storm-*.svg`) that only
    * move, so the browser draws them once and slides them: smooth on a school
@@ -94,15 +93,16 @@
       const dt = Math.min(1, (now - last) / 1000);
       last = now;
       if (sweeping) {
-        // A reset: the full pile drops away off the bottom.
+        // Back under the maximum, or after a reset: a gust clears it.
         phase = "clearing";
         raining = false;
         return;
       }
       if (phase === "clearing") fill = 0;
-      // Up calmly as leaves land; down as slowly as the pile drains.
-      fill = pile > fill ? stepFill(fill, pile, dt) : pile;
-      raining = pile > fill + 0.002 || (murky && fill > 0.001);
+      // `App` already builds it calmly; this only catches up between ticks.
+      const rising = pile > fill + 1e-4;
+      fill = rising ? stepFill(fill, pile, dt * 4) : pile;
+      raining = (rising || murky) && fill > 0.001 && fill < 1;
       phase = fill > 0.001 || pile > 0.001 ? "storm" : "calm";
     }, 200);
 

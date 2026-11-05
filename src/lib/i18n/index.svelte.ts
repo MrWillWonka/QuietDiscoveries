@@ -263,7 +263,8 @@ const en = {
     "meter.paused": "Paused — too loud",
     "meter.arriving": "QDs are arriving",
     "meter.goal": "QDs arrive while the room stays left of the line ({goal}%)",
-    "meter.max": "Maximum: leaves start falling above this ({max}%)",
+    "meter.max":
+      "Maximum ({max}%): above this, leaves start to fall. If they fill the screen, the field resets.",
     "calibration.title": "Calibration",
     "calibration.needMic": "Connect a microphone first",
     "calibration.calibrated": "✓ Calibrated",
@@ -1033,7 +1034,8 @@ const es = {
     "meter.arriving": "Están llegando QDs",
     "meter.goal":
       "Los QDs llegan mientras el aula se mantiene a la izquierda de la línea ({goal}%)",
-    "meter.max": "Máximo: por encima caen las hojas ({max}%)",
+    "meter.max":
+      "Máximo ({max}%): por encima, empiezan a caer hojas. Si llenan la pantalla, el campo vuelve a empezar.",
     "calibration.title": "Calibración",
     "calibration.needMic": "Primero conecta un micrófono",
     "calibration.calibrated": "✓ Calibrado",
@@ -1776,7 +1778,8 @@ const fr = {
     "meter.arriving": "Les QDs arrivent",
     "meter.goal":
       "Les QDs arrivent tant que la classe reste à gauche de la ligne ({goal} %)",
-    "meter.max": "Maximum : au-dessus, les feuilles tombent ({max} %)",
+    "meter.max":
+      "Maximum ({max} %) : au-dessus, les feuilles commencent à tomber. Si elles remplissent l’écran, le champ repart de zéro.",
     "calibration.title": "Étalonnage",
     "calibration.needMic": "Connectez d’abord un micro",
     "calibration.calibrated": "✓ Étalonné",

@@ -18,8 +18,8 @@ export class RoomMonitor {
   /** The debounced state. What actually decides whether animals arrive. */
   state = $state<NoiseState>("quiet");
   /**
-   * The same, against the higher Maximum Volume (`noise/strikes.ts`): going
-   * over it, for long enough, is a strike.
+   * The same, against the higher Maximum Volume (`noise/thresholds.ts`):
+   * while the room stays over it, Autumn Harvest's leaf storm builds.
    */
   overMax = $state<NoiseState>("quiet");
   #sinceMax = -Infinity;
