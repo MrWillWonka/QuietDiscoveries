@@ -215,6 +215,17 @@ export class App {
   }
 
   /**
+   * Back to the home screen: stop listening and hold arrivals, but keep the
+   * QDs that are out and leave the Session's record open, so "Continue last
+   * session" picks up where the class left off (`session/history.ts`).
+   */
+  goHome() {
+    this.paused = false;
+    this.session.running = false;
+    this.microphone.stop();
+  }
+
+  /**
    * Reset empties the Scene but is still the same lesson, so the Session's
    * record (and its stats) carry on (`session/history.ts`).
    */

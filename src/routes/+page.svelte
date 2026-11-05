@@ -365,6 +365,33 @@
         inert={!topBarVisible}
       >
         <div class="pointer-events-auto flex min-w-0 gap-2">
+          <!-- Back to the home screen; the Session waits there to be
+             continued (`app.goHome`). -->
+          <button
+            type="button"
+            class="flex h-11 shrink-0 items-center gap-2 rounded-full bg-white/95 px-4 text-sm font-medium text-slate-800 shadow-lg transition hover:bg-white"
+            aria-label={t("common.home")}
+            onclick={() => {
+              closeMenu();
+              classMenuOpen = false;
+              app.goHome();
+            }}
+          >
+            <svg
+              class="size-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              ><path d="M3 10.5 12 3l9 7.5" /><path
+                d="M5 9.5V20h5v-6h4v6h5V9.5"
+              /></svg
+            >
+            <span class="hidden sm:inline">{t("common.home")}</span>
+          </button>
           <BrandChip />
           <ClassPicker
             {app}

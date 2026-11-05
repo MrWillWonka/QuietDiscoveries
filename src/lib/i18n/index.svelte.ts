@@ -28,6 +28,7 @@ const en = {
     "preview.alt":
       "A calm savanna with an elephant, zebras, a lion, a giraffe and a meerkat, beside the words Quiet Discoveries, a free classroom noise monitor",
     "common.back": "← Back to Quiet Discoveries",
+    "common.home": "Home",
     "common.close": "Close",
     "common.cancel": "Cancel",
     "common.done": "Done",
@@ -791,6 +792,7 @@ const es = {
     "preview.alt":
       "Una sabana tranquila con un elefante, cebras, un león, una jirafa y un suricata, junto a las palabras Quiet Discoveries, un medidor de ruido gratuito para el aula",
     "common.back": "← Volver a Quiet Discoveries",
+    "common.home": "Inicio",
     "common.close": "Cerrar",
     "common.cancel": "Cancelar",
     "common.done": "Listo",
@@ -1526,6 +1528,7 @@ const fr = {
     "preview.alt":
       "Une savane paisible avec un éléphant, des zèbres, un lion, une girafe et un suricate, à côté des mots Quiet Discoveries, un sonomètre gratuit pour la classe",
     "common.back": "← Retour à Quiet Discoveries",
+    "common.home": "Accueil",
     "common.close": "Fermer",
     "common.cancel": "Annuler",
     "common.done": "Terminé",
