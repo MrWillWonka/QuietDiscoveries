@@ -173,7 +173,7 @@
       // 4:3, the Scene's own shape, and small enough to sit beside a slide.
       pip = await controller.requestWindow({ width: 480, height: 360 });
       const page = pip.document;
-      page.title = "Shy Safari";
+      page.title = "Quiet Discoveries";
       page.documentElement.lang = current().locale;
       // Scales the corner controls with the window: see layout.css.
       page.documentElement.classList.add("floating");

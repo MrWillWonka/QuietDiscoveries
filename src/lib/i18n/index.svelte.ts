@@ -16,7 +16,7 @@ const en = {
   locale: "en",
   ui: {
     "language.change": "Change language",
-    "app.pageTitle": "Shy Safari — free classroom noise level monitor",
+    "app.pageTitle": "Quiet Discoveries — free classroom noise level monitor",
     "app.description":
       "A free classroom noise monitor for the projector. Shy savanna and coral reef animals come out the longer the room stays quiet. No sign-up, nothing recorded.",
     "brand.title": "Built by William Applewhite",
@@ -274,7 +274,7 @@ const en = {
     "blocked.unsupported":
       "This browser cannot use a microphone. Chrome, Edge and Safari all work.",
     "blocked.tryAgain": "Try again",
-    "about.pageTitle": "About — Shy Safari",
+    "about.pageTitle": "About — Quiet Discoveries",
     "about.meta":
       "Shy Safari is a free classroom noise tool made at the EdTech-a-thon and run by teacher.dev. No ads, no accounts.",
     "about.title": "About",
@@ -297,7 +297,7 @@ const en = {
     "about.feedback":
       "If something isn't working, or you have an idea for Shy Safari or for another tool you'd use in class, send us an email.",
     "about.email": "Email support@teacher.dev",
-    "privacy.pageTitle": "Privacy — Shy Safari",
+    "privacy.pageTitle": "Privacy — Quiet Discoveries",
     "privacy.meta": "What Shy Safari collects, what it doesn't, and why.",
     "privacy.title": "Privacy",
     "privacy.lede": "What we collect, what we don't, and why.",
@@ -673,7 +673,8 @@ const es = {
   locale: "es",
   ui: {
     "language.change": "Cambiar idioma",
-    "app.pageTitle": "Shy Safari — medidor de ruido gratuito para el aula",
+    "app.pageTitle":
+      "Quiet Discoveries — medidor de ruido gratuito para el aula",
     "app.description":
       "Un medidor de ruido gratuito para el proyector del aula. Animales tímidos de la sabana y del arrecife aparecen mientras la clase está en silencio. Sin registro, sin grabaciones.",
     "brand.title": "Creado por William Applewhite",
@@ -936,7 +937,7 @@ const es = {
     "blocked.unsupported":
       "Este navegador no puede usar un micrófono. Chrome, Edge y Safari funcionan.",
     "blocked.tryAgain": "Volver a intentarlo",
-    "about.pageTitle": "Acerca de — Shy Safari",
+    "about.pageTitle": "Acerca de — Quiet Discoveries",
     "about.meta":
       "Shy Safari es una herramienta gratuita para el ruido en el aula, creada en el EdTech-a-thon y gestionada por teacher.dev. Sin anuncios ni cuentas.",
     "about.title": "Acerca de",
@@ -960,7 +961,7 @@ const es = {
     "about.feedback":
       "Si algo no funciona, o tienes una idea para Shy Safari o para otra herramienta que usarías en clase, mándanos un correo.",
     "about.email": "Escribir a support@teacher.dev",
-    "privacy.pageTitle": "Privacidad — Shy Safari",
+    "privacy.pageTitle": "Privacidad — Quiet Discoveries",
     "privacy.meta": "Qué recopila Shy Safari, qué no y por qué.",
     "privacy.title": "Privacidad",
     "privacy.lede": "Qué recopilamos, qué no y por qué.",
@@ -1304,7 +1305,7 @@ const fr = {
   locale: "fr",
   ui: {
     "language.change": "Changer de langue",
-    "app.pageTitle": "Shy Safari — sonomètre gratuit pour la classe",
+    "app.pageTitle": "Quiet Discoveries — sonomètre gratuit pour la classe",
     "app.description":
       "Un sonomètre gratuit pour le vidéoprojecteur de la classe. Des animaux timides de la savane et du récif sortent tant que la classe reste calme. Sans inscription, sans enregistrement.",
     "brand.title": "Créé par William Applewhite",
@@ -1569,7 +1570,7 @@ const fr = {
     "blocked.unsupported":
       "Ce navigateur ne peut pas utiliser de micro. Chrome, Edge et Safari fonctionnent tous.",
     "blocked.tryAgain": "Réessayer",
-    "about.pageTitle": "À propos — Shy Safari",
+    "about.pageTitle": "À propos — Quiet Discoveries",
     "about.meta":
       "Shy Safari est un outil gratuit pour le bruit en classe, créé à l’EdTech-a-thon et géré par teacher.dev. Sans publicité ni compte.",
     "about.title": "À propos",
@@ -1592,7 +1593,7 @@ const fr = {
     "about.feedback":
       "Si quelque chose ne marche pas, ou si vous avez une idée pour Shy Safari ou pour un autre outil que vous utiliseriez en classe, envoyez-nous un e-mail.",
     "about.email": "Écrire à support@teacher.dev",
-    "privacy.pageTitle": "Confidentialité — Shy Safari",
+    "privacy.pageTitle": "Confidentialité — Quiet Discoveries",
     "privacy.meta":
       "Ce que Shy Safari collecte, ce qu’il ne collecte pas, et pourquoi.",
     "privacy.title": "Confidentialité",
