@@ -11,10 +11,17 @@
     setLanguage,
     t,
   } from "$lib/i18n/index.svelte";
+
+  let { variant = "overlay" }: { variant?: "overlay" | "home" } = $props();
 </script>
 
 <label
-  class="relative grid size-11 cursor-pointer place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg transition focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-slate-900 hover:bg-white"
+  class={[
+    "relative grid cursor-pointer place-items-center rounded-full transition focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-slate-900",
+    variant === "home"
+      ? "size-12 border border-stone-200 bg-white text-ink shadow-sm hover:bg-stone-50"
+      : "size-11 bg-white/95 text-slate-700 shadow-lg hover:bg-white",
+  ]}
   title={t("language.change")}
 >
   <svg

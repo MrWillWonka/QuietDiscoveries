@@ -46,6 +46,14 @@ const en = {
     "start.button": "Start",
     "start.micNote":
       "Your browser will ask to use the microphone. Audio is measured on this computer and never recorded or sent anywhere.",
+    "home.welcome": "Welcome!",
+    "home.intro":
+      "Let's get started! Pick a scene and start a session, or set up your classes and settings first.",
+    "home.startSession": "Start session",
+    "home.emptyTitle": "No animals spotted yet",
+    "home.emptyBody":
+      "Every animal your class spots will show up here once you start a session.",
+    "home.seeAll": "See all",
     "scene.label": "Scene",
     "scene.change": "Change scene",
     "scene.new": "New",
@@ -611,6 +619,9 @@ const enScenes = {
     "collection.spotted": "{class}: {seen} of {total} observed",
     "collection.notSeen": "Not observed yet",
     "collection.seen": "Observed {count}×",
+    "home.emptyTitle": "No sightings yet",
+    "home.emptyBody":
+      "Every sighting your class observes will show up here once you start a session.",
     "chance.common.label": "Chance of common sightings",
     "chance.uncommon.label": "Chance of uncommon sightings",
     "chance.rare.label": "Chance of rare sightings",
@@ -671,6 +682,14 @@ const es = {
     "start.button": "Empezar",
     "start.micNote":
       "El navegador pedirá permiso para usar el micrófono. El sonido se mide en esta computadora y nunca se graba ni se envía a ningún sitio.",
+    "home.welcome": "¡Te damos la bienvenida!",
+    "home.intro":
+      "¡Empecemos! Elige una escena y empieza una sesión, o configura antes tus clases y ajustes.",
+    "home.startSession": "Empezar sesión",
+    "home.emptyTitle": "Aún no se ha visto ningún animal",
+    "home.emptyBody":
+      "Cada animal que vea tu clase aparecerá aquí cuando empieces una sesión.",
+    "home.seeAll": "Ver todos",
     "scene.label": "Escena",
     "scene.change": "Cambiar escena",
     "scene.new": "Nuevo",
@@ -986,6 +1005,9 @@ const es = {
       "collection.spotted": "{class}: {seen} de {total} observados",
       "collection.notSeen": "Aún no observado",
       "collection.seen": "Observado {count}×",
+      "home.emptyTitle": "Aún no hay avistamientos",
+      "home.emptyBody":
+        "Cada avistamiento que observe tu clase aparecerá aquí cuando empieces una sesión.",
       "chance.common.label": "Probabilidad de avistamientos comunes",
       "chance.uncommon.label": "Probabilidad de avistamientos poco comunes",
       "chance.rare.label": "Probabilidad de avistamientos raros",
@@ -1268,6 +1290,14 @@ const fr = {
     "start.button": "Commencer",
     "start.micNote":
       "Le navigateur va demander l’accès au micro. Le son est mesuré sur cet ordinateur ; il n’est jamais enregistré ni envoyé nulle part.",
+    "home.welcome": "Bienvenue !",
+    "home.intro":
+      "C’est parti ! Choisissez un décor et commencez une séance, ou réglez d’abord vos classes et vos réglages.",
+    "home.startSession": "Commencer la séance",
+    "home.emptyTitle": "Aucun animal aperçu pour l’instant",
+    "home.emptyBody":
+      "Chaque animal que votre classe aperçoit apparaîtra ici dès que vous aurez commencé une séance.",
+    "home.seeAll": "Tout voir",
     "scene.label": "Décor",
     "scene.change": "Changer de décor",
     "scene.new": "Nouveau",
@@ -1586,6 +1616,9 @@ const fr = {
       "collection.spotted": "{class} : {seen} sur {total} observés",
       "collection.notSeen": "Pas encore observé",
       "collection.seen": "Observé {count}×",
+      "home.emptyTitle": "Aucune observation pour l’instant",
+      "home.emptyBody":
+        "Chaque observation de votre classe apparaîtra ici dès que vous aurez commencé une séance.",
       "chance.common.label": "Probabilité des observations communes",
       "chance.uncommon.label": "Probabilité des observations peu communes",
       "chance.rare.label": "Probabilité des observations rares",

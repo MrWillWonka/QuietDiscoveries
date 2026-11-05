@@ -1,17 +1,3 @@
-<script lang="ts" module>
-  // The cards show the art as an image rather than inline: they never animate,
-  // and one URL per animal, kept for the page's life, lets the browser reuse
-  // the image it drew instead of repainting every SVG on each Scene switch.
-  const artUrls: Record<string, string> = {};
-
-  function artUrl(key: string, svg: string) {
-    artUrls[key] ??= URL.createObjectURL(
-      new Blob([svg], { type: "image/svg+xml" }),
-    );
-    return artUrls[key];
-  }
-</script>
-
 <script lang="ts">
   /**
    * Every animal a Scene can bring, by rarity, with how many times each has
@@ -21,11 +7,8 @@
 
   import type { App } from "$lib/app.svelte";
   import { isAvailable, SCENES } from "$lib/scenes";
-  import {
-    todaysNewcomer,
-    unlockDay,
-    unlockedSlugs,
-  } from "$lib/scenes/halloween/calendar";
+  import { artUrl, lockedSlugs } from "$lib/scenes/collection";
+  import { todaysNewcomer, unlockDay } from "$lib/scenes/halloween/calendar";
   import { unlocksIn } from "$lib/scenes/halloween/wording";
   import { today } from "$lib/today.svelte";
   import type { RarityTier, SceneId } from "$lib/scenes/types";
@@ -68,18 +51,7 @@
    * artwork has yet to land) show as a card saying which day they come,
    * with nothing of them shown, not even a silhouette.
    */
-  const locked = $derived.by(() => {
-    if (sceneId !== "halloween") return new Set<string>();
-    const unlocked = unlockedSlugs(today.day);
-    return new Set(
-      scene.roster
-        .filter(
-          (def) =>
-            !unlocked.includes(def.slug) || !(def.slug in scene.creatureArt),
-        )
-        .map((def) => def.slug),
-    );
-  });
+  const locked = $derived(lockedSlugs(sceneId, today.day));
 
   const newToday = $derived(
     sceneId === "halloween" ? todaysNewcomer(today.day) : null,

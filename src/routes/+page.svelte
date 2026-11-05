@@ -4,7 +4,6 @@
   import ClassesPanel from "$lib/components/ClassesPanel.svelte";
   import ClassPicker from "$lib/components/ClassPicker.svelte";
   import ScenePicker from "$lib/components/ScenePicker.svelte";
-  import SceneSelect from "$lib/components/SceneSelect.svelte";
   import Collection from "$lib/components/Collection.svelte";
   import ControlBar from "$lib/components/ControlBar.svelte";
   import MicBlocked from "$lib/components/MicBlocked.svelte";
@@ -20,6 +19,7 @@
   import InfoDrawer, { FAQ_IDS } from "$lib/components/InfoDrawer.svelte";
   import FloatingScene from "$lib/components/FloatingScene.svelte";
   import PausedPill from "$lib/components/PausedPill.svelte";
+  import HomeScreen from "$lib/components/home/HomeScreen.svelte";
   import { drawFramesFrom } from "$lib/frames";
   import { current, t, tIn } from "$lib/i18n/index.svelte";
   import {
@@ -112,6 +112,13 @@
     canFullScreen =
       typeof document.documentElement.requestFullscreen === "function";
   });
+
+  /**
+   * The home screen, until the Session starts. It has its own header, so the
+   * corner buttons over the Scene wait until it is gone. Should the
+   * microphone be refused, the Scene comes back behind the explanation.
+   */
+  const home = $derived(!app.listening && !app.blocked);
 
   /**
    * The corner buttons fade with the control bar, so the class sees only the
@@ -256,7 +263,7 @@
   <!-- dvh, not vh: on a phone, vh is the height with the browser toolbars
      hidden, which would tuck the control bar underneath them. -->
   <main class="relative h-dvh w-full overflow-hidden">
-    {#if app.restored}
+    {#if app.restored && !home}
       <Scene
         scene={app.scene}
         creatures={app.session.creatures}
@@ -279,132 +286,54 @@
       {/key}
     {/if}
 
-    {#if !app.listening && !app.blocked}
-      <!-- Browsers only hand over a microphone after a real gesture, so the
-         Session has to begin with a click either way. -->
-      <div class="absolute inset-0 z-40 overflow-y-auto bg-slate-900/55">
-        <!-- Scrolls rather than clips, should the card still not fit. -->
-        <div
-          class="grid min-h-full place-items-center p-4 sm:p-6 short:px-30 short:py-3"
-        >
-          <div
-            class="max-w-lg rounded-xl bg-white p-6 text-center shadow-xl short:px-6 short:py-4"
-          >
-            <img
-              src={logoUrl}
-              alt=""
-              class="mx-auto mb-3 size-24 short:mb-1 short:size-14"
-            />
-            <h1 class="text-2xl font-semibold text-slate-900 short:text-xl">
-              Shy Safari
-            </h1>
-            <p
-              class="mt-3 rounded-lg bg-amber-50 px-4 py-3 text-balance text-slate-800 short:mt-2 short:py-2 short:text-sm"
-            >
-              <span class="block font-medium"
-                >{tIn(app.scene.id, "start.shy")}</span
-              >
-              <!-- Checked after mount: the page is prerendered with the default. -->
-              {#if app.restored && settings.loudResponse === "pause"}
-                {tIn(app.scene.id, "start.explain")}
-              {:else}
-                {tIn(app.scene.id, "start.explainFlee")}
-              {/if}
-            </p>
-            <div class="mt-5 short:mt-3">
-              <SceneSelect {app} />
-            </div>
-            <button
-              class="mt-4 rounded-full bg-slate-900 px-6 py-2.5 font-medium text-white short:mt-3"
-              onclick={async () => {
-                if (await app.connect()) app.startSession();
-              }}
-            >
-              {t("start.button")}
-            </button>
-            <p class="mt-3 text-xs text-slate-500 short:mt-2">
-              {t("start.micNote")}
-            </p>
-          </div>
-        </div>
-      </div>
-    {/if}
-
-    <!-- Top left: who made this, and which Class is on screen. Top right: the
+    {#if home}
+      <HomeScreen
+        {app}
+        bind:classMenuOpen
+        {infoOpen}
+        onstart={async () => {
+          if (await app.connect()) app.startSession();
+        }}
+        onopenclasses={() => (classesOpen = true)}
+        onopensettings={() => (settingsOpen = true)}
+        onopeninfo={() => (infoOpen = true)}
+        onopencollection={() => (collectionOpen = true)}
+      />
+    {:else}
+      <!-- Top left: who made this, and which Class is on screen. Top right: the
        tools that change how the page looks — the Timer and Notes over the
-       Scene, floating it, and whether it fills the screen. Later than the
-       start card so it sits above it; Settings, Animals and the blocked-
-       microphone screen cover it. -->
-    <div
-      class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex items-start justify-between gap-2 p-4 transition-opacity duration-300"
-      class:opacity-0={!topBarVisible}
-      aria-hidden={!topBarVisible}
-      inert={!topBarVisible}
-    >
-      <div class="pointer-events-auto flex min-w-0 gap-2">
-        <BrandChip />
-        <ClassPicker
-          {app}
-          bind:open={classMenuOpen}
-          onedit={() => (classesOpen = true)}
-        />
-      </div>
-      <div class="pointer-events-auto flex shrink-0 gap-2">
-        <!-- Only once listening: neither the Timer nor a Note is shown over
+       Scene, floating it, and whether it fills the screen. Settings, Animals
+       and the blocked-microphone screen cover it. -->
+      <div
+        class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex items-start justify-between gap-2 p-4 transition-opacity duration-300"
+        class:opacity-0={!topBarVisible}
+        aria-hidden={!topBarVisible}
+        inert={!topBarVisible}
+      >
+        <div class="pointer-events-auto flex min-w-0 gap-2">
+          <BrandChip />
+          <ClassPicker
+            {app}
+            bind:open={classMenuOpen}
+            onedit={() => (classesOpen = true)}
+          />
+        </div>
+        <div class="pointer-events-auto flex shrink-0 gap-2">
+          <!-- Only once listening: neither the Timer nor a Note is shown over
            the start card. -->
-        {#if app.listening}
-          <button
-            class={[
-              "grid size-11 place-items-center rounded-full shadow-lg",
-              app.timer.open
-                ? "bg-slate-900 text-white"
-                : "bg-white/95 text-slate-700 hover:bg-white",
-            ]}
-            aria-pressed={app.timer.open}
-            aria-label={t("controls.timer")}
-            title={t("controls.timer")}
-            onclick={() =>
-              app.timer.open ? app.timer.hide() : app.timer.show()}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              class="size-5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="13.5" r="7.5" />
-              <path d="M12 13.5V9.5M10 2.5h4M18.5 6.5l1.5-1.5" />
-            </svg>
-          </button>
-          <button
-            class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
-            aria-label={t("controls.addText")}
-            title={t("controls.addTextHint")}
-            onclick={() => notesLayer?.add()}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              class="size-5"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M3 7V4h12v3M9 4v15M6.5 19h5M19 12v8M15 16h8" />
-            </svg>
-          </button>
-          {#if canFloat}
+          {#if app.listening}
             <button
-              class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
-              aria-label={t("float.open")}
-              title={t("float.openHint")}
-              onclick={openFloatingWindow}
+              class={[
+                "grid size-11 place-items-center rounded-full shadow-lg",
+                app.timer.open
+                  ? "bg-slate-900 text-white"
+                  : "bg-white/95 text-slate-700 hover:bg-white",
+              ]}
+              aria-pressed={app.timer.open}
+              aria-label={t("controls.timer")}
+              title={t("controls.timer")}
+              onclick={() =>
+                app.timer.open ? app.timer.hide() : app.timer.show()}
             >
               <svg
                 viewBox="0 0 24 24"
@@ -416,27 +345,152 @@
                 stroke-linejoin="round"
                 aria-hidden="true"
               >
-                <rect x="2.5" y="4" width="19" height="15" rx="2.5" />
-                <rect
-                  x="12"
-                  y="11"
-                  width="6.5"
-                  height="5"
-                  rx="1"
-                  fill="currentColor"
-                />
+                <circle cx="12" cy="13.5" r="7.5" />
+                <path d="M12 13.5V9.5M10 2.5h4M18.5 6.5l1.5-1.5" />
+              </svg>
+            </button>
+            <button
+              class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
+              aria-label={t("controls.addText")}
+              title={t("controls.addTextHint")}
+              onclick={() => notesLayer?.add()}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="size-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M3 7V4h12v3M9 4v15M6.5 19h5M19 12v8M15 16h8" />
+              </svg>
+            </button>
+            {#if canFloat}
+              <button
+                class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
+                aria-label={t("float.open")}
+                title={t("float.openHint")}
+                onclick={openFloatingWindow}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  class="size-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="2.5" y="4" width="19" height="15" rx="2.5" />
+                  <rect
+                    x="12"
+                    y="11"
+                    width="6.5"
+                    height="5"
+                    rx="1"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            {/if}
+          {/if}
+          {#if canFullScreen}
+            <button
+              class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
+              aria-label={fullScreen
+                ? t("fullScreen.exit")
+                : t("fullScreen.enter")}
+              title={fullScreen ? t("fullScreen.exit") : t("fullScreen.enter")}
+              onclick={toggleFullScreen}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="size-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                {#if fullScreen}
+                  <path
+                    d="M9 4v3a2 2 0 0 1-2 2H4M15 4v3a2 2 0 0 0 2 2h3M9 20v-3a2 2 0 0 0-2-2H4M15 20v-3a2 2 0 0 1 2-2h3"
+                  />
+                {:else}
+                  <path
+                    d="M4 9V6a2 2 0 0 1 2-2h3M20 9V6a2 2 0 0 0-2-2h-3M4 15v3a2 2 0 0 0 2 2h3M20 15v3a2 2 0 0 1-2 2h-3"
+                  />
+                {/if}
               </svg>
             </button>
           {/if}
+        </div>
+      </div>
+
+      {#if app.listening && app.timer.open}
+        <!-- Keyed by Class, so the length typed in is the new class's own. -->
+        {#key classes.currentId}
+          <Timer
+            timer={app.timer}
+            controlsVisible={controlsVisible || settingsOpen || collectionOpen}
+          />
+        {/key}
+      {/if}
+
+      {#if app.listening && (app.paused || settings.showMeter)}
+        <!-- Top centre: what the teacher keeps an eye on, which stays up when
+         the control bar fades. The Noise Meter, if the teacher turned it on
+         in Settings; or, once Paused for an announcement, a reminder in its
+         place that the room isn't being judged, to resume from right here.
+         On a phone it sits below the corner buttons, which leave no room
+         between them. -->
+        <div
+          class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex justify-center p-4 max-sm:top-12"
+        >
+          {#if !app.paused}
+            <ScreenMeter
+              sceneId={app.scene.id}
+              level={app.monitor.level}
+              goal={settings.volumeGoal}
+              tooLoud={app.monitor.state === "too-loud"}
+            />
+          {:else}
+            <PausedPill onresume={() => app.setPaused(false)} />
+          {/if}
+        </div>
+      {/if}
+
+      <!-- Bottom left: help for the teacher and the page's language, out of
+       the way of the controls above and fading with them, and the arrival
+       counter, if the teacher turned it on in Settings, which stays up in
+       the corner when they fade. On a phone the control bar spans the
+       bottom edge, so during a Session they sit just above the bar. -->
+      <div
+        class="safe-edges pointer-events-none absolute bottom-0 left-0 z-40 flex gap-2 p-4 {app.listening
+          ? 'max-sm:bottom-16'
+          : ''}"
+      >
+        {#if app.listening && settings.showCounter}
+          <ArrivalCounter sceneId={app.scene.id} count={app.session.arrived} />
         {/if}
-        {#if canFullScreen}
+        <div
+          class="pointer-events-auto flex gap-2 transition-opacity duration-300"
+          class:opacity-0={!topBarVisible}
+          aria-hidden={!topBarVisible}
+          inert={!topBarVisible}
+        >
           <button
             class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
-            aria-label={fullScreen
-              ? t("fullScreen.exit")
-              : t("fullScreen.enter")}
-            title={fullScreen ? t("fullScreen.exit") : t("fullScreen.enter")}
-            onclick={toggleFullScreen}
+            aria-label={t("guide.title")}
+            title={t("guide.title")}
+            aria-expanded={infoOpen}
+            aria-controls="how-it-works-panel"
+            onclick={() => (infoOpen = true)}
           >
             <svg
               viewBox="0 0 24 24"
@@ -448,99 +502,15 @@
               stroke-linejoin="round"
               aria-hidden="true"
             >
-              {#if fullScreen}
-                <path
-                  d="M9 4v3a2 2 0 0 1-2 2H4M15 4v3a2 2 0 0 0 2 2h3M9 20v-3a2 2 0 0 0-2-2H4M15 20v-3a2 2 0 0 1 2-2h3"
-                />
-              {:else}
-                <path
-                  d="M4 9V6a2 2 0 0 1 2-2h3M20 9V6a2 2 0 0 0-2-2h-3M4 15v3a2 2 0 0 0 2 2h3M20 15v3a2 2 0 0 1-2 2h-3"
-                />
-              {/if}
+              <circle cx="12" cy="12" r="9" />
+              <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6" />
+              <path d="M12 17.5h.01" />
             </svg>
           </button>
-        {/if}
-      </div>
-    </div>
-
-    {#if app.listening && app.timer.open}
-      <!-- Keyed by Class, so the length typed in is the new class's own. -->
-      {#key classes.currentId}
-        <Timer
-          timer={app.timer}
-          controlsVisible={controlsVisible || settingsOpen || collectionOpen}
-        />
-      {/key}
-    {/if}
-
-    {#if app.listening && (app.paused || settings.showMeter)}
-      <!-- Top centre: what the teacher keeps an eye on, which stays up when
-         the control bar fades. The Noise Meter, if the teacher turned it on
-         in Settings; or, once Paused for an announcement, a reminder in its
-         place that the room isn't being judged, to resume from right here.
-         On a phone it sits below the corner buttons, which leave no room
-         between them. -->
-      <div
-        class="safe-edges pointer-events-none absolute inset-x-0 top-0 z-40 flex justify-center p-4 max-sm:top-12"
-      >
-        {#if !app.paused}
-          <ScreenMeter
-            sceneId={app.scene.id}
-            level={app.monitor.level}
-            goal={settings.volumeGoal}
-            tooLoud={app.monitor.state === "too-loud"}
-          />
-        {:else}
-          <PausedPill onresume={() => app.setPaused(false)} />
-        {/if}
+          <LanguagePicker />
+        </div>
       </div>
     {/if}
-
-    <!-- Bottom left: help for the teacher and the page's language, out of
-       the way of the controls above and fading with them, and the arrival
-       counter, if the teacher turned it on in Settings, which stays up in
-       the corner when they fade. On a phone the control bar spans the
-       bottom edge, so during a Session they sit just above the bar. -->
-    <div
-      class="safe-edges pointer-events-none absolute bottom-0 left-0 z-40 flex gap-2 p-4 {app.listening
-        ? 'max-sm:bottom-16'
-        : ''}"
-    >
-      {#if app.listening && settings.showCounter}
-        <ArrivalCounter sceneId={app.scene.id} count={app.session.arrived} />
-      {/if}
-      <div
-        class="pointer-events-auto flex gap-2 transition-opacity duration-300"
-        class:opacity-0={!topBarVisible}
-        aria-hidden={!topBarVisible}
-        inert={!topBarVisible}
-      >
-        <button
-          class="grid size-11 place-items-center rounded-full bg-white/95 text-slate-700 shadow-lg hover:bg-white"
-          aria-label={t("guide.title")}
-          title={t("guide.title")}
-          aria-expanded={infoOpen}
-          aria-controls="how-it-works-panel"
-          onclick={() => (infoOpen = true)}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            class="size-5"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <circle cx="12" cy="12" r="9" />
-            <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6" />
-            <path d="M12 17.5h.01" />
-          </svg>
-        </button>
-        <LanguagePicker />
-      </div>
-    </div>
 
     {#if app.blocked}
       <MicBlocked {app} />

@@ -69,6 +69,23 @@
   --color-accent-teal: #4ecdc4;
   --color-cream: #f4f1de;
   --color-shadow: #2b2b3a;
+
+  /* The home screen: a warm paper background, soft meadow greens for the
+     hero and illustrations, and a deep pine for the one button that starts
+     a Session. */
+  --color-paper: #f9f6f1;
+  --color-ink: #11201b;
+  --color-ink-soft: #3b4843;
+  --color-meadow-50: #eef5f0;
+  --color-meadow-100: #dfece3;
+  --color-meadow-200: #cbe0d2;
+  --color-meadow-300: #a9cdb6;
+  --color-meadow-400: #79b08f;
+  --color-meadow-500: #4f9a75;
+  --color-meadow-600: #3b8562;
+  --color-pine-700: #1d6551;
+  --color-pine-800: #165545;
+  --color-pine-900: #0f4136;
 }
 
 html,

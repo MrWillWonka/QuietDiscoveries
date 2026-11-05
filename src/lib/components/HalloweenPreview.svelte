@@ -1,15 +1,3 @@
-<script lang="ts" module>
-  // Shown as images, as in the collection: nothing here animates.
-  const artUrls: Record<string, string> = {};
-
-  function artUrl(key: string, svg: string) {
-    artUrls[key] ??= URL.createObjectURL(
-      new Blob([svg], { type: "image/svg+xml" }),
-    );
-    return artUrls[key];
-  }
-</script>
-
 <script lang="ts">
   /**
    * Every Pumpkin Hollow character lined up, in the order they arrive, so a
@@ -18,6 +6,7 @@
    * coming.
    */
 
+  import { artUrl } from "$lib/scenes/collection";
   import { SCENES } from "$lib/scenes";
   import { NEWCOMERS } from "$lib/scenes/halloween/calendar";
   import { creatureName, current, t } from "$lib/i18n/index.svelte";
