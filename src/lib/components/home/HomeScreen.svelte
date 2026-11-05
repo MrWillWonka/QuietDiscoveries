@@ -112,6 +112,27 @@
         bind:open={classMenuOpen}
         onedit={onopenclasses}
       />
+      <button
+        type="button"
+        class="flex h-12 shrink-0 items-center gap-2 rounded-full border border-stone-200 bg-white px-3.5 text-base font-semibold shadow-sm transition hover:bg-stone-50 sm:px-5"
+        aria-label={t("classes.edit")}
+        title={t("classes.edit")}
+        onclick={onopenclasses}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          class="size-5 shrink-0 text-pine-700"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4ZM13.5 6.5l4 4" />
+        </svg>
+        <span class="hidden sm:inline">{t("classes.edit")}</span>
+      </button>
       <LanguagePicker variant="home" />
       <button
         type="button"
@@ -132,9 +153,7 @@
       <section
         class={[
           "grid items-center gap-6 lg:gap-10",
-          last
-            ? "xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
-            : "lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]",
+          "xl:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]",
         ]}
       >
         <div class="lg:pl-2" class:invisible={!app.restored}>
@@ -146,6 +165,81 @@
           <p class="mt-4 max-w-md text-lg text-pretty text-ink-soft sm:text-xl">
             {last ? t("home.introBack") : t("home.intro")}
           </p>
+          <section
+            class="mt-8 rounded-[2rem] border border-stone-200/80 bg-white/70 p-3 shadow-[0_10px_30px_-12px_rgb(60_50_30/0.15)] sm:p-4"
+            aria-label={t("home.startSession")}
+          >
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+              <!-- The Scene and the button that starts it, as one pill. -->
+              <div
+                class="flex w-full flex-wrap items-center gap-2 rounded-[1.75rem] border border-stone-200 bg-white p-1.5 shadow-sm"
+              >
+                <div class="min-w-0 flex-1 basis-full">
+                  <SceneSelect {app} />
+                </div>
+                <button
+                  type="button"
+                  class="flex h-14 min-w-0 flex-1 shrink-0 basis-full items-center justify-center gap-2.5 rounded-full bg-pine-800 px-7 text-lg font-semibold text-white shadow-md transition hover:bg-pine-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-800 disabled:opacity-70 sm:basis-0"
+                  disabled={starting}
+                  onclick={onstart}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="size-5"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"
+                    />
+                  </svg>
+                  {starting ? t("mic.connecting") : t("home.startSession")}
+                </button>
+                <!-- What this session will be like: noise lines, arrival rate,
+                     which QDs (Settings). -->
+                <button
+                  type="button"
+                  class="flex h-14 min-w-0 flex-1 shrink-0 basis-full items-center justify-center gap-2.5 rounded-full border border-stone-200 bg-white px-6 text-lg font-semibold shadow-sm transition hover:bg-stone-50 sm:basis-0"
+                  onclick={onopensettings}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="size-5 text-pine-700"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
+                    />
+                  </svg>
+                  {t("home.sessionSettings")}
+                </button>
+              </div>
+            </div>
+            <p
+              class="mt-3 flex items-start gap-2 px-3 pb-1 text-sm text-ink-soft sm:items-center"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="mt-0.5 size-4 shrink-0 text-pine-700 sm:mt-0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="9" y="3" width="6" height="11" rx="3" />
+                <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
+              </svg>
+              {t("start.micNote")}
+            </p>
+          </section>
         </div>
 
         {#if last}
@@ -200,108 +294,6 @@
             </div>
           </div>
         {/if}
-      </section>
-
-      <section
-        class="rounded-[2rem] border border-stone-200/80 bg-white/70 p-3 shadow-[0_10px_30px_-12px_rgb(60_50_30/0.15)] sm:p-4"
-        aria-label={t("home.startSession")}
-      >
-        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-          <!-- The Scene and the button that starts it, as one pill. -->
-          <div
-            class="flex w-full flex-wrap items-center gap-2 rounded-[1.75rem] border border-stone-200 bg-white p-1.5 shadow-sm sm:flex-nowrap sm:rounded-full xl:w-auto xl:min-w-[34rem]"
-          >
-            <div class="min-w-0 flex-1 basis-full sm:basis-auto">
-              <SceneSelect {app} />
-            </div>
-            <div
-              class="hidden h-10 w-px bg-stone-200 sm:block"
-              aria-hidden="true"
-            ></div>
-            <button
-              type="button"
-              class="flex h-14 w-full shrink-0 items-center justify-center gap-2.5 rounded-full bg-pine-800 px-7 text-lg font-semibold text-white shadow-md transition hover:bg-pine-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine-800 disabled:opacity-70 sm:w-auto"
-              disabled={starting}
-              onclick={onstart}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                class="size-5"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"
-                />
-              </svg>
-              {starting ? t("mic.connecting") : t("home.startSession")}
-            </button>
-          </div>
-
-          <button
-            type="button"
-            class="flex h-14 flex-1 items-center justify-center gap-2.5 rounded-full border border-stone-200 bg-white px-6 text-lg font-semibold shadow-sm transition hover:bg-stone-50 xl:ml-auto xl:flex-none"
-            onclick={onopenclasses}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              class="size-5 text-pine-700"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4ZM13.5 6.5l4 4" />
-            </svg>
-            {t("classes.edit")}
-          </button>
-          <div
-            class="hidden h-10 w-px bg-stone-300 xl:block"
-            aria-hidden="true"
-          ></div>
-          <button
-            type="button"
-            class="flex h-14 flex-1 items-center justify-center gap-2.5 rounded-full border border-stone-200 bg-white px-6 text-lg font-semibold shadow-sm transition hover:bg-stone-50 xl:flex-none"
-            onclick={onopensettings}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              class="size-5 text-pine-700"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="3" />
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
-              />
-            </svg>
-            {t("controls.settings")}
-          </button>
-        </div>
-        <p
-          class="mt-3 flex items-start gap-2 px-3 pb-1 text-sm text-ink-soft sm:items-center"
-        >
-          <svg
-            viewBox="0 0 24 24"
-            class="mt-0.5 size-4 shrink-0 text-pine-700 sm:mt-0"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <rect x="9" y="3" width="6" height="11" rx="3" />
-            <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
-          </svg>
-          {t("start.micNote")}
-        </p>
       </section>
 
       <div class="mt-4 sm:mt-8">

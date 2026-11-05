@@ -24,7 +24,7 @@
       Quiet Discoveries
     </a>
   </h1>
-  <div class="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+  <div class="ml-auto flex flex-wrap items-center justify-end gap-2 sm:gap-3">
     {@render children()}
   </div>
 </header>
