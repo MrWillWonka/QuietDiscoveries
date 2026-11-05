@@ -11,9 +11,24 @@ import { browser } from "$app/environment";
 import type { Calibration } from "$lib/audio/calibration";
 import { DEMO, DEMO_ARRIVAL_MS } from "$lib/demo";
 import { DEFAULT_SCENE, SCENE_IDS, type SceneId } from "$lib/scenes/types";
+import {
+  ARRIVAL_RATE_PRESETS,
+  arrivalSeconds,
+  presetFor,
+  savedArrival,
+  type ArrivalRatePreset,
+  type ArrivalUnit,
+} from "./arrivalRate";
+
+export {
+  ARRIVAL_RATE_PRESETS,
+  MAX_ARRIVAL_SECONDS,
+  MIN_ARRIVAL_SECONDS,
+  type ArrivalRatePreset,
+  type ArrivalUnit,
+} from "./arrivalRate";
 
 export type VolumeGoalPreset = "silent" | "independent" | "partner" | "custom";
-export type ArrivalRatePreset = "relaxed" | "normal" | "lively" | "custom";
 /**
  * What Too Loud does to the Creatures already out: hold still until the room
  * settles, or start running away. See docs/adr/0003-animals-can-run-away.md.
@@ -29,23 +44,19 @@ export const VOLUME_GOAL_PRESETS: Record<
   partner: { goal: 50 },
 };
 
-export const ARRIVAL_RATE_PRESETS: Record<
-  Exclude<ArrivalRatePreset, "custom">,
-  { minutes: number }
-> = {
-  relaxed: { minutes: 8 },
-  normal: { minutes: 5 },
-  lively: { minutes: 2 },
-};
-
-/** Bounds on a typed-in Arrival Rate, in whole minutes. */
-export const MIN_ARRIVAL_MINUTES = 1;
-export const MAX_ARRIVAL_MINUTES = 60;
-
 // The "class-noise-level:" prefix predates the Quiet Discoveries name. Every
 // localStorage key keeps it on purpose: renaming would wipe teachers' saved
 // settings, classes and collections.
 const STORAGE_KEY = "class-noise-level:settings";
+
+/**
+ * The Maximum Volume for a goal: the one chosen, or half way from the goal
+ * to the top, kept above the goal and no higher than 100.
+ */
+export function maxVolumeFor(goal: number, chosen: number | null): number {
+  const level = chosen ?? Math.round((goal + 100) / 2);
+  return Math.min(100, Math.max(goal + 1, level));
+}
 
 interface StoredSettings {
   scene: SceneId;
@@ -54,12 +65,37 @@ interface StoredSettings {
   volumeGoalPreset: VolumeGoalPreset;
   volumeGoal: number;
   arrivalRatePreset: ArrivalRatePreset;
-  arrivalMinutes: number;
+  /** About how long the room must be Quiet for each QD (`arrivalRate.ts`). */
+  arrivalSeconds: number;
+  /** The unit the teacher types it in. */
+  arrivalUnit: ArrivalUnit;
   loudResponse: LoudResponse;
   /** Keep the Noise Meter up over the Scene, not just in Settings. */
   showMeter: boolean;
   /** Keep a count of the Creatures that have arrived up over the Scene. */
   showCounter: boolean;
+  /**
+   * The Maximum Volume, above the Volume Goal: over it the leaves start to
+   * fall (`noise/strikes.ts`). Null until the teacher moves it: then it sits
+   * half way between the goal and the top.
+   */
+  maxVolume: number | null;
+  /** Keep a count of the leaf-storm resets up over the Scene. */
+  showResets: boolean;
+  /**
+   * Which QDs each Scene may bring, by Scene id: every one at once rather
+   * than as its calendar unlocks them, and any the teacher has left out.
+   * Shared by every Class, like the rest of the room's settings.
+   */
+  qdChoices: Partial<Record<string, QdChoices>>;
+}
+
+/** The teacher's say over one Scene's QDs (`settings.qdChoices`). */
+export interface QdChoices {
+  /** Ignore the Scene's calendar: everything is out now. */
+  unlockAll?: boolean;
+  /** Slugs left out: they never arrive and leave the discovery leaves. */
+  excluded?: string[];
 }
 
 const DEFAULTS: StoredSettings = {
@@ -70,10 +106,14 @@ const DEFAULTS: StoredSettings = {
   volumeGoalPreset: "independent",
   volumeGoal: VOLUME_GOAL_PRESETS.independent.goal,
   arrivalRatePreset: "normal",
-  arrivalMinutes: ARRIVAL_RATE_PRESETS.normal.minutes,
+  arrivalSeconds: ARRIVAL_RATE_PRESETS.normal.seconds,
+  arrivalUnit: "minutes",
   loudResponse: "flee",
   showMeter: false,
   showCounter: false,
+  maxVolume: null,
+  showResets: false,
+  qdChoices: {},
 };
 
 function read(): StoredSettings {
@@ -81,15 +121,13 @@ function read(): StoredSettings {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { ...DEFAULTS };
-    const stored = JSON.parse(raw) as Partial<StoredSettings>;
-    // Settings saved before the rate could be typed in only have the preset;
-    // carry its minutes over rather than resetting the teacher to Normal.
-    if (stored.arrivalMinutes === undefined && stored.arrivalRatePreset) {
-      stored.arrivalMinutes =
-        stored.arrivalRatePreset === "custom"
-          ? DEFAULTS.arrivalMinutes
-          : ARRIVAL_RATE_PRESETS[stored.arrivalRatePreset]?.minutes;
-    }
+    const stored = JSON.parse(raw) as Partial<StoredSettings> & {
+      arrivalMinutes?: number;
+    };
+    // Settings saved in whole minutes, or with only a preset, carry over in
+    // seconds rather than resetting the teacher to Normal.
+    Object.assign(stored, savedArrival(stored));
+    delete stored.arrivalMinutes;
     // A Scene this version no longer has falls back to the default.
     if (stored.scene && !SCENE_IDS.includes(stored.scene)) delete stored.scene;
     return { ...DEFAULTS, ...stored };
@@ -175,36 +213,39 @@ class Settings {
     return this.#stored.arrivalRatePreset;
   }
 
-  get arrivalMinutes() {
-    return this.#stored.arrivalMinutes;
+  get arrivalSeconds() {
+    return this.#stored.arrivalSeconds;
+  }
+
+  get arrivalUnit() {
+    return this.#stored.arrivalUnit;
   }
 
   useArrivalRatePreset(preset: Exclude<ArrivalRatePreset, "custom">) {
     this.#stored = {
       ...this.#stored,
       arrivalRatePreset: preset,
-      arrivalMinutes: ARRIVAL_RATE_PRESETS[preset].minutes,
+      arrivalSeconds: ARRIVAL_RATE_PRESETS[preset].seconds,
     };
     this.#save();
   }
 
-  setArrivalMinutes(minutes: number) {
-    if (!Number.isFinite(minutes)) return;
-    const clamped = Math.max(
-      MIN_ARRIVAL_MINUTES,
-      Math.min(MAX_ARRIVAL_MINUTES, Math.round(minutes)),
-    );
-    const matching = (
-      Object.keys(ARRIVAL_RATE_PRESETS) as Exclude<
-        ArrivalRatePreset,
-        "custom"
-      >[]
-    ).find((preset) => ARRIVAL_RATE_PRESETS[preset].minutes === clamped);
+  /** A rate typed in, in the unit given, which becomes the unit shown. */
+  setArrivalRate(value: number, unit: ArrivalUnit) {
+    if (!Number.isFinite(value)) return;
+    const seconds = arrivalSeconds(value, unit);
     this.#stored = {
       ...this.#stored,
-      arrivalMinutes: clamped,
-      arrivalRatePreset: matching ?? "custom",
+      arrivalSeconds: seconds,
+      arrivalUnit: unit,
+      arrivalRatePreset: presetFor(seconds),
     };
+    this.#save();
+  }
+
+  /** Show the rate in another unit; the rate itself stays as it is. */
+  set arrivalUnit(unit: ArrivalUnit) {
+    this.#stored = { ...this.#stored, arrivalUnit: unit };
     this.#save();
   }
 
@@ -226,6 +267,63 @@ class Settings {
     this.#save();
   }
 
+  /**
+   * The Maximum Volume: where it was put, or half way from the goal to the
+   * top, and always at least a point above the goal (`maxVolumeFor`).
+   */
+  get maxVolume() {
+    return maxVolumeFor(this.#stored.volumeGoal, this.#stored.maxVolume);
+  }
+
+  setMaxVolume(level: number) {
+    if (!Number.isFinite(level)) return;
+    this.#stored = {
+      ...this.#stored,
+      maxVolume: maxVolumeFor(this.#stored.volumeGoal, Math.round(level)),
+    };
+    this.#save();
+  }
+
+  /** Whether a Scene's calendar is set aside, so all its QDs are out. */
+  unlockAll(sceneId: string): boolean {
+    return this.#stored.qdChoices[sceneId]?.unlockAll === true;
+  }
+
+  setUnlockAll(sceneId: string, on: boolean) {
+    this.#setChoices(sceneId, { unlockAll: on });
+  }
+
+  /** Whether the teacher has left this QD out of its Scene. */
+  isExcluded(sceneId: string, slug: string): boolean {
+    return this.#stored.qdChoices[sceneId]?.excluded?.includes(slug) ?? false;
+  }
+
+  setIncluded(sceneId: string, slug: string, included: boolean) {
+    const excluded = (this.#stored.qdChoices[sceneId]?.excluded ?? []).filter(
+      (one) => one !== slug,
+    );
+    if (!included) excluded.push(slug);
+    this.#setChoices(sceneId, { excluded });
+  }
+
+  #setChoices(sceneId: string, change: QdChoices) {
+    const choices = this.#stored.qdChoices ?? {};
+    this.#stored = {
+      ...this.#stored,
+      qdChoices: { ...choices, [sceneId]: { ...choices[sceneId], ...change } },
+    };
+    this.#save();
+  }
+
+  get showResets() {
+    return this.#stored.showResets;
+  }
+
+  set showResets(value: boolean) {
+    this.#stored = { ...this.#stored, showResets: value };
+    this.#save();
+  }
+
   get showCounter() {
     return this.#stored.showCounter;
   }
@@ -238,7 +336,7 @@ class Settings {
   get arrivalIntervalMs() {
     // The demo has to show something quickly (`lib/demo.ts`).
     if (DEMO) return DEMO_ARRIVAL_MS;
-    return this.#stored.arrivalMinutes * 60_000;
+    return this.#stored.arrivalSeconds * 1000;
   }
 }
 

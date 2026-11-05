@@ -1,55 +1,16 @@
 /**
- * Too Loud as a leaf storm (Autumn Harvest): leaves fall from the top of the
- * screen onto a pile that grows up from the bottom until, if the room stays
- * loud, the screen is covered and the QDs are gone; when it is calm again
- * the pile drops away off the bottom
+ * The leaf storm's pile (Autumn Harvest): leaves fall from the top of the
+ * screen onto a pile that grows up from the bottom, a quarter of the screen
+ * for each strike (`noise/strikes.ts`), until the fourth covers it and the
+ * QDs are gone; then the pile drops away off the bottom
  * (`harvest/LeafStorm.svelte`). Only how full the screen is lives here, pure
  * and testable: who leaves, and when, is still the Session's.
  */
 
 export const STORM = {
-  /** "Run away": seconds for time alone to cover the screen. */
-  rampS: 60,
-  /** …or, with no QDs out to lose, this many. */
-  emptyRampS: 20,
-  /** "Pause the scene": nobody leaves, so it builds to this and holds. */
-  pauseHold: 0.65,
-  /** …taking this many seconds to get there. */
-  pauseRampS: 24,
   /** It never grows faster than this share of the screen a second. */
   maxRate: 1 / 8,
-  /** Seconds the leaves take to drop away once it is calm. */
-  clearS: 2.5,
 };
-
-/** One spell of Too Loud, from its start. */
-export interface Spell {
-  /** Seconds since the room got Too Loud. */
-  elapsed: number;
-  /** The teacher's setting: QDs run away, rather than the Scene pausing. */
-  scares: boolean;
-  /** QDs out when it began, and still out (not running) now. */
-  startCount: number;
-  remaining: number;
-}
-
-/**
- * How much of the screen the leaves should cover, 0 to 1. Running away: the
- * larger of a time ramp and the share of QDs gone since the spell began, so
- * it is full once the last one has left. Pausing: up to `pauseHold`.
- */
-export function stormTarget(spell: Spell): number {
-  const t = Math.max(0, spell.elapsed);
-  if (!spell.scares) {
-    return Math.min(STORM.pauseHold, (t / STORM.pauseRampS) * STORM.pauseHold);
-  }
-  const gone =
-    spell.startCount > 0
-      ? (spell.startCount - Math.min(spell.startCount, spell.remaining)) /
-        spell.startCount
-      : Math.min(1, t / STORM.emptyRampS);
-  return Math.min(1, Math.max(t / STORM.rampS, gone));
-}
 
 /**
  * The fill a moment later: growing towards the target no faster than

@@ -1,44 +1,39 @@
 <script lang="ts">
   /**
-   * Too Loud in Autumn Harvest: a leaf storm instead of a fog. A few leaves
-   * fall from above at once, tumbling and swaying, and land on a pile of
-   * red, orange, amber, gold and brown leaves along the bottom; the pile
-   * grows upward like a wall, its ragged fringe where the leaves settle,
-   * until, if the room stays loud, the screen is covered and
-   * the QDs are gone. Choosing to pause the Scene instead, nobody leaves, so
-   * it grows about two thirds of the way up and holds. When the room is
-   * calm again the pile drops away off the bottom.
+   * Going over the Maximum Volume in Autumn Harvest: a leaf storm. Each
+   * strike (`noise/strikes.ts`, driven by `App`) sends leaves falling from
+   * the top, tumbling and swaying, onto a pile of red, orange, amber, gold
+   * and brown leaves that grows up from the bottom a quarter of the screen
+   * at a time, its ragged fringe where the leaves settle. The pile holds
+   * between strikes and sinks slowly while the room is quiet. The fourth
+   * strike covers the screen, the Scene's QDs are gone underneath, and then
+   * the pile drops away off the bottom.
    *
-   * How full it is comes from `scenes/leafStorm.ts`; who leaves, and when,
-   * is still the Session's. The pile is three pre-drawn sheets
-   * (`ambient/storm-*.svg`) that only move, so the browser draws them once
-   * and slides them: smooth on a school laptop. Calm, not frantic: nothing
-   * flashes or shakes. Under reduced motion the leaves fade in by steps and
-   * fade out, and nothing blows about.
+   * The pile is three pre-drawn sheets (`ambient/storm-*.svg`) that only
+   * move, so the browser draws them once and slides them: smooth on a school
+   * laptop. Calm, not frantic: nothing flashes or shakes. Under reduced
+   * motion the leaves fade in by steps and fade out, and nothing blows about.
    */
 
   import { onMount } from "svelte";
   import { AMBIENT_ART } from "$lib/scenes/harvest/artwork";
-  import {
-    STORM,
-    sheetRise,
-    stepFill,
-    steppedFill,
-    stormTarget,
-  } from "$lib/scenes/leafStorm";
+  import { sheetRise, stepFill, steppedFill } from "$lib/scenes/leafStorm";
 
   let {
     murky,
-    scares,
-    remaining,
+    pile,
+    sweeping,
   }: {
     /** The room is Too Loud. */
     murky: boolean;
-    /** QDs run away, rather than the Scene pausing. */
-    scares: boolean;
-    /** QDs out and not running away. */
-    remaining: number;
+    /** How much of the screen the leaves should cover, 0 to 1. */
+    pile: number;
+    /** A full pile is being swept away after a reset. */
+    sweeping: boolean;
   } = $props();
+
+  /** Leaves are still coming down onto the pile. */
+  let raining = $state(false);
 
   let fill = $state(0);
   let phase = $state<"calm" | "storm" | "clearing">("calm");
@@ -96,43 +91,26 @@
     const onChange = () => (reduced = motion.matches);
     motion.addEventListener("change", onChange);
 
-    let started = 0;
-    let startCount = 0;
-    let clearTimer: ReturnType<typeof setTimeout> | undefined;
     let last = performance.now();
     const tick = setInterval(() => {
       const now = performance.now();
       const dt = Math.min(1, (now - last) / 1000);
       last = now;
-      if (murky) {
-        if (phase !== "storm") {
-          // A new spell: from nothing, counting who is out now.
-          clearTimeout(clearTimer);
-          phase = "storm";
-          fill = 0;
-          started = now;
-          startCount = remaining;
-        }
-        const target = stormTarget({
-          elapsed: (now - started) / 1000,
-          scares,
-          startCount,
-          remaining,
-        });
-        fill = stepFill(fill, target, dt);
-      } else if (phase === "storm") {
-        // Calm again: the pile drops away off the bottom, then is gone.
+      if (sweeping) {
+        // A reset: the full pile drops away off the bottom.
         phase = "clearing";
-        clearTimer = setTimeout(() => {
-          phase = "calm";
-          fill = 0;
-        }, STORM.clearS * 1000);
+        raining = false;
+        return;
       }
+      if (phase === "clearing") fill = 0;
+      // Up calmly as leaves land; down as slowly as the pile drains.
+      fill = pile > fill ? stepFill(fill, pile, dt) : pile;
+      raining = pile > fill + 0.002 || (murky && fill > 0.001);
+      phase = fill > 0.001 || pile > 0.001 ? "storm" : "calm";
     }, 200);
 
     return () => {
       clearInterval(tick);
-      clearTimeout(clearTimer);
       motion.removeEventListener("change", onChange);
     };
   });
@@ -175,7 +153,7 @@
       {/each}
     {/if}
   </div>
-  {#if !reduced && phase === "storm"}
+  {#if !reduced && raining}
     {#each falling as leaf (leaf.x)}
       <div
         class="leaf-storm-fall"

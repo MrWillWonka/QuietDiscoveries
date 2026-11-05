@@ -106,6 +106,8 @@
     chooseOpen,
     cool,
     crowding,
+    hiddenRestShare,
+    hiddenStopCost,
     restShare,
     warm,
     type Candidate,
@@ -125,6 +127,7 @@
     chooseHidingPlace,
     depthAt,
     feetAt,
+    occludedShare,
     peekPose,
     type HidingPlace,
     type HidingPlan,
@@ -460,6 +463,26 @@
     let blown: Blown | null = null;
     /** A tilt the gust gives it, over the walking rock. */
     let poseAngle: number | null = null;
+    /**
+     * How much of it would be hidden behind props, standing at `x` at a
+     * depth (`occludedShare`).
+     */
+    const hiddenAt = (x: number, depth: number) => {
+      if (!hidingPlaces?.length) return 0;
+      const feet = feetAt(style, depth, bandFor(style));
+      const { width, height } = hider(depth).sizeAt(depth);
+      return occludedShare(
+        {
+          left: x - width / 2,
+          right: x + width / 2,
+          top: feet - height,
+          bottom: feet,
+        },
+        feet,
+        hidingPlaces,
+        screen(),
+      );
+    };
     /** A point in the units `spread.ts` scores in: Scene widths both ways. */
     const scored = (x: number, feet: number, depth: number): Candidate => ({
       x,
@@ -858,6 +881,12 @@
                     othersThan(creature),
                     heat,
                     Math.random,
+                    // Where it may stop and rest, it should be seen.
+                    (_, index) =>
+                      hiddenStopCost(
+                        hiddenAt(legs[index].targetX, legs[index].targetDepth),
+                        profile.restChance,
+                      ),
                   )
                 ];
               state.targetX = best.targetX;
@@ -873,6 +902,8 @@
               shownDepth,
             );
             state.resting *= restShare(crowding(here, othersThan(creature)));
+            // …and at once if it has stopped where it can hardly be seen.
+            state.resting *= hiddenRestShare(hiddenAt(state.x, shownDepth));
           }
           const walkBand = bandFor(style) ?? FIELD_BAND;
           const next = stepDepth(

@@ -3,8 +3,9 @@
   import { classes } from "$lib/classes/classes.svelte";
   import ClassesPanel from "$lib/components/ClassesPanel.svelte";
   import ClassPicker from "$lib/components/ClassPicker.svelte";
+  import ClassStats from "$lib/components/ClassStats.svelte";
+  import StartMenu from "$lib/components/StartMenu.svelte";
   import ScenePicker from "$lib/components/ScenePicker.svelte";
-  import SceneSelect from "$lib/components/SceneSelect.svelte";
   import Collection from "$lib/components/Collection.svelte";
   import ControlBar from "$lib/components/ControlBar.svelte";
   import MicBlocked from "$lib/components/MicBlocked.svelte";
@@ -12,6 +13,7 @@
   import Scene from "$lib/components/Scene.svelte";
   import ScreenMeter from "$lib/components/ScreenMeter.svelte";
   import ArrivalCounter from "$lib/components/ArrivalCounter.svelte";
+  import ResetCounter from "$lib/components/ResetCounter.svelte";
   import DiscoveryLeaves from "$lib/components/DiscoveryLeaves.svelte";
   import SettingsPanel from "$lib/components/SettingsPanel.svelte";
   import Timer from "$lib/components/Timer.svelte";
@@ -31,6 +33,7 @@
   } from "$lib/ui/documentPictureInPicture";
   import { mount, onMount, tick, unmount } from "svelte";
   import { settings } from "$lib/settings/settings.svelte";
+  import { stats } from "$lib/session/stats.svelte";
   import logoUrl from "$lib/brand/logo.svg";
   import { PREVIEW_IMAGE, absoluteUrl } from "$lib/site";
 
@@ -77,6 +80,24 @@
   let infoOpen = $state(false);
   let classesOpen = $state(false);
   let classMenuOpen = $state(false);
+  /** The start menu, opened again from "My class" over a Session. */
+  let menuOpen = $state(false);
+  let statsOpen = $state(false);
+  /** Whether opening the start menu paused the Session, to resume on close. */
+  let pausedByMenu = false;
+
+  function openMenu() {
+    pausedByMenu = app.listening && app.session.running && !app.paused;
+    if (pausedByMenu) app.setPaused(true);
+    menuOpen = true;
+  }
+
+  function closeMenu() {
+    menuOpen = false;
+    // Resume only what the menu paused, and only if it is still under way.
+    if (pausedByMenu && app.session.running && app.paused) app.setPaused(false);
+    pausedByMenu = false;
+  }
   let sceneMenuOpen = $state(false);
   let fullScreen = $state(false);
   let controlsVisible = $state(true);
@@ -118,7 +139,11 @@
    * Scene; before the Session starts there is nothing to hide them for.
    */
   const topBarVisible = $derived(
-    controlsVisible || !app.listening || classMenuOpen || sceneMenuOpen,
+    controlsVisible ||
+      !app.listening ||
+      classMenuOpen ||
+      sceneMenuOpen ||
+      menuOpen,
   );
 
   /**
@@ -269,6 +294,8 @@
         ondepart={(id) => app.session.depart(id)}
         onwake={(id) => app.session.wake(id)}
         onperch={(id, x) => app.session.perch(id, x)}
+        pile={app.pile}
+        sweeping={app.sweeping}
       />
       <!-- Over the Scene, so the animals pass behind the words. Keyed by
          Class, so nothing stays chosen from the last class's Notes. -->
@@ -281,55 +308,16 @@
       {/key}
     {/if}
 
-    {#if !app.listening && !app.blocked}
-      <!-- Browsers only hand over a microphone after a real gesture, so the
-         Session has to begin with a click either way. -->
-      <div class="absolute inset-0 z-40 overflow-y-auto bg-slate-900/55">
-        <!-- Scrolls rather than clips, should the card still not fit. -->
-        <div
-          class="grid min-h-full place-items-center p-4 sm:p-6 short:px-30 short:py-3"
-        >
-          <div
-            class="max-w-lg rounded-xl bg-white p-6 text-center shadow-xl short:px-6 short:py-4"
-          >
-            <img
-              src={logoUrl}
-              alt=""
-              class="mx-auto mb-3 size-24 short:mb-1 short:size-14"
-            />
-            <h1 class="text-2xl font-semibold text-slate-900 short:text-xl">
-              Quiet Discoveries
-            </h1>
-            <p
-              class="mt-3 rounded-lg bg-amber-50 px-4 py-3 text-balance text-slate-800 short:mt-2 short:py-2 short:text-sm"
-            >
-              <span class="block font-medium"
-                >{tIn(app.scene.id, "start.shy")}</span
-              >
-              <!-- Checked after mount: the page is prerendered with the default. -->
-              {#if app.restored && settings.loudResponse === "pause"}
-                {tIn(app.scene.id, "start.explain")}
-              {:else}
-                {tIn(app.scene.id, "start.explainFlee")}
-              {/if}
-            </p>
-            <div class="mt-5 short:mt-3">
-              <SceneSelect {app} />
-            </div>
-            <button
-              class="mt-4 rounded-full bg-slate-900 px-6 py-2.5 font-medium text-white short:mt-3"
-              onclick={async () => {
-                if (await app.connect()) app.startSession();
-              }}
-            >
-              {t("start.button")}
-            </button>
-            <p class="mt-3 text-xs text-slate-500 short:mt-2">
-              {t("start.micNote")}
-            </p>
-          </div>
-        </div>
-      </div>
+    {#if (!app.listening && !app.blocked) || menuOpen}
+      <!-- The start menu: a first visit opens on it, and "My class" opens it
+         again over a Session (`StartMenu.svelte`). -->
+      <StartMenu
+        {app}
+        dialog={app.listening}
+        onclose={closeMenu}
+        onstats={() => (statsOpen = true)}
+        oneditclasses={() => (classesOpen = true)}
+      />
     {/if}
 
     <!-- Top left: who made this, and which Class is on screen. Top right: the
@@ -349,6 +337,7 @@
           {app}
           bind:open={classMenuOpen}
           onedit={() => (classesOpen = true)}
+          onopen={openMenu}
         />
       </div>
       <div class="pointer-events-auto flex shrink-0 gap-2">
@@ -493,6 +482,7 @@
             sceneId={app.scene.id}
             level={app.monitor.level}
             goal={settings.volumeGoal}
+            max={settings.maxVolume}
             tooLoud={app.monitor.state === "too-loud"}
           />
         {/if}
@@ -514,6 +504,9 @@
     >
       {#if app.listening && settings.showCounter}
         <ArrivalCounter sceneId={app.scene.id} count={app.session.arrived} />
+      {/if}
+      {#if app.listening && settings.showResets && app.scene.strikes}
+        <ResetCounter count={stats.current?.resets ?? 0} />
       {/if}
       <div
         class="pointer-events-auto flex gap-2 transition-opacity duration-300"
@@ -613,7 +606,15 @@
     {/if}
 
     {#if collectionOpen}
-      <Collection {app} onclose={() => (collectionOpen = false)} />
+      <Collection
+        {app}
+        onclose={() => (collectionOpen = false)}
+        onstats={() => (statsOpen = true)}
+      />
+    {/if}
+
+    {#if statsOpen}
+      <ClassStats onclose={() => (statsOpen = false)} />
     {/if}
 
     <InfoDrawer bind:open={infoOpen} />

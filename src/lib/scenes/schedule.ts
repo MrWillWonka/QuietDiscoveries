@@ -19,7 +19,10 @@ export interface Schedule {
   lastDay: string;
   /** Out from the first day, and not Newcomers. */
   opening: string[];
-  /** One Newcomer per Unlock Day, in the order they come. */
+  /**
+   * The Newcomers, in the order they come, each on its Unlock Day. A day
+   * may have more than one.
+   */
   newcomers: { day: string; slug: string }[];
   /**
    * Secret QDs (`session/secretVisit.ts`): unlocked on their day like a
@@ -124,6 +127,16 @@ export function newcomersSoFar(
   day: string | null,
 ): string[] {
   return unlockedNewcomers(schedule, day).reverse();
+}
+
+/** The Newcomers that unlock on this very day: none, one or several. */
+export function todaysNewcomers(
+  schedule: Schedule,
+  day: string | null,
+): string[] {
+  return schedule.newcomers
+    .filter((newcomer) => newcomer.day === day)
+    .map(({ slug }) => slug);
 }
 
 /** The Newcomer that unlocks on this very day, if one does. */

@@ -1,9 +1,9 @@
 /**
  * The Autumn Harvest artwork, as inlineable SVG source. Loaded the same way
- * as Thanksgiving's (`scenes/thanksgiving/artwork.ts`), for the same reasons:
- * the animation layer moves part groups by class, which CSS cannot reach
- * inside an `<img>`, and every Creature on screen shares one document, so
- * ids are prefixed `harvest-`. See `docs/svg-art-brief.md` §16.
+ * as every other Scene's, for the same reasons: the animation layer moves
+ * part groups by class, which CSS cannot reach inside an `<img>`, and every
+ * Creature on screen shares one document, so ids are prefixed `harvest-`.
+ * See `docs/svg-art-brief.md` §15.
  *
  * Eager, so a lazy fetch never lands at the moment an arrival has to be
  * unmissable.

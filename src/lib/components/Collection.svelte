@@ -23,7 +23,7 @@
   import { isAvailable, SCENES } from "$lib/scenes";
   import {
     secretSlugs,
-    todaysNewcomer,
+    todaysNewcomers,
     unlockDay,
     unlockedSecrets,
     unlockedSlugs,
@@ -33,6 +33,7 @@
   import type { RarityTier, SceneId } from "$lib/scenes/types";
   import { TIER_WEIGHTS } from "$lib/session/roll";
   import { sightings } from "$lib/session/sightings.svelte";
+  import { settings } from "$lib/settings/settings.svelte";
   import { classes } from "$lib/classes/classes.svelte";
   import {
     className,
@@ -42,7 +43,16 @@
     tIn,
   } from "$lib/i18n/index.svelte";
 
-  let { app, onclose }: { app: App; onclose: () => void } = $props();
+  let {
+    app,
+    onclose,
+    onstats,
+  }: {
+    app: App;
+    onclose: () => void;
+    /** Opens "Class stats" (`ClassStats.svelte`). */
+    onstats?: () => void;
+  } = $props();
 
   // Opens on the Scene on screen; browsing another does not switch to it.
   // svelte-ignore state_referenced_locally
@@ -68,10 +78,15 @@
    * "?" until the class has found him, his name included.
    */
   const listed = $derived.by(() => {
-    if (!scene.schedule || secrets.length === 0) return scene.roster;
-    const about = unlockedSecrets(scene.schedule, today.day);
+    const all = settings.unlockAll(sceneId);
+    const about =
+      scene.schedule && !all ? unlockedSecrets(scene.schedule, today.day) : [];
     return scene.roster.filter(
-      (def) => !secrets.includes(def.slug) || about.includes(def.slug),
+      (def) =>
+        // A QD the teacher has left out shows only once it has been found.
+        (!settings.isExcluded(sceneId, def.slug) ||
+          sightings.count(sceneId, def.slug) > 0) &&
+        (all || !secrets.includes(def.slug) || about.includes(def.slug)),
     );
   });
 
@@ -98,7 +113,8 @@
    * silhouette.
    */
   const locked = $derived.by(() => {
-    if (!scene.schedule) return new Set<string>();
+    if (!scene.schedule || settings.unlockAll(sceneId))
+      return new Set<string>();
     const unlocked = unlockedSlugs(scene.schedule, today.day);
     return new Set(
       listed
@@ -111,7 +127,7 @@
   });
 
   const newToday = $derived(
-    scene.schedule ? todaysNewcomer(scene.schedule, today.day) : null,
+    scene.schedule ? todaysNewcomers(scene.schedule, today.day) : [],
   );
 
   /**
@@ -164,6 +180,13 @@
           })}
           {#if locked.size > 0}
             · {t("collection.toCome", { count: locked.size })}
+          {/if}
+          {#if onstats}
+            ·
+            <button
+              class="font-medium text-slate-700 underline underline-offset-2 hover:text-slate-900"
+              onclick={onstats}>{t("stats.title")}</button
+            >
           {/if}
         </p>
       </div>
@@ -284,6 +307,7 @@
                       'rare' || tier === 'superRare'
                       ? 'border-amber-300 bg-amber-50'
                       : 'border-slate-200'}"
+                    class:opacity-50={settings.isExcluded(sceneId, def.slug)}
                   >
                     <div
                       class="flex h-12 w-full items-center justify-center"
@@ -309,7 +333,7 @@
                         ? tIn(sceneId, "collection.notSeen")
                         : tIn(sceneId, "collection.seen", { count })}
                     </span>
-                    {#if def.slug === newToday}
+                    {#if newToday.includes(def.slug)}
                       <span
                         class="mt-1 rounded-full bg-orange-100 px-2 py-px text-[0.7rem] font-semibold text-orange-800"
                         >{t("collection.newToday")}</span

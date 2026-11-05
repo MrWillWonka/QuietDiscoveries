@@ -16,6 +16,8 @@ import { isAvailable, SCENES } from "$lib/scenes";
 import { DEFAULT_SCENE, type SceneId } from "$lib/scenes/types";
 import { Session } from "$lib/session/session.svelte";
 import { sightings } from "$lib/session/sightings.svelte";
+import { stats } from "$lib/session/stats.svelte";
+import { addStrike, drainPile } from "$lib/noise/strikes";
 import { settings } from "$lib/settings/settings.svelte";
 import { ClassTimer } from "$lib/timer/timer.svelte";
 import { today } from "$lib/today.svelte";
@@ -27,6 +29,13 @@ import { untrack } from "svelte";
  * quiet again; three time constants leave only a twentieth of it.
  */
 const CHIME_ECHO_MS = 3 * SMOOTHING_MS;
+
+/**
+ * After the fourth strike: long enough for the falling leaves to cover the
+ * screen before the field empties, then the gust that sweeps them away.
+ */
+const RESET_HOLD_MS = 3_000;
+const RESET_SWEEP_MS = 2_600;
 
 export class App {
   /**
@@ -74,6 +83,19 @@ export class App {
     settings.arrivalIntervalMs,
   );
 
+  /**
+   * The leaf pile in a Scene that counts strikes (`SceneDef.strikes`): a
+   * quarter of the screen for each time the room went over the Maximum
+   * Volume, draining while it is quiet (`noise/strikes.ts`).
+   */
+  pile = $state(0);
+  /** The pile is being swept away after a reset. */
+  sweeping = $state(false);
+  /** A full pile is about to clear the Scene: no more strikes till then. */
+  #resetting = false;
+  #wasOverMax = false;
+  #resetTimers: ReturnType<typeof setTimeout>[] = [];
+
   #frame = 0;
   #lastTick = 0;
   /**
@@ -91,6 +113,7 @@ export class App {
   useScene(id: SceneId) {
     settings.scene = id;
     this.#sceneId = id;
+    this.#clearPile();
     this.session.useScene(id, SCENES[id].roster, SCENES[id].arrivals);
   }
 
@@ -117,6 +140,7 @@ export class App {
 
   #enterClass() {
     sightings.reload();
+    stats.reload();
     notes.reload();
     this.monitor.reset();
     this.session.useClass(settings.arrivalIntervalMs);
@@ -174,11 +198,59 @@ export class App {
     this.paused = false;
     this.monitor.reset();
     this.session.start(settings.arrivalIntervalMs);
+    stats.startSession();
   }
 
   resetSession() {
     this.paused = false;
     this.session.reset(settings.arrivalIntervalMs);
+  }
+
+  /**
+   * Over the Maximum Volume for long enough: a strike, a quarter of the
+   * screen in leaves. The fourth fills it, and once the leaves have covered
+   * everything the Scene's QDs are gone and the pile is swept away. While
+   * the room is quiet the pile drains slowly.
+   */
+  #strikes(delta: number) {
+    const over = this.monitor.overMax === "too-loud";
+    const struck = over && !this.#wasOverMax;
+    this.#wasOverMax = over;
+    if (this.#resetting) return;
+    if (struck) {
+      const step = addStrike(this.pile);
+      this.pile = step.pile;
+      stats.strike(this.scene.id);
+      if (step.reset) {
+        this.#resetting = true;
+        stats.reset(this.scene.id);
+        // Let the leaves reach the top before the field empties under them.
+        this.#resetTimers.push(
+          setTimeout(() => {
+            this.session.clearScene();
+            this.pile = 0;
+            this.sweeping = true;
+            this.#resetTimers.push(
+              setTimeout(() => {
+                this.sweeping = false;
+                this.#resetting = false;
+              }, RESET_SWEEP_MS),
+            );
+          }, RESET_HOLD_MS),
+        );
+      }
+      return;
+    }
+    this.pile = drainPile(this.pile, delta, this.monitor.state === "quiet");
+  }
+
+  #clearPile() {
+    for (const timer of this.#resetTimers) clearTimeout(timer);
+    this.#resetTimers = [];
+    this.pile = 0;
+    this.sweeping = false;
+    this.#resetting = false;
+    this.#wasOverMax = false;
   }
 
   #ring() {
@@ -220,13 +292,17 @@ export class App {
           this.microphone.levelWith(settings.calibration),
           settings.volumeGoal,
           now,
+          settings.maxVolume,
         );
+        if (this.scene.strikes && this.session.running) this.#strikes(delta);
         this.session.tick(
           delta,
           this.monitor.state === "quiet",
           settings.arrivalIntervalMs,
           settings.loudResponse === "flee",
         );
+        if (this.session.running)
+          stats.tick(delta, this.monitor.state === "quiet");
       }
       // The tab is hidden, so its own interval may be held back: keep the
       // Timer's chime on time from the floating window's frames instead.

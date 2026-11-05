@@ -43,17 +43,19 @@
   import { creatureName, t, tIn } from "$lib/i18n/index.svelte";
   import type { SceneDef } from "$lib/scenes";
   import { secretSlugs } from "$lib/scenes/schedule";
+  import { whoCanArrive } from "$lib/session/available";
   import { sightings } from "$lib/session/sightings.svelte";
   import { untrack } from "svelte";
 
   let { scene }: { scene: SceneDef } = $props();
 
   /**
-   * Who can arrive today, as the Session sees it, by tier. Reading the
-   * Scene's own `arrivals` keeps the row to what its calendar has unlocked.
+   * Who can arrive today, exactly as the Session sees it, by tier: what the
+   * calendar has unlocked (or everything, if the teacher unlocked it all),
+   * less any QD the teacher left out (`session/available.ts`).
    */
   const circles = $derived.by(() => {
-    const available = scene.arrivals?.available(scene.roster) ?? scene.roster;
+    const available = whoCanArrive(scene.id, scene.roster, scene.arrivals);
     const secrets = scene.schedule ? secretSlugs(scene.schedule) : [];
     const circle = (slug: string, secret: boolean) => ({
       slug,

@@ -21,7 +21,7 @@
  * classes actually present in each file.
  *
  * Ground animals stand with their feet on the bottom edge of their viewBox
- * and walk the savanna's band of the screen, as in Thanksgiving; the
+ * and walk the savanna's band of the screen; the
  * hedgehog scuttles along the front of the field, and Tom `stride`s along
  * the back of it, in front of the fence.
  */

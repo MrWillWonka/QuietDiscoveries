@@ -28,6 +28,8 @@
     ondepart,
     onwake,
     onperch,
+    pile,
+    sweeping,
   }: {
     scene: SceneDef;
     creatures: CreatureInstance[];
@@ -53,6 +55,10 @@
     onwake: (id: number) => void;
     /** A harvest item landed on the table there, or left it (null). */
     onperch?: (id: number, x: number | null) => void;
+    /** The leaf pile from strikes, 0 to 1 (`App.pile`). */
+    pile?: number;
+    /** A reset is sweeping the pile away. */
+    sweeping?: boolean;
   } = $props();
 
   /** One the Scene answers to is here, or has just come. */
@@ -117,11 +123,7 @@
   {#if scene.TooLoud}
     <!-- The Scene's own Too Loud over everything in it, such as Autumn
          Harvest's leaf storm. -->
-    <scene.TooLoud
-      {murky}
-      {scares}
-      remaining={creatures.length - fleeing.length}
-    />
+    <scene.TooLoud {murky} pile={pile ?? 0} sweeping={sweeping ?? false} />
   {/if}
 
   <!-- One veil over the whole Scene, never a per-Creature effect. -->

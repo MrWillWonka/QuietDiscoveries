@@ -26,6 +26,7 @@ import {
   type Schedule,
 } from "./schedule";
 import { secretVisits } from "./secretVisits.svelte";
+import { settings } from "$lib/settings/settings.svelte";
 import type { Arrivals, CreatureDef } from "./types";
 
 export function scheduledArrivals({
@@ -66,10 +67,13 @@ export function scheduledArrivals({
 
   return {
     available(roster: CreatureDef[]): CreatureDef[] {
-      const unlocked = unlockedSlugs(schedule, today.day);
+      // The teacher can set the calendar aside in Settings: everything
+      // is out at once, Secrets included (still at their own odds).
+      const all = settings.unlockAll(sceneId);
+      const unlocked = all ? [] : unlockedSlugs(schedule, today.day);
       return roster.filter(
         (def) =>
-          unlocked.includes(def.slug) &&
+          (all || unlocked.includes(def.slug)) &&
           (!creatureArt || def.slug in creatureArt),
       );
     },

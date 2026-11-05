@@ -16,11 +16,14 @@
     sceneId,
     level,
     goal,
+    max,
     tooLoud,
   }: {
     sceneId: SceneId;
     level: number;
     goal: number;
+    /** The Maximum Volume, where the leaves start falling. */
+    max?: number;
     tooLoud: boolean;
   } = $props();
 </script>
@@ -52,5 +55,5 @@
       >
     </span>
   </div>
-  <MeterBar {level} {goal} {tooLoud} class="h-4 rounded-md" />
+  <MeterBar {level} {goal} {max} {tooLoud} class="h-4 rounded-md" />
 </div>

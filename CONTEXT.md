@@ -9,7 +9,7 @@ The calm world on screen. The teacher chooses between seven Scenes: the
 savanna, the coral reef, deep space, the prehistoric floodplain, the
 forest, the jungle and the Arctic sea ice, and for a few weeks around
 Halloween an eighth, Pumpkin Hollow, and all through November a ninth,
-Thanksgiving; both are Limited-time Scenes. A Scene
+Autumn Harvest; both are Limited-time Scenes. A Scene
 is a backdrop, its Ambient Life, the Roster of Creatures that can live in it,
 and its Departure. Each
 Scene keeps the Creatures it has earned separately, so switching never takes
@@ -41,19 +41,7 @@ before the two weeks up to Halloween until a week after it. It opens with
 part of its Roster and gains the rest on Unlock Days. After Halloween it
 counts down the days it has left, and then it is gone from every menu and
 from the Collection, though nothing a Class earned in it is deleted.
-Thanksgiving is on offer all through November, every year, and rolls its
-whole Roster from the first day, like an everyday Scene.
-
-## Thanksgiving
-
-An autumn farm field at golden late afternoon in November: rolling hills,
-autumn trees, a little red barn, a split-rail fence, corn shocks, hay bales
-and pumpkins. Its QDs run from a field mouse, a cardinal and a wild turkey
-to an opossum and a barred owl, with a few made-up harvest characters (a
-leaf sprite, a pie pal and a cornling) among them, and a harvest moon, an
-elk and Tom Turkey as the Rare ones. Nature and harvest only: no food is
-eaten, and there are no costumes or people. Too Loud is a gusty autumn
-wind, and its Note is the forest's trail sign.
+Autumn Harvest is on offer all through November, and grows the same way.
 
 ## Autumn Harvest
 
@@ -62,11 +50,11 @@ hills with round orange trees, a red barn and a windmill beyond a fence, a
 green-gold meadow with a winding path, hay bales, wheat sheaves, a stump,
 a shrub and rocks, and big maples and leafy bushes framing the corners. A
 Limited-time Scene through November: it opens on 1 November with nine QDs
-out and gains a Newcomer on most school days up to Thanksgiving, Tom the
-Turkey last. Its 23 QDs are 14 named animals, from Tilly the Baby Turkey to
+out and gains one or two Newcomers each weekday from the 5th to the 19th,
+Tom the Turkey last, and lets Mr Applewhite in on the 20th. Its 23 QDs are 14 named animals, from Tilly the Baby Turkey to
 Tom the Turkey, and 9 **harvest items**, from a pumpkin to a pumpkin pie:
 10 Common, 8 Uncommon and 5 Rare. On top of those it has a Secret QD, Mr
-Applewhite. Its Note is Thanksgiving's trail sign. Too Loud is a **leaf
+Applewhite. Its Note is the forest's trail sign. Too Loud is a **leaf
 storm**: leaves fall from the top of the screen and land on a pile that
 grows up from the bottom like a wall of leaves, until, if the QDs run away,
 the screen is covered by the time the last has gone; if the Scene only
@@ -116,12 +104,14 @@ the Class has found him: in the Collection he is a "?" under Super rare.
 
 ## Unlock Day
 
-A school day on which a Limited-time Scene adds one Creature to its Roster,
-by the teacher's computer's own calendar.
+A school day on which a Limited-time Scene adds one Creature, or a few, to
+its Roster, by the teacher's computer's own calendar. What is unlocked
+depends only on the date: a class that first opens the Scene late finds
+everything due by then, and catches up on the Newcomers it missed.
 
 ## Newcomer
 
-The Creature an Unlock Day adds. It is certain to arrive within a Class's
+A Creature an Unlock Day adds. It is certain to arrive within a Class's
 first six arrivals in that Scene that day, and until the Class has spotted
 it, that promise carries over to the next days.
 
@@ -139,8 +129,8 @@ clouds on the savanna, seaweed and plankton on the reef, twinkling stars and
 drifting dust in deep space, ferns and river mist in the
 prehistoric Scene, falling leaves and drifting motes in the forest, lianas, sunbeams
 and a far waterfall in the jungle, the aurora, falling snow and bobbing
-ice floes in the Arctic, drifting clouds, falling leaves, swaying corn and
-geese crossing over the Thanksgiving field. Ambient Life is present from the first moment of
+ice floes in the Arctic, and drifting clouds, falling leaves and a
+turning windmill over the Autumn Harvest field. Ambient Life is present from the first moment of
 every Session, is never earned, and is never counted. It exists so an
 unpopulated Scene still reads as a living place.
 
@@ -206,8 +196,8 @@ How a Scene's Creatures leave when they Run Away. On the savanna, the
 reef, the prehistoric floodplain, the forest, the jungle and the Arctic they are startled and **run** off the edge of the Scene. In deep space
 they **fade out**: each one stays where it is and breaks up into static, like
 a signal lost to interference. In Pumpkin Hollow the animals run, but the
-ghosts, the moon and Jack O. Lantern fade away, and in Thanksgiving
-the leaf sprite and the harvest moon do. Only the look differs: which
+ghosts, the moon and Jack O. Lantern fade away. In Autumn Harvest an
+animal ducks back behind cover and an item is blown away. Only the look differs: which
 Creatures leave, and when, is the same in every Scene.
 
 ## Paused

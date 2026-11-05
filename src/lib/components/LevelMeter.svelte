@@ -18,8 +18,10 @@
     sceneId,
     level,
     goal,
+    max,
     tooLoud,
     onGoalChange,
+    onMaxChange,
   }: {
     /** Whose words to use: animals arriving, or signals coming in. */
     sceneId: SceneId;
@@ -27,6 +29,9 @@
     goal: number;
     tooLoud: boolean;
     onGoalChange: (goal: number) => void;
+    /** The Maximum Volume, above the goal, where the leaves start falling. */
+    max: number;
+    onMaxChange: (max: number) => void;
   } = $props();
 </script>
 
@@ -43,7 +48,7 @@
     </span>
   </div>
 
-  <MeterBar {level} {goal} {tooLoud} />
+  <MeterBar {level} {goal} {max} {tooLoud} />
 
   <label class="block">
     <span class="text-sm text-slate-600">
@@ -56,6 +61,20 @@
       value={goal}
       class="mt-1 w-full"
       oninput={(event) => onGoalChange(Number(event.currentTarget.value))}
+    />
+  </label>
+
+  <label class="block">
+    <span class="text-sm text-slate-600">
+      {t("meter.max", { max })}
+    </span>
+    <input
+      type="range"
+      min={Math.min(100, goal + 1)}
+      max="100"
+      value={max}
+      class="mt-1 w-full accent-rose-800"
+      oninput={(event) => onMaxChange(Number(event.currentTarget.value))}
     />
   </label>
 </div>
