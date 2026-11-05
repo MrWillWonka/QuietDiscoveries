@@ -150,12 +150,7 @@
     <div class="mt-8 flex flex-col gap-6 sm:mt-12 lg:gap-8">
       <!-- Side by side once there is room; the Continue card needs more of
            it than the explanation of why the animals are shy. -->
-      <section
-        class={[
-          "grid items-center gap-6 lg:gap-10",
-          "xl:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]",
-        ]}
-      >
+      <section class="flex flex-col gap-6 lg:gap-8">
         <div class="lg:pl-2" class:invisible={!app.restored}>
           <h2
             class="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl"
@@ -165,8 +160,13 @@
           <p class="mt-4 max-w-md text-lg text-pretty text-ink-soft sm:text-xl">
             {last ? t("home.introBack") : t("home.intro")}
           </p>
+        </div>
+
+        <!-- Starting a session, and either carrying on the last one or why
+             the QDs are shy, side by side and the same height. -->
+        <div class="grid items-stretch gap-6 xl:grid-cols-2">
           <section
-            class="mt-8 rounded-[2rem] border border-stone-200/80 bg-white/70 p-3 shadow-[0_10px_30px_-12px_rgb(60_50_30/0.15)] sm:p-4"
+            class="flex h-full flex-col justify-center rounded-[2rem] border border-stone-200/80 bg-white/70 p-3 shadow-[0_10px_30px_-12px_rgb(60_50_30/0.15)] sm:p-4"
             aria-label={t("home.startSession")}
           >
             <div class="flex flex-wrap items-center gap-3 sm:gap-4">
@@ -240,60 +240,62 @@
               {t("start.micNote")}
             </p>
           </section>
-        </div>
 
-        {#if last}
-          <ContinueCard
-            classId={last.classId}
-            record={last.record}
-            disabled={starting}
-            onresume={() => onresume(last.classId, last.record)}
-          />
-        {:else}
-          <!-- Why the animals are shy, in the words of the Scene chosen below. -->
-          <div
-            class="relative isolate overflow-hidden rounded-[2rem] bg-meadow-100"
-          >
-            <svg
-              viewBox="0 0 800 120"
-              preserveAspectRatio="none"
-              class="absolute inset-x-0 bottom-0 -z-10 h-24 w-full sm:h-28"
-              aria-hidden="true"
-            >
-              <path
-                d="M0 64C120 28 250 36 380 60s270 30 420-14v74H0Z"
-                fill="var(--color-meadow-200)"
-                opacity="0.6"
-              />
-              <path
-                d="M0 92C160 66 310 74 460 88s250 8 340-6v46H0Z"
-                fill="var(--color-meadow-200)"
-              />
-            </svg>
+          {#if last}
+            <ContinueCard
+              classId={last.classId}
+              record={last.record}
+              disabled={starting}
+              onresume={() => onresume(last.classId, last.record)}
+            />
+          {:else}
+            <!-- Why the animals are shy, in the words of the Scene chosen below. -->
             <div
-              class="flex items-center gap-5 px-6 py-7 sm:gap-8 sm:px-10 sm:py-10"
+              class="relative isolate flex h-full flex-col justify-center overflow-hidden rounded-[2rem] bg-meadow-100"
             >
-              <Sprout class="w-20 shrink-0 sm:w-32" />
-              <div
-                class="hidden w-px self-stretch bg-meadow-400/40 sm:block"
+              <svg
+                viewBox="0 0 800 120"
+                preserveAspectRatio="none"
+                class="absolute inset-x-0 bottom-0 -z-10 h-24 w-full sm:h-28"
                 aria-hidden="true"
-              ></div>
-              <div class="min-w-0">
-                <p class="text-xl font-bold text-pretty sm:text-3xl">
-                  {tIn(app.scene.id, "start.shy")}
-                </p>
-                <p class="mt-2 text-base text-pretty text-ink-soft sm:text-lg">
-                  <!-- Checked after mount: the page is prerendered with the default. -->
-                  {#if app.restored && settings.loudResponse === "pause"}
-                    {tIn(app.scene.id, "start.explain")}
-                  {:else}
-                    {tIn(app.scene.id, "start.explainFlee")}
-                  {/if}
-                </p>
+              >
+                <path
+                  d="M0 64C120 28 250 36 380 60s270 30 420-14v74H0Z"
+                  fill="var(--color-meadow-200)"
+                  opacity="0.6"
+                />
+                <path
+                  d="M0 92C160 66 310 74 460 88s250 8 340-6v46H0Z"
+                  fill="var(--color-meadow-200)"
+                />
+              </svg>
+              <div
+                class="flex items-center gap-5 px-6 py-7 sm:gap-8 sm:px-10 sm:py-10"
+              >
+                <Sprout class="w-20 shrink-0 sm:w-32" />
+                <div
+                  class="hidden w-px self-stretch bg-meadow-400/40 sm:block"
+                  aria-hidden="true"
+                ></div>
+                <div class="min-w-0">
+                  <p class="text-xl font-bold text-pretty sm:text-3xl">
+                    {tIn(app.scene.id, "start.shy")}
+                  </p>
+                  <p
+                    class="mt-2 text-base text-pretty text-ink-soft sm:text-lg"
+                  >
+                    <!-- Checked after mount: the page is prerendered with the default. -->
+                    {#if app.restored && settings.loudResponse === "pause"}
+                      {tIn(app.scene.id, "start.explain")}
+                    {:else}
+                      {tIn(app.scene.id, "start.explainFlee")}
+                    {/if}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        {/if}
+          {/if}
+        </div>
       </section>
 
       <div class="mt-4 sm:mt-8">

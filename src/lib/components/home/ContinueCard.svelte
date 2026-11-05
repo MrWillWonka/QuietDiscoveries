@@ -33,7 +33,7 @@
 
 <button
   type="button"
-  class="group relative isolate flex w-full items-center gap-5 overflow-hidden rounded-[2rem] bg-pine-800 p-4 text-left text-white shadow-[0_18px_40px_-18px_rgb(15_65_54/0.7)] transition hover:bg-pine-700 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-pine-800 disabled:opacity-80 sm:gap-7 sm:p-6"
+  class="group @container relative isolate flex h-full w-full items-center gap-5 overflow-hidden rounded-[2rem] bg-pine-800 p-4 text-left text-white shadow-[0_18px_40px_-18px_rgb(15_65_54/0.7)] transition hover:bg-pine-700 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-pine-800 disabled:opacity-80 sm:gap-7 sm:p-6"
   aria-label={t("home.continueClass", { class: name, scene: sceneName })}
   {disabled}
   onclick={onresume}
@@ -44,23 +44,26 @@
   <img
     src={SCENE_THUMBNAILS[scene]}
     alt=""
-    class="hidden aspect-[16/10] w-44 shrink-0 rounded-2xl object-cover shadow-lg ring-2 ring-white/15 sm:block md:w-56"
+    class="hidden aspect-[16/10] w-40 shrink-0 rounded-2xl object-cover shadow-lg ring-2 ring-white/15 @xl:block @3xl:w-56"
   />
   <div
-    class="hidden w-px self-stretch bg-white/20 sm:block"
+    class="hidden w-px self-stretch bg-white/20 @xl:block"
     aria-hidden="true"
   ></div>
   <div class="min-w-0 flex-1">
-    <p class="text-xl leading-tight font-bold sm:text-3xl">
+    <p class="text-2xl leading-tight font-bold text-balance @2xl:text-3xl">
       {t("home.continueLast")}
     </p>
     <p class="mt-1.5 line-clamp-2 text-lg text-meadow-100 sm:text-xl">
       {name}
     </p>
-    <p class="mt-1 text-sm text-white/80 sm:text-base">
-      {sceneName}
-      <span aria-hidden="true" class="mx-1.5">•</span>
-      {t("home.lastUsed", { date: shortDate(lastUsed(record)) })}
+    <p class="mt-1 flex flex-wrap gap-x-2 text-sm text-white/80 sm:text-base">
+      <span>{sceneName}</span>
+      <span class="whitespace-nowrap"
+        ><span aria-hidden="true" class="mr-2">•</span>{t("home.lastUsed", {
+          date: shortDate(lastUsed(record)),
+        })}</span
+      >
     </p>
   </div>
   <span
